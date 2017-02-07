@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui_third.MC_HomeActivity">
+
+    <RelativeLayout
+        android:id="@+id/tl_info_mTool"
+        android:background="@color/top_color"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <ImageView
+            android:id="@+id/iv_statistics_back"
+            android:src="@drawable/back"
+            android:layout_height="match_parent"
+            android:layout_width="40dp"
+            />
+        <TextView
+            android:text="统计"
+            android:textColor="#fff"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/text_size_big"
+            />
+    </RelativeLayout>
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tb_info_mTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="@dimen/distance"
+        android:layout_below="@+id/tl_info_mTool"
+        app:tabSelectedTextColor="@color/write"
+        app:tabBackground="@drawable/tab_background"
+        app:tabIndicatorHeight="0dp"
+        >
+    </android.support.design.widget.TabLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_info_mPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/distance"
+        android:layout_below="@+id/tb_info_mTitle"
+        >
+    </android.support.v4.view.ViewPager>
+</RelativeLayout>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DevInfor>
+
+    <ShareSDK 
+        AppKey = "131a6d7917f6b"/>
+    
+    <SinaWeibo
+        Id="1"
+        SortId="1"
+        AppKey="568898243"
+        AppSecret="38a4f8204cc784f81f9f0daaf31e02e3"
+        RedirectUrl="http://www.sharesdk.cn"
+        ShareByAppClient="true"
+        Enable="true" />
+
+    <QZone
+        Id="3"
+        SortId="3"
+        AppId="1105837176"
+        AppKey="F0Gv70Kd1p93Wb86"
+        Enable="true" />
+    <Wechat
+        Id="4"
+        SortId="4"
+        AppId="wxee286f04e48c82a3"
+        AppSecret="94f88fec6950d214a04a20515520094b"
+        BypassApproval="false"
+        Enable="true" />
+    
+    <WechatMoments
+        Id="5"
+        SortId="5"
+        AppId="wxee286f04e48c82a3"
+        AppSecret="94f88fec6950d214a04a20515520094b"
+        BypassApproval="false"
+        Enable="true" />
+        
+	<WechatFavorite
+        Id="6"
+        SortId="6"
+        AppId="wxee286f04e48c82a3"
+        AppSecret="94f88fec6950d214a04a20515520094b"
+        Enable="true" />
+    
+	<QQ
+        Id="7"
+        SortId="7"
+        AppId="1105837176"
+        AppKey="F0Gv70Kd1p93Wb86"
+        ShareByAppClient="true"
+        Enable="true" />
+
+	<Email
+		Id="12"
+		SortId="12"
+		Enable="true" />
+
+	<ShortMessage
+		Id="13"
+		SortId="13"
+		Enable="true" />
+
+</DevInfor>

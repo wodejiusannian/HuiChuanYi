@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.example.huichuanyi.secondui.FanKuiActivity">
+
+    <RelativeLayout
+        android:id="@+id/tl_fankui_mTool"
+        android:background="@color/top_color"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <ImageView
+            android:id="@+id/iv_fankui_back"
+            android:src="@drawable/back"
+            android:layout_height="match_parent"
+            android:layout_width="40dp"
+            />
+        <TextView
+            android:text="反馈建议"
+            android:textColor="#fff"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/text_size_big"
+            />
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_marginTop="@dimen/distance"
+        android:layout_below="@+id/tl_fankui_mTool"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/distance"
+        android:layout_marginRight="@dimen/distance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:gravity="top"
+            android:id="@+id/et_fankui_jianyi"
+            android:hint="   您的建议，我们细心聆听！请说~"
+            android:background="@drawable/background"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"/>
+        <TextView
+            android:layout_marginTop="20dp"
+            android:text="请留下您的联系方式"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/et_fankui_phone"
+            android:background="@drawable/background"
+            android:layout_marginTop="@dimen/distance"
+            android:hint="  例如”1888888888”"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_fankui_tijiao"
+        android:text="提交建议"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/button_red"
+        android:textColor="@color/write"
+        android:layout_marginBottom="@dimen/distance"
+        android:layout_marginRight="@dimen/distance"
+        android:layout_marginLeft="@dimen/distance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>

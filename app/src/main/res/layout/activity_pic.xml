@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context=".ui_five.PicActivity">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_pic_pics"
+        android:background="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+    <ImageView
+        android:padding="@dimen/distance"
+        android:id="@+id/iv_pic_back"
+        android:src="@mipmap/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:padding="@dimen/distance"
+        android:id="@+id/iv_pic_picdelete"
+        android:layout_alignParentEnd="true"
+        android:src="@mipmap/picdelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:id="@+id/rl_pic_show"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/distance"
+        android:layout_marginRight="@dimen/distance"
+        android:layout_marginBottom="-110dp"
+        android:layout_height="150dp">
+        <ImageView
+            android:scaleType="fitXY"
+            android:src="@mipmap/mengban"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <TextView
+            android:padding="@dimen/distance"
+            android:id="@+id/tv_pic_move"
+            android:textColor="@color/write"
+            android:text="移动"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ToggleButton
+            android:layout_width="25dp"
+            android:layout_height="15dp"
+            android:layout_marginTop="@dimen/distance"
+            android:id="@+id/tg_pic_info"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/rv_drawer_style"
+            android:background="@drawable/selector_section_toggle_2"
+            android:textOn=""
+            android:textOff=""/>
+        <TextView
+            android:padding="@dimen/distance"
+            android:id="@+id/tv_pic_edit"
+            android:textColor="@color/write"
+            android:text="编辑"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <com.example.huichuanyi.custom.MyRelativeLayout
+            android:layout_below="@+id/tv_pic_edit"
+            android:layout_marginTop="@dimen/distance"
+            android:id="@+id/mr_pic_show_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </com.example.huichuanyi.custom.MyRelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

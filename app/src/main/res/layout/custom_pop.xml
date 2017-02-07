@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:alpha="0.3"
+        android:background="@color/photopicker_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_pop_season"
+        android:text="*季节"
+        android:textColor="@color/text_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rc_pop_season"
+        android:layout_below="@+id/tv_pop_season"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
+    <Button
+        android:id="@+id/btn_pop_sure"
+        android:textColor="#fff"
+        android:text="确定"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/btn_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

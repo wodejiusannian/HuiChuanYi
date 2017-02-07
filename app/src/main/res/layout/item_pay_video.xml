@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="200dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.example.huichuanyi.custom.RoundImageView
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:id="@+id/item_rv_photo_pay_video"
+            android:layout_width="45dp"
+            android:layout_height="46dp"/>
+        <CheckBox
+            android:id="@+id/cb_item_select"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_marginLeft="@dimen/distance"
+            android:id="@+id/tv_item_select_speech"
+            android:layout_toRightOf="@+id/item_rv_photo_pay_video"
+            android:layout_centerVertical="true"
+            android:text="于老师的演讲"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+    <TextView
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+</LinearLayout>

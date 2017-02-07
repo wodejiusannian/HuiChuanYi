@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    app:contentInsetStart="0dp"
+    android:background="@color/text_color"
+    android:minHeight="?attr/actionBarSize"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/iv_sort_back"
+            android:src="@drawable/back"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_toolbar_title"
+            android:textSize="@dimen/text_size_big"
+            android:textColor="@color/write"
+            android:layout_centerInParent="true"
+            android:text="你好"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_marginRight="@dimen/distance"
+            android:layout_centerVertical="true"
+            android:id="@+id/iv_sort_filter"
+            android:layout_alignParentEnd="true"
+            android:src="@mipmap/filter"
+            android:layout_width="50dp"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+</android.support.v7.widget.Toolbar>

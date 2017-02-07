@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tv_item_fragment_indent_title"
+        android:layout_marginTop="@dimen/distance_13"
+        android:layout_marginBottom="@dimen/distance"
+        android:layout_marginLeft="@dimen/distance_20"
+        android:text="慧美微课第一段"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_weight="1"
+            android:background="@drawable/background2"
+            android:layout_width="0dp"
+            android:layout_height="1dp" />
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.example.huichuanyi.custom.RoundImageView
+            android:id="@+id/rv_item_fragment_indent_movie"
+            android:layout_marginBottom="@dimen/distance_33"
+            android:layout_marginTop="@dimen/distance_13"
+            android:layout_marginLeft="@dimen/distance_20"
+            android:src="@mipmap/ic_launcher"
+            android:layout_width="100dp"
+            android:layout_height="66dp" />
+        <TextView
+            android:id="@+id/tv_item_fragment_indent_count"
+            android:layout_marginTop="@dimen/distance_13"
+            android:text="1"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_marginRight="@dimen/distance"
+            android:layout_marginTop="@dimen/distance_13"
+            android:layout_width="90dp"
+            android:layout_alignParentEnd="true"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_item_fragment_indent_price"
+                android:layout_centerHorizontal="true"
+                android:text="价格"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginTop="@dimen/distance_13"
+                android:id="@+id/tv_item_fragment_indent_total"
+                android:layout_below="@+id/tv_item_fragment_indent_price"
+                android:text="总计"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/iv_item_fragment_indent_go_pay"
+                android:layout_marginTop="@dimen/distance"
+                android:layout_below="@+id/tv_item_fragment_indent_total"
+                android:src="@mipmap/quzhifu"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/iv_item_fragment_indent_go_look"
+                android:layout_marginTop="@dimen/distance"
+                android:layout_below="@+id/tv_item_fragment_indent_total"
+                android:src="@mipmap/go_look"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+    <TextView
+        android:background="@drawable/background2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+</LinearLayout>

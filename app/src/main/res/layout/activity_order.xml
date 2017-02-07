@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui_second.LiJiYuYueActivity">
+    <RelativeLayout
+        android:background="@color/top_color"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <ImageView
+            android:id="@+id/iv_order_back"
+            android:src="@drawable/back"
+            android:layout_height="match_parent"
+            android:layout_width="40dp"
+            />
+        <TextView
+            android:text="工作室"
+            android:textColor="#fff"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/text_size_big"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:background="@drawable/background"
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/distance"
+        android:layout_height="40dp">
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tb_order_mTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:tabSelectedTextColor="@color/text_color"
+            app:tabBackground="@drawable/tab_select"
+            app:tabIndicatorHeight="0dp"
+            >
+        </android.support.design.widget.TabLayout>
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_order_mPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/distance"
+        android:layout_marginRight="@dimen/distance"
+        >
+    </android.support.v4.view.ViewPager>
+</LinearLayout>

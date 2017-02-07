@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.huichuanyi.secondui.PassWordActivity">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tl_manage_mTool"
+        android:background="#ac0000"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <ImageView
+            android:id="@+id/iv_register_back"
+            android:src="@drawable/back"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"/>
+        <TextView
+            android:id="@+id/tv_register_details"
+            android:text="注册"
+            android:textSize="15sp"
+            android:textColor="#fdfdfd"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </android.support.v7.widget.Toolbar>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/distance"
+        android:layout_marginRight="@dimen/distance"
+        >
+        <EditText
+            android:id="@+id/et_password_write"
+            android:background="#EEEEEE"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="输入密码"
+            android:textSize="14sp"
+            android:gravity="center"
+            />
+        <Button
+            android:id="@+id/bt_password_register"
+            android:background="#EEEEEE"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="注册"
+            android:textSize="14sp"
+            android:textColor="#f00"
+            android:layout_marginTop="@dimen/distance"
+            />
+    </LinearLayout>
+
+</RelativeLayout>

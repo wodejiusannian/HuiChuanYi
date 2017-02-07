@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:background="@color/top_color"
+                    android:layout_height="40dp">
+                    <!--<TextView
+                        android:id="@+id/tv_order_location"
+                        android:text="正在定位中..."
+                        android:textColor="@color/write"
+                        android:layout_marginLeft="@dimen/distance"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>-->
+                    <TextView
+                        android:id="@+id/tv_home_title"
+                        android:text="预约"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#fff"
+                        android:layout_centerInParent="true"
+                        android:textSize="@dimen/text_size_big"
+                        />
+                    <!--<ImageView
+                        android:id="@+id/iv_order_search"
+                        android:src="@mipmap/serach"
+                        android:layout_marginRight="15dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />-->
+                   <!-- <ImageView
+                        android:id="@+id/iv_order_test"
+                        android:layout_alignParentEnd="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>-->
+                </RelativeLayout>
+                <!--<android.support.v4.widget.SwipeRefreshLayout-->
+                    android:id="@+id/order_fragment_refresh"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ListView
+                        android:id="@+id/lv_order_persons"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:divider="#00000000"
+                        android:dividerHeight="5dp"
+                        >
+                    </ListView>
+               <!-- </android.support.v4.widget.SwipeRefreshLayout>-->
+
+</LinearLayout>

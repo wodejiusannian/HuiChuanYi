@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_write__order"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.huichuanyi.ui_third.Write_OrderActivity">
+    <RelativeLayout
+        android:background="@color/text_color"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <include layout="@layout/commom_back_btn"></include>
+        <TextView
+            android:text="填写订单"
+            android:textColor="#fff"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/text_size_big"
+            />
+    </RelativeLayout>
+    <LinearLayout
+         android:layout_centerVertical="true"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="30dip"
+        android:orientation="horizontal" >
+
+        <widget.WheelView
+            android:id="@+id/id_province"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+        </widget.WheelView>
+
+        <widget.WheelView
+            android:id="@+id/id_city"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+        </widget.WheelView>
+
+        <widget.WheelView
+            android:id="@+id/id_district"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+        </widget.WheelView>
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_test"
+        android:text="地址选择"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

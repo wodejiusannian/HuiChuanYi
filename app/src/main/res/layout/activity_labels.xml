@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.example.huichuanyi.ui_third.LabelsActivity">
+    <RelativeLayout
+        android:id="@+id/rl_labels_mTool"
+        android:background="@color/top_color"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <ImageView
+            android:id="@+id/iv_labels_back"
+            android:src="@drawable/back"
+            android:layout_height="match_parent"
+            android:layout_width="40dp"
+            />
+        <TextView
+            android:text="批量上传"
+            android:textColor="#fff"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/text_size_big"
+            />
+        <TextView
+            android:id="@+id/tv_labels_show_pop"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_labels_up_sure"
+            android:layout_marginRight="@dimen/distance"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/write"
+            android:text="确定"
+            android:textSize="@dimen/text_size_middle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <ListView
+        android:layout_margin="@dimen/distance"
+        android:divider="@null"
+        android:dividerHeight="@dimen/distance"
+        android:layout_below="@+id/rl_labels_mTool"
+        android:id="@+id/lv_labels_photos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ListView>
+</RelativeLayout>

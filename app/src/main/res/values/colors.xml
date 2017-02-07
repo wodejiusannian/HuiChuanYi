@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="primary">#FF03A9F4</color>
+    <color name="primary_dark">#FF0288D1</color>
+    <color name="status_bar_color">@color/primary_dark</color>
+    <color name="back_ground">#cccccc</color>
+    <color name="back_ground_6e">#eeeeee</color>
+    <color name="text_color">#ac0000</color>
+    <color name="top_color">#ac0000</color>
+    <color name="write">#ffffff</color>
+    <color name="et_999999">#999999</color>
+    <color name="black">#000000</color>
+    <color name="photopicker_background">#181819</color>
+    <color name="text_color_high">#333333</color>
+    <color name="text_color_middle">#666666</color>
+    <color name="text_color_low">#999999</color>
+    <color name="navpage">#FFE1E8EB</color>
+    <color name="main_color_write">#ffffff</color>
+    <color name="main_color_alpha">#00ffffff</color>
+    <color name="province_line_border">#C7C7C7</color>
+</resources>

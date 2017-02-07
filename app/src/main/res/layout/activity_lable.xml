@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+    <!--<RelativeLayout
+        android:id="@+id/tl_manage_mTool"
+        android:background="@color/top_color"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <ImageView
+            android:id="@+id/iv_label_back"
+            android:src="@drawable/back"
+            android:layout_height="match_parent"
+            android:layout_width="40dp"
+            />
+        <TextView
+            android:text="服饰标签"
+            android:textColor="#fff"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/text_size_big"
+            />
+    </RelativeLayout>-->
+    <RelativeLayout
+        android:background="@color/photopicker_background"
+        android:alpha="0.7"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </RelativeLayout>
+    <ScrollView
+        android:id="@+id/sv_pop"
+        android:layout_margin="@dimen/distance"
+        android:layout_above="@+id/rl_test"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!--<LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="上传服饰"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textColor="@color/text_color"
+                    android:text="*"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_label_pics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>-->
+            <LinearLayout
+                android:layout_marginTop="@dimen/distance_15"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="场合"
+                    android:textColor="@color/write"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textColor="@color/text_color"
+                    android:text="*"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:layout_marginTop="@dimen/distance_8"
+                android:id="@+id/rv_label_occ"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+            <LinearLayout
+                android:layout_marginTop="@dimen/distance_15"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="分类"
+                    android:textColor="@color/write"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textColor="@color/text_color"
+                    android:text="*"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textColor="@color/write"
+                    android:textSize="@dimen/text_size_9"
+                    android:text="(滑动选择标签)"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:layout_marginTop="@dimen/distance_8"
+                android:id="@+id/rv_label_sort"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+            <LinearLayout
+                android:layout_marginTop="@dimen/distance_15"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="款式"
+                    android:textColor="@color/write"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textColor="@color/text_color"
+                    android:text="*"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textColor="@color/write"
+                    android:textSize="@dimen/text_size_9"
+                    android:text="(滑动选择标签)"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:layout_marginTop="@dimen/distance_8"
+                android:id="@+id/rv_label_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+            <LinearLayout
+                android:layout_marginTop="@dimen/distance_15"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="季节"
+                    android:textColor="@color/write"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textColor="@color/text_color"
+                    android:text="*"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textColor="@color/write"
+                    android:textSize="@dimen/text_size_9"
+                    android:text="(滑动选择标签)"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:layout_marginTop="@dimen/distance_8"
+                android:id="@+id/rv_label_season"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+            <LinearLayout
+                android:layout_marginTop="@dimen/distance_15"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="材质"
+                    android:textColor="@color/write"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textColor="@color/text_color"
+                    android:text="*"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textColor="@color/write"
+                    android:textSize="@dimen/text_size_9"
+                    android:text="(滑动选择标签)"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:layout_marginTop="@dimen/distance_8"
+                android:id="@+id/rv_label_material"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+            <TextView
+                android:layout_marginTop="@dimen/distance_17"
+                android:text="购买时间"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:textColor="@color/write"
+                android:padding="@dimen/distance"
+                android:id="@+id/et_label_time"
+                android:windowSoftInputMode="adjustPan"
+                android:layout_marginTop="@dimen/distance_8"
+                android:hint="请输入购买时间"
+                android:textColorHint="@color/write"
+                android:textSize="@dimen/text_size_minimum"
+                android:background="@drawable/back_black_writes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginTop="@dimen/distance_15"
+                android:text="价格"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:textColor="@color/write"
+                android:textSize="@dimen/text_size_minimum"
+                android:padding="@dimen/distance"
+                android:id="@+id/et_label_price"
+                android:windowSoftInputMode="adjustPan"
+                android:layout_marginTop="@dimen/distance_8"
+                android:hint="请输入价格"
+                android:textColorHint="@color/write"
+                android:background="@drawable/back_black_writes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginTop="@dimen/distance_15"
+                android:text="尺码"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:padding="@dimen/distance"
+                android:id="@+id/et_label_size"
+                android:windowSoftInputMode="adjustPan"
+                android:layout_marginTop="@dimen/distance_8"
+                android:hint="请输入尺码"
+                android:textColor="@color/write"
+                android:textColorHint="@color/write"
+                android:textSize="@dimen/text_size_minimum"
+                android:background="@drawable/back_black_writes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginTop="@dimen/distance_15"
+                android:text="品牌"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:textColor="@color/write"
+                android:padding="@dimen/distance"
+                android:id="@+id/et_label_brand"
+                android:windowSoftInputMode="adjustPan"
+                android:layout_marginTop="@dimen/distance_8"
+                android:hint="请输入品牌"
+                android:textColorHint="@color/write"
+                android:textSize="@dimen/text_size_minimum"
+                android:background="@drawable/back_black_writes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginTop="@dimen/distance_15"
+                android:text="放置位置"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:textColor="@color/write"
+                android:padding="@dimen/distance"
+                android:id="@+id/et_label_location"
+                android:windowSoftInputMode="adjustPan"
+                android:layout_marginTop="@dimen/distance_8"
+                android:hint="请输入位置"
+                android:textColorHint="@color/write"
+                android:textSize="@dimen/text_size_minimum"
+                android:background="@drawable/back_black_writes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+
+        </LinearLayout>
+    </ScrollView>
+    <RelativeLayout
+        android:id="@+id/rl_test"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/iv_pop_dismiss"
+        android:src="@mipmap/dissmiss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_pop_up_sure"
+        android:src="@mipmap/pop_sure"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>
+</RelativeLayout>
