@@ -20,7 +20,7 @@ import com.example.huichuanyi.adapter.BtnChangeAdapter7;
 import com.example.huichuanyi.adapter.BtnChangeAdapter_2;
 import com.example.huichuanyi.adapter.BtnChangeAdapter_4;
 import com.example.huichuanyi.adapter.BtnChangeAdapter_5;
-import com.example.huichuanyi.decoration.ItemDecoration;
+import com.example.huichuanyi.utils.ItemDecoration;
 import com.example.huichuanyi.modle.Label;
 
 import org.json.JSONArray;

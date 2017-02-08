@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,15 +12,15 @@ import com.example.huichuanyi.adapter.MyPartnerAdapter;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.custom.BounceBackViewPager;
 import com.example.huichuanyi.ui_third.Item_DetailsActivity;
+import com.example.huichuanyi.ui_third.RecordActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.DepthPageTransformer;
 
 public class Partner_Clothes extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
-    private ImageView mBack;
     private BounceBackViewPager mBBP;
     private MyPartnerAdapter adapter;
-    private TextView mPager;
+    private TextView mPager,mRecord;
     private Button mJump;
 
     @Override
@@ -32,10 +31,10 @@ public class Partner_Clothes extends BaseActivity implements View.OnClickListene
 
     @Override
     public void initView() {
-        mBack = (ImageView) findViewById(R.id.iv_partner_clothes_back);
         mBBP = (BounceBackViewPager) findViewById(R.id.bb_partner_clothes_show);
         mPager = (TextView) findViewById(R.id.tv_partner_clothes_pager);
         mJump = (Button) findViewById(R.id.btn_partner_clothes_jump_add);
+        mRecord = (TextView) findViewById(R.id.tv_partner_clothes_record);
     }
 
     @Override
@@ -56,18 +55,19 @@ public class Partner_Clothes extends BaseActivity implements View.OnClickListene
 
     @Override
     public void setListener() {
-        mBack.setOnClickListener(this);
         mJump.setOnClickListener(this);
+        mRecord.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.iv_partner_clothes_back:
-                finish();
-                break;
+
             case R.id.btn_partner_clothes_jump_add:
                 ActivityUtils.switchTo(this,Item_DetailsActivity.class);
+                break;
+            case R.id.tv_partner_clothes_record:
+                ActivityUtils.switchTo(this,RecordActivity.class);
                 break;
             default:
                 int tag = (int) v.getTag();
@@ -91,5 +91,7 @@ public class Partner_Clothes extends BaseActivity implements View.OnClickListene
     public void onPageScrollStateChanged(int state) {
 
     }
-
+    public void back(View view){
+        finish();
+    }
 }

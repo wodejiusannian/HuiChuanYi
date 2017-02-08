@@ -3,6 +3,7 @@ package com.example.huichuanyi.application;
 import android.app.Application;
 
 import com.example.huichuanyi.config.SystemParams;
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 import org.xutils.x;
 
@@ -16,6 +17,7 @@ public class MyApplication extends Application{
             JPushInterface.setDebugMode(true);
             JPushInterface.init(this);
             x.Ext.init(this);
+            Fresco.initialize(this);
             SystemParams.init(this);
         }
 

@@ -11,7 +11,7 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.MC_MyClothesAdapter;
 import com.example.huichuanyi.base.BaseFragment;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.decoration.ItemDecoration;
+import com.example.huichuanyi.utils.ItemDecoration;
 import com.example.huichuanyi.modle.MyClothess;
 import com.example.huichuanyi.ui_five.PicActivity;
 import com.example.huichuanyi.utils.MyJson;

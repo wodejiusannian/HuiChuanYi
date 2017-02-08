@@ -8,7 +8,7 @@ import android.view.View;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.Event5Adapter;
 import com.example.huichuanyi.base.BaseFragment;
-import com.example.huichuanyi.decoration.ItemDecoration;
+import com.example.huichuanyi.utils.ItemDecoration;
 import com.example.huichuanyi.ui_four.MySortActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 

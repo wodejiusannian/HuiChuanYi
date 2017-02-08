@@ -30,7 +30,7 @@ import com.example.huichuanyi.adapter.BtnChangeAdapter_5_1;
 import com.example.huichuanyi.adapter.MC_MyClothesAdapter2;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.decoration.ItemDecoration;
+import com.example.huichuanyi.utils.ItemDecoration;
 import com.example.huichuanyi.modle.Label;
 import com.example.huichuanyi.modle.MyClothess;
 import com.example.huichuanyi.ui_five.PicActivity;

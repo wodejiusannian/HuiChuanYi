@@ -1,4 +1,4 @@
-package com.example.huichuanyi.decoration;
+package com.example.huichuanyi.utils;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +8,9 @@ import android.view.View;
  * Created by Bob on 2016/8/10.
  */
 public class ItemDecoration extends RecyclerView.ItemDecoration {
+
     private int mPadding;
+
     public ItemDecoration(int padding){
         mPadding = padding;
     }
@@ -20,4 +22,5 @@ public class ItemDecoration extends RecyclerView.ItemDecoration {
         outRect.right = mPadding;
         outRect.left = mPadding;
     }
+
 }

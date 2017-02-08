@@ -165,7 +165,8 @@
         <activity android:name=".ui_second.Partner_Clothes" />
         <activity android:name=".ui_third.Item_DetailsActivity" />
         <activity android:name=".ui_four.Add_IndentActivity" />
-        <activity android:name=".ui_third.Write_OrderActivity"></activity>
+        <activity android:name=".ui_third.Write_OrderActivity" />
+        <activity android:name=".ui_third.RecordActivity"></activity>
     </application>
 
 </manifest>
