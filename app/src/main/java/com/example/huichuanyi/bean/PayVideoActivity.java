@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,7 +16,6 @@ import android.widget.Toast;
 import com.alipay.sdk.app.PayTask;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.PayVideoAdapter;
-import com.example.huichuanyi.alipay.AuthResult;
 import com.example.huichuanyi.alipay.PayResult;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
@@ -40,7 +38,6 @@ import java.util.Map;
 import java.util.Set;
 
 public class PayVideoActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, MySelfDialog.OnYesClickListener {
-    private ImageView mImageViewBack;
     private ListView mListView;
     private String videoid;
     private List<Video.ListBean> mData;
@@ -53,7 +50,6 @@ public class PayVideoActivity extends BaseActivity implements View.OnClickListen
     private StringBuffer buffer = new StringBuffer();
     private RoundImageView mRoundImageView;
     private static final int SDK_PAY_FLAG = 1;
-    private static final int SDK_AUTH_FLAG = 2;
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @SuppressWarnings("unused")
@@ -72,23 +68,7 @@ public class PayVideoActivity extends BaseActivity implements View.OnClickListen
                     }
                     break;
                 }
-                case SDK_AUTH_FLAG: {
-                    @SuppressWarnings("unchecked")
-                    AuthResult authResult = new AuthResult((Map<String, String>) msg.obj, true);
-                    String resultStatus = authResult.getResultStatus();
-                    if (TextUtils.equals(resultStatus, "9000") && TextUtils.equals(authResult.getResultCode(), "200")) {
-                        Toast.makeText(PayVideoActivity.this,
-                                "授权成功\n" + String.format("authCode:%s",
-                                        authResult.getAuthCode()), Toast.LENGTH_SHORT)
-                                .show();
-                    } else {
-                        Toast.makeText(PayVideoActivity.this,
-                                "授权失败" + String.format("authCode:%s",
-                                        authResult.getAuthCode()), Toast.LENGTH_SHORT).show();
 
-                    }
-                    break;
-                }
                 default:
                     break;
             }
@@ -102,7 +82,6 @@ public class PayVideoActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void initView() {
-        mImageViewBack = (ImageView) findViewById(R.id.iv_payvideo_back);
         mListView = (ListView) findViewById(R.id.ll_payvideo_shop);
         mTextView = (TextView) findViewById(R.id.tv_payvideo_count);
         mButton = (Button) findViewById(R.id.bt_payvideo_pay);
@@ -165,7 +144,6 @@ public class PayVideoActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void setListener() {
-        mImageViewBack.setOnClickListener(this);
         mButton.setOnClickListener(this);
         mAdapter.registerDataSetObserver(new DataSetObserver() {
             //在你调用Adapter的notifiedDataChanged的时候
@@ -185,9 +163,7 @@ public class PayVideoActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case  R.id.iv_payvideo_back:
-                finish();
-                break;
+
             case R.id.bt_payvideo_pay:
                 MySelfDialog mySelfDialog = new MySelfDialog(this);
                 mySelfDialog.setTitle("选择支付");
@@ -283,5 +259,9 @@ public class PayVideoActivity extends BaseActivity implements View.OnClickListen
 
             break;
         }
+    }
+
+    public void back(View view){
+        finish();
     }
 }

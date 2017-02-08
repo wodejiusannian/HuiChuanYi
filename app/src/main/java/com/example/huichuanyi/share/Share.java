@@ -1,7 +1,6 @@
 package com.example.huichuanyi.share;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
@@ -20,7 +19,6 @@ public class Share {
         oks.setImageUrl(imageUrl);
         oks.setComment(content);
         oks.show(context);
-        Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
     }
 
 }

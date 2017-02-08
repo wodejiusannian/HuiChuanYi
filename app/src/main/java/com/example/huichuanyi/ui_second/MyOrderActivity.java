@@ -5,7 +5,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.ClosetAdapter;
@@ -16,8 +15,8 @@ import com.example.huichuanyi.fragment_second.Progress_Order;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyOrderActivity extends BaseActivity implements View.OnClickListener {
-    private ImageView mImageViewBack;
+public class MyOrderActivity extends BaseActivity  {
+
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private List<Fragment> mData;
@@ -31,7 +30,6 @@ public class MyOrderActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void initView() {
-        mImageViewBack = (ImageView) findViewById(R.id.iv_myOrder_back);
         mTabLayout = (TabLayout) findViewById(R.id.tb_my_order_mTitle);
         mViewPager = (ViewPager) findViewById(R.id.vp_my_order_mPager);
     }
@@ -55,16 +53,9 @@ public class MyOrderActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void setListener() {
-        mImageViewBack.setOnClickListener(this);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case  R.id.iv_myOrder_back:
-                finish();
-                break;
-        }
+    public void back(View view){
+        finish();
     }
-
 }

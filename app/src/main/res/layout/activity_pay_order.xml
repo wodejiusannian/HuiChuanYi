@@ -12,12 +12,8 @@
         android:background="@color/top_color"
         android:layout_width="match_parent"
         android:layout_height="40dp">
-        <ImageView
-            android:id="@+id/iv_payorder_back"
-            android:src="@drawable/back"
-            android:layout_height="match_parent"
-            android:layout_width="40dp"
-            />
+        <include layout="@layout/commom_back_btn"></include>
+
         <TextView
             android:text="订单支付"
             android:textColor="#fff"
