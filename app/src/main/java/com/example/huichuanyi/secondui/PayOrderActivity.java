@@ -6,27 +6,32 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.alipay.sdk.app.PayTask;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.alipay.AuthResult;
 import com.example.huichuanyi.alipay.PayResult;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.ui_first.MainActivity;
 import com.example.huichuanyi.ui_second.MyOrderActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.squareup.picasso.Picasso;
+import com.tencent.mm.sdk.modelpay.PayReq;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
+import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -44,7 +49,7 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
     private Button mButtonPay;
     private static final int SDK_PAY_FLAG = 1;
     private static final int SDK_AUTH_FLAG = 2;
-    //private String WX_APPID = "wxee286f04e48c82a3";
+    private String WX_APPID = "wxee286f04e48c82a3";
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @SuppressWarnings("unused")
@@ -116,10 +121,10 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
         mTextViewNowMoney = (TextView) findViewById(R.id.tv_payorder_nowMoney);
         mImageViewAlipayNormal = (ImageView) findViewById(R.id.iv_payorder_alipayNomal);
         mImageViewAlipaySelect = (ImageView) findViewById(R.id.iv_payorder_alipaySelect);
-       // mImageViewWechatNormal = (ImageView) findViewById(R.id.iv_payorder_wechatNomal);
-       // mImageViewWechatSelect = (ImageView) findViewById(R.id.iv_payorder_wechatSelect);
+       mImageViewWechatNormal = (ImageView) findViewById(R.id.iv_payorder_wechatNomal);
+       mImageViewWechatSelect = (ImageView) findViewById(R.id.iv_payorder_wechatSelect);
         mRelativeLayoutAliPay = (RelativeLayout) findViewById(R.id.rl_payorder_alipay);
-       // mRelativeLayoutWechat = (RelativeLayout) findViewById(R.id.rl_payorder_wechat);
+       mRelativeLayoutWechat = (RelativeLayout) findViewById(R.id.rl_payorder_wechat);
         mButtonPay = (Button) findViewById(R.id.bt_payorder_pay);
     }
 
@@ -146,7 +151,7 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
     public void setListener() {
         mImageViewBack.setOnClickListener(this);
         mRelativeLayoutAliPay.setOnClickListener(this);
-     //   mRelativeLayoutWechat.setOnClickListener(this);
+        mRelativeLayoutWechat.setOnClickListener(this);
         mButtonPay.setOnClickListener(this);
     }
 
@@ -163,13 +168,13 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
                 mImageViewWechatSelect.setVisibility(View.GONE);
                 AliPayOrWechat = 1;
                 break;
-           /* case R.id.rl_payorder_wechat:
+            case R.id.rl_payorder_wechat:
                 mImageViewAlipaySelect.setVisibility(View.GONE);
                 mImageViewAlipayNormal.setVisibility(View.VISIBLE);
                 mImageViewWechatNormal.setVisibility(View.GONE);
                 mImageViewWechatSelect.setVisibility(View.VISIBLE);
                 AliPayOrWechat = 2;
-                break;*/
+                break;
             case R.id.bt_payorder_pay:
                 switch (AliPayOrWechat) {
                     case  1:
@@ -213,7 +218,7 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
                         break;
                     case  2:
                         Toast.makeText(PayOrderActivity.this, "微信支付正在开发中", Toast.LENGTH_SHORT).show();
-                        /*final IWXAPI mWxApi = WXAPIFactory.createWXAPI(this, WX_APPID, true);
+                        final IWXAPI mWxApi = WXAPIFactory.createWXAPI(this, WX_APPID, true);
                         mWxApi.registerApp(WX_APPID);
                         RequestParams params2 = new RequestParams(NetConfig.ALIPAY_OR_WECHAT);
                         params2.addBodyParameter("orderid",orderid);
@@ -230,22 +235,22 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
                                     //商户号
                                     String partnerId = object.getString("partnerId");
                                     req.partnerId		= partnerId;
-                                    /*//*预支付交易会话ID
+                                    //预支付交易会话ID
                                     String prepayId = object.getString("prepayId");
                                     req.prepayId		= prepayId;
-                                    /*//*随机字符串
+                                    //随机字符串
                                     String nonceStr = object.getString("nonceStr");
                                     req.nonceStr		= nonceStr;
-                                    /*//*时间戳*
+                                    //时间戳*
                                     String timeStamp = object.getString("timeStamp");
                                     req.timeStamp		= timeStamp;
-                                    /*//*扩展字段
+                                    //扩展字段
                                     req.packageValue	= "Sign=WXPay";
-                                    /*//*签名*
+                                    //签名*
                                     String sign = object.getString("sign");
                                     req.sign			= sign;
                                     mWxApi.sendReq(req);
-                                } catch (JSONException e) {
+                                } catch (org.json.JSONException e) {
                                     e.printStackTrace();
                                 }
 
@@ -265,7 +270,7 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
                             public void onFinished() {
 
                             }
-                        });*/
+                        });
                         break;
                 }
                 break;

@@ -194,15 +194,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
-                android:paddingTop="@dimen/distance"
                 android:id="@+id/iv_payorder_wechatphoto"
                 android:src="@mipmap/alipay"
-                android:paddingBottom="@dimen/distance"
-                android:layout_marginBottom="@dimen/distance"
-                android:layout_marginLeft="@dimen/distance"
+                android:padding="@dimen/distance"
                 android:layout_centerVertical="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
             <TextView
                 android:id="@+id/iv_payorder_wechatname"
                 android:text="支付宝支付"
@@ -230,13 +227,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </RelativeLayout>
-        <!--<TextView
+        <TextView
             android:background="@color/back_ground"
             android:layout_marginLeft="@dimen/distance"
             android:layout_marginRight="@dimen/distance"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>-->
-        <!--<RelativeLayout
+
+        <RelativeLayout
             android:layout_marginLeft="@dimen/distance"
             android:layout_marginRight="@dimen/distance"
             android:background="@drawable/background"
@@ -244,13 +242,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
-                android:layout_marginTop="@dimen/distance"
-                android:layout_marginLeft="@dimen/distance"
+                android:padding="@dimen/distance"
                 android:id="@+id/iv_payorder_alipayphoto"
                 android:src="@mipmap/wechat_pay"
-                android:paddingBottom="@dimen/distance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
             <TextView
                 android:id="@+id/iv_payorder_alipayname"
                 android:text="微信支付"
@@ -278,7 +274,7 @@
                 android:gravity="end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-        </RelativeLayout>-->
+        </RelativeLayout>
 
     </LinearLayout>
     <Button
