@@ -47,7 +47,7 @@
         </activity>
         <activity
             android:name=".ui_first.MainActivity"
-            android:launchMode="singleInstance" />
+            android:launchMode="singleTask" />
         <activity android:name=".ui_first.LoadingActivity" />
         <activity
             android:name=".ui_second.HuiMeiWeiKeActivity"
@@ -66,7 +66,6 @@
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <data android:scheme="tencent100371282" />
-
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.BROWSABLE" />

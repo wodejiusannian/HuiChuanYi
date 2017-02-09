@@ -45,21 +45,22 @@ import java.util.ArrayList;
 import de.greenrobot.event.EventBus;
 
 
-public class Fragment_Mine extends BaseFragment implements View.OnClickListener , FreshPhoto {
+public class Fragment_Mine extends BaseFragment implements View.OnClickListener, FreshPhoto {
     private View view;
-    private TextView mTextViewRegisterAndLogin,mTextViewDaiTi;
+    private TextView mTextViewRegisterAndLogin, mTextViewDaiTi;
     private CircleImageView mCircleImageViewPhoto;
     private ImageView mImageViewSetting;
-    private LinearLayout mLinearLayoutDatum,mLinearLayoutReport,
-            mLinearLayoutOrder,mLinearLayoutIndent,
-            mLinearLayoutInvite,mLinearLayoutExit;
+    private LinearLayout mLinearLayoutDatum, mLinearLayoutReport,
+            mLinearLayoutOrder, mLinearLayoutIndent,
+            mLinearLayoutInvite, mLinearLayoutExit;
     private User mUser;
     private static final int REQUEST_CAMERA_CODE = 11;
     private int useId = -1;
+
     @Override
     protected View initView() {
         EventBus.getDefault().register(getActivity());
-        view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_mine,null);
+        view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_mine, null);
         initChildView(view);
         return view;
     }
@@ -73,11 +74,11 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener 
     }
 
     private void getUserPhoto() {
-        if(useId==0) {
+        if (useId == 0) {
             return;
         }
         RequestParams params = new RequestParams(NetConfig.GET_USER_PHOTO);
-        params.addBodyParameter("userid",useId+"");
+        params.addBodyParameter("userid", useId + "");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -86,13 +87,13 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener 
                     JSONArray list = object.getJSONArray("list");
                     JSONObject jsonObject = list.getJSONObject(0);
                     String name = jsonObject.getString("name");
-                    if(!TextUtils.isEmpty(name)) {
+                    if (!TextUtils.isEmpty(name)) {
                         mTextViewRegisterAndLogin.setVisibility(View.GONE);
                         mTextViewDaiTi.setVisibility(View.VISIBLE);
                         mTextViewDaiTi.setText(name);
                     }
                     String photopath = jsonObject.getString("photopath");
-                    if(!TextUtils.isEmpty(photopath)) {
+                    if (!TextUtils.isEmpty(photopath)) {
                         Picasso.with(getActivity()).load(photopath).into(mCircleImageViewPhoto);
                     }
 
@@ -135,82 +136,82 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-            useId = mUser.getUseId();
-            switch (v.getId()) {
-                case  R.id.tv_mine_registerandlogin:
-                    ActivityUtils.switchTo(getActivity(),RegisterActivity.class);
-                    break;
-                case R.id.iv_mine_photo:
-                    if(useId>0) {
-                        upLoadingPhoto();
-                    }else{
-                        Toast.makeText(getActivity(), "亲，请先登陆哦", Toast.LENGTH_SHORT).show();
-                        ActivityUtils.switchTo(getActivity(),RegisterActivity.class);
-                    }
-                    break;
-                case R.id.iv_mine_setting:
-                    ActivityUtils.switchTo(getActivity(),SettingActivity.class);
-                    break;
-                case R.id.ll_mine_datum:
-                    if(useId>0) {
-                        ActivityUtils.switchTo(getActivity(),DatumActivity.class);
-                    }else{
-                        ActivityUtils.switchTo(getActivity(),RegisterActivity.class);
-                    }
-                    break;
-                case R.id.ll_mine_report:
-                    if(useId>0) {
-                        ActivityUtils.switchTo(getActivity(),ReportActivity.class);
-                    }else{
-                        ActivityUtils.switchTo(getActivity(),RegisterActivity.class);
-                    }
-                    break;
-                case R.id.ll_mine_order:
-                    if(useId>0) {
-                        ActivityUtils.switchTo(getActivity(),MyOrderActivity.class);
-                    }else{
-                        ActivityUtils.switchTo(getActivity(),RegisterActivity.class);
-                    }
-                    break;
+        useId = mUser.getUseId();
+        switch (v.getId()) {
+            case R.id.tv_mine_registerandlogin:
+                ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
+                break;
+            case R.id.iv_mine_photo:
+                if (useId > 0) {
+                    upLoadingPhoto();
+                } else {
+                    Toast.makeText(getActivity(), "亲，请先登陆哦", Toast.LENGTH_SHORT).show();
+                    ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
+                }
+                break;
+            case R.id.iv_mine_setting:
+                ActivityUtils.switchTo(getActivity(), SettingActivity.class);
+                break;
+            case R.id.ll_mine_datum:
+                if (useId > 0) {
+                    ActivityUtils.switchTo(getActivity(), DatumActivity.class);
+                } else {
+                    ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
+                }
+                break;
+            case R.id.ll_mine_report:
+                if (useId > 0) {
+                    ActivityUtils.switchTo(getActivity(), ReportActivity.class);
+                } else {
+                    ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
+                }
+                break;
+            case R.id.ll_mine_order:
+                if (useId > 0) {
+                    ActivityUtils.switchTo(getActivity(), MyOrderActivity.class);
+                } else {
+                    ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
+                }
+                break;
 
-                case R.id.ll_mine_indent:
+            case R.id.ll_mine_indent:
 
-                    if(useId>0) {
-                        ActivityUtils.switchTo(getActivity(),IndentActivity.class);
-                    }else{
-                        ActivityUtils.switchTo(getActivity(),RegisterActivity.class);
-                    }
+                if (useId > 0) {
+                    ActivityUtils.switchTo(getActivity(), IndentActivity.class);
+                } else {
+                    ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
+                }
 
-                    break;
-                case R.id.ll_mine_invite:
-                    if(useId>0) {
-                        Share.showShare(getActivity(),"慧美衣橱","http://hmyc365.net:8080/html/share/share.html","轻松生活来自慧美,让衣橱管理走进千万家","http://101.201.36.18:8080/images/syspic/1.jpg",null);
-                    }else{
-                        ActivityUtils.switchTo(getActivity(),RegisterActivity.class);
-                    }
-                    break;
-                case R.id.ll_mine_exit:
-                    if(useId>0) {
-                        MySelfDialog mDialog = new MySelfDialog(getActivity());
-                        mDialog.setMessage("退出后看不到具体数据");
-                        mDialog.setOnNoListener("取消",null);
-                        mDialog.setOnYesListener("确定", new MySelfDialog.OnYesClickListener() {
-                            @Override
-                            public void onClick() {
-                                User mUser = new User(getActivity());
-                                mUser.writeUserId(0);
-                                mCircleImageViewPhoto.setImageResource(R.mipmap.managephoto);
-                                mTextViewDaiTi.setVisibility(View.GONE);
-                                mTextViewRegisterAndLogin.setVisibility(View.VISIBLE);
-                                Toast.makeText(getActivity(), "退出登录成功", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        mDialog.show();
-                    }else{
-                        ActivityUtils.switchTo(getActivity(),RegisterActivity.class);
-                    }
-                    break;
-            }
+                break;
+            case R.id.ll_mine_invite:
+                if (useId > 0) {
+                    Share.showShare(getActivity(), "慧美衣橱", "http://hmyc365.net:8080/html/share/share.html", "轻松生活来自慧美,让衣橱管理走进千万家", "http://101.201.36.18:8080/images/syspic/1.jpg", null);
+                } else {
+                    ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
+                }
+                break;
+            case R.id.ll_mine_exit:
+                if (useId > 0) {
+                    MySelfDialog mDialog = new MySelfDialog(getActivity());
+                    mDialog.setMessage("退出后看不到具体数据");
+                    mDialog.setOnNoListener("取消", null);
+                    mDialog.setOnYesListener("确定", new MySelfDialog.OnYesClickListener() {
+                        @Override
+                        public void onClick() {
+                            User mUser = new User(getActivity());
+                            mUser.writeUserId(0);
+                            mCircleImageViewPhoto.setImageResource(R.mipmap.managephoto);
+                            mTextViewDaiTi.setVisibility(View.GONE);
+                            mTextViewRegisterAndLogin.setVisibility(View.VISIBLE);
+                            Toast.makeText(getActivity(), "退出登录成功", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    mDialog.show();
+                } else {
+                    ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
+                }
+                break;
+        }
     }
 
     private void upLoadingPhoto() {
@@ -220,7 +221,6 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener 
         intent.setMaxTotal(1);
         startActivityForResult(intent, REQUEST_CAMERA_CODE);
     }
-
 
 
     private void initChildView(View view) {
@@ -235,26 +235,27 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener 
         mLinearLayoutInvite = (LinearLayout) view.findViewById(R.id.ll_mine_invite);
         mTextViewDaiTi = (TextView) view.findViewById(R.id.tv_mine_daiti);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == getActivity().RESULT_OK) {
+        if (resultCode == getActivity().RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_CAMERA_CODE:
                     ArrayList<String> list = data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT);
                     String s = list.get(0);
-                    Bitmap bitmap = ImageUtils.ratio(s,240f,240f);
+                    Bitmap bitmap = ImageUtils.ratio(s, 240f, 240f);
                     String photo = ImageUtils.saveBitMapToFile(getActivity(), "myPhoto", bitmap, true);
                     RequestParams params = new RequestParams(NetConfig.USER_PHOTO);
-                    params.addBodyParameter("userid",new User(getActivity()).getUseId()+"");
+                    params.addBodyParameter("userid", new User(getActivity()).getUseId() + "");
                     params.addBodyParameter("img", new File(photo));
                     x.http().post(params, new Callback.CommonCallback<String>() {
                         @Override
                         public void onSuccess(String result) {
-                            if("0".equals(result)) {
+                            if ("0".equals(result)) {
                                 Toast.makeText(getActivity(), "修改失败", Toast.LENGTH_SHORT).show();
                                 return;
-                            }else {
+                            } else {
                                 Picasso.with(getActivity()).load(result).into(mCircleImageViewPhoto);
                                 Toast.makeText(getActivity(), "修改成功", Toast.LENGTH_SHORT).show();
                             }
@@ -263,7 +264,7 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener 
 
                         @Override
                         public void onError(Throwable ex, boolean isOnCallback) {
-                    }
+                        }
 
                         @Override
                         public void onCancelled(CancelledException cex) {
@@ -282,8 +283,6 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener 
     }
 
 
-
-
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -293,7 +292,7 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener 
 
     @Override
     public void getPhoto(String str) {
-        useId  = new User(getActivity()).getUseId();
+        useId = new User(getActivity()).getUseId();
         getUserPhoto();
     }
 }

@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name" translatable="false">慧美衣橱</string>
-    <string name="main_one" translatable="false">首页</string>
-    <string name="main_two" translatable="false">预约</string>
-    <string name="main_three" translatable="false">我的</string>
+    <string name="main_title_home" translatable="false">首页</string>
+    <string name="main_title_order" translatable="false">预约</string>
+    <string name="main_title_365" translatable="false">365</string>
+    <string name="main_title_me" translatable="false">我的</string>
     <string name="app_tip">提示</string>
     <!-- PayActivity -->
     <string name="pay_by_wx">客户端签名微信支付</string>

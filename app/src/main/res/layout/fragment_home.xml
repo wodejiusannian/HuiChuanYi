@@ -1,110 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                 >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_home_title"
-        android:text="首页"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_gravity="center"
-        android:gravity="center"
-        android:textColor="#fff"
         android:background="@color/top_color"
-        android:textSize="@dimen/text_size_big"
-        />
+        android:gravity="center"
+        android:text="首页"
+        android:textColor="#fff"
+        android:textSize="@dimen/text_size_big" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="215dp">
+
                 <com.jude.rollviewpager.RollPagerView
                     android:id="@+id/vp_home_banner"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                </com.jude.rollviewpager.RollPagerView>
+                    android:layout_height="match_parent"></com.jude.rollviewpager.RollPagerView>
             </RelativeLayout>
+
             <ImageView
                 android:id="@+id/iv_test"
-                android:layout_marginTop="10dp"
-                android:src="@mipmap/interval"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:src="@mipmap/interval" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <LinearLayout
                     android:id="@+id/ll_closet_one"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
                     <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:layout_marginLeft="5dp"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content">
+                        android:layout_weight="1">
+
                         <ImageView
                             android:id="@+id/iv_home_closet"
-                            android:src="@mipmap/closet"
-                            android:layout_centerInParent="true"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:src="@mipmap/closet" />
 
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:layout_marginLeft="5dp"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content">
+                        android:layout_weight="1">
+
                         <ImageView
                             android:id="@+id/iv_home_info"
-                            android:src="@mipmap/stat"
-                            android:layout_centerInParent="true"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:src="@mipmap/stat" />
                     </RelativeLayout>
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/ll_closet_two"
-                    android:layout_below="@+id/ll_closet_one"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ll_closet_one"
+                    android:orientation="horizontal">
+
                     <RelativeLayout
-                        android:layout_margin="5dp"
-                        android:layout_weight="1"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1">
+
                         <ImageView
                             android:id="@+id/iv_home_partner"
-                            android:src="@mipmap/partner"
-                            android:scaleType="fitXY"
-                            android:layout_centerInParent="true"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/partner" />
                     </RelativeLayout>
+
                     <RelativeLayout
-                        android:layout_margin="5dp"
-                        android:layout_weight="1"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1">
+
                         <ImageView
                             android:id="@+id/iv_home_match"
-                            android:src="@mipmap/match"
-                            android:layout_centerInParent="true"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:src="@mipmap/match" />
                     </RelativeLayout>
                 </LinearLayout>
             </RelativeLayout>
