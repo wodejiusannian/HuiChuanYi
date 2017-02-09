@@ -12,10 +12,10 @@
         android:background="@color/top_color"
         android:layout_width="match_parent"
         android:layout_height="40dp">
-        <include layout="@layout/commom_back_btn"></include>
+        <include layout="@layout/btn_back"></include>
         <TextView
-            android:text="服饰伙伴"
-            android:textColor="#fff"
+            android:text="@string/record_title"
+            android:textColor="@color/main_color_write"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_centerInParent="true"
@@ -30,7 +30,6 @@
         android:layout_height="40dp"
         android:layout_marginTop="@dimen/distance"
         app:tabSelectedTextColor="@color/write"
-        android:layout_below="@+id/tl_closet_mTool"
         app:tabBackground="@drawable/tab_background"
         app:tabIndicatorHeight="0dp"
         >
@@ -38,6 +37,7 @@
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_record_show"
+        android:layout_marginTop="@dimen/distance"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

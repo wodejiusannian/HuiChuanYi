@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_item__details"
+    android:id="@+id/activity_write__order"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.huichuanyi.ui_third.Item_DetailsActivity">
+    tools:context="com.example.huichuanyi.ui_third.My_AddressActivity">
     <RelativeLayout
         android:background="@color/text_color"
         android:layout_width="match_parent"
         android:layout_height="40dp">
-        <include layout="@layout/btn_back">
-
-        </include>
+        <include layout="@layout/btn_back"></include>
         <TextView
-            android:text="单品详情"
+            android:text="填写订单"
             android:textColor="#fff"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
@@ -21,17 +19,12 @@
             android:textSize="@dimen/text_size_big"
             />
     </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/rl_item_details_select"
-        android:background="@color/text_color"
+
+    <Button
+        android:id="@+id/btn_test"
+        android:text="地址选择"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
-        <TextView
-            android:textColor="@color/main_color_write"
-            android:layout_centerInParent="true"
-            android:text="加入衣橱"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
+        android:layout_height="wrap_content" />
+
 </RelativeLayout>

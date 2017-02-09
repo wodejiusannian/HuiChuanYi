@@ -11,7 +11,7 @@
         android:background="@color/top_color"
         android:layout_width="match_parent"
         android:layout_height="40dp">
-        <include layout="@layout/commom_back_btn"></include>
+        <include layout="@layout/btn_back"></include>
         <TextView
             android:text="购买视频"
             android:textColor="#fff"

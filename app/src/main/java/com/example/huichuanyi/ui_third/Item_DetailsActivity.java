@@ -1,13 +1,7 @@
 package com.example.huichuanyi.ui_third;
 
-import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
 import com.example.huichuanyi.R;
@@ -51,17 +45,19 @@ public class Item_DetailsActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.rl_item_details_select:
-                showPopWindow();
-                break;
-            case R.id.pop_btn_buy_365_sure:
                 ActivityUtils.switchTo(this,Write_OrderActivity.class);
                 break;
+           /* case R.id.pop_btn_buy_365_sure:
+                ActivityUtils.switchTo(this,My_AddressActivity.class);
+                break;*/
             default:
                 break;
         }
     }
 
-    private void showPopWindow() {
+
+
+    /*rivate void showPopWindow() {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.pop_buy_365, null);
         // 下面是两种方法得到宽度和高度 getWindow().getDecorView().getWidth()
@@ -76,7 +72,7 @@ public class Item_DetailsActivity extends BaseActivity implements View.OnClickLi
         // 在底部显示
         window.showAtLocation(mJump,Gravity.BOTTOM, 0, 0);
         view.findViewById(R.id.pop_btn_buy_365_sure).setOnClickListener(this);
-    }
+    }*/
 
 
 }

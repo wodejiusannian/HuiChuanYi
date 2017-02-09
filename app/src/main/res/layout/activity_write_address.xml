@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_write__address2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.huichuanyi.ui_third.Write_AddressActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_write_order_title"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/text_color">
+
+        <include layout="@layout/btn_back"></include>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="编辑地址"
+            android:textColor="@color/main_color_write"
+            android:textSize="@dimen/text_size_18" />
+
+        <TextView
+            android:id="@+id/tv_write_address_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/distance_10"
+            android:text="保存"
+            android:textColor="@color/main_color_write" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_write_order_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/distance_10"
+        android:layout_marginRight="@dimen/distance_10"
+        android:layout_marginTop="@dimen/distance_10"
+        android:background="@drawable/background"
+        android:orientation="vertical"
+        android:padding="@dimen/distance_10">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:text="收货信息" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/distance_10"
+            android:background="@color/back_ground" />
+
+        <EditText
+            android:id="@+id/et_write_address_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_25"
+            android:layout_marginTop="@dimen/distance_10"
+            android:background="@null"
+            android:hint="姓名       （点击编辑）"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/text_size_13" />
+
+        <EditText
+            android:id="@+id/et_write_address_phone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_25"
+            android:layout_marginTop="@dimen/distance_10"
+            android:background="@null"
+            android:hint="联系方式（点击编辑）"
+            android:maxLength="11"
+            android:phoneNumber="true"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/text_size_13" />
+
+        <TextView
+            android:id="@+id/tv_write_address_address"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_25"
+            android:layout_marginTop="@dimen/distance_10"
+            android:gravity="center_vertical"
+            android:hint="选择地址（点击选择）"
+            android:textSize="@dimen/text_size_13" />
+
+        <EditText
+            android:id="@+id/et_write_address_street"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_25"
+            android:layout_marginTop="@dimen/distance_10"
+            android:background="@null"
+            android:hint="街道地址（点击编辑）"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/text_size_13" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_write_address"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <widget.WheelView
+            android:id="@+id/id_province"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"></widget.WheelView>
+
+        <widget.WheelView
+            android:id="@+id/id_city"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"></widget.WheelView>
+
+        <widget.WheelView
+            android:id="@+id/id_district"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"></widget.WheelView>
+    </LinearLayout>
+
+</RelativeLayout>

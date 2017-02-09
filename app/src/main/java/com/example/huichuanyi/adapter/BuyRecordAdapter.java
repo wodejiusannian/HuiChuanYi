@@ -24,14 +24,14 @@ public class BuyRecordAdapter extends CommonAdapter<String> {
 
     @Override
     public void convert(ViewHolder viewHolder, String s) {
-        SimpleDraweeView sv = viewHolder.getView(R.id.sv_item_buy_record);
+        SimpleDraweeView sv = viewHolder.getView(R.id.sv_clothe_item_info_record);
         sv.setImageURI("https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png");
-        TextView style = viewHolder.getView(R.id.tv_item_buy_record_style);
-        TextView color = viewHolder.getView(R.id.tv_item_buy_record_color);
-        TextView size = viewHolder.getView(R.id.tv_item_buy_record_size);
-        TextView name = viewHolder.getView(R.id.tv_item_buy_record_name);
-        TextView price = viewHolder.getView(R.id.tv_item_buy_record_price);
-        TextView count = viewHolder.getView(R.id.tv_item_buy_record_count);
+        TextView style = viewHolder.getView(R.id.tv_clothe_item_info_record_style);
+        TextView color = viewHolder.getView(R.id.tv_clothe_item_info_record_color);
+        TextView size = viewHolder.getView(R.id.tv_clothe_item_info_record_size);
+        TextView name = viewHolder.getView(R.id.tv_clothe_item_info_record_name);
+        TextView price = viewHolder.getView(R.id.tv_clothe_item_info_record_price);
+        TextView count = viewHolder.getView(R.id.tv_clothe_item_info_record_count);
         sv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

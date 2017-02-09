@@ -117,7 +117,7 @@
                 android:id="@+id/et_et_daipeixinde"
                 android:layout_marginTop="@dimen/distance"
                 android:gravity="start"
-                android:textSize="@dimen/text_size_minimum"
+                android:textSize="@dimen/text_size_13"
                 android:hint="  搭配完了，是否觉得自己美美搭，好聪明的说~
 （注意心得体会不要超过100字的限制哦）"
                 android:background="@drawable/background"
