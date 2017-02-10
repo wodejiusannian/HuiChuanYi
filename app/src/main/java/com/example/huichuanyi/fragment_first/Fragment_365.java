@@ -11,8 +11,8 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.MyPartnerAdapter;
 import com.example.huichuanyi.base.BaseFragment;
 import com.example.huichuanyi.bean.CardItem;
+import com.example.huichuanyi.ui_third.Item_DetailsActivity;
 import com.example.huichuanyi.ui_third.RecordActivity;
-import com.example.huichuanyi.ui_third.Write_OrderActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 
 import java.util.ArrayList;
@@ -105,7 +105,7 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener {
                 break;
             default:
                 int tag = (int) v.getTag();
-                ActivityUtils.switchTo(getActivity(), Write_OrderActivity.class);
+                ActivityUtils.switchTo(getActivity(), Item_DetailsActivity.class);
                 break;
         }
     }

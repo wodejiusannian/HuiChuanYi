@@ -46,11 +46,12 @@
             android:layout_below="@+id/item_clothes_style"
             android:layout_marginTop="@dimen/distance_10"
             android:text="介绍" />
+
         <TextView
-            android:text=">"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:text=">" />
     </RelativeLayout>
 </LinearLayout>

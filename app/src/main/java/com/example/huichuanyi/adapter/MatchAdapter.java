@@ -1,18 +1,14 @@
 package com.example.huichuanyi.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.huichuanyi.R;
-import com.example.huichuanyi.custom.CircleImageView;
 import com.example.huichuanyi.custom.RoundImageView;
-import com.example.huichuanyi.modle.City;
 import com.example.huichuanyi.modle.Match;
 import com.squareup.picasso.Picasso;
 

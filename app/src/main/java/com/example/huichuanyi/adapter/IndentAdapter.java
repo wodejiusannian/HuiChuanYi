@@ -10,9 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.huichuanyi.R;
-import com.example.huichuanyi.custom.RoundImageView;
 import com.example.huichuanyi.modle.Indent;
-import com.squareup.picasso.Picasso;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
 
@@ -68,7 +67,7 @@ public class IndentAdapter extends BaseAdapter{
             }
             String photoUrl = listBean.getPhotoUrl();
             if (photoUrl!=null){
-                Picasso.with(mContext).load(photoUrl).into(holder.mMovie);
+                holder.mMovie.setImageURI(photoUrl);
             }
             String money = listBean.getMoney();
             holder.mPrice.setText("¥"+money);
@@ -100,7 +99,7 @@ public class IndentAdapter extends BaseAdapter{
     public static class ViewHolder{
         private TextView mTitle,mCount,mPrice,mTotal;
         private ImageView mGoPay,mGoLook;
-        private RoundImageView mMovie;
+        private SimpleDraweeView mMovie;
         public ViewHolder(View view) {
             mTitle = (TextView) view.findViewById(R.id.tv_item_fragment_indent_title);
             mCount = (TextView) view.findViewById(R.id.tv_item_fragment_indent_count);
@@ -108,7 +107,7 @@ public class IndentAdapter extends BaseAdapter{
             mTotal = (TextView) view.findViewById(R.id.tv_item_fragment_indent_total);
             mGoPay = (ImageView) view.findViewById(R.id.iv_item_fragment_indent_go_pay);
             mGoLook = (ImageView) view.findViewById(R.id.iv_item_fragment_indent_go_look);
-            mMovie = (RoundImageView) view.findViewById(R.id.rv_item_fragment_indent_movie);
+            mMovie = (SimpleDraweeView) view.findViewById(R.id.rv_item_fragment_indent_movie);
         }
     }
 

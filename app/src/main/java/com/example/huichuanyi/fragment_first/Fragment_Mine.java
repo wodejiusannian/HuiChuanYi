@@ -2,6 +2,7 @@ package com.example.huichuanyi.fragment_first;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +15,6 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.baidumap.FreshPhoto;
 import com.example.huichuanyi.base.BaseFragment;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.custom.CircleImageView;
 import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.share.Share;
 import com.example.huichuanyi.ui_first.MainActivity;
@@ -27,10 +27,10 @@ import com.example.huichuanyi.ui_second.SettingActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.ImageUtils;
 import com.example.huichuanyi.utils.User;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.foamtrace.photopicker.PhotoPickerActivity;
 import com.foamtrace.photopicker.SelectModel;
 import com.foamtrace.photopicker.intent.PhotoPickerIntent;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,7 +48,7 @@ import de.greenrobot.event.EventBus;
 public class Fragment_Mine extends BaseFragment implements View.OnClickListener, FreshPhoto {
     private View view;
     private TextView mTextViewRegisterAndLogin, mTextViewDaiTi;
-    private CircleImageView mCircleImageViewPhoto;
+    private SimpleDraweeView mPhoto;
     private ImageView mImageViewSetting;
     private LinearLayout mLinearLayoutDatum, mLinearLayoutReport,
             mLinearLayoutOrder, mLinearLayoutIndent,
@@ -94,9 +94,8 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
                     }
                     String photopath = jsonObject.getString("photopath");
                     if (!TextUtils.isEmpty(photopath)) {
-                        Picasso.with(getActivity()).load(photopath).into(mCircleImageViewPhoto);
+                        mPhoto.setImageURI(photopath);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -123,7 +122,7 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
         super.initEvent();
         mTextViewRegisterAndLogin.setOnClickListener(this);
         mLinearLayoutExit.setOnClickListener(this);
-        mCircleImageViewPhoto.setOnClickListener(this);
+        mPhoto.setOnClickListener(this);
         mImageViewSetting.setOnClickListener(this);
         mLinearLayoutDatum.setOnClickListener(this);
         mLinearLayoutReport.setOnClickListener(this);
@@ -200,7 +199,7 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
                         public void onClick() {
                             User mUser = new User(getActivity());
                             mUser.writeUserId(0);
-                            mCircleImageViewPhoto.setImageResource(R.mipmap.managephoto);
+                            mPhoto.setImageURI(Uri.parse("res://com.example.huichuanyi/"+R.mipmap.managephoto));
                             mTextViewDaiTi.setVisibility(View.GONE);
                             mTextViewRegisterAndLogin.setVisibility(View.VISIBLE);
                             Toast.makeText(getActivity(), "退出登录成功", Toast.LENGTH_SHORT).show();
@@ -226,7 +225,7 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
     private void initChildView(View view) {
         mTextViewRegisterAndLogin = (TextView) view.findViewById(R.id.tv_mine_registerandlogin);
         mLinearLayoutExit = (LinearLayout) view.findViewById(R.id.ll_mine_exit);
-        mCircleImageViewPhoto = (CircleImageView) view.findViewById(R.id.iv_mine_photo);
+        mPhoto = (SimpleDraweeView) view.findViewById(R.id.iv_mine_photo);
         mImageViewSetting = (ImageView) view.findViewById(R.id.iv_mine_setting);
         mLinearLayoutDatum = (LinearLayout) view.findViewById(R.id.ll_mine_datum);
         mLinearLayoutReport = (LinearLayout) view.findViewById(R.id.ll_mine_report);
@@ -256,7 +255,7 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
                                 Toast.makeText(getActivity(), "修改失败", Toast.LENGTH_SHORT).show();
                                 return;
                             } else {
-                                Picasso.with(getActivity()).load(result).into(mCircleImageViewPhoto);
+                                mPhoto.setImageURI(result);
                                 Toast.makeText(getActivity(), "修改成功", Toast.LENGTH_SHORT).show();
                             }
 
