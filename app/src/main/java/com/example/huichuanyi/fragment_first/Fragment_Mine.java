@@ -199,7 +199,7 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
                         public void onClick() {
                             User mUser = new User(getActivity());
                             mUser.writeUserId(0);
-                            mPhoto.setImageURI(Uri.parse("res://com.example.huichuanyi/"+R.mipmap.managephoto));
+                            mPhoto.setImageURI(Uri.parse("res://com.example.huichuanyi/" + R.mipmap.managephoto));
                             mTextViewDaiTi.setVisibility(View.GONE);
                             mTextViewRegisterAndLogin.setVisibility(View.VISIBLE);
                             Toast.makeText(getActivity(), "退出登录成功", Toast.LENGTH_SHORT).show();
