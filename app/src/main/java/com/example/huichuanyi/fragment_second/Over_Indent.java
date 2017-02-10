@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.IndentAdapter;
@@ -31,6 +30,7 @@ public class Over_Indent extends BaseFragment implements SwipeRefreshLayout.OnRe
     private IndentAdapter mAdapter;
     private List<Indent> mData;
     private SwipeRefreshLayout mRefreshLayout;
+
     @Override
     protected View initView() {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_progress, null);
@@ -47,28 +47,28 @@ public class Over_Indent extends BaseFragment implements SwipeRefreshLayout.OnRe
     protected void initData() {
         super.initData();
         mData = new ArrayList<>();
-        mAdapter = new IndentAdapter(mData,getActivity());
+        mAdapter = new IndentAdapter(mData, getActivity());
         getData();
     }
 
     private void getData() {
         RequestParams params = new RequestParams(NetConfig.INDENT_URL);
-        String userid = new User(getActivity()).getUseId()+"";
-        params.addBodyParameter("userid",userid);
+        String userid = new User(getActivity()).getUseId() + "";
+        params.addBodyParameter("userid", userid);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                if(TextUtils.equals("0",result)) {
+                if (TextUtils.equals("0", result)) {
                     return;
                 }
                 mData.clear();
                 try {
                     JSONObject obj = new JSONObject(result);
                     JSONArray list = obj.getJSONArray("list");
-                    for (int i = 0;i<list.length();i++){
+                    for (int i = 0; i < list.length(); i++) {
                         JSONObject object = list.getJSONObject(i);
                         String state = object.getString("state");
-                        if (TextUtils.equals("1",state)){
+                        if (TextUtils.equals("1", state)) {
                             Indent indent = new Indent();
                             indent.setMoney(object.getString("money"));
                             indent.setState(object.getString("state"));

@@ -21,6 +21,7 @@ public class RecordActivity extends BaseActivity {
     private ClosetAdapter mAdapter;
     private List<Fragment> mData;
     private List<String> mTitles;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +42,7 @@ public class RecordActivity extends BaseActivity {
         mData.add(new RefreshRecord());
         mTitles.add("购买记录");
         mTitles.add("更新记录");
-        mAdapter = new ClosetAdapter(getSupportFragmentManager(),mData,mTitles);
+        mAdapter = new ClosetAdapter(getSupportFragmentManager(), mData, mTitles);
     }
 
     @Override
@@ -55,7 +56,7 @@ public class RecordActivity extends BaseActivity {
 
     }
 
-    public void back(View view){
+    public void back(View view) {
         finish();
     }
 

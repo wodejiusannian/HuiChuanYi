@@ -40,6 +40,7 @@ public class MC_TripAndElseActivity extends BaseActivity implements View.OnClick
     private SwipeRefreshLayout mRefreshLayout;
     private String word_id;
     private TextView mTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,35 +52,36 @@ public class MC_TripAndElseActivity extends BaseActivity implements View.OnClick
     public void initView() {
         mImageViewBack = (ImageView) findViewById(R.id.iv_my_sorts_back);
         mRecycleView = (RecyclerView) findViewById(R.id.rv_my_sorts_pic);
-        mRefreshLayout= (SwipeRefreshLayout) findViewById(R.id.sl_my_sorts_refresh);
+        mRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.sl_my_sorts_refresh);
         mTextView = (TextView) findViewById(R.id.tv_feilei_zhonglei);
     }
 
     @Override
     public void initData() {
         mData = new ArrayList<>();
-        mAdapter = new MC_MyClothesAdapter2(this,mData);
+        mAdapter = new MC_MyClothesAdapter2(this, mData);
         String yichu = getIntent().getStringExtra("yichu");
         word_id = getIntent().getStringExtra("word_id");
         mTextView.setText(yichu);
         getData();
     }
-    public  void  getData(){
+
+    public void getData() {
         RequestParams params = new RequestParams(NetConfig.CHA_KAN_YI_FU);
-        params.addBodyParameter("user_id",new User(this).getUseId()+"");
-        params.addBodyParameter("clothes_wardrobeId",word_id);
-        params.addBodyParameter("clothes_typeId","%");
-        params.addBodyParameter("clothes_situation","%");
-        params.addBodyParameter("clothes_styleId","%");
-        params.addBodyParameter("clothes_season","%");
-        params.addBodyParameter("clothes_caizhi","%");
-        params.addBodyParameter("clothes_move","1");
+        params.addBodyParameter("user_id", new User(this).getUseId() + "");
+        params.addBodyParameter("clothes_wardrobeId", word_id);
+        params.addBodyParameter("clothes_typeId", "%");
+        params.addBodyParameter("clothes_situation", "%");
+        params.addBodyParameter("clothes_styleId", "%");
+        params.addBodyParameter("clothes_season", "%");
+        params.addBodyParameter("clothes_caizhi", "%");
+        params.addBodyParameter("clothes_move", "1");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 String ret = MyJson.getRet(result);
                 mData.clear();
-                if (TextUtils.equals("0",ret)){
+                if (TextUtils.equals("0", ret)) {
                     Gson gson = new Gson();
                     MyClothess myClothess = gson.fromJson(result, MyClothess.class);
                     mData.addAll(myClothess.getBody().getClothesInfo());
@@ -103,9 +105,10 @@ public class MC_TripAndElseActivity extends BaseActivity implements View.OnClick
             }
         });
     }
+
     @Override
     public void setData() {
-        GridLayoutManager mLayout = new GridLayoutManager(this,3);
+        GridLayoutManager mLayout = new GridLayoutManager(this, 3);
         mRecycleView.setLayoutManager(mLayout);
         mRecycleView.setAdapter(mAdapter);
         mRecycleView.addItemDecoration(new ItemDecoration(15));
@@ -124,14 +127,14 @@ public class MC_TripAndElseActivity extends BaseActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case  R.id.iv_my_sorts_back:
+            case R.id.iv_my_sorts_back:
                 finish();
                 break;
             case R.id.iv_item_recycler_3:
                 int position = (int) v.getTag();
                 Intent intent = new Intent(this, PicActivity.class);
                 intent.putExtra("mList", (Serializable) mData);
-                intent.putExtra("position",position);
+                intent.putExtra("position", position);
                 startActivity(intent);
                 break;
         }
@@ -143,14 +146,14 @@ public class MC_TripAndElseActivity extends BaseActivity implements View.OnClick
         getData();
         mRefreshLayout.setRefreshing(false);
     }
+
     // broadcast receiver
     private BroadcastReceiver mRefreshBroadcastReceiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if (action.equals("action.refreshFriend"))
-            {
+            if (action.equals("action.refreshFriend")) {
                 getData();
             }
         }

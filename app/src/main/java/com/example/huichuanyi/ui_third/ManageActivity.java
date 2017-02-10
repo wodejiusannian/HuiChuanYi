@@ -36,16 +36,16 @@ import java.util.Map;
 
 public class ManageActivity extends BaseActivity implements View.OnClickListener {
     private Button mButtonOrder;
-    private TextView mTextViewManageName,mTextViewIntroduction;
+    private TextView mTextViewManageName, mTextViewIntroduction;
     private ImageView mImageViewBack;
     private RoundImageView mImageViewPhoto;
     private List<Comment> mData;
     private MyListView mListView;
     private CommentAdapter mAdapter;
-    private String price1,price2,price_baseNum1,price_baseNum2,price_raiseNum,price_raisePrice;
-    private String managerid,managerName,managerPhone,managerPhoto,city;
+    private String price1, price2, price_baseNum1, price_baseNum2, price_raiseNum, price_raisePrice;
+    private String managerid, managerName, managerPhone, managerPhoto, city;
     private RatingBar mRatingBar;
-    private Handler mHandler = new Handler(){
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -54,22 +54,23 @@ public class ManageActivity extends BaseActivity implements View.OnClickListener
             managerPhone = bundle.getString("phone");
             managerPhoto = bundle.getString("photo");
             String star = bundle.getString("star");
-            if(!TextUtils.isEmpty(star)) {
+            if (!TextUtils.isEmpty(star)) {
                 Float aFloat = Float.valueOf(star);
                 mRatingBar.setRating(aFloat);
             }
             String introduction = bundle.getString("introduction");
-            if(!TextUtils.isEmpty(managerName)) {
+            if (!TextUtils.isEmpty(managerName)) {
                 mTextViewManageName.setText(managerName);
             }
-            if(!TextUtils.isEmpty(managerPhoto)&&!TextUtils.equals("null",managerPhoto)){
+            if (!TextUtils.isEmpty(managerPhoto) && !TextUtils.equals("null", managerPhoto)) {
                 Picasso.with(ManageActivity.this).load(managerPhoto).into(mImageViewPhoto);
             }
-            if(!TextUtils.isEmpty(introduction)&&!TextUtils.equals("null",introduction)) {
+            if (!TextUtils.isEmpty(introduction) && !TextUtils.equals("null", introduction)) {
                 mTextViewIntroduction.setText(introduction);
             }
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,13 +86,13 @@ public class ManageActivity extends BaseActivity implements View.OnClickListener
         mTextViewManageName = (TextView) findViewById(R.id.tv_manage_name);
         mImageViewPhoto = (RoundImageView) findViewById(R.id.iv_manage_photo);
         mTextViewIntroduction = (TextView) findViewById(R.id.tv_datata_one);
-        mRatingBar= (RatingBar) findViewById(R.id.rb_manage_star);
+        mRatingBar = (RatingBar) findViewById(R.id.rb_manage_star);
     }
 
     @Override
     public void initData() {
         mData = new ArrayList<>();
-        mAdapter = new CommentAdapter(mData,this);
+        mAdapter = new CommentAdapter(mData, this);
         Intent intent = getIntent();
         managerid = intent.getStringExtra("managerid");
         city = intent.getStringExtra("city");
@@ -102,27 +103,27 @@ public class ManageActivity extends BaseActivity implements View.OnClickListener
         price_raiseNum = intent.getStringExtra("price_raiseNum");
         price_raisePrice = intent.getStringExtra("price_raisePrice");
         RequestParams params = new RequestParams(NetConfig.MANAGER_URL);
-        params.addBodyParameter("manager_id",managerid);
+        params.addBodyParameter("manager_id", managerid);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 try {
-                    if("0".equals(result)||"-1".equals(result)) {
+                    if ("0".equals(result) || "-1".equals(result)) {
                         Toast.makeText(ManageActivity.this, "网络错误，请重试", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     JSONObject json = new JSONObject(result);
                     Message mMessage = Message.obtain();
                     Bundle bundle = new Bundle();
-                    bundle.putString("name",json.getString("name"));
-                    bundle.putString("phone",json.getString("phone"));
-                    bundle.putString("photo",json.getString("photo"));
-                    bundle.putString("introduction",json.getString("introduction"));
-                    bundle.putString("star",json.getString("alleval"));
+                    bundle.putString("name", json.getString("name"));
+                    bundle.putString("phone", json.getString("phone"));
+                    bundle.putString("photo", json.getString("photo"));
+                    bundle.putString("introduction", json.getString("introduction"));
+                    bundle.putString("star", json.getString("alleval"));
                     mMessage.setData(bundle);
                     mHandler.sendMessage(mMessage);
                     JSONArray evaluates = json.getJSONArray("evaluates");
-                    for(int i = 0; i <evaluates.length() ; i++) {
+                    for (int i = 0; i < evaluates.length(); i++) {
                         JSONObject object = evaluates.getJSONObject(i);
                         Comment comment = new Comment();
                         comment.setContent(object.getString("content"));
@@ -166,20 +167,20 @@ public class ManageActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case  R.id.bt_manage_order:
-                Map<String,Object> map = new HashMap<>();
-                map.put("managerid",managerid);
-                map.put("managename",managerName+"");
-                map.put("managerPhone",managerPhone);
-                map.put("managerPhoto",managerPhoto);
-                map.put("city",city);
-                map.put("price1",price1);
-                map.put("price2",price2);
-                map.put("price_baseNum1",price_baseNum1);
-                map.put("price_baseNum2",price_baseNum2);
-                map.put("price_raiseNum",price_raiseNum);
-                map.put("price_raisePrice",price_raisePrice);
-                ActivityUtils.switchTo(this,OrderDetailsActivity.class,map);
+            case R.id.bt_manage_order:
+                Map<String, Object> map = new HashMap<>();
+                map.put("managerid", managerid);
+                map.put("managename", managerName + "");
+                map.put("managerPhone", managerPhone);
+                map.put("managerPhoto", managerPhoto);
+                map.put("city", city);
+                map.put("price1", price1);
+                map.put("price2", price2);
+                map.put("price_baseNum1", price_baseNum1);
+                map.put("price_baseNum2", price_baseNum2);
+                map.put("price_raiseNum", price_raiseNum);
+                map.put("price_raisePrice", price_raisePrice);
+                ActivityUtils.switchTo(this, OrderDetailsActivity.class, map);
                 finish();
                 break;
             case R.id.iv_manage_back:

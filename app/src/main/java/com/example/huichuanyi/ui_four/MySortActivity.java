@@ -50,24 +50,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MySortActivity extends BaseActivity implements View.OnClickListener, BtnChangeAdapter_1.GetOcc, CompoundButton.OnCheckedChangeListener, BtnChangeAdapter_4_1.GetStylesssss, BtnChangeAdapter6.GetOccc, BtnChangeAdapter_5_1.GetMaterial, SwipeRefreshLayout.OnRefreshListener {
-    private ImageView mBack,mFilter;
+    private ImageView mBack, mFilter;
     private List<MyClothess.BodyBean.ClothesInfoBean> mData;
     private Toolbar mToolbar;
     private DrawerLayout mDrawer;
-    private RecyclerView mOccasion,mStyle,mMaterial,mSeason,mContent;
-    private TextView mShowOccasion,mShowStyle,mShowMaterial,mShowSeason,mTitle;
-    private String[] occasion = {"商务","休闲","社交"};
+    private RecyclerView mOccasion, mStyle, mMaterial, mSeason, mContent;
+    private TextView mShowOccasion, mShowStyle, mShowMaterial, mShowSeason, mTitle;
+    private String[] occasion = {"商务", "休闲", "社交"};
     private List<Label.CloStyleBean> mStyles;
     private List<Label.CloQualityBean> mMaterials;
     private List<String> mSeasons;
-    private String zhonglei,jsons,tag,user_id,style,season,mmaterial,mOcc,yichuzhonglei;
+    private String zhonglei, jsons, tag, user_id, style, season, mmaterial, mOcc, yichuzhonglei;
     private BtnChangeAdapter_4_1 adapterStyle;
     private BtnChangeAdapter_5_1 adapterMaterial;
     private BtnChangeAdapter6 adapterSeason;
     private MC_MyClothesAdapter2 mAdapter;
-    private ToggleButton mBtnStyle,mBtnMaterial,mBtnSeason;
+    private ToggleButton mBtnStyle, mBtnMaterial, mBtnSeason;
     private SwipeRefreshLayout mFresh;
     private Button btnSure;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,17 +104,17 @@ public class MySortActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void initData() {
         Intent intent = getIntent();
-        zhonglei =intent.getStringExtra("zhonglei");
+        zhonglei = intent.getStringExtra("zhonglei");
         tag = intent.getStringExtra("tag");
         yichuzhonglei = intent.getStringExtra("yichuzhonglei");
-        user_id = new User(this).getUseId()+"";
+        user_id = new User(this).getUseId() + "";
         SharedPreferences hqSysCloTag = getSharedPreferences("hqSysCloTag", 0);
         jsons = hqSysCloTag.getString("hqSysCloTag", "");
         mStyles = new ArrayList<>();
         mMaterials = new ArrayList<>();
         mSeasons = new ArrayList<>();
         mData = new ArrayList<>();
-        mAdapter = new MC_MyClothesAdapter2(this,mData);
+        mAdapter = new MC_MyClothesAdapter2(this, mData);
         initOccasion();
         initStyle();
         initMaterial();
@@ -122,8 +123,8 @@ public class MySortActivity extends BaseActivity implements View.OnClickListener
 
     //场合的数据
     private void initOccasion() {
-        BtnChangeAdapter_1 adapterOcc = new BtnChangeAdapter_1(this,occasion);
-        GridLayoutManager mManager = new GridLayoutManager(this,3);
+        BtnChangeAdapter_1 adapterOcc = new BtnChangeAdapter_1(this, occasion);
+        GridLayoutManager mManager = new GridLayoutManager(this, 3);
         mOccasion.setLayoutManager(mManager);
         mOccasion.setAdapter(adapterOcc);
         mOccasion.addItemDecoration(new ItemDecoration(10));
@@ -131,8 +132,8 @@ public class MySortActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void initStyle() {
-        adapterStyle = new BtnChangeAdapter_4_1(this,mStyles);
-        GridLayoutManager mManager = new GridLayoutManager(this,3);
+        adapterStyle = new BtnChangeAdapter_4_1(this, mStyles);
+        GridLayoutManager mManager = new GridLayoutManager(this, 3);
         mStyle.setLayoutManager(mManager);
         mStyle.setAdapter(adapterStyle);
         mStyle.addItemDecoration(new ItemDecoration(10));
@@ -141,8 +142,8 @@ public class MySortActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void initMaterial() {
-        adapterMaterial = new BtnChangeAdapter_5_1(this,mMaterials);
-        GridLayoutManager mManager = new GridLayoutManager(this,3);
+        adapterMaterial = new BtnChangeAdapter_5_1(this, mMaterials);
+        GridLayoutManager mManager = new GridLayoutManager(this, 3);
         mMaterial.setLayoutManager(mManager);
         mMaterial.setAdapter(adapterMaterial);
         mMaterial.addItemDecoration(new ItemDecoration(10));
@@ -155,8 +156,8 @@ public class MySortActivity extends BaseActivity implements View.OnClickListener
         mSeasons.add("春秋");
         mSeasons.add("夏");
         mSeasons.add("冬");
-        adapterSeason = new BtnChangeAdapter6(this,mSeasons);
-        GridLayoutManager mManager = new GridLayoutManager(this,3);
+        adapterSeason = new BtnChangeAdapter6(this, mSeasons);
+        GridLayoutManager mManager = new GridLayoutManager(this, 3);
         mSeason.setLayoutManager(mManager);
         mSeason.setAdapter(adapterSeason);
         mSeason.addItemDecoration(new ItemDecoration(10));
@@ -170,8 +171,8 @@ public class MySortActivity extends BaseActivity implements View.OnClickListener
             JSONObject object = new JSONObject(jsons);
             JSONObject body = object.getJSONObject("body");
             JSONArray cloQuality = body.getJSONArray("cloQuality");
-            for (int i = 0;i<cloQuality.length();i++){
-               if (j==3&&mMaterials.size()==3){
+            for (int i = 0; i < cloQuality.length(); i++) {
+                if (j == 3 && mMaterials.size() == 3) {
                     break;
                 }
                 JSONObject object1 = cloQuality.getJSONObject(i);
@@ -192,12 +193,12 @@ public class MySortActivity extends BaseActivity implements View.OnClickListener
             JSONObject object = new JSONObject(jsons);
             JSONObject body = object.getJSONObject("body");
             JSONArray cloStyle = body.getJSONArray("cloStyle");
-            for (int i = 0;i<cloStyle.length();i++){
+            for (int i = 0; i < cloStyle.length(); i++) {
                 JSONObject arr = cloStyle.getJSONObject(i);
-                if (j==3&&mStyles.size()==3){
+                if (j == 3 && mStyles.size() == 3) {
                     break;
                 }
-                if (TextUtils.equals(tag,arr.getString("cloType_id"))){
+                if (TextUtils.equals(tag, arr.getString("cloType_id"))) {
                     Label.CloStyleBean style = new Label.CloStyleBean();
                     style.setCloStyle_name(arr.getString("cloStyle_name"));
                     style.setCloStyle_id(arr.getString("cloStyle_id"));
@@ -215,11 +216,11 @@ public class MySortActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void setData() {
         mTitle.setText(zhonglei);
-        GridLayoutManager mManager = new GridLayoutManager(this,3);
+        GridLayoutManager mManager = new GridLayoutManager(this, 3);
         mContent.setLayoutManager(mManager);
         mContent.setAdapter(mAdapter);
         mContent.addItemDecoration(new ItemDecoration(10));
-        getData("","","","");
+        getData("", "", "", "");
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("action.refreshFriend");
         registerReceiver(mRefreshBroadcastReceiver, intentFilter);
@@ -243,7 +244,7 @@ public class MySortActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.tv_drawer_show_material:
                 mShowMaterial.setVisibility(View.GONE);
                 mmaterial = "";
@@ -270,34 +271,34 @@ public class MySortActivity extends BaseActivity implements View.OnClickListener
                 int position = (int) v.getTag();
                 Intent intent = new Intent(this, PicActivity.class);
                 intent.putExtra("mList", (Serializable) mData);
-                intent.putExtra("position",position);
-                Log.i("TAG", "----------------"+yichuzhonglei);
-                intent.putExtra("yichuzhonglei",yichuzhonglei);
+                intent.putExtra("position", position);
+                Log.i("TAG", "----------------" + yichuzhonglei);
+                intent.putExtra("yichuzhonglei", yichuzhonglei);
                 startActivity(intent);
                 break;
             case R.id.btn_drawer_sure:
-                if (TextUtils.isEmpty(mmaterial)&&TextUtils.isEmpty(season)
-                        &&TextUtils.isEmpty(style)&&TextUtils.isEmpty(mOcc)){
+                if (TextUtils.isEmpty(mmaterial) && TextUtils.isEmpty(season)
+                        && TextUtils.isEmpty(style) && TextUtils.isEmpty(mOcc)) {
                     Toast.makeText(MySortActivity.this, "请选择筛选条件", Toast.LENGTH_SHORT).show();
-                }else{
-                    getData(mOcc,style,season,mmaterial);
+                } else {
+                    getData(mOcc, style, season, mmaterial);
                     mDrawer.closeDrawer(Gravity.RIGHT);
                 }
                 break;
             default:
-            break;
+                break;
         }
     }
 
     @Override
-    public void getOcc(String occ,int pos) {
+    public void getOcc(String occ, int pos) {
         mOcc = occ;
         mShowOccasion.setVisibility(View.VISIBLE);
         mShowOccasion.setText(occ);
     }
 
     @Override
-    public void getStylesssss(String id,String name,int pos) {
+    public void getStylesssss(String id, String name, int pos) {
         style = id;
         mShowStyle.setVisibility(View.VISIBLE);
         mShowStyle.setText(name);
@@ -305,26 +306,26 @@ public class MySortActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        switch(buttonView.getId()){
+        switch (buttonView.getId()) {
             case R.id.tg_drawer_style:
-                if (isChecked){
+                if (isChecked) {
                     getStyles(2);
-                }else{
+                } else {
                     getStyles(3);
                 }
                 break;
             case R.id.tg_drawer_material:
-                if (isChecked){
+                if (isChecked) {
                     getMaterials(2);
-                }else{
+                } else {
                     getMaterials(3);
                 }
                 break;
             case R.id.tg_drawer_season:
-                if (isChecked){
+                if (isChecked) {
                     mSeasons.add("四季");
-                }else {
-                    mSeasons.remove(mSeasons.size()-1);
+                } else {
+                    mSeasons.remove(mSeasons.size() - 1);
                 }
                 adapterSeason.notifyDataSetChanged();
                 break;
@@ -340,34 +341,36 @@ public class MySortActivity extends BaseActivity implements View.OnClickListener
         mShowSeason.setVisibility(View.VISIBLE);
         mShowSeason.setText(occc);
     }
+
     @Override
     public void getMaterial(String material) {
         mmaterial = material;
         mShowMaterial.setVisibility(View.VISIBLE);
         mShowMaterial.setText(material);
     }
+
     @Override
     public void onRefresh() {
-        getData("","","","");
+        getData("", "", "", "");
         mFresh.setRefreshing(false);
     }
 
-    public  void  getData(String occ,String style,String season,String material){
+    public void getData(String occ, String style, String season, String material) {
         RequestParams params = new RequestParams(NetConfig.CHA_KAN_YI_FU);
-        params.addBodyParameter("user_id",user_id);
-        params.addBodyParameter("clothes_wardrobeId","1");
-        params.addBodyParameter("clothes_typeId",tag);
-        params.addBodyParameter("clothes_situation",occ);
-        params.addBodyParameter("clothes_styleId",style);
-        params.addBodyParameter("clothes_season",season);
-        params.addBodyParameter("clothes_caizhi",material);
-        params.addBodyParameter("clothes_move","1");
+        params.addBodyParameter("user_id", user_id);
+        params.addBodyParameter("clothes_wardrobeId", "1");
+        params.addBodyParameter("clothes_typeId", tag);
+        params.addBodyParameter("clothes_situation", occ);
+        params.addBodyParameter("clothes_styleId", style);
+        params.addBodyParameter("clothes_season", season);
+        params.addBodyParameter("clothes_caizhi", material);
+        params.addBodyParameter("clothes_move", "1");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 String ret = MyJson.getRet(result);
                 mData.clear();
-                if (TextUtils.equals("0",ret)){
+                if (TextUtils.equals("0", ret)) {
                     Gson gson = new Gson();
                     MyClothess myClothess = gson.fromJson(result, MyClothess.class);
                     mData.addAll(myClothess.getBody().getClothesInfo());
@@ -399,9 +402,8 @@ public class MySortActivity extends BaseActivity implements View.OnClickListener
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if (action.equals("action.refreshFriend"))
-            {
-                getData("","","","");
+            if (action.equals("action.refreshFriend")) {
+                getData("", "", "", "");
             }
         }
     };

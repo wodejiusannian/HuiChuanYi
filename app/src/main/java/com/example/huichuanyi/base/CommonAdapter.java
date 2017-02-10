@@ -32,7 +32,7 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
-        return data.size()==0?0:data.size();
+        return data.size() == 0 ? 0 : data.size();
     }
 
     @Override
@@ -60,8 +60,10 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
         convert(viewHolder, data.get(position));
         return viewHolder.getConvertView();
     }
+
     /**
      * 对外提供的抽象方法，用户只需要考虑如何实现这个方法即可
+     *
      * @param viewHolder
      * @param t
      */

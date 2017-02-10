@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,136 +8,150 @@
 
     <RelativeLayout
         android:id="@+id/tl_manage_mTool"
-        android:background="@color/top_color"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="40dp"
+        android:background="@color/top_color">
+
         <ImageView
             android:id="@+id/iv_manage_back"
-            android:src="@drawable/back"
-            android:layout_height="match_parent"
             android:layout_width="40dp"
-            />
+            android:layout_height="match_parent"
+            android:src="@drawable/back" />
+
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="工作室详情"
             android:textColor="#fff"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_centerInParent="true"
-            android:textSize="@dimen/text_size_big"
-            />
+            android:textSize="@dimen/text_size_big" />
     </RelativeLayout>
+
     <ScrollView
-        android:layout_above="@+id/bt_manage_order"
-        android:layout_below="@+id/tl_manage_mTool"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bt_manage_order"
+        android:layout_below="@+id/tl_manage_mTool">
+
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
             <RelativeLayout
-                android:background="@drawable/background"
-                android:layout_margin="@dimen/distance"
-                android:paddingTop="@dimen/distance"
-                android:paddingLeft="@dimen/distance"
-                android:paddingBottom="@dimen/distance"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/distance"
+                android:background="@drawable/background"
+                android:paddingBottom="@dimen/distance"
+                android:paddingLeft="@dimen/distance"
+                android:paddingTop="@dimen/distance">
+
                 <com.example.huichuanyi.custom.RoundImageView
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/stand"
                     android:id="@+id/iv_manage_photo"
                     android:layout_width="45dp"
-                    android:layout_height="46dp"/>
+                    android:layout_height="46dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/stand" />
+
                 <TextView
-                    android:layout_marginLeft="@dimen/distance"
-                    android:textSize="@dimen/text_size_middle"
                     android:id="@+id/tv_manage_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/distance"
                     android:layout_toRightOf="@+id/iv_manage_photo"
                     android:text="加载中。。。"
                     android:textColor="#333333"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:textSize="@dimen/text_size_middle" />
+
                 <ImageView
-                    android:layout_marginRight="@dimen/distance"
-                    android:src="@mipmap/qualifications"
-                    android:layout_alignParentEnd="true"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="@dimen/distance"
+                    android:src="@mipmap/qualifications" />
+
                 <TextView
                     android:id="@+id/tv_datata_one"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="@dimen/distance"
-                    android:textColor="#666666"
-                    android:layout_marginRight="@dimen/distance"
-                    android:lines="4"
-                    android:layout_toRightOf="@+id/iv_manage_photo"
-                    android:layout_below="@+id/tv_manage_name"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_manage_name"
+                    android:layout_marginLeft="@dimen/distance"
+                    android:layout_marginRight="@dimen/distance"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@+id/iv_manage_photo"
+                    android:lines="4"
+                    android:textColor="#666666" />
             </RelativeLayout>
+
             <RelativeLayout
-                android:paddingLeft="@dimen/distance"
-                android:paddingRight="@dimen/distance"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/distance"
+                android:paddingRight="@dimen/distance">
+
                 <TextView
-                android:id="@+id/tv_manage_evaluate"
-                android:background="@drawable/background"
-                android:text="评价详情"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:paddingLeft="@dimen/distance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-                <RelativeLayout
-                    android:layout_below="@+id/tv_manage_evaluate"
+                    android:id="@+id/tv_manage_evaluate"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="@dimen/distance"
+                    android:paddingTop="5dp"
+                    android:text="评价详情" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_manage_evaluate">
+
                     <TextView
-                        android:paddingLeft="@dimen/distance"
-                        android:layout_marginTop="@dimen/distance"
                         android:id="@+id/tv_manage_addup"
-                        android:layout_centerVertical="true"
-                        android:text="累计评论"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="@dimen/distance"
+                        android:paddingLeft="@dimen/distance"
+                        android:text="累计评论" />
+
                     <RatingBar
-                        android:isIndicator="true"
-                        android:numStars="5"
                         android:id="@+id/rb_manage_star"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/distance"
                         android:layout_toRightOf="@+id/tv_manage_addup"
-                        android:progressTint="@color/text_color"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:isIndicator="true"
+                        android:numStars="5"
+                        android:progressTint="@color/text_color" />
                 </RelativeLayout>
 
             </RelativeLayout>
+
             <com.example.huichuanyi.custom.MyListView
-                android:layout_marginTop="@dimen/distance"
-                android:layout_marginLeft="@dimen/distance"
-                android:layout_marginRight="@dimen/distance"
-                android:divider="#00000000"
-                android:dividerHeight="12dp"
                 android:id="@+id/lv_manage_show"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/distance"
+                android:layout_marginRight="@dimen/distance"
+                android:layout_marginTop="@dimen/distance"
+                android:divider="#00000000"
+                android:dividerHeight="12dp">
 
             </com.example.huichuanyi.custom.MyListView>
 
         </LinearLayout>
 
     </ScrollView>
+
     <Button
         android:id="@+id/bt_manage_order"
-        android:text="立即预约"
-        android:background="@drawable/button_red"
-        android:textColor="@color/write"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/distance"
-        android:layout_marginRight="@dimen/distance"
         android:layout_marginLeft="@dimen/distance"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_marginRight="@dimen/distance"
+        android:background="@drawable/button_red"
+        android:text="立即预约"
+        android:textColor="@color/write" />
 </RelativeLayout>

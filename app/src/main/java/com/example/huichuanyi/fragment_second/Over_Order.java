@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.OverAdapter;
@@ -33,6 +32,7 @@ public class Over_Order extends BaseFragment implements SwipeRefreshLayout.OnRef
     private OverAdapter mAdapter;
     private List<Progress.ListBean> mData;
     private SwipeRefreshLayout mLayout;
+
     @Override
     protected View initView() {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_over, null);
@@ -49,18 +49,18 @@ public class Over_Order extends BaseFragment implements SwipeRefreshLayout.OnRef
     protected void initData() {
         super.initData();
         mData = new ArrayList<>();
-        mAdapter = new OverAdapter(mData,getActivity());
+        mAdapter = new OverAdapter(mData, getActivity());
         getData();
 
     }
 
     private void getData() {
         RequestParams params = new RequestParams(NetConfig.MY_ORDER_OVER);
-        params.addBodyParameter("userid",new User(getActivity()).getUseId()+"");
+        params.addBodyParameter("userid", new User(getActivity()).getUseId() + "");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                if(TextUtils.equals("0",result)) {
+                if (TextUtils.equals("0", result)) {
                     return;
                 }
                 mData.clear();
@@ -107,8 +107,8 @@ public class Over_Order extends BaseFragment implements SwipeRefreshLayout.OnRef
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("orderid",mData.get(position).getId());
-        ActivityUtils.switchTo(getActivity(), MyOrderDetailsActivity.class,map);
+        Map<String, Object> map = new HashMap<>();
+        map.put("orderid", mData.get(position).getId());
+        ActivityUtils.switchTo(getActivity(), MyOrderDetailsActivity.class, map);
     }
 }

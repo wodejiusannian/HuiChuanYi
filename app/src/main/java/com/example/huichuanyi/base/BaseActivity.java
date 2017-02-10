@@ -21,7 +21,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         systemBarTintManager.setNavigationBarTintEnabled(true);
         systemBarTintManager.setTintResource(R.color.text_color);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        getWindow().setSoftInputMode( WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         initView();
         initData();
         setData();

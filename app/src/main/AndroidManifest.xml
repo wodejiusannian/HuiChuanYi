@@ -161,7 +161,6 @@
         <activity android:name=".ui_four.MyOrderDetailsActivity" />
         <activity android:name=".ui_four.ReviseActivity" />
         <activity android:name=".ui_third.LabelsActivity" />
-        <activity android:name=".ui_second.Partner_Clothes" />
         <activity android:name=".ui_third.Item_DetailsActivity" />
         <activity android:name=".ui_four.Add_IndentActivity" />
         <activity android:name=".ui_third.My_AddressActivity" />

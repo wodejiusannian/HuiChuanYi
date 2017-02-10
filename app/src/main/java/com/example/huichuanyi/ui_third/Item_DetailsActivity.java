@@ -10,6 +10,7 @@ import com.example.huichuanyi.utils.ActivityUtils;
 
 public class Item_DetailsActivity extends BaseActivity implements View.OnClickListener {
     private RelativeLayout mJump;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,15 +38,15 @@ public class Item_DetailsActivity extends BaseActivity implements View.OnClickLi
         mJump.setOnClickListener(this);
     }
 
-    public void back(View view){
+    public void back(View view) {
         finish();
     }
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.rl_item_details_select:
-                ActivityUtils.switchTo(this,Write_OrderActivity.class);
+                ActivityUtils.switchTo(this, Write_OrderActivity.class);
                 break;
            /* case R.id.pop_btn_buy_365_sure:
                 ActivityUtils.switchTo(this,My_AddressActivity.class);

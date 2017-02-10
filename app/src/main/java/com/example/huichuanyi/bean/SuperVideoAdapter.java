@@ -46,26 +46,26 @@ public class SuperVideoAdapter extends RecyclerView.Adapter<SuperVideoAdapter.Vi
         final String geticon = listBean.getGeticon();
         final String title = dataList.get(position).getName();
         holder.mTextViewTitle.setText(title);
-        if(!TextUtils.isEmpty(geticon)) {
+        if (!TextUtils.isEmpty(geticon)) {
             Picasso.with(mContext).load(geticon).into(holder.mImageViewCover);
         }
         String geticon1 = listBean.getGeticon();
         String makeuser = listBean.getMakeuser();
         holder.mTextViewName.setText(makeuser);
         String playnum = listBean.getPlaynum();
-        holder.mTextViewCount.setText(playnum+"次播放");
+        holder.mTextViewCount.setText(playnum + "次播放");
         String length = listBean.getLength();
         final String introduce = listBean.getIntroduce();
         final String getpath = listBean.getGetpath();
         final String linkurl = listBean.getLinkurl();
         holder.mTextViewPlayTime.setText(length);
-        if(!TextUtils.isEmpty(geticon1)) {
+        if (!TextUtils.isEmpty(geticon1)) {
             Picasso.with(mContext).load(geticon1).into(holder.mImageViewManager);
         }
         holder.mImageViewShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Share.showShare(mContext,title,linkurl,introduce,linkurl,null);
+                Share.showShare(mContext, title, linkurl, introduce, linkurl, null);
             }
         });
     }
@@ -78,9 +78,9 @@ public class SuperVideoAdapter extends RecyclerView.Adapter<SuperVideoAdapter.Vi
     public class VideoViewHolder extends RecyclerView.ViewHolder {
         public RelativeLayout rlayPlayerControl;
         private RelativeLayout rlayPlayer;
-        private ImageView mImageViewCover,mImageViewManager,mImageViewShare;
-        private TextView mTextViewTitle,mTextViewPlayTime;
-        private TextView mTextViewName,mTextViewCount;
+        private ImageView mImageViewCover, mImageViewManager, mImageViewShare;
+        private TextView mTextViewTitle, mTextViewPlayTime;
+        private TextView mTextViewName, mTextViewCount;
 
         public VideoViewHolder(View itemView) {
             super(itemView);
@@ -93,7 +93,7 @@ public class SuperVideoAdapter extends RecyclerView.Adapter<SuperVideoAdapter.Vi
             mTextViewCount = (TextView) itemView.findViewById(R.id.tv_item_pay_video_count);
             mTextViewPlayTime = (TextView) itemView.findViewById(R.id.tv_play_time);
             mImageViewShare = (ImageView) itemView.findViewById(R.id.tv_item_pay_video_share);
-            if (rlayPlayer!=null){
+            if (rlayPlayer != null) {
                 RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) rlayPlayer.getLayoutParams();
                 layoutParams.height = (int) (SuperPlayerUtils.getScreenWidth((Activity) mContext) * 0.5652f);//这值是网上抄来的，我设置了这个之后就没有全屏回来拉伸的效果，具体为什么我也不太清楚
                 rlayPlayer.setLayoutParams(layoutParams);
@@ -111,16 +111,16 @@ public class SuperVideoAdapter extends RecyclerView.Adapter<SuperVideoAdapter.Vi
                     String geticon = dataList.get(position).getGeticon();
                     String name = dataList.get(position).getName();
                     if (playclick != null)
-                        if(TextUtils.equals("null",userid)) {
-                            Map<String,Object> map = new HashMap<String, Object>();
-                            map.put("videoid",videoid);
-                            map.put("price",price);
-                            map.put("geticon",geticon);
-                            map.put("name",name);
-                            ActivityUtils.switchTo((Activity) mContext, PayVideoActivity.class,map);
+                        if (TextUtils.equals("null", userid)) {
+                            Map<String, Object> map = new HashMap<String, Object>();
+                            map.put("videoid", videoid);
+                            map.put("price", price);
+                            map.put("geticon", geticon);
+                            map.put("name", name);
+                            ActivityUtils.switchTo((Activity) mContext, PayVideoActivity.class, map);
                             ((Activity) mContext).finish();
                             return;
-                      }
+                        }
                     playclick.onPlayclick(position, rlayPlayerControl);
                 }
             });

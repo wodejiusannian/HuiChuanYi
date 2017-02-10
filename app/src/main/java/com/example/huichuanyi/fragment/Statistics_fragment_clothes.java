@@ -27,6 +27,7 @@ public class Statistics_fragment_clothes extends BaseFragment {
     private InfoATClothesAdapter mAdapter;
     private List<Statistics.ListBean> mClothesName;
     private TextView mTextView;
+
     @Override
     protected View initView() {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.info_fragment_clothes, null);
@@ -43,13 +44,13 @@ public class Statistics_fragment_clothes extends BaseFragment {
     protected void initData() {
         super.initData();
         mClothesName = new ArrayList<>();
-        mAdapter = new InfoATClothesAdapter(mClothesName,getActivity());
+        mAdapter = new InfoATClothesAdapter(mClothesName, getActivity());
         RequestParams params = new RequestParams(NetConfig.STATISTIC_CLOTHES);
-        params.addBodyParameter("userid",new User(getActivity()).getUseId()+"");
+        params.addBodyParameter("userid", new User(getActivity()).getUseId() + "");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                if(TextUtils.equals(result,"0")) {
+                if (TextUtils.equals(result, "0")) {
                     Toast.makeText(getActivity(), "亲，您衣橱还没有衣服哦", Toast.LENGTH_SHORT).show();
                     return;
                 }

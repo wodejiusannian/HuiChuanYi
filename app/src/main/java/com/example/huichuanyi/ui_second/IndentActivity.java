@@ -23,6 +23,7 @@ public class IndentActivity extends BaseActivity implements View.OnClickListener
     private List<Fragment> mData;
     private List<String> mTitles;
     private ClosetAdapter mAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +46,7 @@ public class IndentActivity extends BaseActivity implements View.OnClickListener
         mData.add(new Over_Indent());
         mTitles.add("未完成");
         mTitles.add("已完成");
-        mAdapter = new ClosetAdapter(getSupportFragmentManager(),mData,mTitles);
+        mAdapter = new ClosetAdapter(getSupportFragmentManager(), mData, mTitles);
     }
 
     @Override
@@ -62,7 +63,7 @@ public class IndentActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case  R.id.iv_indent_back:
+            case R.id.iv_indent_back:
                 finish();
                 break;
         }

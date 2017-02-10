@@ -37,8 +37,9 @@ public class MC_OldClothesActivity extends BaseActivity implements View.OnClickL
     private List<MyClothess.BodyBean.ClothesInfoBean> mData;
     private MC_OldAdapter mAdapter;
     private SwipeRefreshLayout mRefreshLayout;
-    private TextView mTextView,mTextViewALL;
+    private TextView mTextView, mTextViewALL;
     private String user_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,33 +51,35 @@ public class MC_OldClothesActivity extends BaseActivity implements View.OnClickL
     public void initView() {
         mImageViewBack = (ImageView) findViewById(R.id.iv_my_sort_back);
         mRecycleView = (RecyclerView) findViewById(R.id.rv_my_sort_pic);
-        mRefreshLayout= (SwipeRefreshLayout) findViewById(R.id.sl_my_sort_refresh);
+        mRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.sl_my_sort_refresh);
         mTextView = (TextView) findViewById(R.id.tv_feilei_zhonglei);
         mTextViewALL = (TextView) findViewById(R.id.tv_old_clothes_all);
     }
 
     @Override
     public void initData() {
-        user_id = new User(this).getUseId()+"";
+        user_id = new User(this).getUseId() + "";
         mData = new ArrayList<>();
-        mAdapter = new MC_OldAdapter(this,mData);
+        mAdapter = new MC_OldAdapter(this, mData);
         mTextView.setText("旧衣回收");
         getData();
     }
-    public  void  getData(){
-        Map<String,String> map = new HashMap<>();
-        map.put("user_id",user_id);
-        map.put("clothes_wardrobeId","");
-        map.put("clothes_situation","");
-        map.put("clothes_styleId","");
-        map.put("clothes_season","");
-        map.put("clothes_caizhi","");
-        map.put("clothes_move","0");
-        UtilsInternet.getInstance().post(NetConfig.CHA_KAN_YI_FU,map,this);
+
+    public void getData() {
+        Map<String, String> map = new HashMap<>();
+        map.put("user_id", user_id);
+        map.put("clothes_wardrobeId", "");
+        map.put("clothes_situation", "");
+        map.put("clothes_styleId", "");
+        map.put("clothes_season", "");
+        map.put("clothes_caizhi", "");
+        map.put("clothes_move", "0");
+        UtilsInternet.getInstance().post(NetConfig.CHA_KAN_YI_FU, map, this);
     }
+
     @Override
     public void setData() {
-        GridLayoutManager mLayout = new GridLayoutManager(this,3);
+        GridLayoutManager mLayout = new GridLayoutManager(this, 3);
         mRecycleView.setLayoutManager(mLayout);
         mRecycleView.setAdapter(mAdapter);
         mRecycleView.addItemDecoration(new ItemDecoration(15));
@@ -92,12 +95,12 @@ public class MC_OldClothesActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case  R.id.iv_my_sort_back:
+            case R.id.iv_my_sort_back:
                 finish();
                 break;
             case R.id.tv_old_clothes_all:
                 MySelfDialog mySelfDialog = new MySelfDialog(this);
-                mySelfDialog.setOnNoListener("取消",null);
+                mySelfDialog.setOnNoListener("取消", null);
                 mySelfDialog.setOnYesListener("确定", new MySelfDialog.OnYesClickListener() {
                     @Override
                     public void onClick() {
@@ -113,15 +116,15 @@ public class MC_OldClothesActivity extends BaseActivity implements View.OnClickL
 
     private void ReStoreAll() {
         RequestParams params = new RequestParams(NetConfig.RESTORE_ALL);
-        params.addBodyParameter("userid",user_id);
+        params.addBodyParameter("userid", user_id);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                if(TextUtils.equals("1",result)) {
+                if (TextUtils.equals("1", result)) {
                     Toast.makeText(MC_OldClothesActivity.this, "还原成功", Toast.LENGTH_SHORT).show();
                     mData.clear();
                     mAdapter.notifyDataSetChanged();
-                }else{
+                } else {
                     Toast.makeText(MC_OldClothesActivity.this, "还原失败", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -152,7 +155,7 @@ public class MC_OldClothesActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onResponse(String result) {
         String ret = MyJson.getRet(result);
-        if (TextUtils.equals("0",ret)){
+        if (TextUtils.equals("0", ret)) {
             mData.clear();
             Gson gson = new Gson();
             MyClothess myClothess = gson.fromJson(result, MyClothess.class);

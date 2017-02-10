@@ -43,9 +43,9 @@ public class PayVideoActivity extends BaseActivity implements View.OnClickListen
     private List<Video.ListBean> mData;
     private PayVideoAdapter mAdapter;
     private Button mButton;
-    private TextView mTextView,mTextViewName;
+    private TextView mTextView, mTextViewName;
     private String price;
-    private int intPrice,isAliWeChat = 1;
+    private int intPrice, isAliWeChat = 1;
     private Set<String> mId;
     private StringBuffer buffer = new StringBuffer();
     private RoundImageView mRoundImageView;
@@ -72,8 +72,11 @@ public class PayVideoActivity extends BaseActivity implements View.OnClickListen
                 default:
                     break;
             }
-        } ;
+        }
+
+        ;
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,21 +99,21 @@ public class PayVideoActivity extends BaseActivity implements View.OnClickListen
         String geticon = getIntent().getStringExtra("geticon");
         String name = getIntent().getStringExtra("name");
         mTextViewName.setText(name);
-        if(!TextUtils.isEmpty(geticon)) {
+        if (!TextUtils.isEmpty(geticon)) {
             Picasso.with(this).load(geticon).into(mRoundImageView);
         }
         intPrice = Integer.parseInt(price);
         mData = new ArrayList<>();
         mId = new HashSet<>();
         mId.add(videoid);
-        mAdapter = new PayVideoAdapter(mData,this,this);
+        mAdapter = new PayVideoAdapter(mData, this, this);
         getData();
     }
 
     private void getData() {
         RequestParams params = new RequestParams(NetConfig.PAY_VIDEO);
-        params.addBodyParameter("userid",new User(this).getUseId()+"");
-        params.addBodyParameter("videoid",videoid);
+        params.addBodyParameter("userid", new User(this).getUseId() + "");
+        params.addBodyParameter("videoid", videoid);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -150,11 +153,11 @@ public class PayVideoActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onChanged() {
                 super.onChanged();
-                int money = mAdapter.getMoney()+intPrice;
-                if(mId.size() == 4) {
+                int money = mAdapter.getMoney() + intPrice;
+                if (mId.size() == 4) {
                     money -= 20;
                 }
-                mTextView.setText(money+"");
+                mTextView.setText(money + "");
                 mButton.setText("确认付款");
             }
         });
@@ -188,12 +191,12 @@ public class PayVideoActivity extends BaseActivity implements View.OnClickListen
                 Integer position = (Integer) buttonView.getTag();
                 String id = mData.get(position).getId();
                 if (position != null) {
-                    if(isChecked) {
+                    if (isChecked) {
                         mId.add(id);
-                    }else{
+                    } else {
                         mId.remove(id);
                     }
-                    mData.get(position).isChecked=isChecked;
+                    mData.get(position).isChecked = isChecked;
                     mAdapter.notifyDataSetChanged();
                 }
                 break;
@@ -202,22 +205,22 @@ public class PayVideoActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onClick() {
-        switch(isAliWeChat){
+        switch (isAliWeChat) {
             case 1:
-                buffer.delete(0,buffer.length());
+                buffer.delete(0, buffer.length());
                 for (String str : mId) {
                     buffer.append(str);
                     buffer.append(",");
                 }
-                buffer.delete(buffer.length()-1,buffer.length());
+                buffer.delete(buffer.length() - 1, buffer.length());
                 String s = mTextView.getText().toString();
                 int anInt = Integer.parseInt(s);
                 RequestParams params = new RequestParams(NetConfig.PAY_BUG);
-                params.addBodyParameter("userid",new User(PayVideoActivity.this).getUseId()+"");
-                params.addBodyParameter("money",anInt+"");
+                params.addBodyParameter("userid", new User(PayVideoActivity.this).getUseId() + "");
+                params.addBodyParameter("money", anInt + "");
                 params.addBodyParameter("city", MySharedPreferences.getCity(this));
-                params.addBodyParameter("type","1");
-                params.addBodyParameter("videosid",buffer.toString());
+                params.addBodyParameter("type", "1");
+                params.addBodyParameter("videosid", buffer.toString());
                 x.http().post(params, new Callback.CommonCallback<String>() {
                     @Override
                     public void onSuccess(final String get) {
@@ -251,17 +254,17 @@ public class PayVideoActivity extends BaseActivity implements View.OnClickListen
 
                     }
                 });
-            break;
+                break;
             case 2:
 
-            break;
+                break;
             default:
 
-            break;
+                break;
         }
     }
 
-    public void back(View view){
+    public void back(View view) {
         finish();
     }
 }

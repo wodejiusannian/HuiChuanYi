@@ -15,7 +15,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WoDeYiChuActivity extends BaseActivity implements View.OnClickListener {
-    private ImageView mImageViewBack,JiaTingYiChu,ChuXingYiChu,JiuYiHuiShou,QiTaYiChu;
+    private ImageView mImageViewBack, JiaTingYiChu, ChuXingYiChu, JiuYiHuiShou, QiTaYiChu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,28 +53,28 @@ public class WoDeYiChuActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        Map<String,Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         switch (v.getId()) {
-            case  R.id.iv_my_clothes_back:
+            case R.id.iv_my_clothes_back:
                 finish();
                 break;
             case R.id.iv_my_clothes_jiatingyichu:
-                map.put("yichu","家庭衣橱");
-                ActivityUtils.switchTo(this,MC_HomeActivity.class,map);
+                map.put("yichu", "家庭衣橱");
+                ActivityUtils.switchTo(this, MC_HomeActivity.class, map);
                 break;
             case R.id.iv_my_clothes_chuxingyichu:
-                map.put("word_id","2");
-                map.put("yichu","出行衣橱");
-                ActivityUtils.switchTo(this,MC_TripAndElseActivity.class,map);
+                map.put("word_id", "2");
+                map.put("yichu", "出行衣橱");
+                ActivityUtils.switchTo(this, MC_TripAndElseActivity.class, map);
                 break;
             case R.id.iv_my_clothes_jiuyihuishou:
-                map.put("yichu","旧衣回收");
-                ActivityUtils.switchTo(this,MC_OldClothesActivity.class);
+                map.put("yichu", "旧衣回收");
+                ActivityUtils.switchTo(this, MC_OldClothesActivity.class);
                 break;
             case R.id.iv_my_clothes_qitayichu:
-                map.put("word_id","4");
-                map.put("yichu","其他衣橱");
-                ActivityUtils.switchTo(this,MC_TripAndElseActivity.class,map);
+                map.put("word_id", "4");
+                map.put("yichu", "其他衣橱");
+                ActivityUtils.switchTo(this, MC_TripAndElseActivity.class, map);
                 break;
         }
     }

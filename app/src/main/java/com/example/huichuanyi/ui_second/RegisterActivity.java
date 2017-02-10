@@ -36,7 +36,7 @@ import cn.sharesdk.wechat.friends.Wechat;
 import de.greenrobot.event.EventBus;
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener, MyThirdData {
-    private ImageView mImageViewBack,mImageViewWeChat,mImageViewQQ;
+    private ImageView mImageViewBack, mImageViewWeChat, mImageViewQQ;
     private Button mButtonGet;
     private EditText mEditTextPhone;
     private String number;
@@ -60,7 +60,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
-    public void initData(){
+    public void initData() {
     }
 
     @Override
@@ -85,20 +85,20 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 break;
             case R.id.bt_register_getsms:
                 number = mEditTextPhone.getText().toString().trim();
-                if(!TextUtils.isEmpty(number)) {
-                    if(number.length()==11) {
+                if (!TextUtils.isEmpty(number)) {
+                    if (number.length() == 11) {
                         RequestParams paramss = new RequestParams(NetConfig.IS_REGISTER);
-                        paramss.addBodyParameter("phone",number);
+                        paramss.addBodyParameter("phone", number);
                         x.http().post(paramss, new Callback.CommonCallback<String>() {
                             @Override
                             public void onSuccess(String result) {
-                                if(TextUtils.equals("1",result)) {
+                                if (TextUtils.equals("1", result)) {
                                     Toast.makeText(RegisterActivity.this, "该手机号已注册", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
-                                Map<String,Object> map = new HashMap<>();
-                                map.put("phone",number);
-                                ActivityUtils.switchTo(RegisterActivity.this,AuthCodeActivity.class,map);
+                                Map<String, Object> map = new HashMap<>();
+                                map.put("phone", number);
+                                ActivityUtils.switchTo(RegisterActivity.this, AuthCodeActivity.class, map);
                                 finish();
                             }
 
@@ -117,15 +117,15 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
                             }
                         });
-                    }else{
+                    } else {
                         Toast.makeText(RegisterActivity.this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
                     }
-                }else{
+                } else {
                     Toast.makeText(RegisterActivity.this, "请输入手机号", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.tv_register_yetlogin:
-                ActivityUtils.switchTo(this,LoginActivity.class);
+                ActivityUtils.switchTo(this, LoginActivity.class);
                 finish();
                 break;
             case R.id.iv_register_wechat:
@@ -140,11 +140,11 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
-    public void getData(String url, final String userId,String userName) {
+    public void getData(String url, final String userId, String userName) {
         RequestParams params = new RequestParams(NetConfig.THIRD_LOGIN);
-        params.addBodyParameter("photopath",url);
-        params.addBodyParameter("account",userId);
-        params.addBodyParameter("username",userName);
+        params.addBodyParameter("photopath", url);
+        params.addBodyParameter("account", userId);
+        params.addBodyParameter("username", userName);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -152,21 +152,21 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     JSONObject object = new JSONObject(result);
                     JSONArray list = object.getJSONArray("list");
                     JSONObject jsonObject = list.getJSONObject(0);
-                    String id =jsonObject.getString("id");
+                    String id = jsonObject.getString("id");
                     String phone_number = jsonObject.getString("phone_number");
                     int b = 0;
                     try {
-                       b = (int)Double.parseDouble(id);
+                        b = (int) Double.parseDouble(id);
                     } catch (NumberFormatException e) {
                         e.printStackTrace();
                     }
-                    if(b>0) {
-                        if(TextUtils.equals(phone_number,"null")){
-                            Map<String,Object> map = new HashMap<String, Object>();
-                            map.put("userid",userId);
+                    if (b > 0) {
+                        if (TextUtils.equals(phone_number, "null")) {
+                            Map<String, Object> map = new HashMap<String, Object>();
+                            map.put("userid", userId);
                             new User(RegisterActivity.this).writeUserId(b);
                             EventBus.getDefault().post(new MessageEvent("11"));
-                            ActivityUtils.switchTo(RegisterActivity.this,BoundActivity.class,map);
+                            ActivityUtils.switchTo(RegisterActivity.this, BoundActivity.class, map);
                             Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                             finish();
                             return;
@@ -175,7 +175,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                         EventBus.getDefault().post(new MessageEvent("11"));
                         Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                         finish();
-                    }else if(b==0) {
+                    } else if (b == 0) {
                         Toast.makeText(RegisterActivity.this, "登录失败，请重新登录", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {

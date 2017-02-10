@@ -2,9 +2,9 @@ package com.example.huichuanyi.ui_third;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.example.huichuanyi.R;
-import com.example.huichuanyi.alipay.AuthResult;
 import com.example.huichuanyi.alipay.PayResult;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
@@ -31,19 +30,19 @@ import org.xutils.x;
 
 import java.util.Map;
 
-public class                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       BuChaJiaActivity extends BaseActivity implements TextWatcher, View.OnClickListener {
+public class BuChaJiaActivity extends BaseActivity implements TextWatcher, View.OnClickListener {
     private EditText mEditTextYiFuLiang;
     private TextView mTextViewYingBuChaJia;
-    private String YetPay,orderid,manager_name;
+    private String YetPay, orderid, manager_name;
     private int nowMoney;
     private Button mButton;
-    private int AliPayOrWechat = 1 ;
+    private int AliPayOrWechat = 1;
     private static final int SDK_PAY_FLAG = 1;
     private static final int SDK_AUTH_FLAG = 2;
     private ImageView mImageViewBack,
-            mImageViewAlipayNormal,mImageViewAlipaySelect,
-            mImageViewWechatNormal,mImageViewWechatSelect;
-    private RelativeLayout mRelativeLayoutAliPay,mRelativeLayoutWechat;
+            mImageViewAlipayNormal, mImageViewAlipaySelect,
+            mImageViewWechatNormal, mImageViewWechatSelect;
+    private RelativeLayout mRelativeLayoutAliPay, mRelativeLayoutWechat;
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @SuppressWarnings("unused")
@@ -60,30 +59,17 @@ public class                                                                    
                     } else {
                         Toast.makeText(BuChaJiaActivity.this, "支付失败", Toast.LENGTH_SHORT).show();
                     }
-                    ActivityUtils.switchTo(BuChaJiaActivity.this,MyOrderActivity.class);
-                    break;
-                }
-                case SDK_AUTH_FLAG: {
-                    @SuppressWarnings("unchecked")
-                    AuthResult authResult = new AuthResult((Map<String, String>) msg.obj, true);
-                    String resultStatus = authResult.getResultStatus();
-                    if (TextUtils.equals(resultStatus, "9000") && TextUtils.equals(authResult.getResultCode(), "200")) {
-                        Toast.makeText(BuChaJiaActivity.this,
-                                "授权成功\n" + String.format("authCode:%s",
-                                        authResult.getAuthCode()), Toast.LENGTH_SHORT)
-                                .show();
-                    } else {
-                        Toast.makeText(BuChaJiaActivity.this,
-                                "授权失败" + String.format("authCode:%s",
-                                        authResult.getAuthCode()), Toast.LENGTH_SHORT).show();
-                    }
+                    ActivityUtils.switchTo(BuChaJiaActivity.this, MyOrderActivity.class);
                     break;
                 }
                 default:
                     break;
             }
-        } ;
+        }
+
+        ;
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,7 +93,7 @@ public class                                                                    
     @Override
     public void initData() {
         Intent intent = getIntent();
-        YetPay =intent .getStringExtra("YetPay");
+        YetPay = intent.getStringExtra("YetPay");
         orderid = intent.getStringExtra("orderid");
         manager_name = intent.getStringExtra("manager_name");
     }
@@ -122,7 +108,7 @@ public class                                                                    
         mEditTextYiFuLiang.addTextChangedListener(this);
         mButton.setOnClickListener(this);
         mRelativeLayoutAliPay.setOnClickListener(this);
-       // mRelativeLayoutWechat.setOnClickListener(this);
+        // mRelativeLayoutWechat.setOnClickListener(this);
         mImageViewBack.setOnClickListener(this);
     }
 
@@ -133,46 +119,47 @@ public class                                                                    
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if(!TextUtils.isEmpty(s)) {
-                Integer nowCount = getInt(s.toString());
-                int anInt = getInt(YetPay);
-                if(200<nowCount&&nowCount<=500) {
-                    nowMoney = 698-anInt;
-                    mTextViewYingBuChaJia.setText("应补差价"+nowMoney);
-                    return;
-                }else if(500<nowCount) {
-                    int a = (nowCount - 500) / 200;
-                    if(nowCount%100 != 0) {
-                        a=a+1;
-                    }
-                    nowMoney = (a * 300 + 698)-anInt;
-                    mTextViewYingBuChaJia.setText("应补差价"+nowMoney);
-                }else{
-                    mTextViewYingBuChaJia.setText("应补差价0元");
+        if (!TextUtils.isEmpty(s)) {
+            Integer nowCount = getInt(s.toString());
+            int anInt = getInt(YetPay);
+            if (200 < nowCount && nowCount <= 500) {
+                nowMoney = 698 - anInt;
+                mTextViewYingBuChaJia.setText("应补差价" + nowMoney);
+                return;
+            } else if (500 < nowCount) {
+                int a = (nowCount - 500) / 200;
+                if (nowCount % 100 != 0) {
+                    a = a + 1;
                 }
+                nowMoney = (a * 300 + 698) - anInt;
+                mTextViewYingBuChaJia.setText("应补差价" + nowMoney);
+            } else {
+                mTextViewYingBuChaJia.setText("应补差价0元");
             }
+        }
     }
 
     @Override
     public void afterTextChanged(Editable s) {
 
     }
-    public int getInt(String str){
+
+    public int getInt(String str) {
         return Integer.parseInt(str);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case  R.id.btn_pay_sure:
+            case R.id.btn_pay_sure:
                 switch (AliPayOrWechat) {
-                    case  1:
+                    case 1:
                         RequestParams params = new RequestParams(NetConfig.BU_CHA_JIA);
-                        params.addBodyParameter("orderid",orderid);
-                        params.addBodyParameter("type","1");
-                        params.addBodyParameter("money",nowMoney+"");
-                        params.addBodyParameter("manager_name",manager_name);
-                        params.addBodyParameter("remarks","");
+                        params.addBodyParameter("orderid", orderid);
+                        params.addBodyParameter("type", "1");
+                        params.addBodyParameter("money", nowMoney + "");
+                        params.addBodyParameter("manager_name", manager_name);
+                        params.addBodyParameter("remarks", "");
                         x.http().post(params, new Callback.CommonCallback<String>() {
                             @Override
                             public void onSuccess(final String get) {
@@ -208,11 +195,11 @@ public class                                                                    
                         });
 
                         break;
-                    case  2:
+                    case 2:
                         Toast.makeText(BuChaJiaActivity.this, "正在开发，敬请期待", Toast.LENGTH_SHORT).show();
                         break;
                 }
-            break;
+                break;
             case R.id.rl_buchajia_alipay:
                 mImageViewAlipaySelect.setVisibility(View.VISIBLE);
                 mImageViewAlipayNormal.setVisibility(View.GONE);

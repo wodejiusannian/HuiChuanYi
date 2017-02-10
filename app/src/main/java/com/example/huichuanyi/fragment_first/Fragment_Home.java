@@ -11,10 +11,10 @@ import com.example.huichuanyi.base.BaseFragment;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.modle.Banner;
 import com.example.huichuanyi.secondui.AtMyAcitivty;
+import com.example.huichuanyi.secondui.StatisticsActivity;
 import com.example.huichuanyi.ui_second.DaPeiRiJiActivity;
 import com.example.huichuanyi.ui_second.HuiMeiWeiKeActivity;
 import com.example.huichuanyi.ui_second.MyOrderActivity;
-import com.example.huichuanyi.ui_second.Partner_Clothes;
 import com.example.huichuanyi.ui_second.RegisterActivity;
 import com.example.huichuanyi.ui_second.WoDeYiChuActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
@@ -43,9 +43,10 @@ public class Fragment_Home extends BaseFragment implements View.OnClickListener,
             mImageViewCloset;
     private List<Banner.ListBean> mBanners;
     private Callback.Cancelable cancelable;
+
     @Override
     protected View initView() {
-        view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_home,null);
+        view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_home, null);
         initChildView(view);
         return view;
     }
@@ -99,9 +100,9 @@ public class Fragment_Home extends BaseFragment implements View.OnClickListener,
     }
 
     private void initViewPager() {
-        mAdapter = new HomeAdapter(mViewPager,mBanners,getActivity());
+        mAdapter = new HomeAdapter(mViewPager, mBanners, getActivity());
         mViewPager.setAdapter(mAdapter);
-        mViewPager.setHintView(new ColorPointHintView(getActivity(),Color.parseColor("#ac0000"), Color.WHITE));
+        mViewPager.setHintView(new ColorPointHintView(getActivity(), Color.parseColor("#ac0000"), Color.WHITE));
         mViewPager.setPlayDelay(JUMP_TIME);
     }
 
@@ -109,31 +110,31 @@ public class Fragment_Home extends BaseFragment implements View.OnClickListener,
     public void onClick(View v) {
         int useId = mUser.getUseId();
         switch (v.getId()) {
-            case  R.id.iv_home_match:
-                if(useId>0) {
-                    ActivityUtils.switchTo(getActivity(),DaPeiRiJiActivity.class);
-                }else {
+            case R.id.iv_home_match:
+                if (useId > 0) {
+                    ActivityUtils.switchTo(getActivity(), DaPeiRiJiActivity.class);
+                } else {
                     ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
                 }
                 break;
             case R.id.iv_home_info:
-                if(useId>0) {
-                    ActivityUtils.switchTo(getActivity(),Partner_Clothes.class);
-                }else {
+                if (useId > 0) {
+                    ActivityUtils.switchTo(getActivity(), StatisticsActivity.class);
+                } else {
                     ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
                 }
                 break;
             case R.id.iv_home_partner:
-                if(useId>0) {
-                    ActivityUtils.switchTo(getActivity(),HuiMeiWeiKeActivity.class);
-                }else {
+                if (useId > 0) {
+                    ActivityUtils.switchTo(getActivity(), HuiMeiWeiKeActivity.class);
+                } else {
                     ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
                 }
                 break;
             case R.id.iv_home_closet:
-                if(useId>0) {
-                    ActivityUtils.switchTo(getActivity(),WoDeYiChuActivity.class);
-                }else {
+                if (useId > 0) {
+                    ActivityUtils.switchTo(getActivity(), WoDeYiChuActivity.class);
+                } else {
                     ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
                 }
                 break;
@@ -143,7 +144,7 @@ public class Fragment_Home extends BaseFragment implements View.OnClickListener,
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(cancelable!=null && !cancelable.isCancelled()) {
+        if (cancelable != null && !cancelable.isCancelled()) {
             cancelable.cancel();
         }
     }
@@ -159,18 +160,18 @@ public class Fragment_Home extends BaseFragment implements View.OnClickListener,
     @Override
     public void onItemClick(int position) {
         int useId = new User(getActivity()).getUseId();
-        if(useId==0) {
+        if (useId == 0) {
             ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
             return;
         }
-        if(position==0) {
-            ActivityUtils.switchTo(getActivity(),AtMyAcitivty.class);
+        if (position == 0) {
+            ActivityUtils.switchTo(getActivity(), AtMyAcitivty.class);
         }
-        if(position==1) {
-            ActivityUtils.switchTo(getActivity(),MyOrderActivity.class);
+        if (position == 1) {
+            ActivityUtils.switchTo(getActivity(), MyOrderActivity.class);
         }
-        if(position==2) {
-            ActivityUtils.switchTo(getActivity(),DaPeiRiJiActivity.class);
+        if (position == 2) {
+            ActivityUtils.switchTo(getActivity(), DaPeiRiJiActivity.class);
         }
     }
 }

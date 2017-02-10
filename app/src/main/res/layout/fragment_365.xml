@@ -1,15 +1,212 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:text="365"
-        android:gravity="center"
-        android:textSize="@dimen/text_size_18"
-        android:textColor="@color/main_color_write"
-        android:background="@color/text_color"
+
+    <RelativeLayout
+        android:id="@+id/tv_365_top"
         android:layout_width="match_parent"
-        android:layout_height="40dp" />
+        android:layout_height="40dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/text_color"
+            android:gravity="center"
+            android:text="365"
+            android:textColor="@color/main_color_write"
+            android:textSize="@dimen/text_size_18" />
+
+        <TextView
+            android:id="@+id/tv_365_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/distance_10"
+            android:text="历史记录"
+            android:textColor="@color/main_color_write"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_no_pay_money"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_365_top"
+        android:orientation="vertical"
+        android:padding="@dimen/distance_10"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background"
+            android:orientation="vertical"
+            android:padding="@dimen/distance_10">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="抱歉，您当前并未开通365服务" />
+
+            <Button
+                android:id="@+id/btn_will_pay"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/distance_10"
+                android:background="@drawable/btn_select"
+                android:text="立即开通"
+                android:textColor="@color/main_color_write" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance_10"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/distance_10"
+                android:text="365特权" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_6c" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/distance_10"
+                android:paddingLeft="@dimen/distance_20"
+                android:paddingRight="@dimen/distance_20"
+                android:paddingTop="@dimen/distance_10">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/sv_365_one"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    fresco:placeholderImage="@mipmap/ic_launcher" />
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    fresco:placeholderImage="@mipmap/ic_launcher" />
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    fresco:placeholderImage="@mipmap/ic_launcher" />
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/sv_365_one"
+                    android:layout_marginTop="@dimen/distance_10"
+                    fresco:placeholderImage="@mipmap/ic_launcher" />
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/sv_365_one"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/distance_10"
+                    fresco:placeholderImage="@mipmap/ic_launcher" />
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/sv_365_one"
+                    android:layout_marginTop="@dimen/distance_10"
+                    fresco:placeholderImage="@mipmap/ic_launcher" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance_10"
+            android:background="@drawable/background"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/distance_10"
+                android:text="365功能须知" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_6c" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/distance_10"
+                android:text="☆用户只能开通本地城市工作室" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/distance_10"
+                android:text="☆开通服务一年后方可以更换工作室" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_yet_pay_money"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tv_365_top"
+        android:layout_marginTop="@dimen/distance_10"
+        android:clipChildren="false"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:weightSum="8">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_365_pics"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="7"
+            android:clipChildren="false">
+
+        </android.support.v4.view.ViewPager>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btn_365_add"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/btn_select"
+                android:text="加入衣橱"
+                android:textColor="@color/main_color_write" />
+        </RelativeLayout>
+
+    </LinearLayout>
 
 
 </RelativeLayout>

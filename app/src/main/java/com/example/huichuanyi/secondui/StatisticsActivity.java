@@ -23,6 +23,7 @@ public class StatisticsActivity extends BaseActivity implements View.OnClickList
     private List<Fragment> mData;
     private List<String> mTitles;
     private TabLayout mTabLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +46,7 @@ public class StatisticsActivity extends BaseActivity implements View.OnClickList
         mData.add(new Statistics_fragment_oca());
         mTitles.add("按服饰分");
         mTitles.add("按场合分");
-        mAdapter = new ClosetAdapter(getSupportFragmentManager(),mData,mTitles);
+        mAdapter = new ClosetAdapter(getSupportFragmentManager(), mData, mTitles);
     }
 
     @Override
@@ -62,7 +63,7 @@ public class StatisticsActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case  R.id.iv_statistics_back:
+            case R.id.iv_statistics_back:
                 finish();
                 break;
         }

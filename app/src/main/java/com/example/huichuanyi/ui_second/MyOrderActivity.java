@@ -15,13 +15,14 @@ import com.example.huichuanyi.fragment_second.Progress_Order;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyOrderActivity extends BaseActivity  {
+public class MyOrderActivity extends BaseActivity {
 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private List<Fragment> mData;
     private List<String> mTitles;
     private ClosetAdapter mAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +43,7 @@ public class MyOrderActivity extends BaseActivity  {
         mData.add(new Over_Order());
         mTitles.add("全部预约");
         mTitles.add("待评价");
-        mAdapter = new ClosetAdapter(getSupportFragmentManager(),mData,mTitles);
+        mAdapter = new ClosetAdapter(getSupportFragmentManager(), mData, mTitles);
     }
 
     @Override
@@ -55,7 +56,7 @@ public class MyOrderActivity extends BaseActivity  {
     public void setListener() {
     }
 
-    public void back(View view){
+    public void back(View view) {
         finish();
     }
 }

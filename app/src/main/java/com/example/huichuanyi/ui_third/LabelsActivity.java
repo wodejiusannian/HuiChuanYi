@@ -46,12 +46,13 @@ public class LabelsActivity extends BaseActivity implements View.OnClickListener
     private List<Pic> mData;
     private MyPicAdapter mAdapter;
     private LabelPopupWindow mPop;
-    private String jsons,user_id;
+    private String jsons, user_id;
     private int morePosition = -1;
-    private TextView mShowPop,mUp;
+    private TextView mShowPop, mUp;
     private String photoTime;
-    private  Callback.Cancelable post;
+    private Callback.Cancelable post;
     private ProgressDialog mProgress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,10 +75,10 @@ public class LabelsActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void initData() {
-        user_id = new User(this).getUseId()+"";
-        photoTime = new Date().getTime()+"";
+        user_id = new User(this).getUseId() + "";
+        photoTime = new Date().getTime() + "";
         mData = new ArrayList<>();
-        mAdapter = new MyPicAdapter(this,mData,jsons);
+        mAdapter = new MyPicAdapter(this, mData, jsons);
     }
 
     @Override
@@ -94,21 +95,22 @@ public class LabelsActivity extends BaseActivity implements View.OnClickListener
     }
 
 
-    public void invokeCamera(){
+    public void invokeCamera() {
         PhotoPickerIntent intent = new PhotoPickerIntent(this);
         intent.setSelectModel(SelectModel.MULTI);
         intent.setShowCarema(true);
         intent.setMaxTotal(9);
         startActivityForResult(intent, REQUEST_CAMERA_CODE);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_CAMERA_CODE:
-                    mPhotos =  data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT);
-                    for (int i = 0;i<mPhotos.size();i++){
+                    mPhotos = data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT);
+                    for (int i = 0; i < mPhotos.size(); i++) {
                         Pic pic = new Pic();
                         pic.setPicPath(mPhotos.get(i));
                         List<String> style = getStyle("1");
@@ -125,7 +127,7 @@ public class LabelsActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.iv_labels_back:
                 finish();
                 break;
@@ -146,21 +148,21 @@ public class LabelsActivity extends BaseActivity implements View.OnClickListener
                 break;
             default:
 
-            break;
+                break;
         }
     }
 
     //更新下数据
-    private List<String> getStyle(String str){
+    private List<String> getStyle(String str) {
         List<String> mStyles = new ArrayList<>();
         List<String> mStylesId = new ArrayList<>();
         try {
             JSONObject object = new JSONObject(jsons);
             JSONObject body = object.getJSONObject("body");
             JSONArray cloStyle = body.getJSONArray("cloStyle");
-            for (int i = 0;i<cloStyle.length();i++){
+            for (int i = 0; i < cloStyle.length(); i++) {
                 JSONObject arr = cloStyle.getJSONObject(i);
-                if (TextUtils.equals(str,arr.getString("cloType_id"))){
+                if (TextUtils.equals(str, arr.getString("cloType_id"))) {
                     mStyles.add(arr.getString("cloStyle_name"));
                     mStylesId.add(arr.getString("cloStyle_id"));
                 }
@@ -173,15 +175,15 @@ public class LabelsActivity extends BaseActivity implements View.OnClickListener
     }
 
     //更新下数据
-    private List<String> getStyleId(String str){
+    private List<String> getStyleId(String str) {
         List<String> mStylesId = new ArrayList<>();
         try {
             JSONObject object = new JSONObject(jsons);
             JSONObject body = object.getJSONObject("body");
             JSONArray cloStyle = body.getJSONArray("cloStyle");
-            for (int i = 0;i<cloStyle.length();i++){
+            for (int i = 0; i < cloStyle.length(); i++) {
                 JSONObject arr = cloStyle.getJSONObject(i);
-                if (TextUtils.equals(str,arr.getString("cloType_id"))){
+                if (TextUtils.equals(str, arr.getString("cloType_id"))) {
                     mStylesId.add(arr.getString("cloStyle_id"));
                 }
             }
@@ -198,11 +200,11 @@ public class LabelsActivity extends BaseActivity implements View.OnClickListener
         JSONObject objects = new JSONObject();
         JSONObject object = null;
         try {
-            objects.put("user_id",user_id);
+            objects.put("user_id", user_id);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        for (int x = 0 ;x<mData.size();x++){
+        for (int x = 0; x < mData.size(); x++) {
             Pic pic = mData.get(x);
             try {
                 object = new JSONObject();
@@ -216,22 +218,22 @@ public class LabelsActivity extends BaseActivity implements View.OnClickListener
                 String size = pic.getSize();
                 String brand = pic.getBrand();
                 String location = pic.getLocation();
-                if (!TextUtils.isEmpty(clothes_situation)&&!TextUtils.isEmpty(sort)&&
-                        !TextUtils.isEmpty(clothes_styleId)){
-                    object.put("clothes_styleId",clothes_styleId);
-                    object.put("clothes_typeId",sort);
-                    object.put("clothes_season",clothes_season);
-                    object.put("clothes_situation",clothes_situation);
-                    object.put("clothes_caizhi",clothes_caizhi);
-                    object.put("clothes_buyTime",time);
-                    object.put("clothes_price",price);
-                    object.put("clothes_size",size);
-                    object.put("clothes_brand",brand);
-                    object.put("clothes_location",location);
-                    object.put("clothes_imgName",photoTime+"_"+x+".png");
+                if (!TextUtils.isEmpty(clothes_situation) && !TextUtils.isEmpty(sort) &&
+                        !TextUtils.isEmpty(clothes_styleId)) {
+                    object.put("clothes_styleId", clothes_styleId);
+                    object.put("clothes_typeId", sort);
+                    object.put("clothes_season", clothes_season);
+                    object.put("clothes_situation", clothes_situation);
+                    object.put("clothes_caizhi", clothes_caizhi);
+                    object.put("clothes_buyTime", time);
+                    object.put("clothes_price", price);
+                    object.put("clothes_size", size);
+                    object.put("clothes_brand", brand);
+                    object.put("clothes_location", location);
+                    object.put("clothes_imgName", photoTime + "_" + x + ".png");
                     jsonArray.put(object);
                     object = null;
-                }else{
+                } else {
                     Toast.makeText(LabelsActivity.this, "请为每一件衣服选定标签", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -241,8 +243,8 @@ public class LabelsActivity extends BaseActivity implements View.OnClickListener
         }
         try {
             String s = jsonArray.toString();
-            objects.put("body",jsonArray);
-            Log.i("TAG", "-------------"+objects.toString());
+            objects.put("body", jsonArray);
+            Log.i("TAG", "-------------" + objects.toString());
             mProgress.show();
             upPhoto(objects.toString());
         } catch (JSONException e) {
@@ -252,16 +254,16 @@ public class LabelsActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void getData(String occ, String sort, String style, String season,
-                        String material,int tagOcc,int tagSort,int tagStyle,
-                        String time,String price,String size,String brand,
-                        String location,String clothes_styleId) {
-        if (TextUtils.isEmpty(occ)){
+                        String material, int tagOcc, int tagSort, int tagStyle,
+                        String time, String price, String size, String brand,
+                        String location, String clothes_styleId) {
+        if (TextUtils.isEmpty(occ)) {
             occ = "休闲";
         }
-        if (TextUtils.isEmpty(sort)){
+        if (TextUtils.isEmpty(sort)) {
             sort = "上衣";
         }
-        if (TextUtils.isEmpty(style)){
+        if (TextUtils.isEmpty(style)) {
             season = "西服套装";
         }
         Pic mPic = new Pic();
@@ -282,32 +284,33 @@ public class LabelsActivity extends BaseActivity implements View.OnClickListener
         mPic.setStyle(style);
         mPic.setSeason(season);
         mPic.setMaterial(material);
-        mPic.setmListStyle(getStyle((tagSort+1)+""));
+        mPic.setmListStyle(getStyle((tagSort + 1) + ""));
         mData.remove(morePosition);
-        mData.add(morePosition,mPic);
+        mData.add(morePosition, mPic);
         mAdapter.notifyDataSetChanged();
     }
+
     //上传衣服
-    public void upPhoto(String jsons){
+    public void upPhoto(String jsons) {
         RequestParams params = new RequestParams(NetConfig.LABEL_PATH_UP);
-        params.addBodyParameter("data",jsons);
-        if (mPhotos.size()==0){
+        params.addBodyParameter("data", jsons);
+        if (mPhotos.size() == 0) {
             return;
         }
-        for(int i = 0; i <mPhotos.size() ; i++) {
+        for (int i = 0; i < mPhotos.size(); i++) {
             Bitmap ratio = ImageUtils.getSmallBitmap(mPhotos.get(i));
-            String s = ImageUtils.saveBitMapToFile(this, photoTime +"_"+ i +".png", ratio, true);
+            String s = ImageUtils.saveBitMapToFile(this, photoTime + "_" + i + ".png", ratio, true);
             params.addBodyParameter("clothes_imgs", new File(s));
         }
 
-         post = x.http().post(params, new Callback.CommonCallback<String>() {
+        post = x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 String condition = MyJson.parseJson(result);
 
                 Toast.makeText(LabelsActivity.this, condition, Toast.LENGTH_SHORT).show();
 
-                if (TextUtils.equals("上传成功",condition)){
+                if (TextUtils.equals("上传成功", condition)) {
                     finish();
                 }
 
@@ -333,7 +336,7 @@ public class LabelsActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (post!=null&&post.isCancelled()){
+        if (post != null && post.isCancelled()) {
             post.cancel();
         }
     }

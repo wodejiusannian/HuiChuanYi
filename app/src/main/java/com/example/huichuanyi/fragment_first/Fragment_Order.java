@@ -41,11 +41,12 @@ import java.util.List;
 import java.util.Map;
 
 public class Fragment_Order extends BaseFragment implements View.OnClickListener, OnItemClickListener {
-    private RollPagerView  mRollPagerView;
+    private RollPagerView mRollPagerView;
     private List<Banner.ListBean> mImages;
     private HomeAdapter mPageAdapter;
     private static final int JUMP_TIME = 4000;
-    private Button mButtonLocation,mButtonTime,mButtonOrder;
+    private Button mButtonLocation, mButtonTime, mButtonOrder;
+
     @Override
     protected View initView() {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_first_order, null);
@@ -72,9 +73,9 @@ public class Fragment_Order extends BaseFragment implements View.OnClickListener
         super.setData();
         mRollPagerView.setAdapter(mPageAdapter);
         String city = MySharedPreferences.getCity(getContext());
-        if(city == null||TextUtils.equals("null",city)||TextUtils.isEmpty(city)) {
+        if (city == null || TextUtils.equals("null", city) || TextUtils.isEmpty(city)) {
             mButtonLocation.setText("亲，请添加定位权限");
-        }else{
+        } else {
             mButtonLocation.setText(city);
         }
         mButtonTime.setText(getNowTime());
@@ -90,7 +91,7 @@ public class Fragment_Order extends BaseFragment implements View.OnClickListener
     }
 
     private void initViewPager() {
-        mPageAdapter= new HomeAdapter(mRollPagerView,mImages,getActivity());
+        mPageAdapter = new HomeAdapter(mRollPagerView, mImages, getActivity());
         RequestParams params = new RequestParams(NetConfig.BANNER_ONE);
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
@@ -119,15 +120,15 @@ public class Fragment_Order extends BaseFragment implements View.OnClickListener
         mRollPagerView.setPlayDelay(JUMP_TIME);
     }
 
-    public String getNowTime(){
+    public String getNowTime() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
         GregorianCalendar ca = new GregorianCalendar();
         int i = ca.get(GregorianCalendar.AM_PM);
         String nowTime = sdf.format(new Date());
-        if(i==0) {
-            return nowTime+" "+"上午";
-        }else if(i==1) {
-            return nowTime+" "+"下午";
+        if (i == 0) {
+            return nowTime + " " + "上午";
+        } else if (i == 1) {
+            return nowTime + " " + "下午";
         }
         return null;
     }
@@ -135,21 +136,21 @@ public class Fragment_Order extends BaseFragment implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case  R.id.btn_fragment_first_location:
+            case R.id.btn_fragment_first_location:
                 initEditText();
                 break;
-            case  R.id.btn_fragment_first_time:
+            case R.id.btn_fragment_first_time:
                 initDatePicker();
                 break;
             case R.id.btn_fragment_first_order:
-                Map<String,Object> map = new HashMap<>();
+                Map<String, Object> map = new HashMap<>();
                 String mLocation = mButtonLocation.getText().toString().trim();
                 String mTime = mButtonTime.getText().toString().trim();
-                if(!TextUtils.isEmpty(mLocation)&&!TextUtils.isEmpty(mTime)&&!TextUtils.equals("亲，请添加定位权限",mLocation)) {
+                if (!TextUtils.isEmpty(mLocation) && !TextUtils.isEmpty(mTime) && !TextUtils.equals("亲，请添加定位权限", mLocation)) {
                     map.put("location", mLocation);
                     map.put("time", mTime);
                     ActivityUtils.switchTo(getActivity(), LiJiYuYueActivity.class, map);
-                }else {
+                } else {
                     Toast.makeText(getActivity(), "请输入所在城市哦", Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -157,7 +158,7 @@ public class Fragment_Order extends BaseFragment implements View.OnClickListener
     }
 
     private void initDatePicker() {
-        SimpleDateFormat sdf = new SimpleDateFormat( "yyyy年MM月dd日" );
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
         String str = sdf.format(new Date());
         DateTimePickDialogUtil dateTimePicKDialog = new DateTimePickDialogUtil(
                 getActivity(), str);
@@ -167,18 +168,18 @@ public class Fragment_Order extends BaseFragment implements View.OnClickListener
     @Override
     public void onItemClick(int position) {
         int useId = new User(getActivity()).getUseId();
-        if(useId==0) {
+        if (useId == 0) {
             ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
             return;
         }
-        if(position==0) {
-            ActivityUtils.switchTo(getActivity(),AtMyAcitivty.class);
+        if (position == 0) {
+            ActivityUtils.switchTo(getActivity(), AtMyAcitivty.class);
         }
-        if(position==1) {
-            ActivityUtils.switchTo(getActivity(),MyOrderActivity.class);
+        if (position == 1) {
+            ActivityUtils.switchTo(getActivity(), MyOrderActivity.class);
         }
-        if(position==2) {
-            ActivityUtils.switchTo(getActivity(),DaPeiRiJiActivity.class);
+        if (position == 2) {
+            ActivityUtils.switchTo(getActivity(), DaPeiRiJiActivity.class);
         }
 
     }
@@ -191,10 +192,10 @@ public class Fragment_Order extends BaseFragment implements View.OnClickListener
             @Override
             public void onClick(View v) {
                 String mLocation = edit.getText().toString();
-                if(!TextUtils.isEmpty(mLocation)) {
+                if (!TextUtils.isEmpty(mLocation)) {
                     mButtonLocation.setText(mLocation);
                     dialog.dismiss();
-                }else{
+                } else {
                     Toast.makeText(getActivity(), "亲，请输入地址哦", Toast.LENGTH_SHORT).show();
                 }
             }

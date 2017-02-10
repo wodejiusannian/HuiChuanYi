@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="5">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/sv_item_clothes"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        fresco:placeholderImage="@mipmap/wode"
+        fresco:roundBottomLeft="false"
+        fresco:roundBottomRight="false"
+        fresco:roundedCornerRadius="5dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/shape_item_clothes_info"
+        android:padding="@dimen/distance_10">
+
+        <TextView
+            android:id="@+id/item_clothes_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="轻奢"
+            android:textSize="@dimen/text_size_15" />
+
+        <TextView
+            android:id="@+id/item_clothes_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/distance_15"
+            android:layout_toRightOf="@+id/item_clothes_style"
+            android:text="name"
+            android:textSize="@dimen/text_size_15" />
+
+        <TextView
+            android:id="@+id/item_clothes_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_clothes_style"
+            android:layout_marginTop="@dimen/distance_10"
+            android:text="介绍" />
+        <TextView
+            android:text=">"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</LinearLayout>

@@ -1,111 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context=".ui_third.BuChaJiaActivity">
+
     <RelativeLayout
         android:id="@+id/tl_active_show"
-        android:background="@color/top_color"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="40dp"
+        android:background="@color/top_color">
+
         <ImageView
             android:id="@+id/iv_buchajia_back"
-            android:src="@drawable/back"
-            android:layout_height="match_parent"
             android:layout_width="40dp"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            />
+            android:src="@drawable/back" />
+
         <TextView
             android:id="@+id/tv_active_active"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="补差价"
             android:textColor="#fff"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_centerInParent="true"
-            android:textSize="@dimen/text_size_big"
-            />
+            android:textSize="@dimen/text_size_big" />
     </RelativeLayout>
+
     <RelativeLayout
-        android:padding="@dimen/distance"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="@dimen/distance">
+
         <TextView
             android:id="@+id/tv_shijia_clothes"
-            android:text="请输入实际的衣服量"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="请输入实际的衣服量" />
+
         <TextView
             android:id="@+id/tv_buchajia_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
             android:layout_below="@+id/tv_shijia_clothes"
             android:layout_marginTop="@dimen/distance"
-            android:background="@color/back_ground"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"/>
-        <EditText
-            android:layout_below="@+id/tv_buchajia_line"
-            android:id="@+id/shi_ji_yifu"
-            android:hint="请输入实际的衣服量"
-            android:layout_marginTop="@dimen/distance"
-            android:maxLength="6"
-            android:phoneNumber="true"
-            android:background="@drawable/background"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"/>
+            android:background="@color/back_ground" />
 
-            <TextView
-                android:layout_below="@+id/shi_ji_yifu"
-                android:id="@+id/ying_bu_chajia"
-                android:gravity="center"
-                android:text="应补差价0元"
-                android:layout_marginTop="@dimen/distance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        <RelativeLayout
-            android:layout_marginTop="30dp"
-            android:id="@+id/rl_buchajia_alipay"
-            android:paddingTop="@dimen/distance"
-            android:paddingBottom="@dimen/distance"
-            android:layout_below="@+id/ying_bu_chajia"
-            android:background="@drawable/background"
+        <EditText
+            android:id="@+id/shi_ji_yifu"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="50dp"
+            android:layout_below="@+id/tv_buchajia_line"
+            android:layout_marginTop="@dimen/distance"
+            android:background="@drawable/background"
+            android:hint="请输入实际的衣服量"
+            android:maxLength="6"
+            android:phoneNumber="true" />
+
+        <TextView
+            android:id="@+id/ying_bu_chajia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/shi_ji_yifu"
+            android:layout_marginTop="@dimen/distance"
+            android:gravity="center"
+            android:text="应补差价0元" />
+
+        <RelativeLayout
+            android:id="@+id/rl_buchajia_alipay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ying_bu_chajia"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/background"
+            android:paddingBottom="@dimen/distance"
+            android:paddingTop="@dimen/distance">
+
             <ImageView
                 android:id="@+id/iv_buchajia_wechatphoto"
-                android:src="@mipmap/alipay"
-                android:layout_marginLeft="@dimen/distance"
-                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/distance"
+                android:src="@mipmap/alipay" />
+
             <TextView
                 android:id="@+id/iv_buchajia_wechatname"
-                android:text="支付宝支付"
-                android:layout_toRightOf="@+id/iv_buchajia_wechatphoto"
-                android:layout_marginLeft="@dimen/distance"
-                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/distance"
+                android:layout_toRightOf="@+id/iv_buchajia_wechatphoto"
+                android:text="支付宝支付" />
+
             <ImageView
                 android:id="@+id/iv_buchajia_alipayNomal"
-                android:src="@mipmap/pay_nomal"
-                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/distance"
                 android:gravity="end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:src="@mipmap/pay_nomal" />
+
             <ImageView
                 android:id="@+id/iv_buchajia_alipaySelect"
-                android:src="@mipmap/pay_select"
-                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/distance"
                 android:gravity="end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:src="@mipmap/pay_select" />
         </RelativeLayout>
         <!--<RelativeLayout
             android:layout_marginTop="@dimen/distance"
@@ -152,15 +161,15 @@
                 android:layout_height="wrap_content"/>
         </RelativeLayout>-->
         <Button
-            android:layout_alignParentBottom="true"
             android:id="@+id/btn_pay_sure"
-            android:text="确认支付"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/distance"
             android:layout_marginTop="@dimen/distance"
             android:background="@drawable/button_red"
-            android:textColor="@color/write"
-            android:layout_marginBottom="@dimen/distance"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:text="确认支付"
+            android:textColor="@color/write" />
     </RelativeLayout>
 
 </LinearLayout>

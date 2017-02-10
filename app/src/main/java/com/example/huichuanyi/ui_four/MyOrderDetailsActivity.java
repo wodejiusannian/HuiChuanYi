@@ -31,26 +31,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MyOrderDetailsActivity extends BaseActivity implements View.OnClickListener {
-    private ImageView mMyOrderBack,mComplain;
-    private TextView mName,mPhone,mAddress,mTime,mCount,
-            mAllMoney1,mAllMoney2,mManageName,mRemarks;
+    private ImageView mMyOrderBack, mComplain;
+    private TextView mName, mPhone, mAddress, mTime, mCount,
+            mAllMoney1, mAllMoney2, mManageName, mRemarks;
     private RoundImageView mPhoto;
     private Button mButtonAgain;
     private String city;
-    private Handler mHandler = new Handler(){
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             Bundle data = msg.getData();
             String order_person = data.getString("order_person");
             String phone = data.getString("phone");
-            String address =data.getString("address");
-            String order_time =data.getString("order_time");
-            String money =data.getString("money");
-            String num =data.getString("num");
-            String namager_photo =data.getString("namager_photo");
-            String namager_name =data.getString("namager_name");
-            String remarks =data.getString("remarks");
+            String address = data.getString("address");
+            String order_time = data.getString("order_time");
+            String money = data.getString("money");
+            String num = data.getString("num");
+            String namager_photo = data.getString("namager_photo");
+            String namager_name = data.getString("namager_name");
+            String remarks = data.getString("remarks");
             mName.setText(order_person);
             mPhone.setText(phone);
             mAddress.setText(address);
@@ -60,11 +60,12 @@ public class MyOrderDetailsActivity extends BaseActivity implements View.OnClick
             mAllMoney2.setText(money);
             mManageName.setText(namager_name);
             mRemarks.setText(remarks);
-            if (namager_photo.length()>5){
+            if (namager_photo.length() > 5) {
                 Picasso.with(MyOrderDetailsActivity.this).load(namager_photo).into(mPhoto);
             }
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,44 +94,44 @@ public class MyOrderDetailsActivity extends BaseActivity implements View.OnClick
         String orderid = getIntent().getStringExtra("orderid");
         String userid = new User(this).getUseId() + "";
         RequestParams params = new RequestParams(NetConfig.GET_DETAILS_SHOPPING);
-        params.addBodyParameter("userid",userid);
-        params.addBodyParameter("orderid",orderid);
+        params.addBodyParameter("userid", userid);
+        params.addBodyParameter("orderid", orderid);
 
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                   if (TextUtils.equals("0",result)){
-                       return;
-                   }else {
-                       try {
-                           JSONObject object = new JSONObject(result);
-                           String order_person = object.getString("order_person");
-                           String phone = object.getString("phone");
-                           String address = object.getString("address");
-                           String order_time = object.getString("order_time");
-                           String money = object.getString("money");
-                           String num = object.getString("num");
-                           String namager_photo = object.getString("namager_photo");
-                           String namager_name = object.getString("namager_name");
-                           String remarks = object.getString("remarks");
-                           city = object.getString("city");
-                           Bundle bundle = new Bundle();
-                           bundle.putString("order_person",order_person);
-                           bundle.putString("phone",phone);
-                           bundle.putString("address",address);
-                           bundle.putString("order_time",order_time);
-                           bundle.putString("money",money);
-                           bundle.putString("num",num);
-                           bundle.putString("namager_photo",namager_photo);
-                           bundle.putString("namager_name",namager_name);
-                           bundle.putString("remarks",remarks);
-                           Message msg = Message.obtain();
-                           msg.setData(bundle);
-                           mHandler.sendMessage(msg);
-                       } catch (JSONException e) {
-                           e.printStackTrace();
-                       }
-                   }
+                if (TextUtils.equals("0", result)) {
+                    return;
+                } else {
+                    try {
+                        JSONObject object = new JSONObject(result);
+                        String order_person = object.getString("order_person");
+                        String phone = object.getString("phone");
+                        String address = object.getString("address");
+                        String order_time = object.getString("order_time");
+                        String money = object.getString("money");
+                        String num = object.getString("num");
+                        String namager_photo = object.getString("namager_photo");
+                        String namager_name = object.getString("namager_name");
+                        String remarks = object.getString("remarks");
+                        city = object.getString("city");
+                        Bundle bundle = new Bundle();
+                        bundle.putString("order_person", order_person);
+                        bundle.putString("phone", phone);
+                        bundle.putString("address", address);
+                        bundle.putString("order_time", order_time);
+                        bundle.putString("money", money);
+                        bundle.putString("num", num);
+                        bundle.putString("namager_photo", namager_photo);
+                        bundle.putString("namager_name", namager_name);
+                        bundle.putString("remarks", remarks);
+                        Message msg = Message.obtain();
+                        msg.setData(bundle);
+                        mHandler.sendMessage(msg);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
 
             @Override
@@ -163,15 +164,15 @@ public class MyOrderDetailsActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.iv_my_details_back:
                 finish();
                 break;
             case R.id.bt_my_order_again:
-                Map<String,Object> map = new HashMap<>();
-                map.put("location",city);
-                map.put("time",getNowTime());
-                ActivityUtils.switchTo(this, LiJiYuYueActivity.class,map);
+                Map<String, Object> map = new HashMap<>();
+                map.put("location", city);
+                map.put("time", getNowTime());
+                ActivityUtils.switchTo(this, LiJiYuYueActivity.class, map);
                 finish();
                 break;
             /*case R.id.iv_my_order_complain:
@@ -179,18 +180,19 @@ public class MyOrderDetailsActivity extends BaseActivity implements View.OnClick
                 break;*/
             default:
 
-            break;
+                break;
         }
     }
-    public String getNowTime(){
+
+    public String getNowTime() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
         GregorianCalendar ca = new GregorianCalendar();
         int i = ca.get(GregorianCalendar.AM_PM);
         String nowTime = sdf.format(new Date());
-        if(i==0) {
-            return nowTime+" "+"上午";
-        }else if(i==1) {
-            return nowTime+" "+"下午";
+        if (i == 0) {
+            return nowTime + " " + "上午";
+        } else if (i == 1) {
+            return nowTime + " " + "下午";
         }
         return null;
     }

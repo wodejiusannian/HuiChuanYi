@@ -1,7 +1,6 @@
 package com.example.huichuanyi.bean;
 
 /**
- *
  * @author Super南仔
  * @time 2016-9-19
  */

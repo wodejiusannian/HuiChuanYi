@@ -9,8 +9,9 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
 
 public class ComplainActivity extends BaseActivity implements View.OnClickListener {
-    private ImageView mImageViewBack,mImageViewPhone;
+    private ImageView mImageViewBack, mImageViewPhone;
     private RadioGroup mRadioGroup;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +42,7 @@ public class ComplainActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.iv_complain_back:
                 finish();
                 break;
@@ -50,7 +51,7 @@ public class ComplainActivity extends BaseActivity implements View.OnClickListen
                 break;
             default:
 
-            break;
+                break;
         }
     }
 }

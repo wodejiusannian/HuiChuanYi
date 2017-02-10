@@ -33,7 +33,7 @@ public class Add_IndentActivity extends BaseActivity {
 
     }
 
-    public void back(){
+    public void back() {
         finish();
     }
 

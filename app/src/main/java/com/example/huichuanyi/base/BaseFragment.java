@@ -24,17 +24,25 @@ public abstract class BaseFragment extends Fragment {
     }
 
 
-    protected  abstract View initView();
+    protected abstract View initView();
 
-    protected  void  initData(){
+    protected void initData() {
 
-    };
-    protected  void initEvent(){
+    }
 
-    };
-    protected  void setData(){
+    ;
 
-    };
+    protected void initEvent() {
+
+    }
+
+    ;
+
+    protected void setData() {
+
+    }
+
+    ;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

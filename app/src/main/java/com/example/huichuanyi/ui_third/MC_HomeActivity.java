@@ -27,6 +27,7 @@ public class MC_HomeActivity extends BaseActivity implements View.OnClickListene
     private TabLayout mTabLayout;
     private TextView mTextViewUp;
     private TextView mTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +53,9 @@ public class MC_HomeActivity extends BaseActivity implements View.OnClickListene
         mData.add(new ChangHeFragment());
         mTitles.add("按分类");
         mTitles.add("按场合");
-        mAdapter = new ClosetAdapter(getSupportFragmentManager(),mData,mTitles);
+        mAdapter = new ClosetAdapter(getSupportFragmentManager(), mData, mTitles);
     }
+
     @Override
     public void setData() {
         mTabLayout.setupWithViewPager(mViewPager);
@@ -69,11 +71,11 @@ public class MC_HomeActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case  R.id.iv_closet_main_back:
+            case R.id.iv_closet_main_back:
                 finish();
                 break;
             case R.id.tv_clothes_up:
-                ActivityUtils.switchTo(this,LabelsActivity.class);
+                ActivityUtils.switchTo(this, LabelsActivity.class);
                 break;
         }
     }

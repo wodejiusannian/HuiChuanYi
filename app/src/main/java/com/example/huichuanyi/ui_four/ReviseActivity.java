@@ -19,7 +19,7 @@ import org.xutils.x;
 
 public class ReviseActivity extends BaseActivity implements View.OnClickListener {
     private ImageView mBack;
-    private EditText mOldPWD,mNewPWD;
+    private EditText mOldPWD, mNewPWD;
     private Button mRevisePWD;
 
     @Override
@@ -54,7 +54,7 @@ public class ReviseActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.iv_revise_back:
                 finish();
                 break;
@@ -70,20 +70,20 @@ public class ReviseActivity extends BaseActivity implements View.OnClickListener
     private void revisePWD() {
         String newPWD = mNewPWD.getText().toString().trim();
         String oldPWD = mOldPWD.getText().toString().trim();
-        if (!TextUtils.isEmpty(newPWD)&&!TextUtils.isEmpty(oldPWD)){
-            if (newPWD.length()>5&&newPWD.length()<17){
+        if (!TextUtils.isEmpty(newPWD) && !TextUtils.isEmpty(oldPWD)) {
+            if (newPWD.length() > 5 && newPWD.length() < 17) {
                 RequestParams params = new RequestParams(NetConfig.REVISE_PATH);
-                params.addBodyParameter("userid",new User(this).getUseId()+"");
-                params.addBodyParameter("newpwd",newPWD);
-                params.addBodyParameter("oldpwd",oldPWD);
+                params.addBodyParameter("userid", new User(this).getUseId() + "");
+                params.addBodyParameter("newpwd", newPWD);
+                params.addBodyParameter("oldpwd", oldPWD);
                 x.http().post(params, new Callback.CommonCallback<String>() {
                     @Override
                     public void onSuccess(String result) {
-                        if (TextUtils.equals("1",result)){
+                        if (TextUtils.equals("1", result)) {
                             Toast.makeText(ReviseActivity.this, "密码修改成功", Toast.LENGTH_SHORT).show();
-                        }else if (TextUtils.equals("0",result)){
+                        } else if (TextUtils.equals("0", result)) {
                             Toast.makeText(ReviseActivity.this, "密码修改失败，请确认旧密码是否正确", Toast.LENGTH_SHORT).show();
-                        }else if (TextUtils.equals("-1",result)){
+                        } else if (TextUtils.equals("-1", result)) {
                             Toast.makeText(ReviseActivity.this, "请求数据失败", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -103,10 +103,10 @@ public class ReviseActivity extends BaseActivity implements View.OnClickListener
 
                     }
                 });
-            }else{
+            } else {
                 Toast.makeText(ReviseActivity.this, "密码长度为6-16位的字符和数字", Toast.LENGTH_SHORT).show();
             }
-        }else{
+        } else {
             Toast.makeText(ReviseActivity.this, "旧密码和新密码不能为空", Toast.LENGTH_SHORT).show();
         }
     }

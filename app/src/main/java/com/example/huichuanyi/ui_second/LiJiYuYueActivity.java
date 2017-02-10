@@ -26,6 +26,7 @@ public class LiJiYuYueActivity extends BaseActivity implements View.OnClickListe
     private List<String> mTitles;
     private List<Fragment> mData;
     private ClosetAdapter mAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +53,7 @@ public class LiJiYuYueActivity extends BaseActivity implements View.OnClickListe
         mData.add(new Fragment_Default());
         mData.add(new Fragment_KPS());
         mData.add(new Fragment_Sales());
-        mAdapter = new ClosetAdapter(getSupportFragmentManager(),mData,mTitles);
+        mAdapter = new ClosetAdapter(getSupportFragmentManager(), mData, mTitles);
     }
 
     @Override
@@ -69,7 +70,7 @@ public class LiJiYuYueActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case  R.id.iv_order_back:
+            case R.id.iv_order_back:
                 finish();
                 break;
         }

@@ -5,49 +5,53 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="com.example.huichuanyi.ui_third.LabelsActivity">
+
     <RelativeLayout
         android:id="@+id/rl_labels_mTool"
-        android:background="@color/top_color"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="40dp"
+        android:background="@color/top_color">
+
         <ImageView
             android:id="@+id/iv_labels_back"
-            android:src="@drawable/back"
-            android:layout_height="match_parent"
             android:layout_width="40dp"
-            />
+            android:layout_height="match_parent"
+            android:src="@drawable/back" />
+
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="批量上传"
             android:textColor="#fff"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_centerInParent="true"
-            android:textSize="@dimen/text_size_big"
-            />
+            android:textSize="@dimen/text_size_big" />
+
         <TextView
             android:id="@+id/tv_labels_show_pop"
-            android:layout_alignParentEnd="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true" />
+
         <TextView
             android:id="@+id/tv_labels_up_sure"
-            android:layout_marginRight="@dimen/distance"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:textColor="@color/write"
-            android:text="确定"
-            android:textSize="@dimen/text_size_middle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/distance"
+            android:text="确定"
+            android:textColor="@color/write"
+            android:textSize="@dimen/text_size_middle" />
     </RelativeLayout>
+
     <ListView
-        android:layout_margin="@dimen/distance"
-        android:divider="@null"
-        android:dividerHeight="@dimen/distance"
-        android:layout_below="@+id/rl_labels_mTool"
         android:id="@+id/lv_labels_photos"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_labels_mTool"
+        android:layout_margin="@dimen/distance"
+        android:divider="@null"
+        android:dividerHeight="@dimen/distance">
 
     </ListView>
 </RelativeLayout>

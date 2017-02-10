@@ -10,7 +10,7 @@ import com.example.huichuanyi.base.BaseActivity;
 import widget.OnWheelChangedListener;
 import widget.WheelView;
 
-public class My_AddressActivity extends BaseActivity implements View.OnClickListener , OnWheelChangedListener {
+public class My_AddressActivity extends BaseActivity implements View.OnClickListener, OnWheelChangedListener {
     private Button mTest;
 
     @Override
@@ -40,9 +40,9 @@ public class My_AddressActivity extends BaseActivity implements View.OnClickList
 
     }
 
-   public void back(View view){
-       finish();
-   }
+    public void back(View view) {
+        finish();
+    }
 
     @Override
     public void onClick(View v) {
@@ -53,8 +53,6 @@ public class My_AddressActivity extends BaseActivity implements View.OnClickList
     public void onChanged(WheelView wheel, int oldValue, int newValue) {
 
     }
-
-
 
 
 }
