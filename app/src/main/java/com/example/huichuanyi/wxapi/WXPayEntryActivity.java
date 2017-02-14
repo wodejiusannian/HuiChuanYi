@@ -14,10 +14,7 @@ import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 
-
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
-
-
 
     private IWXAPI api;
 
@@ -46,7 +43,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
             int code = resp.errCode;
             switch (code) {
                 case 0:
-                   Toast.makeText(WXPayEntryActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WXPayEntryActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
                     break;
                 case -1:
                     Toast.makeText(WXPayEntryActivity.this, "支付失败", Toast.LENGTH_SHORT).show();

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.bean.CardItem;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
 
@@ -55,6 +56,8 @@ public class MyPartnerAdapter extends PagerAdapter {
     }
 
     private void bind(CardItem item, View view) {
+        SimpleDraweeView sv = (SimpleDraweeView)view.findViewById(R.id.sv_item_clothes);
+        sv.setImageURI("http://g.hiphotos.baidu.com/image/pic/item/c8177f3e6709c93dbe82d5f39d3df8dcd1005446.jpg");
         TextView style = (TextView) view.findViewById(R.id.item_clothes_style);
         TextView name = (TextView) view.findViewById(R.id.item_clothes_name);
         TextView content = (TextView) view.findViewById(R.id.item_clothes_content);

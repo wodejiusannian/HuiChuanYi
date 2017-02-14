@@ -20,6 +20,7 @@ public class BuyRecord extends BaseFragment {
     private ListView mShow;
     private List<String> mData;
     private BuyRecordAdapter mAdapter;
+
     @Override
     protected View initView() {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_list, null);
@@ -35,15 +36,15 @@ public class BuyRecord extends BaseFragment {
     protected void initData() {
         super.initData();
         mData = new ArrayList<>();
-        mAdapter = new BuyRecordAdapter(getContext(),mData,R.layout.item_fragment_buy_record);
+        mAdapter = new BuyRecordAdapter(getContext(), mData, R.layout.item_fragment_buy_record);
         mShow.setAdapter(mAdapter);
     }
 
     @Override
     protected void setData() {
         super.setData();
-        for(int i = 0; i<3 ;i++){
-            mData.add("轻奢"+i);
+        for (int i = 0; i < 3; i++) {
+            mData.add("轻奢" + i);
         }
         mAdapter.notifyDataSetChanged();
     }

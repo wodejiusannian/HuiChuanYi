@@ -70,10 +70,16 @@ public class Write_OrderActivity extends BaseActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_write_order_address_info:
-                jumpWriteOrder();
+                //jumpWriteOrder();
+                jumpListAddress();
                 break;
             default:
                 break;
         }
+    }
+
+    private void jumpListAddress() {
+        Intent intent = new Intent(this, ListAddress.class);
+        startActivityForResult(intent, 1000);
     }
 }

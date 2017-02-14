@@ -66,6 +66,7 @@
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <data android:scheme="tencent100371282" />
+
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.BROWSABLE" />
@@ -165,7 +166,8 @@
         <activity android:name=".ui_third.My_AddressActivity" />
         <activity android:name=".ui_third.RecordActivity" />
         <activity android:name=".ui_third.Write_OrderActivity" />
-        <activity android:name=".ui_third.Write_AddressActivity"></activity>
+        <activity android:name=".ui_third.Write_AddressActivity" />
+        <activity android:name=".ui_third.ListAddress"></activity>
     </application>
 
 </manifest>

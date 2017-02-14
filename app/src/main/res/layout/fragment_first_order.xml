@@ -1,136 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:background="@color/top_color"
-                        android:layout_height="40dp">
-                        <TextView
-                            android:id="@+id/tv_home_title"
-                            android:text="预约"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="#fff"
-                            android:layout_centerInParent="true"
-                            android:textSize="@dimen/text_size_big"
-                            />
-                    </RelativeLayout>
-                <ScrollView
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/top_color">
+
+        <TextView
+            android:id="@+id/tv_home_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="预约"
+            android:textColor="#fff"
+            android:textSize="@dimen/text_size_big" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.jude.rollviewpager.RollPagerView
+                android:id="@+id/rv_fragment_first_order"
+                android:layout_width="match_parent"
+                android:layout_height="215dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/distance"
+                android:layout_marginRight="@dimen/distance"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/background">
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                    <com.jude.rollviewpager.RollPagerView
-                        android:id="@+id/rv_fragment_first_order"
-                        android:layout_width="match_parent"
-                        android:layout_height="215dp"/>
-
-                    <RelativeLayout
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/background"
-                        android:layout_marginLeft="@dimen/distance"
-                        android:layout_marginRight="@dimen/distance"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <RelativeLayout
-                            android:layout_margin="@dimen/distance"
-                            android:layout_toLeftOf="@+id/iv_fragment_first_location"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-                            <Button
-                                android:id="@+id/btn_fragment_first_location"
-                                android:text="正在定位..."
-                                android:textColor="@color/text_color"
-                                android:background="@drawable/button_write"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"/>
-                            <TextView
-                                android:id="@+id/tv_fragment_first_location_reminder"
-                                android:layout_marginTop="@dimen/distance"
-                                android:layout_below="@+id/btn_fragment_first_location"
-                                android:layout_centerHorizontal="true"
-                                android:text="您的位置"
-                                android:textSize="@dimen/text_size_big"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                            <TextView
-                                android:layout_below="@+id/tv_fragment_first_location_reminder"
-                                android:layout_centerHorizontal="true"
-                                android:textSize="10sp"
-                                android:text="(您可以点击对话框输入您所在的城市)"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                        </RelativeLayout>
-
-                        <ImageView
-                            android:id="@+id/iv_fragment_first_location"
-                            android:padding="@dimen/distance"
-                            android:layout_alignParentEnd="true"
-                            android:src="@mipmap/location"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:background="@drawable/background"
-                        android:layout_margin="@dimen/distance"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <ImageView
-                            android:id="@+id/iv_fragment_first_time"
-                            android:padding="@dimen/distance"
-                            android:src="@mipmap/time"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                        <RelativeLayout
-                            android:layout_margin="@dimen/distance"
-                            android:layout_toRightOf="@+id/iv_fragment_first_time"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-                            <Button
-                                android:id="@+id/btn_fragment_first_time"
-                                android:text="选择时间"
-                                android:textColor="@color/text_color"
-                                android:background="@drawable/button_write"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"/>
-                            <TextView
-                                android:id="@+id/tv_fragment_first_time_reminder"
-                                android:layout_marginTop="@dimen/distance"
-                                android:layout_below="@+id/btn_fragment_first_time"
-                                android:layout_centerHorizontal="true"
-                                android:text="预约时间"
-                                android:textSize="@dimen/text_size_big"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                            <TextView
-                                android:layout_below="@+id/tv_fragment_first_time_reminder"
-                                android:layout_centerHorizontal="true"
-                                android:textSize="10sp"
-                                android:text="(您可以点击对话框并调整时间)"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                        </RelativeLayout>
-                    </RelativeLayout>
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/distance"
+                    android:layout_toLeftOf="@+id/iv_fragment_first_location">
 
                     <Button
-                        android:id="@+id/btn_fragment_first_order"
-                        android:text="立即预约"
-                        android:background="@drawable/button_red"
-                        android:textColor="@color/write"
-                        android:layout_marginBottom="@dimen/distance"
-                        android:layout_marginRight="@dimen/distance"
-                        android:layout_marginLeft="@dimen/distance"
+                        android:id="@+id/btn_fragment_first_location"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
+                        android:layout_height="match_parent"
+                        android:background="@drawable/button_write"
+                        android:text="正在定位..."
+                        android:textColor="@color/text_color" />
 
-            </ScrollView>
+                    <TextView
+                        android:id="@+id/tv_fragment_first_location_reminder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/btn_fragment_first_location"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/distance"
+                        android:text="您的位置"
+                        android:textSize="@dimen/text_size_big" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_fragment_first_location_reminder"
+                        android:layout_centerHorizontal="true"
+                        android:text="(您可以点击对话框输入您所在的城市)"
+                        android:textSize="10sp" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/iv_fragment_first_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:padding="@dimen/distance"
+                    android:src="@mipmap/location" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/distance"
+                android:background="@drawable/background">
+
+                <ImageView
+                    android:id="@+id/iv_fragment_first_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/distance"
+                    android:src="@mipmap/time" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/distance"
+                    android:layout_toRightOf="@+id/iv_fragment_first_time">
+
+                    <Button
+                        android:id="@+id/btn_fragment_first_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/button_write"
+                        android:text="选择时间"
+                        android:textColor="@color/text_color" />
+
+                    <TextView
+                        android:id="@+id/tv_fragment_first_time_reminder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/btn_fragment_first_time"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/distance"
+                        android:text="预约时间"
+                        android:textSize="@dimen/text_size_big" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_fragment_first_time_reminder"
+                        android:layout_centerHorizontal="true"
+                        android:text="(您可以点击对话框并调整时间)"
+                        android:textSize="10sp" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btn_fragment_first_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/distance"
+                android:layout_marginLeft="@dimen/distance"
+                android:layout_marginRight="@dimen/distance"
+                android:background="@drawable/button_red"
+                android:text="立即预约"
+                android:textColor="@color/write" />
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

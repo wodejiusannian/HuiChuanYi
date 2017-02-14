@@ -2,20 +2,12 @@ package com.example.huichuanyi.modle;
 
 import java.util.List;
 
-public class Banner{
+public class Banner {
 
-    /**
-     * retcode : 200
-     * list : [{"explain":"轮播图1","linkaddress":"https://www.baidu.com/","photopath":"http://pimg1.126.net/movie/product/movie/147487941234210430_260_346_webp.jpg","type":"1"},{"explain":"轮播图2","linkaddress":"https://www.baidu.com/","photopath":"http://pimg1.126.net/movie/product/movie/147589812803610010_webp.jpg","type":"1"}]
-     */
+
 
     private int retcode;
-    /**
-     * explain : 轮播图1
-     * linkaddress : https://www.baidu.com/
-     * photopath : http://pimg1.126.net/movie/product/movie/147487941234210430_260_346_webp.jpg
-     * type : 1
-     */
+
 
     private List<ListBean> list;
 

@@ -45,6 +45,7 @@ public class LiJiYuYueActivity extends BaseActivity implements View.OnClickListe
         Intent intent = getIntent();
         Location.mAddress = intent.getStringExtra("location");
         Location.mTime = intent.getStringExtra("time");
+        Location.mOrder_365 = intent.getStringExtra("order_365");
         mTitles = new ArrayList<>();
         mData = new ArrayList<>();
         mTitles.add("默认排序");

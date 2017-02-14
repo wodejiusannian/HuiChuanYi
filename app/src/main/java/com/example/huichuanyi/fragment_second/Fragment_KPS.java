@@ -34,9 +34,10 @@ public class Fragment_KPS extends BaseFragment implements SwipeRefreshLayout.OnR
     private Callback.Cancelable cancelable;
     private List<City.BodyBean> mCity;
     private SwipeRefreshLayout mRefresh;
+
     @Override
     protected View initView() {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_reuser_order,null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_reuser_order, null);
         getChildView(view);
         return view;
     }
@@ -50,7 +51,7 @@ public class Fragment_KPS extends BaseFragment implements SwipeRefreshLayout.OnR
     protected void initData() {
         super.initData();
         mCity = new ArrayList<>();
-        pAdapter = new PersonAdapter(mCity,getActivity());
+        pAdapter = new PersonAdapter(mCity, getActivity());
         AccordingToAddress(Location.mAddress);
     }
 
@@ -68,20 +69,20 @@ public class Fragment_KPS extends BaseFragment implements SwipeRefreshLayout.OnR
 
     }
 
-    public void AccordingToAddress(String city){
-        Map<String,String> map = new HashMap<>();
-        map.put("city_name",city);
-        map.put("sort_type","1");
+    public void AccordingToAddress(String city) {
+        Map<String, String> map = new HashMap<>();
+        map.put("city_name", city);
+        map.put("sort_type", "1");
         String dataObject = Utils_Data.getDataObject(map);
-        Map<String,String> maps = new HashMap<>();
-        maps.put("data",dataObject);
-        UtilsInternet.getInstance().post(NetConfig.ADDRESS_URL,maps,this);
+        Map<String, String> maps = new HashMap<>();
+        maps.put("data", dataObject);
+        UtilsInternet.getInstance().post(NetConfig.ADDRESS_URL, maps, this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(cancelable!=null&&!cancelable.isCancelled()){
+        if (cancelable != null && !cancelable.isCancelled()) {
             cancelable.cancel();
         }
     }
@@ -94,7 +95,7 @@ public class Fragment_KPS extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Map<String,Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         City.BodyBean listBean = mCity.get(position);
         String mId = listBean.getGzs_id();
         String city = listBean.getGzs_city();
@@ -105,31 +106,31 @@ public class Fragment_KPS extends BaseFragment implements SwipeRefreshLayout.OnR
         String price_baseNum2 = listBean.getPrice_baseNum2();
         String price_raiseNum = listBean.getPrice_raiseNum();
         String price_raisePrice = listBean.getPrice_raisePrice();
-        if(TextUtils.equals("已开通",service)) {
-            if(!TextUtils.isEmpty(mId)&&!TextUtils.isEmpty(city)) {
-                map.put("managerid",mId);
-                map.put("city",city);
-                map.put("price1",price1);
-                map.put("price2",price2);
-                map.put("price_baseNum1",price_baseNum1);
-                map.put("price_baseNum2",price_baseNum2);
-                map.put("price_raiseNum",price_raiseNum);
-                map.put("price_raisePrice",price_raisePrice);
-                ActivityUtils.switchTo(getActivity(), ManageActivity.class,map);
+        if (TextUtils.equals("已开通", service)) {
+            if (!TextUtils.isEmpty(mId) && !TextUtils.isEmpty(city)) {
+                map.put("managerid", mId);
+                map.put("city", city);
+                map.put("price1", price1);
+                map.put("price2", price2);
+                map.put("price_baseNum1", price_baseNum1);
+                map.put("price_baseNum2", price_baseNum2);
+                map.put("price_raiseNum", price_raiseNum);
+                map.put("price_raisePrice", price_raisePrice);
+                ActivityUtils.switchTo(getActivity(), ManageActivity.class, map);
                 getActivity().finish();
             }
-        }else{
+        } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle("提示").setMessage("该工作室忙，请选择其他工作室").
                     setIcon(android.R.drawable.btn_star_big_off).
-                    setPositiveButton("确定",null).create().show();
+                    setPositiveButton("确定", null).create().show();
         }
     }
 
     @Override
     public void onResponse(String result) {
         String s = MyJson.getRet(result);
-        if (TextUtils.equals("0",s)){
+        if (TextUtils.equals("0", s)) {
             mCity.clear();
             Gson gson = new Gson();
             City city = gson.fromJson(result, City.class);

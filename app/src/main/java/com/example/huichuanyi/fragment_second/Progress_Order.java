@@ -37,6 +37,7 @@ public class Progress_Order extends BaseFragment implements SwipeRefreshLayout.O
     private ProgressAdapter mAdapter;
     private List<Progress.ListBean> mData;
     private SwipeRefreshLayout mRefreshLayout;
+
     @Override
     protected View initView() {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_progress, null);
@@ -53,17 +54,17 @@ public class Progress_Order extends BaseFragment implements SwipeRefreshLayout.O
     protected void initData() {
         super.initData();
         mData = new ArrayList<>();
-        mAdapter = new ProgressAdapter(mData,getActivity());
+        mAdapter = new ProgressAdapter(mData, getActivity());
         getData();
     }
 
     private void getData() {
         RequestParams params = new RequestParams(NetConfig.MY_ORDER_PROGRESS);
-        params.addBodyParameter("userid",new User(getActivity()).getUseId()+"");
+        params.addBodyParameter("userid", new User(getActivity()).getUseId() + "");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                if(TextUtils.equals("0",result)) {
+                if (TextUtils.equals("0", result)) {
                     return;
                 }
                 mData.clear();
@@ -111,10 +112,10 @@ public class Progress_Order extends BaseFragment implements SwipeRefreshLayout.O
 
     @Override
     public void onOrderClick(View view) {
-        if (mData.size()>0){
-            Map<String,Object> map = new HashMap<>();
+        if (mData.size() > 0) {
+            Map<String, Object> map = new HashMap<>();
             int position = (int) view.getTag();
-            Progress.ListBean  mPosition2 = mData.get(position);
+            Progress.ListBean mPosition2 = mData.get(position);
             String manager_photo = mPosition2.getManager_photo();
             String managername = mPosition2.getManagername();
             String managerid = mPosition2.getManagerid();
@@ -122,40 +123,40 @@ public class Progress_Order extends BaseFragment implements SwipeRefreshLayout.O
             String orderid = mPosition2.getId();
             String state = mPosition2.getState();
             String city = mPosition2.getCity();
-            switch(view.getId()){
+            switch (view.getId()) {
                 case R.id.iv_progress_item_shenqingtuikuan:
-                    map.put("managePhoto",manager_photo);
-                    map.put("manageName",managername);
-                    map.put("allMoney",money);
-                    map.put("orderid",orderid);
-                    map.put("state",mPosition2.getState());
-                    ActivityUtils.switchTo(getActivity(),ShenQingTuiKuanActivity.class,map);
+                    map.put("managePhoto", manager_photo);
+                    map.put("manageName", managername);
+                    map.put("allMoney", money);
+                    map.put("orderid", orderid);
+                    map.put("state", mPosition2.getState());
+                    ActivityUtils.switchTo(getActivity(), ShenQingTuiKuanActivity.class, map);
                     break;
                 case R.id.iv_progress_item_zailaiyidian:
-                    Map<String,Object> map1 = new HashMap<>();
-                    map1.put("location",city);
-                    map1.put("time",getNowTime());
-                    ActivityUtils.switchTo(getActivity(),LiJiYuYueActivity.class,map1);
+                    Map<String, Object> map1 = new HashMap<>();
+                    map1.put("location", city);
+                    map1.put("time", getNowTime());
+                    ActivityUtils.switchTo(getActivity(), LiJiYuYueActivity.class, map1);
                     break;
                 case R.id.iv_progress_item_daiqueren:
-                    if (!TextUtils.equals("10",state)){
-                        upQueRen(orderid,managerid,position);
-                    }else{
+                    if (!TextUtils.equals("10", state)) {
+                        upQueRen(orderid, managerid, position);
+                    } else {
                         Toast.makeText(getContext(), "等待工作室接单", Toast.LENGTH_SHORT).show();
                     }
                     break;
                 case R.id.iv_progress_item_quzhifu:
-                    map.put("managerPhoto",manager_photo);
-                    map.put("managerName",managername);
-                    map.put("nowMoney",money);
-                    map.put("orderid",orderid);
-                    ActivityUtils.switchTo(getActivity(),PayOrderActivity.class,map);
+                    map.put("managerPhoto", manager_photo);
+                    map.put("managerName", managername);
+                    map.put("nowMoney", money);
+                    map.put("orderid", orderid);
+                    ActivityUtils.switchTo(getActivity(), PayOrderActivity.class, map);
                     break;
                 case R.id.iv_progress_item_buchajia:
-                    map.put("YetPay",money);
-                    map.put("orderid",orderid);
-                    map.put("manager_name",managername);
-                    ActivityUtils.switchTo(getActivity(),BuChaJiaActivity.class,map);
+                    map.put("YetPay", money);
+                    map.put("orderid", orderid);
+                    map.put("manager_name", managername);
+                    ActivityUtils.switchTo(getActivity(), BuChaJiaActivity.class, map);
                     break;
                 default:
 
@@ -166,13 +167,13 @@ public class Progress_Order extends BaseFragment implements SwipeRefreshLayout.O
 
     private void upQueRen(String id, String managerid, final int position) {
         RequestParams params = new RequestParams(NetConfig.SURE_ORDER);
-        params.addBodyParameter("userid",new User(getActivity()).getUseId()+"");
-        params.addBodyParameter("orderid",id);
-        params.addBodyParameter("managerid",managerid);
+        params.addBodyParameter("userid", new User(getActivity()).getUseId() + "");
+        params.addBodyParameter("orderid", id);
+        params.addBodyParameter("managerid", managerid);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                if (TextUtils.equals("1",result)){
+                if (TextUtils.equals("1", result)) {
                     mData.remove(position);
                     mAdapter.notifyDataSetChanged();
                 }
@@ -196,15 +197,15 @@ public class Progress_Order extends BaseFragment implements SwipeRefreshLayout.O
         });
     }
 
-    public String getNowTime(){
+    public String getNowTime() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
         GregorianCalendar ca = new GregorianCalendar();
         int i = ca.get(GregorianCalendar.AM_PM);
         String nowTime = sdf.format(new Date());
-        if(i==0) {
-            return nowTime+" "+"上午";
-        }else if(i==1) {
-            return nowTime+" "+"下午";
+        if (i == 0) {
+            return nowTime + " " + "上午";
+        } else if (i == 1) {
+            return nowTime + " " + "下午";
         }
         return null;
     }

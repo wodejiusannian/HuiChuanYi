@@ -19,6 +19,7 @@ public class RefreshRecord extends BaseFragment {
     private ListView mShow;
     private List<String> mData;
     private RefreshRecordAdapter adapter;
+
     @Override
     protected View initView() {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_list, null);
@@ -34,15 +35,15 @@ public class RefreshRecord extends BaseFragment {
     protected void initData() {
         super.initData();
         mData = new ArrayList<>();
-        adapter = new RefreshRecordAdapter(getContext(),mData,R.layout.item_fragment_refresh_record);
+        adapter = new RefreshRecordAdapter(getContext(), mData, R.layout.item_fragment_refresh_record);
         mShow.setAdapter(adapter);
     }
 
     @Override
     protected void setData() {
         super.setData();
-        for(int i = 0;i<3;i++){
-            mData.add("更新记录"+i);
+        for (int i = 0; i < 3; i++) {
+            mData.add("更新记录" + i);
         }
         adapter.notifyDataSetChanged();
     }

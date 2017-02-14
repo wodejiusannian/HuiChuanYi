@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_list_address"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.huichuanyi.ui_third.ListAddress">
+
+    <RelativeLayout
+        android:id="@+id/rl_list_address_top"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/color_ac0000">
+
+        <include layout="@layout/btn_back"></include>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="我的地址"
+            android:textColor="@color/main_color_write"
+            android:textSize="@dimen/text_size_18" />
+
+        <TextView
+            android:id="@+id/tv_list_address_sure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/distance_10"
+            android:text="确定"
+            android:textColor="@color/main_color_write" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/lv_list_address_show"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btn_add_address"
+        android:layout_below="@+id/rl_list_address_top">
+
+    </ListView>
+
+    <Button
+        android:id="@+id/btn_add_address"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/distance_10"
+        android:background="@drawable/button_red"
+        android:text="添加地址"
+        android:textColor="@color/main_color_write" />
+</RelativeLayout>

@@ -13,12 +13,7 @@
         android:layout_height="40dp"
         android:background="@color/top_color">
 
-        <ImageView
-            android:id="@+id/iv_buchajia_back"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:src="@drawable/back" />
+        <include layout="@layout/btn_back"></include>
 
         <TextView
             android:id="@+id/tv_active_active"
@@ -69,97 +64,7 @@
             android:gravity="center"
             android:text="应补差价0元" />
 
-        <RelativeLayout
-            android:id="@+id/rl_buchajia_alipay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ying_bu_chajia"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/background"
-            android:paddingBottom="@dimen/distance"
-            android:paddingTop="@dimen/distance">
 
-            <ImageView
-                android:id="@+id/iv_buchajia_wechatphoto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/distance"
-                android:src="@mipmap/alipay" />
-
-            <TextView
-                android:id="@+id/iv_buchajia_wechatname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/distance"
-                android:layout_toRightOf="@+id/iv_buchajia_wechatphoto"
-                android:text="支付宝支付" />
-
-            <ImageView
-                android:id="@+id/iv_buchajia_alipayNomal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/distance"
-                android:gravity="end"
-                android:src="@mipmap/pay_nomal" />
-
-            <ImageView
-                android:id="@+id/iv_buchajia_alipaySelect"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/distance"
-                android:gravity="end"
-                android:src="@mipmap/pay_select" />
-        </RelativeLayout>
-        <!--<RelativeLayout
-            android:layout_marginTop="@dimen/distance"
-            android:id="@+id/rl_buchajia_wechat"
-            android:background="@drawable/background"
-            android:layout_marginLeft="@dimen/distance"
-            android:layout_marginRight="@dimen/distance"
-            android:paddingTop="@dimen/distance"
-            android:paddingBottom="@dimen/distance"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_marginLeft="@dimen/distance"
-                android:id="@+id/iv_buchajia_alipayphoto"
-                android:src="@mipmap/wechat_pay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/iv_buchajia_alipayname"
-                android:text="微信支付"
-                android:layout_marginLeft="@dimen/distance"
-                android:layout_toRightOf="@+id/iv_buchajia_alipayphoto"
-                android:layout_centerVertical="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <ImageView
-                android:id="@+id/iv_buchajia_wechatNomal"
-                android:src="@mipmap/pay_nomal"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="@dimen/distance"
-                android:gravity="end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <ImageView
-                android:id="@+id/iv_buchajia_wechatSelect"
-                android:src="@mipmap/pay_select"
-                android:visibility="gone"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="@dimen/distance"
-                android:gravity="end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </RelativeLayout>-->
         <Button
             android:id="@+id/btn_pay_sure"
             android:layout_width="match_parent"
@@ -170,6 +75,112 @@
             android:background="@drawable/button_red"
             android:text="确认支付"
             android:textColor="@color/write" />
+
+        <LinearLayout
+            android:id="@+id/ll_buchajia_pay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ying_bu_chajia"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="27dp"
+            android:background="@drawable/background"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rl_buchajia_alipay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_buchajia_wechatphoto"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/distance"
+                    android:src="@mipmap/alipay" />
+
+                <TextView
+                    android:id="@+id/iv_buchajia_wechatname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/distance"
+                    android:layout_toRightOf="@+id/iv_buchajia_wechatphoto"
+                    android:text="支付宝支付" />
+
+                <ImageView
+                    android:id="@+id/iv_buchajia_alipayNomal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/distance"
+                    android:gravity="end"
+                    android:src="@mipmap/pay_nomal" />
+
+                <ImageView
+                    android:id="@+id/iv_buchajia_alipaySelect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/distance"
+                    android:gravity="end"
+                    android:src="@mipmap/pay_select" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/distance"
+                android:layout_marginRight="@dimen/distance"
+                android:background="@color/back_ground" />-->
+
+            <RelativeLayout
+                android:id="@+id/rl_buchajia_wechat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_buchajia_alipayphoto"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:padding="@dimen/distance"
+                    android:src="@mipmap/wechat_pay" />
+
+                <TextView
+                    android:id="@+id/iv_buchajia_alipayname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/distance"
+                    android:layout_toRightOf="@+id/iv_buchajia_alipayphoto"
+                    android:text="微信支付" />
+
+                <ImageView
+                    android:id="@+id/iv_buchajia_wechatNomal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/distance"
+                    android:gravity="end"
+                    android:src="@mipmap/pay_nomal" />
+
+                <ImageView
+                    android:id="@+id/iv_buchajia_wechatSelect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/distance"
+                    android:gravity="end"
+                    android:src="@mipmap/pay_select"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
     </RelativeLayout>
 
 </LinearLayout>

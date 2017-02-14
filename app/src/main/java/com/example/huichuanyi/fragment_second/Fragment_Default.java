@@ -119,7 +119,6 @@ public class Fragment_Default extends BaseFragment implements SwipeRefreshLayout
 
     @Override
     public void onResponse(String result) {
-        Log.i("TAG", "------------------------"+result);
         String s = MyJson.getRet(result);
         if (TextUtils.equals("0",s)){
             mCity.clear();

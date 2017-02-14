@@ -11,6 +11,7 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.MyPartnerAdapter;
 import com.example.huichuanyi.base.BaseFragment;
 import com.example.huichuanyi.bean.CardItem;
+import com.example.huichuanyi.ui_third.BuChaJiaActivity;
 import com.example.huichuanyi.ui_third.Item_DetailsActivity;
 import com.example.huichuanyi.ui_third.RecordActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
@@ -20,6 +21,7 @@ import java.util.List;
 
 
 public class Fragment_365 extends BaseFragment implements View.OnClickListener {
+
     public static boolean isPay = false;
     private ViewPager mPics;
     private MyPartnerAdapter mAdapter;
@@ -96,8 +98,9 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener {
                 ActivityUtils.switchTo(getActivity(), RecordActivity.class);
                 break;
             case R.id.btn_365_add:
-                isPay = true;
-                isYetPay();
+                ActivityUtils.switchTo(getActivity(), BuChaJiaActivity.class);
+                /*isPay = true;
+                isYetPay();*/
                 break;
             case R.id.btn_will_pay:
                 isPay = false;

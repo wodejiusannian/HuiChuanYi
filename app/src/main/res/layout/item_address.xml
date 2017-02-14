@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_all"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/distance_10">
+
+    <TextView
+        android:id="@+id/tv_item_address_is_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="@drawable/address" />
+
+    <TextView
+        android:id="@+id/tv_item_address_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/distance_10"
+        android:layout_toRightOf="@+id/tv_item_address_is_select"
+        android:text="张伟" />
+
+    <TextView
+        android:id="@+id/tv_item_address_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/distance_10"
+        android:layout_toRightOf="@+id/tv_item_address_name"
+        android:text="134554556691" />
+
+    <TextView
+        android:id="@+id/tv_item_address_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_item_address_name"
+        android:layout_marginLeft="@dimen/distance_10"
+        android:layout_marginTop="@dimen/distance_10"
+        android:layout_toRightOf="@+id/tv_item_address_is_select"
+        android:text="北京市的地方" />
+</RelativeLayout>
