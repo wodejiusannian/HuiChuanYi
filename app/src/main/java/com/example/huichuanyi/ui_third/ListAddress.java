@@ -81,6 +81,7 @@ public class ListAddress extends BaseActivity implements ListAddressAdapter.Info
         mRefresh.setOnRefreshListener(this);
         adapter.setOnItemUpDateListener(this);
         mShow.setOnItemLongClickListener(this);
+
     }
 
     public void back(View view) {
@@ -122,6 +123,7 @@ public class ListAddress extends BaseActivity implements ListAddressAdapter.Info
         Intent intent = new Intent(this, Write_AddressActivity.class);
         intent.putExtra("tag", tag);
         intent.putExtra("type", "9001");
+        intent.putExtra("addressId", mData.get(tag).getId());
         intent.putExtra("name", mData.get(tag).getReceive_name());
         intent.putExtra("phone", mData.get(tag).getReceive_phone());
         intent.putExtra("city", mData.get(tag).getReceive_city());
@@ -224,7 +226,7 @@ public class ListAddress extends BaseActivity implements ListAddressAdapter.Info
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONArray body = jsonObject.getJSONArray("body");
-                    for(int i = 0;i<body.length();i++){
+                    for (int i = 0; i < body.length(); i++) {
                         JSONObject object = body.getJSONObject(i);
                         MyAddress address = new MyAddress();
 

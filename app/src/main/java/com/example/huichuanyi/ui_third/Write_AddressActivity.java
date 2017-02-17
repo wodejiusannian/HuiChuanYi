@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -55,7 +56,7 @@ public class Write_AddressActivity extends BaseActivity implements View.OnClickL
     private WheelView mViewDistrict;
     private String type, city, name, phone, address, receive_name, receive_phone, receive_city, receive_address;
     private int tag, updateOrAdd;
-    private String userID;
+    private String userID, addressId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +90,7 @@ public class Write_AddressActivity extends BaseActivity implements View.OnClickL
         city = intent.getStringExtra("city");
         address = intent.getStringExtra("address");
         userID = new User(this).getUseId() + "";
+        addressId = intent.getStringExtra("addressId");
         initProvinceDatas();
     }
 
@@ -201,10 +203,11 @@ public class Write_AddressActivity extends BaseActivity implements View.OnClickL
     * */
     private void updateAddress() {
         dataMap.put("user_id", userID);
-        dataMap.put("receive_name", name);
-        dataMap.put("receive_phone", phone);
-        dataMap.put("receive_city", city);
-        dataMap.put("receive_address", address);
+        dataMap.put("id", addressId);
+        dataMap.put("receive_name", receive_name);
+        dataMap.put("receive_phone", receive_phone);
+        dataMap.put("receive_city", receive_city);
+        dataMap.put("receive_address", receive_address);
         instance.post(NetConfig.UPDATE_PERSON_ADDRESS, dataMap, this);
     }
 
@@ -223,12 +226,13 @@ public class Write_AddressActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onResponse(String result) {
+        Log.i("TAG", "-----------------"+result);
         String ret = MyJson.getRet(result);
         if (TextUtils.equals("0", ret)) {
             if (TextUtils.equals("9001", type)) {
-                Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
-            } else {
                 Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
             }
             toUpActivity();
         }
