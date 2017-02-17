@@ -56,14 +56,14 @@ public class MyPartnerAdapter extends PagerAdapter {
     }
 
     private void bind(CardItem item, View view) {
-        SimpleDraweeView sv = (SimpleDraweeView)view.findViewById(R.id.sv_item_clothes);
-        sv.setImageURI("http://g.hiphotos.baidu.com/image/pic/item/c8177f3e6709c93dbe82d5f39d3df8dcd1005446.jpg");
+        SimpleDraweeView sv = (SimpleDraweeView) view.findViewById(R.id.sv_item_clothes);
+        sv.setImageURI(item.getClothes_get());
         TextView style = (TextView) view.findViewById(R.id.item_clothes_style);
         TextView name = (TextView) view.findViewById(R.id.item_clothes_name);
         TextView content = (TextView) view.findViewById(R.id.item_clothes_content);
-        style.setText(item.getPicStyle());
-        name.setText(item.getPicName());
-        content.setText(item.getPicContent());
+        style.setText(item.getColor());
+        name.setText(item.getName());
+        content.setText(item.getIntroduction());
     }
 
 }

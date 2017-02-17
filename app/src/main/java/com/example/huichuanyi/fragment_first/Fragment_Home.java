@@ -31,6 +31,8 @@ import org.xutils.x;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
+
 public class Fragment_Home extends BaseFragment implements View.OnClickListener, OnItemClickListener {
     private static final int JUMP_TIME = 4000;
     private RollPagerView mViewPager;
@@ -46,6 +48,7 @@ public class Fragment_Home extends BaseFragment implements View.OnClickListener,
 
     @Override
     protected View initView() {
+        EventBus.getDefault().register(getActivity());
         view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_home, null);
         initChildView(view);
         return view;

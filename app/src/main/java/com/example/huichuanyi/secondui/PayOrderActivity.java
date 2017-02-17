@@ -33,7 +33,7 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
     private int AliPayOrWeChat = 1;
     private RelativeLayout mRelativeLayoutAliPay, mRelativeLayoutWeChat;
     private Button mButtonPay;
-    private UtilsInternet instance;
+    private UtilsInternet instance = UtilsInternet.getInstance();
     private UtilsPay mPay;
 
     @Override
@@ -65,7 +65,6 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
         managerName = intent.getStringExtra("managerName");
         nowMoney = intent.getStringExtra("nowMoney");
         orderid = intent.getStringExtra("orderid");
-        instance = UtilsInternet.getInstance();
         mPay = new UtilsPay(this);
     }
 

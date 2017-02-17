@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/tl_mine_show"
@@ -111,6 +111,31 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="5dp"
                     android:text="我的资料" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_mine_365"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="@dimen/main_margin_left"
+                android:layout_marginRight="@dimen/main_margin_right"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/background"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/distance"
+                    android:src="@mipmap/mine_365" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:text="我的365" />
             </LinearLayout>
 
             <LinearLayout

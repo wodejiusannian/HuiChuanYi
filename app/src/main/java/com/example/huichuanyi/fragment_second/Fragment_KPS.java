@@ -51,7 +51,7 @@ public class Fragment_KPS extends BaseFragment implements SwipeRefreshLayout.OnR
     protected void initData() {
         super.initData();
         mCity = new ArrayList<>();
-        pAdapter = new PersonAdapter(mCity, getActivity());
+        pAdapter = new PersonAdapter( getActivity(),mCity,R.layout.order_person);
         AccordingToAddress(Location.mAddress);
     }
 
@@ -76,7 +76,7 @@ public class Fragment_KPS extends BaseFragment implements SwipeRefreshLayout.OnR
         String dataObject = Utils_Data.getDataObject(map);
         Map<String, String> maps = new HashMap<>();
         maps.put("data", dataObject);
-        UtilsInternet.getInstance().post(NetConfig.ADDRESS_URL, maps, this);
+        UtilsInternet.getInstance().post(NetConfig.GET_STUDIO_LIST, maps, this);
     }
 
     @Override
@@ -97,15 +97,15 @@ public class Fragment_KPS extends BaseFragment implements SwipeRefreshLayout.OnR
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Map<String, Object> map = new HashMap<>();
         City.BodyBean listBean = mCity.get(position);
-        String mId = listBean.getGzs_id();
-        String city = listBean.getGzs_city();
-        String service = listBean.getGzs_fuwu();
-        String price1 = listBean.getPrice_basePrice1();
-        String price2 = listBean.getPrice_basePrice2();
-        String price_baseNum1 = listBean.getPrice_baseNum1();
-        String price_baseNum2 = listBean.getPrice_baseNum2();
-        String price_raiseNum = listBean.getPrice_raiseNum();
-        String price_raisePrice = listBean.getPrice_raisePrice();
+        String mId = listBean.getId();
+        String city = listBean.getCity();
+        String service = listBean.getService();
+        String price1 = listBean.getBase_price1();
+        String price2 = listBean.getBase_price2();
+        String price_baseNum1 = listBean.getBase_num1();
+        String price_baseNum2 = listBean.getBase_num2();
+        String price_raiseNum = listBean.getRaise_num();
+        String price_raisePrice = listBean.getRaise_price();
         if (TextUtils.equals("已开通", service)) {
             if (!TextUtils.isEmpty(mId) && !TextUtils.isEmpty(city)) {
                 map.put("managerid", mId);

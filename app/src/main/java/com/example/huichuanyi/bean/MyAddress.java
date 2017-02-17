@@ -5,32 +5,70 @@ package com.example.huichuanyi.bean;
  */
 
 public class MyAddress {
-    public String name;
-    public String phone;
-    public String address;
 
-    public String getName() {
-        return name;
+
+    private String id;
+    private String creat_time;
+    private String use_time;
+    private String receive_address;
+    private String receive_name;
+    private String receive_phone;
+    private String receive_city;
+
+    public String getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getCreat_time() {
+        return creat_time;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setCreat_time(String creat_time) {
+        this.creat_time = creat_time;
     }
 
-    public String getAddress() {
-        return address;
+    public String getUse_time() {
+        return use_time;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setUse_time(String use_time) {
+        this.use_time = use_time;
+    }
+
+    public String getReceive_address() {
+        return receive_address;
+    }
+
+    public void setReceive_address(String receive_address) {
+        this.receive_address = receive_address;
+    }
+
+    public String getReceive_name() {
+        return receive_name;
+    }
+
+    public void setReceive_name(String receive_name) {
+        this.receive_name = receive_name;
+    }
+
+    public String getReceive_phone() {
+        return receive_phone;
+    }
+
+    public void setReceive_phone(String receive_phone) {
+        this.receive_phone = receive_phone;
+    }
+
+    public String getReceive_city() {
+        return receive_city;
+    }
+
+    public void setReceive_city(String receive_city) {
+        this.receive_city = receive_city;
     }
 }
 

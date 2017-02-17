@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_my_365"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.example.huichuanyi.ui_third.My_365Activity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/color_ac0000">
+
+        <include layout="@layout/btn_back"></include>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="我的365"
+            android:textColor="@color/main_color_write"
+            android:textSize="@dimen/text_size_big" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/distance_10"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background"
+            android:padding="@dimen/distance_10">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sv_365_photo"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                fresco:actualImageScaleType="fitCenter"
+                fresco:failureImage="@mipmap/managephoto"
+                fresco:placeholderImage="@mipmap/managephoto"
+                fresco:roundAsCircle="true" />
+
+            <TextView
+                android:id="@+id/tv_365_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/distance_10"
+                android:layout_toRightOf="@+id/sv_365_photo"
+                android:text="name" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_365_name"
+                android:layout_marginLeft="@dimen/distance_10"
+                android:layout_marginTop="@dimen/distance_10"
+                android:layout_toRightOf="@+id/sv_365_photo"
+                android:text="date" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance_20"
+            android:background="@drawable/background">
+
+
+            <TextView
+                android:id="@+id/tv_365_studio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/distance_10"
+                android:padding="@dimen/distance_10"
+                android:text="服务工作室" />
+
+            <TextView
+                android:id="@+id/tv_365_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/tv_365_studio"
+                android:background="@color/back_ground" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sv_365_studio_photo"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_below="@+id/tv_365_line"
+                android:layout_marginTop="@dimen/distance_10"
+                fresco:actualImageScaleType="fitCenter"
+                fresco:failureImage="@mipmap/managephoto"
+                fresco:placeholderImage="@mipmap/managephoto"
+                fresco:roundAsCircle="true" />
+
+            <TextView
+                android:id="@+id/tv_365_studio_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_365_line"
+                android:layout_marginTop="@dimen/distance_10"
+                android:layout_toRightOf="@+id/sv_365_studio_photo"
+                android:text="studio_name" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_365_studio_name"
+                android:layout_marginTop="@dimen/distance_10"
+                android:layout_toRightOf="@+id/sv_365_studio_photo"
+                android:text="开通" />
+
+            <TextView
+                android:id="@+id/tv_365_studio_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sv_365_studio_photo"
+                android:layout_margin="@dimen/distance_10"
+                android:text="工作室详情" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

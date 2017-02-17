@@ -24,8 +24,10 @@ import com.example.huichuanyi.ui_second.MyOrderActivity;
 import com.example.huichuanyi.ui_second.RegisterActivity;
 import com.example.huichuanyi.ui_second.ReportActivity;
 import com.example.huichuanyi.ui_second.SettingActivity;
+import com.example.huichuanyi.ui_third.My_365Activity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.ImageUtils;
+import com.example.huichuanyi.utils.MySharedPreferences;
 import com.example.huichuanyi.utils.User;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.foamtrace.photopicker.PhotoPickerActivity;
@@ -52,14 +54,14 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
     private ImageView mImageViewSetting;
     private LinearLayout mLinearLayoutDatum, mLinearLayoutReport,
             mLinearLayoutOrder, mLinearLayoutIndent,
-            mLinearLayoutInvite, mLinearLayoutExit;
+            mLinearLayoutInvite, mLinearLayoutExit, m365;
     private User mUser;
     private static final int REQUEST_CAMERA_CODE = 11;
     private int useId = -1;
 
     @Override
     protected View initView() {
-        EventBus.getDefault().register(getActivity());
+        //EventBus.getDefault().register(getActivity());
         view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_mine, null);
         initChildView(view);
         return view;
@@ -129,6 +131,7 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
         mLinearLayoutOrder.setOnClickListener(this);
         mLinearLayoutIndent.setOnClickListener(this);
         mLinearLayoutInvite.setOnClickListener(this);
+        m365.setOnClickListener(this);
         MainActivity mainActivity = (MainActivity) getActivity();
         mainActivity.setCallBack(this);
     }
@@ -172,7 +175,13 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
                     ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
                 }
                 break;
-
+            case R.id.ll_mine_365:
+                if (useId > 0) {
+                    ActivityUtils.switchTo(getActivity(), My_365Activity.class);
+                } else {
+                    ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
+                }
+                break;
             case R.id.ll_mine_indent:
 
                 if (useId > 0) {
@@ -202,6 +211,7 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
                             mPhoto.setImageURI(Uri.parse("res://com.example.huichuanyi/" + R.mipmap.managephoto));
                             mTextViewDaiTi.setVisibility(View.GONE);
                             mTextViewRegisterAndLogin.setVisibility(View.VISIBLE);
+                            MySharedPreferences.save365(getContext(), null);
                             Toast.makeText(getActivity(), "退出登录成功", Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -233,6 +243,7 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
         mLinearLayoutIndent = (LinearLayout) view.findViewById(R.id.ll_mine_indent);
         mLinearLayoutInvite = (LinearLayout) view.findViewById(R.id.ll_mine_invite);
         mTextViewDaiTi = (TextView) view.findViewById(R.id.tv_mine_daiti);
+        m365 = (LinearLayout) view.findViewById(R.id.ll_mine_365);
     }
 
     @Override

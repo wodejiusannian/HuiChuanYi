@@ -19,14 +19,21 @@ import java.util.List;
  */
 
 public class ListAddressAdapter extends BaseAdapter {
+
     private List<MyAddress> mData;
     private Context mContext;
     public Info mInfo;
     private List<Boolean> isClicks;
+    private View.OnClickListener mOnclick;
+
+    public void setOnItemUpDateListener(View.OnClickListener onclick) {
+        mOnclick = onclick;
+    }
 
     public void getInfo(Info info) {
         mInfo = info;
     }
+
 
     public ListAddressAdapter(Context mContext, List<MyAddress> mData) {
         this.mContext = mContext;
@@ -66,23 +73,26 @@ public class ListAddressAdapter extends BaseAdapter {
                 isClicks.add(false);
             }
         }
-        final MyAddress address = mData.get(position);
+        MyAddress address = mData.get(position);
         boolean flag = isClicks.get(position);
-        final String add = address.getAddress();
-        final String name = address.getName();
-        final String phone = address.getPhone();
+        final String add = address.getReceive_address();
+        final String name = address.getReceive_name();
+        final String phone = address.getReceive_phone();
+        final String receive_city = address.getReceive_city();
         holder.name.setText(name);
         holder.phone.setText(phone);
-        holder.address.setText(add);
+        holder.address.setText(receive_city + add);
         if (flag) {
             holder.mSelect.setSelected(true);
         } else {
             holder.mSelect.setSelected(false);
         }
+        holder.mUpdate.setTag(position);
+        holder.mUpdate.setOnClickListener(mOnclick);
         holder.mAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mInfo.getInfo(name, phone, add);
+                mInfo.getInfo(receive_city, name, phone, add);
                 for (int i = 0; i < mData.size(); i++) {
                     isClicks.set(i, false);
                 }
@@ -90,11 +100,17 @@ public class ListAddressAdapter extends BaseAdapter {
                 notifyDataSetChanged();
             }
         });
+        holder.mAll.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return false;
+            }
+        });
         return convertView;
     }
 
     public static class ViewHolder {
-        public TextView name, address, phone, mSelect;
+        public TextView name, address, phone, mSelect, mUpdate;
         public RelativeLayout mAll;
 
         public ViewHolder(View view) {
@@ -103,11 +119,12 @@ public class ListAddressAdapter extends BaseAdapter {
             phone = (TextView) view.findViewById(R.id.tv_item_address_phone);
             address = (TextView) view.findViewById(R.id.tv_item_address_address);
             mSelect = (TextView) view.findViewById(R.id.tv_item_address_is_select);
+            mUpdate = (TextView) view.findViewById(R.id.tv_item_update_address);
         }
     }
 
     public interface Info {
-        void getInfo(String name, String phone, String add);
+        void getInfo(String city, String name, String phone, String add);
     }
 
 }

@@ -38,4 +38,13 @@
         android:layout_marginTop="@dimen/distance_10"
         android:layout_toRightOf="@+id/tv_item_address_is_select"
         android:text="北京市的地方" />
+
+    <TextView
+        android:id="@+id/tv_item_update_address"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:gravity="center"
+        android:padding="@dimen/distance_20"
+        android:text=">" />
 </RelativeLayout>

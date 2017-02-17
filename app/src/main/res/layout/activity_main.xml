@@ -11,11 +11,18 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/rg_main_navigation"></RelativeLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignTop="@+id/rg_main_navigation"
+        android:background="#e7dada" />
+
     <RadioGroup
         android:id="@+id/rg_main_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
         android:background="@drawable/background"
         android:orientation="horizontal">
 
@@ -50,7 +57,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:button="@null"
-            android:drawableTop="@drawable/order"
+            android:drawableTop="@drawable/main_365"
             android:gravity="center"
             android:padding="7dp"
             android:text="@string/main_title_365"
@@ -68,10 +75,4 @@
             android:text="@string/main_title_me"
             android:textColor="@drawable/textcolor" />
     </RadioGroup>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignTop="@+id/rg_main_navigation"
-        android:background="#e7dada" />
 </RelativeLayout>

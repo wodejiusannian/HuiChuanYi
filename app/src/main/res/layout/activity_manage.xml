@@ -27,10 +27,24 @@
             android:textSize="@dimen/text_size_big" />
     </RelativeLayout>
 
+    <Button
+        android:id="@+id/bt_manage_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/distance_5"
+        android:layout_marginTop="@dimen/distance_5"
+        android:layout_marginLeft="@dimen/distance"
+        android:layout_marginRight="@dimen/distance"
+        android:background="@drawable/button_red"
+        android:text="立即预约"
+        android:textColor="@color/write" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bt_manage_order"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/tl_manage_mTool">
 
         <LinearLayout
@@ -60,7 +74,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/distance"
                     android:layout_toRightOf="@+id/iv_manage_photo"
-                    android:text="加载中。。。"
                     android:textColor="#333333"
                     android:textSize="@dimen/text_size_middle" />
 
@@ -142,16 +155,4 @@
         </LinearLayout>
 
     </ScrollView>
-
-    <Button
-        android:id="@+id/bt_manage_order"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/distance"
-        android:layout_marginLeft="@dimen/distance"
-        android:layout_marginRight="@dimen/distance"
-        android:background="@drawable/button_red"
-        android:text="立即预约"
-        android:textColor="@color/write" />
 </RelativeLayout>

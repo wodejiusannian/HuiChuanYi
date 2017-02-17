@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context="com.example.huichuanyi.ui_third.ListAddress">
 
     <RelativeLayout
@@ -22,7 +23,6 @@
             android:text="我的地址"
             android:textColor="@color/main_color_write"
             android:textSize="@dimen/text_size_18" />
-
         <TextView
             android:id="@+id/tv_list_address_sure"
             android:layout_width="wrap_content"
@@ -34,14 +34,19 @@
             android:textColor="@color/main_color_write" />
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/lv_list_address_show"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/sf_list_address"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/btn_add_address"
         android:layout_below="@+id/rl_list_address_top">
+        <ListView
+            android:id="@+id/lv_list_address_show"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    </ListView>
+        </ListView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <Button
         android:id="@+id/btn_add_address"

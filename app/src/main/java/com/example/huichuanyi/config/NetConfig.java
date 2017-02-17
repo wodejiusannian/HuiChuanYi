@@ -3,6 +3,7 @@ package com.example.huichuanyi.config;
 public interface NetConfig {
     /*http://hmyc365.net*/
     String BASE_URL = "http://hmyc365.net:8080/HuiMei/";
+    String BASE_URL_NEW = "http://hmyc365.net:8081/HM/";
     //获取Bannner轮播图
     String BANNER_ONE = BASE_URL + "picture!getPictures.action";
     //手机号注册的链接
@@ -15,8 +16,6 @@ public interface NetConfig {
     String THIRD_BOUND = BASE_URL + "user!addPhone.action";
     //发送反馈到服务器
     String SEND_FANKUI = BASE_URL + "user!userAdvice.action";
-    //预约，根据地址查询
-    String ADDRESS_URL = BASE_URL + "studio!hqStuInfoByCity.action";
     //管理师详情
     String MANAGER_URL = BASE_URL + "studio!getStudioInfo.action";
     //上传订单详情的接口
@@ -43,8 +42,6 @@ public interface NetConfig {
     String ALI_PAY = BASE_URL + "appAlipay!OrderAlipay.action";
     //微信支付的接口
     String WE_CHAT_PAY = "http://192.168.1.143:8080/HM/pay/wxpay/WxPay.do";
-    //活动四个页面的接口
-    String ACTIVE_FOUR = BASE_URL + "appDiscount!getDisStudios.action";
     //用户查询订单_进行中
     String MY_ORDER_PROGRESS = BASE_URL + "appOrder!queryOrderA.action";
     //用户查询订单_已完成
@@ -99,5 +96,53 @@ public interface NetConfig {
     String LABEL_PATH_UP = BASE_URL + "appPhotoUpload!zjUserClothes.action";
     //衣服款式修改的接口
     String UPDATE_CLO = BASE_URL + "appClothesOpe!xgUserClothes.action";
+
+    /*
+    * 购买365推荐衣服的接口
+    * */
+    String BUY_365_CLOTHES = BASE_URL + "a_04/xz_yf_dd.do\"";
+
+
+    /*
+    * 365工作室的数据接口
+    * */
+
+    //获取工作室的列表
+    String GET_STUDIO_LIST = BASE_URL_NEW + "b_01/hq_gzx.do";
+    //获取工作室的365购买者数量
+    String GET_STUDIO_BUY_COUNT = BASE_URL_NEW + "a_03/hq_gzs_hy.do";
+    //提交365购买订单
+    String SUBMIT_ORDER_365 = BASE_URL_NEW + "a_03/xz_dd.do";
+    /*
+    * 365个人用户的信息
+    * */
+
+    //判断用户是否购买过365会员
+    String IS_BUY_365 = BASE_URL_NEW + "a_03/hq_365_xx.do";
+
+    //购买365VIP下单的接口
+    String BUY_365_VIP = BASE_URL_NEW + "a_03/xz_dd.do";
+
+    /*
+    * 地址的增删改查
+    * */
+
+    //添加个人地址
+    String ADD_PERSON_ADDRESS = BASE_URL_NEW + "a_01/xz_dz.do";
+    //删除个人地址
+    String DELETE_PERSON_ADDRESS = BASE_URL_NEW + "a_01/sc_dz.do";
+    //修改个人地址
+    String UPDATE_PERSON_ADDRESS = BASE_URL_NEW + "a_01/xg_dz.do";
+    //获取或者查询个人的地址
+    String GET_PERSON_ADDRESS = BASE_URL_NEW + "a_01/hq_dz.do";
+
+
+    /*
+    * 推荐衣服数据
+    * */
+    //获取所有推荐衣服
+    String GET_RECOMMEND_ALL = BASE_URL_NEW + "a_02/hq_sy.do";
+    //获取推荐单品衣服的信息
+    String GET_RECOMMEND_SINGLE = BASE_URL_NEW + "a_02/hq_yjxq.do";
 }
 

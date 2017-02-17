@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.CommentAdapter;
+import com.example.huichuanyi.baidumap.Location;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MyListView;
@@ -43,7 +44,7 @@ public class ManageActivity extends BaseActivity implements View.OnClickListener
     private MyListView mListView;
     private CommentAdapter mAdapter;
     private String price1, price2, price_baseNum1, price_baseNum2, price_raiseNum, price_raisePrice;
-    private String managerid, managerName, managerPhone, managerPhoto, city;
+    private String studioId, managerName, managerPhone, managerPhoto, city, studioName, studioLogo;
     private RatingBar mRatingBar;
     private Handler mHandler = new Handler() {
         @Override
@@ -94,7 +95,7 @@ public class ManageActivity extends BaseActivity implements View.OnClickListener
         mData = new ArrayList<>();
         mAdapter = new CommentAdapter(mData, this);
         Intent intent = getIntent();
-        managerid = intent.getStringExtra("managerid");
+        studioId = intent.getStringExtra("studioId");
         city = intent.getStringExtra("city");
         price1 = intent.getStringExtra("price1");
         price2 = intent.getStringExtra("price2");
@@ -102,8 +103,13 @@ public class ManageActivity extends BaseActivity implements View.OnClickListener
         price_baseNum2 = intent.getStringExtra("price_baseNum2");
         price_raiseNum = intent.getStringExtra("price_raiseNum");
         price_raisePrice = intent.getStringExtra("price_raisePrice");
+        studioName = intent.getStringExtra("studioName");
+        studioLogo = intent.getStringExtra("studioLogo");
+        if (TextUtils.equals("365", Location.mOrder_365)) {
+            mButtonOrder.setText("立即购买365VIP");
+        }
         RequestParams params = new RequestParams(NetConfig.MANAGER_URL);
-        params.addBodyParameter("manager_id", managerid);
+        params.addBodyParameter("manager_id", studioId);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -169,7 +175,15 @@ public class ManageActivity extends BaseActivity implements View.OnClickListener
         switch (v.getId()) {
             case R.id.bt_manage_order:
                 Map<String, Object> map = new HashMap<>();
-                map.put("managerid", managerid);
+                if (TextUtils.equals("365", Location.mOrder_365)) {
+                    map.put("studioId", studioId);
+                    map.put("studioLogo", studioLogo);
+                    map.put("studioName", studioName);
+                    ActivityUtils.switchTo(this, Buy_365Activity.class, map);
+                    finish();
+                    return;
+                }
+                map.put("managerid", studioId);
                 map.put("managename", managerName + "");
                 map.put("managerPhone", managerPhone);
                 map.put("managerPhoto", managerPhoto);

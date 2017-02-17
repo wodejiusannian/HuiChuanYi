@@ -94,26 +94,26 @@
                     android:id="@+id/sv_365_one"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    fresco:placeholderImage="@mipmap/ic_launcher" />
+                    fresco:placeholderImage="@mipmap/clothes_choose" />
 
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_centerHorizontal="true"
-                    fresco:placeholderImage="@mipmap/ic_launcher" />
+                    fresco:placeholderImage="@mipmap/vip" />
 
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_alignParentEnd="true"
-                    fresco:placeholderImage="@mipmap/ic_launcher" />
+                    fresco:placeholderImage="@mipmap/vip_logo" />
 
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_below="@+id/sv_365_one"
                     android:layout_marginTop="@dimen/distance_10"
-                    fresco:placeholderImage="@mipmap/ic_launcher" />
+                    fresco:placeholderImage="@mipmap/data_manage" />
 
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:layout_width="50dp"
@@ -121,15 +121,8 @@
                     android:layout_below="@+id/sv_365_one"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/distance_10"
-                    fresco:placeholderImage="@mipmap/ic_launcher" />
+                    fresco:placeholderImage="@mipmap/private_consultant" />
 
-                <com.facebook.drawee.view.SimpleDraweeView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_below="@+id/sv_365_one"
-                    android:layout_marginTop="@dimen/distance_10"
-                    fresco:placeholderImage="@mipmap/ic_launcher" />
             </RelativeLayout>
         </LinearLayout>
 

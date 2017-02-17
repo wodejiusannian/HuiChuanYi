@@ -133,7 +133,6 @@
             android:screenOrientation="behind" />
         <activity android:name=".secondui.ForgetPWDAcitity" />
         <activity android:name=".ui_second.MyOrderActivity" />
-        <activity android:name=".secondui.ActiveActivity" />
         <activity android:name=".secondui.ShenQingTuiKuanActivity" />
         <activity android:name=".secondui.PingJiaActivity" />
         <activity
@@ -167,7 +166,9 @@
         <activity android:name=".ui_third.RecordActivity" />
         <activity android:name=".ui_third.Write_OrderActivity" />
         <activity android:name=".ui_third.Write_AddressActivity" />
-        <activity android:name=".ui_third.ListAddress"></activity>
+        <activity android:name=".ui_third.ListAddress" />
+        <activity android:name=".ui_third.My_365Activity" />
+        <activity android:name=".ui_third.Buy_365Activity"></activity>
     </application>
 
 </manifest>

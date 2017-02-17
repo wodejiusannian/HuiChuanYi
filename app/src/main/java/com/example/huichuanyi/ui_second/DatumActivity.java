@@ -46,7 +46,7 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
     private EventExpectAdapter mExpectAdapter;
     private Button mButtonSubject;
     private String pos11, pos21, pos31;
-    private String[] arr = {"棕色", "橙色", "灰色", "白色", "米色", "粉色", "紫色", "红色", "紫色", "红色", "绿色", "蓝色", "透明", "黄色", "黑色"};
+    private String[] arr = {"棕色", "橙色", "灰色", "白色", "米色", "粉色", "紫色", "红色", "绿色", "蓝色", "透明", "黄色", "黑色"};
     private String[] arrSelf = {"可爱", "精致", "飘逸", "温婉", "朴实", "干练", "独特", "华丽", "典雅", "大气", "威严", "摩登", "中性"};
     private String[] arrExpect = {"年轻", "成熟", "内敛", "热情", "时尚", "传统", "随意", "端庄", "干练", "沉稳", "权威", "亲和", "知性", "艺术", "洒脱"};
     private List<Integer> isContains, mIntegersSelf, mIntegersExpect;

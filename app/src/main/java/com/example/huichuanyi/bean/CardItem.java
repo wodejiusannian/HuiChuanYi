@@ -5,40 +5,59 @@ package com.example.huichuanyi.bean;
  */
 
 public class CardItem {
-    public String picUrl;
-    public String picStyle;
-    public String picName;
-    public String picContent;
 
-    public String getPicUrl() {
-        return picUrl;
+    private String id;
+    private String name;
+    private String color;
+    private String price_dj;
+    private String introduction;
+    private String clothes_get;
+
+    public String getId() {
+        return id;
     }
 
-    public void setPicUrl(String picUrl) {
-        this.picUrl = picUrl;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getPicStyle() {
-        return picStyle;
+    public String getName() {
+        return name;
     }
 
-    public void setPicStyle(String picStyle) {
-        this.picStyle = picStyle;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getPicName() {
-        return picName;
+    public String getColor() {
+        return color;
     }
 
-    public void setPicName(String picName) {
-        this.picName = picName;
+    public void setColor(String color) {
+        this.color = color;
     }
 
-    public String getPicContent() {
-        return picContent;
+    public String getPrice_dj() {
+        return price_dj;
     }
 
-    public void setPicContent(String picContent) {
-        this.picContent = picContent;
+    public void setPrice_dj(String price_dj) {
+        this.price_dj = price_dj;
+    }
+
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
+
+    public String getClothes_get() {
+        return clothes_get;
+    }
+
+    public void setClothes_get(String clothes_get) {
+        this.clothes_get = clothes_get;
     }
 }

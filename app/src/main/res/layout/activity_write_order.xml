@@ -5,6 +5,7 @@
     android:id="@+id/activity_write__address"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="com.example.huichuanyi.ui_third.Write_OrderActivity">
 
     <RelativeLayout
@@ -63,23 +64,21 @@
                         android:id="@+id/tv_write_order_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="张伟" />
+                        android:text="点击添加地址" />
 
                     <TextView
                         android:id="@+id/tv_write_order_phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/distance_10"
-                        android:layout_toRightOf="@+id/tv_write_order_name"
-                        android:text="134554556691" />
+                        android:layout_toRightOf="@+id/tv_write_order_name" />
 
                     <TextView
                         android:id="@+id/tv_write_order_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_write_order_name"
-                        android:layout_marginTop="@dimen/distance_10"
-                        android:text="北京市的地方" />
+                        android:layout_marginTop="@dimen/distance_10" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -88,6 +87,7 @@
                         android:layout_centerVertical="true"
                         android:text=">" />
                 </RelativeLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -159,12 +159,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="100dp">
 
-                    <TextView
+                    <ImageView
+                        android:padding="@dimen/distance_5"
                         android:id="@+id/tv_write_order_who_send"
+                        android:src="@mipmap/factory_send"
                         android:layout_width="100dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="厂家直发" />
+                        android:layout_height="100dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -185,7 +185,10 @@
         android:id="@+id/rl_write_order_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/distance_10"
+        android:background="@drawable/background"
+        android:padding="@dimen/distance_10">
 
         <TextView
             android:id="@+id/tv_write_order_price"
