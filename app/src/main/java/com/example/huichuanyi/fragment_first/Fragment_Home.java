@@ -9,7 +9,7 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.HomeAdapter;
 import com.example.huichuanyi.base.BaseFragment;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.modle.Banner;
+import com.example.huichuanyi.bean.Banner;
 import com.example.huichuanyi.secondui.AtMyAcitivty;
 import com.example.huichuanyi.secondui.StatisticsActivity;
 import com.example.huichuanyi.ui_second.DaPeiRiJiActivity;
@@ -31,7 +31,6 @@ import org.xutils.x;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.greenrobot.event.EventBus;
 
 public class Fragment_Home extends BaseFragment implements View.OnClickListener, OnItemClickListener {
     private static final int JUMP_TIME = 4000;
@@ -48,7 +47,6 @@ public class Fragment_Home extends BaseFragment implements View.OnClickListener,
 
     @Override
     protected View initView() {
-        EventBus.getDefault().register(getActivity());
         view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_home, null);
         initChildView(view);
         return view;

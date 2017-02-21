@@ -3,6 +3,7 @@ package com.example.huichuanyi.secondui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,24 +18,29 @@ import com.example.huichuanyi.ui_second.MyOrderActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.IsSuccess;
 import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.Utils;
 import com.example.huichuanyi.utils.UtilsInternet;
 import com.example.huichuanyi.utils.UtilsPay;
-import com.squareup.picasso.Picasso;
+import com.facebook.drawee.view.SimpleDraweeView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class PayOrderActivity extends BaseActivity implements View.OnClickListener, UtilsInternet.XCallBack, IsSuccess {
-
-    private ImageView mImageViewPhoto, mImageViewAliPayNormal, mImageViewAliPaySelect,
+    private SimpleDraweeView studioLogo;
+    private ImageView mImageViewAliPayNormal, mImageViewAliPaySelect,
             mImageViewWeChatNormal, mImageViewWeChatSelect;
-    private String managerPhoto, managerName, nowMoney, orderid;
+    private String managerPhoto, managerName, nowMoney, order_id, type;
     private TextView mTextViewName, mTextViewMoney, mTextViewNowMoney;
     private int AliPayOrWeChat = 1;
     private RelativeLayout mRelativeLayoutAliPay, mRelativeLayoutWeChat;
     private Button mButtonPay;
     private UtilsInternet instance = UtilsInternet.getInstance();
     private UtilsPay mPay;
+    private String user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +51,7 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void initView() {
-        mImageViewPhoto = (ImageView) findViewById(R.id.iv_payorder_photo);
+        studioLogo = (SimpleDraweeView) findViewById(R.id.iv_payorder_photo);
         mTextViewName = (TextView) findViewById(R.id.tv_payorder_name);
         mTextViewMoney = (TextView) findViewById(R.id.tv_payorder_allmoney);
         mTextViewNowMoney = (TextView) findViewById(R.id.tv_payorder_nowMoney);
@@ -60,19 +66,22 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void initData() {
+        user_id = new User(this).getUseId() + "";
         Intent intent = getIntent();
         managerPhoto = intent.getStringExtra("managerPhoto");
         managerName = intent.getStringExtra("managerName");
         nowMoney = intent.getStringExtra("nowMoney");
-        orderid = intent.getStringExtra("orderid");
+        order_id = intent.getStringExtra("orderid");
+        type = intent.getStringExtra("type");
         mPay = new UtilsPay(this);
+        Utils.Toa(this, type);
     }
 
     @Override
     public void setData() {
         mPay.isSuccess(this);
         if (!TextUtils.isEmpty(managerPhoto) && managerPhoto.length() > 5) {
-            Picasso.with(this).load(managerPhoto).into(mImageViewPhoto);
+            studioLogo.setImageURI(managerPhoto);
         }
         mTextViewName.setText(managerName);
         mTextViewMoney.setText(nowMoney);
@@ -113,13 +122,17 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
         Map<String, String> map = new HashMap<>();
         switch (AliPayOrWeChat) {
             case 1:
-                map.put("orderid", orderid);
-                map.put("type", AliPayOrWeChat + "");
+                Log.i("TAG", "alipay--" + order_id + "----" + user_id + "----" + type);
+                map.put("order_id", order_id);
+                map.put("type", type);
+                map.put("user_id", user_id);
                 instance.post(NetConfig.ALI_PAY, map, this);
                 break;
             case 2:
-                map.put("order_id", orderid);
-                map.put("user_id", new User(this).getUseId() + "");
+                Log.i("TAG", "WECHAT--" + order_id + "----" + user_id);
+                map.put("order_id", order_id);
+                map.put("user_id", user_id);
+                map.put("type", type);
                 instance.post(NetConfig.WE_CHAT_PAY, map, this);
                 break;
             default:
@@ -132,9 +145,18 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
     public void onResponse(String result) {
         switch (AliPayOrWeChat) {
             case 1:
-                mPay.aliPay(result);
+                Log.i("TAG", "alipay--" + result);
+                try {
+                    JSONObject object = new JSONObject(result);
+                    JSONObject body = object.getJSONObject("body");
+                    String sign = body.getString("sign");
+                    mPay.aliPay(sign);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 break;
             case 2:
+                Log.i("TAG", "WECHAT--" + result);
                 mPay.weChatPay(result);
                 break;
             default:

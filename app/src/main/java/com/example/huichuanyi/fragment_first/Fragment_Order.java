@@ -14,7 +14,7 @@ import com.example.huichuanyi.adapter.HomeAdapter;
 import com.example.huichuanyi.base.BaseFragment;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.DateTimePickDialogUtil;
-import com.example.huichuanyi.modle.Banner;
+import com.example.huichuanyi.bean.Banner;
 import com.example.huichuanyi.secondui.AtMyAcitivty;
 import com.example.huichuanyi.ui_second.DaPeiRiJiActivity;
 import com.example.huichuanyi.ui_second.LiJiYuYueActivity;

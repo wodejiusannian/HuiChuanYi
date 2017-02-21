@@ -25,7 +25,7 @@ import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.RoundImageView;
 import com.example.huichuanyi.utils.ItemDecoration;
-import com.example.huichuanyi.modle.MyClothess;
+import com.example.huichuanyi.bean.MyClothess;
 import com.example.huichuanyi.utils.ImageUtils;
 import com.example.huichuanyi.utils.MyJson;
 import com.example.huichuanyi.utils.User;

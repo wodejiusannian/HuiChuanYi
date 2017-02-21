@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.huichuanyi.R;
-import com.example.huichuanyi.modle.MyClothess;
+import com.example.huichuanyi.bean.MyClothess;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

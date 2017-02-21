@@ -1,9 +1,9 @@
 package com.example.huichuanyi.service;
 
 
-import com.example.huichuanyi.modle.CityModel;
-import com.example.huichuanyi.modle.DistrictModel;
-import com.example.huichuanyi.modle.ProvinceModel;
+import com.example.huichuanyi.bean.CityModel;
+import com.example.huichuanyi.bean.DistrictModel;
+import com.example.huichuanyi.bean.ProvinceModel;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;

@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.huichuanyi.R;
-import com.example.huichuanyi.modle.Indent;
+import com.example.huichuanyi.bean.Indent;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;

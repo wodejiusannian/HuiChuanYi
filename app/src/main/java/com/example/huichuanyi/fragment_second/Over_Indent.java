@@ -10,7 +10,7 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.IndentAdapter;
 import com.example.huichuanyi.base.BaseFragment;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.modle.Indent;
+import com.example.huichuanyi.bean.Indent;
 import com.example.huichuanyi.ui_second.HuiMeiWeiKeActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.User;

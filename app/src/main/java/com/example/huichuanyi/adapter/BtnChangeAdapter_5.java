@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.huichuanyi.R;
-import com.example.huichuanyi.modle.Label;
+import com.example.huichuanyi.bean.Label;
 
 import java.util.ArrayList;
 import java.util.List;

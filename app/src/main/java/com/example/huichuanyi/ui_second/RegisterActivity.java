@@ -13,7 +13,6 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.baidumap.MyThirdData;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.modle.MessageEvent;
 import com.example.huichuanyi.secondui.AuthCodeActivity;
 import com.example.huichuanyi.secondui.BoundActivity;
 import com.example.huichuanyi.secondui.LoginActivity;
@@ -33,7 +32,6 @@ import java.util.Map;
 
 import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.wechat.friends.Wechat;
-import de.greenrobot.event.EventBus;
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener, MyThirdData {
     private ImageView mImageViewBack, mImageViewWeChat, mImageViewQQ;
@@ -165,14 +163,12 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                             Map<String, Object> map = new HashMap<String, Object>();
                             map.put("userid", userId);
                             new User(RegisterActivity.this).writeUserId(b);
-                            EventBus.getDefault().post(new MessageEvent("11"));
                             ActivityUtils.switchTo(RegisterActivity.this, BoundActivity.class, map);
                             Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                             finish();
                             return;
                         }
                         new User(RegisterActivity.this).writeUserId(b);
-                        EventBus.getDefault().post(new MessageEvent("11"));
                         Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                         finish();
                     } else if (b == 0) {

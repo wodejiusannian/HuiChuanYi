@@ -12,7 +12,7 @@ import com.example.huichuanyi.ui_third.BuChaJiaActivity;
 import com.example.huichuanyi.adapter.ProgressAdapter;
 import com.example.huichuanyi.base.BaseFragment;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.modle.Progress;
+import com.example.huichuanyi.bean.Progress;
 import com.example.huichuanyi.secondui.PayOrderActivity;
 import com.example.huichuanyi.secondui.ShenQingTuiKuanActivity;
 import com.example.huichuanyi.ui_second.LiJiYuYueActivity;

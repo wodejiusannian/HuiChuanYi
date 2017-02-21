@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.custom.HistogramView;
-import com.example.huichuanyi.modle.Statistics;
+import com.example.huichuanyi.bean.Statistics;
 
 import java.util.List;
 

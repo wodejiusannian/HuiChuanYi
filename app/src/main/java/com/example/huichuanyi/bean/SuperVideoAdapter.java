@@ -11,7 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.huichuanyi.R;
-import com.example.huichuanyi.modle.Video;
 import com.example.huichuanyi.share.Share;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.squareup.picasso.Picasso;

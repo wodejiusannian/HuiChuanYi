@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.CommonAdapter;
-import com.example.huichuanyi.modle.City;
+import com.example.huichuanyi.bean.City;
 import com.example.huichuanyi.utils.ViewHolder;
 import com.facebook.drawee.view.SimpleDraweeView;
 

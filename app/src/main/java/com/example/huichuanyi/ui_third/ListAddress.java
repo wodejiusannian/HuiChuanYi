@@ -4,12 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.ListAddressAdapter;
@@ -17,6 +17,7 @@ import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.bean.MyAddress;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MySelfDialog;
+import com.example.huichuanyi.utils.MyJson;
 import com.example.huichuanyi.utils.User;
 import com.example.huichuanyi.utils.UtilsInternet;
 
@@ -41,7 +42,7 @@ public class ListAddress extends BaseActivity implements ListAddressAdapter.Info
     private UtilsInternet instance;
     private Map<String, String> map = new HashMap<>();
     private SwipeRefreshLayout mRefresh;
-    private String user_Id;
+    private String user_Id, address_id;
     private int pos, flag;
 
     @Override
@@ -90,12 +91,12 @@ public class ListAddress extends BaseActivity implements ListAddressAdapter.Info
 
 
     @Override
-    public void getInfo(String receive_city, String name, String phone, String add) {
+    public void getInfo(String addressId, String receive_city, String name, String phone, String add) {
         mCity = receive_city;
         mName = name;
         mPhone = phone;
         mAddress = add;
-
+        address_id = addressId;
     }
 
     @Override
@@ -147,6 +148,7 @@ public class ListAddress extends BaseActivity implements ListAddressAdapter.Info
         intent.putExtra("phone", mPhone);
         intent.putExtra("address", mAddress);
         intent.putExtra("city", mCity);
+        intent.putExtra("address_id", address_id);
         setResult(1001, intent);
         finish();
     }
@@ -158,7 +160,11 @@ public class ListAddress extends BaseActivity implements ListAddressAdapter.Info
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1000 && resultCode == 1001) {
-            int tag = data.getIntExtra("tag", 0);
+            flag = 0;
+            map.clear();
+            map.put("user_id", user_Id);
+            instance.post(NetConfig.GET_PERSON_ADDRESS, map, this);
+            /*int tag = data.getIntExtra("tag", 0);
             String name = data.getStringExtra("name");
             String phone = data.getStringExtra("phone");
             String street = data.getStringExtra("street");
@@ -168,8 +174,7 @@ public class ListAddress extends BaseActivity implements ListAddressAdapter.Info
                 update(tag, city, street, name, phone);
             } else {
                 addDate(city, street, name, phone);
-            }
-            adapter.notifyDataSetChanged();
+            }*/
         }
     }
 
@@ -219,32 +224,40 @@ public class ListAddress extends BaseActivity implements ListAddressAdapter.Info
     * */
     @Override
     public void onResponse(String result) {
-        Log.i("TAG", "---------" + result);
         switch (flag) {
             case 0:
                 mData.clear();
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONArray body = jsonObject.getJSONArray("body");
+                    JSONObject jsonObject1 = body.getJSONObject(0);
+                    mName = jsonObject1.getString("receive_name");
+                    mPhone = jsonObject1.getString("receive_phone");
+                    mCity = jsonObject1.getString("receive_city");
+                    mAddress = jsonObject1.getString("receive_address");
                     for (int i = 0; i < body.length(); i++) {
                         JSONObject object = body.getJSONObject(i);
                         MyAddress address = new MyAddress();
-
                         address.setReceive_address(object.getString("receive_address"));
                         address.setReceive_name(object.getString("receive_name"));
                         address.setReceive_phone(object.getString("receive_phone"));
                         address.setReceive_city(object.getString("receive_city"));
+                        address.setId(object.getString("id"));
                         mData.add(address);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 adapter.notifyDataSetChanged();
-
-
                 break;
             case 1:
                 flag = 0;
+                String ret = MyJson.getRet(result);
+                if (TextUtils.equals("0", ret)) {
+                    Toast.makeText(this, "删除成功", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "删除失败", Toast.LENGTH_SHORT).show();
+                }
                 break;
             default:
                 break;
@@ -258,10 +271,10 @@ public class ListAddress extends BaseActivity implements ListAddressAdapter.Info
     @Override
     public void onClick() {
         map.clear();
+        String id = mData.get(pos).getId();
         mData.remove(pos);
         adapter.notifyDataSetChanged();
         flag = 1;
-        String id = mData.get(pos).getId();
         map.put("id", id);
         map.put("user_id", user_Id);
         instance.post(NetConfig.DELETE_PERSON_ADDRESS, map, this);

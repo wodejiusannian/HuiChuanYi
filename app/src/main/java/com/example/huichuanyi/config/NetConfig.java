@@ -4,6 +4,7 @@ public interface NetConfig {
     /*http://hmyc365.net*/
     String BASE_URL = "http://hmyc365.net:8080/HuiMei/";
     String BASE_URL_NEW = "http://hmyc365.net:8081/HM/";
+    String BASE_BENDI = "http://192.168.1.122:8080/HM/";
     //获取Bannner轮播图
     String BANNER_ONE = BASE_URL + "picture!getPictures.action";
     //手机号注册的链接
@@ -38,10 +39,6 @@ public interface NetConfig {
     String GET_USER_PHOTO = BASE_URL + "appUserInfo!getUserPic.action";
     //修改密码的接口
     String UPDATE_USER_PWD = BASE_URL + "appUserInfo!updateUserPwd.action";
-    //支付宝支付的接口
-    String ALI_PAY = BASE_URL + "appAlipay!OrderAlipay.action";
-    //微信支付的接口
-    String WE_CHAT_PAY = "http://192.168.1.143:8080/HM/pay/wxpay/WxPay.do";
     //用户查询订单_进行中
     String MY_ORDER_PROGRESS = BASE_URL + "appOrder!queryOrderA.action";
     //用户查询订单_已完成
@@ -136,13 +133,44 @@ public interface NetConfig {
     //获取或者查询个人的地址
     String GET_PERSON_ADDRESS = BASE_URL_NEW + "a_01/hq_dz.do";
 
+    /*
+    * 支付接口
+    * */
 
+    //支付宝支付的接口
+    String ALI_PAY = BASE_URL_NEW + "h_02/hq_qm.do";
+    //微信支付的接口
+    String WE_CHAT_PAY = BASE_URL_NEW + "h_01/hq_yzf_id.do";
     /*
     * 推荐衣服数据
     * */
     //获取所有推荐衣服
     String GET_RECOMMEND_ALL = BASE_URL_NEW + "a_02/hq_sy.do";
+    //获取最新推荐的衣服
+    String GET_RECOMMEND_NEW = BASE_URL_NEW + "a_02/hq_zx.do";
     //获取推荐单品衣服的信息
     String GET_RECOMMEND_SINGLE = BASE_URL_NEW + "a_02/hq_yjxq.do";
+
+    //365衣服的订单，提交订单
+    String PAY_365_CLO_ORDER = BASE_URL_NEW + "a_04/xz_yf_dd.do";
+    /*
+    * 支付的接口
+    * */
+    String PAY_ALIPAY = BASE_URL_NEW + "h_02/xz_yf_dd.do";
+    /*
+    *  获取购买记录
+    * */
+    String GET_BUY_RECORD = BASE_URL_NEW + "a_04/hq_dd.do";
+    /*获取更新记录*/
+    String GET_REFRESH_RECORD = BASE_URL_NEW + "a_02/hq_sy.do";
+    /*
+    * 极光推送的接口
+    * */
+    /*获取极光推送的registration_id*/
+    String GET_J_PUSH_REGISTRATION_ID = BASE_URL_NEW + "a_06/xz_yf_dd.do";
+    /*传输极光推送的registration_id*/
+    String UP_J_PUSH_REGISTRATION_ID = BASE_URL_NEW + "a_06/xz_rg_id.do";
+    /*用户退出登录后传输极光推送的registration_id到服务器，清空registration_id*/
+    String UP_J_PUSH_REGISTRATION_ID_CLEAR = BASE_URL_NEW + "a_06/xz_yf_dd.do";
 }
 

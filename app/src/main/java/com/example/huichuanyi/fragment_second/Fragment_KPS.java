@@ -13,7 +13,7 @@ import com.example.huichuanyi.adapter.PersonAdapter;
 import com.example.huichuanyi.baidumap.Location;
 import com.example.huichuanyi.base.BaseFragment;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.modle.City;
+import com.example.huichuanyi.bean.City;
 import com.example.huichuanyi.ui_third.ManageActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.MyJson;

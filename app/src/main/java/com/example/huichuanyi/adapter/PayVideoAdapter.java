@@ -12,8 +12,7 @@ import android.widget.TextView;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.custom.RoundImageView;
-import com.example.huichuanyi.modle.ShopInfo;
-import com.example.huichuanyi.modle.Video;
+import com.example.huichuanyi.bean.Video;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

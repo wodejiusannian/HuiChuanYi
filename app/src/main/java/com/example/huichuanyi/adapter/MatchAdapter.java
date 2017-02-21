@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.custom.RoundImageView;
-import com.example.huichuanyi.modle.Match;
+import com.example.huichuanyi.bean.Match;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

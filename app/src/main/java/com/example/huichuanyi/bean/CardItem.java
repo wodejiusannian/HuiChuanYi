@@ -7,11 +7,24 @@ package com.example.huichuanyi.bean;
 public class CardItem {
 
     private String id;
-    private String name;
     private String color;
     private String price_dj;
     private String introduction;
     private String clothes_get;
+    private String size_name;
+    private String reason;
+    private String recommend_time;
+    private String size_get;
+    private String color_name;
+    private String clothes_name;
+
+    public String getClothes_name() {
+        return clothes_name;
+    }
+
+    public void setClothes_name(String clothes_name) {
+        this.clothes_name = clothes_name;
+    }
 
     public String getId() {
         return id;
@@ -19,14 +32,6 @@ public class CardItem {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getColor() {
@@ -59,5 +64,45 @@ public class CardItem {
 
     public void setClothes_get(String clothes_get) {
         this.clothes_get = clothes_get;
+    }
+
+    public String getSize_name() {
+        return size_name;
+    }
+
+    public void setSize_name(String size_name) {
+        this.size_name = size_name;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public String getRecommend_time() {
+        return recommend_time;
+    }
+
+    public void setRecommend_time(String recommend_time) {
+        this.recommend_time = recommend_time;
+    }
+
+    public String getSize_get() {
+        return size_get;
+    }
+
+    public void setSize_get(String size_get) {
+        this.size_get = size_get;
+    }
+
+    public String getColor_name() {
+        return color_name;
+    }
+
+    public void setColor_name(String color_name) {
+        this.color_name = color_name;
     }
 }

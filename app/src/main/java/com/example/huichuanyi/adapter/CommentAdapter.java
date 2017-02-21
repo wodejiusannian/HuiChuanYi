@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.huichuanyi.R;
-import com.example.huichuanyi.modle.Comment;
+import com.example.huichuanyi.bean.Comment;
 
 import java.util.List;
 

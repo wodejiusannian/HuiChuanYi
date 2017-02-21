@@ -44,8 +44,6 @@ import org.xutils.x;
 import java.io.File;
 import java.util.ArrayList;
 
-import de.greenrobot.event.EventBus;
-
 
 public class Fragment_Mine extends BaseFragment implements View.OnClickListener, FreshPhoto {
     private View view;
@@ -61,7 +59,6 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
 
     @Override
     protected View initView() {
-        //EventBus.getDefault().register(getActivity());
         view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_mine, null);
         initChildView(view);
         return view;
@@ -296,13 +293,13 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
     @Override
     public void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(getActivity());
     }
 
 
     @Override
-    public void getPhoto(String str) {
+    public void getPhoto() {
         useId = new User(getActivity()).getUseId();
+        Toast.makeText(getContext(), "useId" + useId, Toast.LENGTH_SHORT).show();
         getUserPhoto();
     }
 }

@@ -16,9 +16,9 @@ import android.widget.Toast;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.modle.CityModel;
-import com.example.huichuanyi.modle.DistrictModel;
-import com.example.huichuanyi.modle.ProvinceModel;
+import com.example.huichuanyi.bean.CityModel;
+import com.example.huichuanyi.bean.DistrictModel;
+import com.example.huichuanyi.bean.ProvinceModel;
 import com.example.huichuanyi.service.XmlParserHandler;
 import com.example.huichuanyi.utils.MyJson;
 import com.example.huichuanyi.utils.User;
@@ -38,8 +38,8 @@ import widget.adapters.ArrayWheelAdapter;
 
 public class Write_AddressActivity extends BaseActivity implements View.OnClickListener, OnWheelChangedListener, UtilsInternet.XCallBack {
     private Intent intent;
-    private TextView mSave, mSelect, mCancel, mSure;
-    private EditText mName, mPhone, mStreet;
+    private TextView mSave, mCity, mCancel, mSure;
+    private EditText mName, mPhone, mAdd;
     private UtilsInternet instance = UtilsInternet.getInstance();
     private RelativeLayout mAddress;
     protected String[] mProvinceDatas;
@@ -70,8 +70,8 @@ public class Write_AddressActivity extends BaseActivity implements View.OnClickL
         mSave = (TextView) findViewById(R.id.tv_write_address_save);
         mName = (EditText) findViewById(R.id.et_write_address_name);
         mPhone = (EditText) findViewById(R.id.et_write_address_phone);
-        mStreet = (EditText) findViewById(R.id.et_write_address_street);
-        mSelect = (TextView) findViewById(R.id.tv_write_address_address);
+        mAdd = (EditText) findViewById(R.id.et_write_address_address);
+        mCity = (TextView) findViewById(R.id.tv_write_address_city);
         mViewProvince = (WheelView) findViewById(R.id.id_province);
         mViewCity = (WheelView) findViewById(R.id.id_city);
         mViewDistrict = (WheelView) findViewById(R.id.id_district);
@@ -97,10 +97,10 @@ public class Write_AddressActivity extends BaseActivity implements View.OnClickL
     @Override
     public void setData() {
         if (TextUtils.equals("9001", type)) {
-            mSelect.setText(city);
+            mCity.setText(city);
             mName.setText(name);
             mPhone.setText(phone);
-            mStreet.setText(address);
+            mAdd.setText(address);
         }
         mViewProvince.setViewAdapter(new ArrayWheelAdapter<String>(this, mProvinceDatas));
         mViewProvince.setVisibleItems(7);
@@ -113,7 +113,7 @@ public class Write_AddressActivity extends BaseActivity implements View.OnClickL
     @Override
     public void setListener() {
         mSave.setOnClickListener(this);
-        mSelect.setOnClickListener(this);
+        mCity.setOnClickListener(this);
         mViewProvince.addChangingListener(this);
         mViewCity.addChangingListener(this);
         mViewDistrict.addChangingListener(this);
@@ -131,7 +131,7 @@ public class Write_AddressActivity extends BaseActivity implements View.OnClickL
             case R.id.tv_write_address_save:
                 transmissionInfo();
                 break;
-            case R.id.tv_write_address_address:
+            case R.id.tv_write_address_city:
                 closeKeyboard();
                 initAddress();
                 break;
@@ -152,7 +152,7 @@ public class Write_AddressActivity extends BaseActivity implements View.OnClickL
     private void setCity() {
         city = mCurrentProviceName + "," + mCurrentCityName + ","
                 + mCurrentDistrictName;
-        mSelect.setText(city);
+        mCity.setText(city);
         mAddress.setVisibility(View.GONE);
     }
 
@@ -169,8 +169,8 @@ public class Write_AddressActivity extends BaseActivity implements View.OnClickL
     private void transmissionInfo() {
         receive_name = mName.getText().toString().trim();
         receive_phone = mPhone.getText().toString().trim();
-        receive_city = mStreet.getText().toString().trim();
-        receive_address = mSelect.getText().toString().trim();
+        receive_city = mCity.getText().toString().trim();
+        receive_address = mAdd.getText().toString().trim();
         if (TextUtils.isEmpty(receive_name) || TextUtils.isEmpty(receive_phone) || TextUtils.isEmpty(receive_city) || TextUtils.isEmpty(receive_address)) {
             Toast.makeText(this, "亲，请填全地址", Toast.LENGTH_SHORT).show();
             return;
@@ -186,13 +186,13 @@ public class Write_AddressActivity extends BaseActivity implements View.OnClickL
      * tag修改某个位置的地址
      */
     private void toUpActivity() {
-        intent.putExtra("isSuccess", "success");
+        /*intent.putExtra("isSuccess", "success");
         intent.putExtra("type", type);
         intent.putExtra("name", receive_name);
         intent.putExtra("phone", receive_phone);
         intent.putExtra("street", receive_address);
         intent.putExtra("city", receive_city);
-        intent.putExtra("tag", tag);
+        intent.putExtra("tag", tag);*/
         setResult(1001, intent);
         finish();
     }
@@ -202,6 +202,7 @@ public class Write_AddressActivity extends BaseActivity implements View.OnClickL
     * 如果type为9001那么就是修改地址，进行添加地址操作
     * */
     private void updateAddress() {
+        Log.i("TAG", "-----------" + addressId);
         dataMap.put("user_id", userID);
         dataMap.put("id", addressId);
         dataMap.put("receive_name", receive_name);
@@ -226,7 +227,6 @@ public class Write_AddressActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onResponse(String result) {
-        Log.i("TAG", "-----------------"+result);
         String ret = MyJson.getRet(result);
         if (TextUtils.equals("0", ret)) {
             if (TextUtils.equals("9001", type)) {

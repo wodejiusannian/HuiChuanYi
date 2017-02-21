@@ -1,5 +1,9 @@
 package com.example.huichuanyi.ui_first;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -14,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.baidumap.FreshPhoto;
+import com.example.huichuanyi.baidumap.Fresh_365;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.config.SystemParams;
@@ -24,7 +29,6 @@ import com.example.huichuanyi.fragment_first.Fragment_365;
 import com.example.huichuanyi.fragment_first.Fragment_Home;
 import com.example.huichuanyi.fragment_first.Fragment_Mine;
 import com.example.huichuanyi.fragment_first.Fragment_Order;
-import com.example.huichuanyi.modle.MessageEvent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,10 +36,12 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
-public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
+public class
+MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
     private RadioGroup mRadioGroup;
     private static boolean isExit = false;
     private FreshPhoto mFreshPhoto;
+    private Fresh_365 mFresh_365;
     private Fragment[] mFragments;
     private int index;
     private int currentTabIndex;
@@ -76,7 +82,9 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     }
 
     public void setData() {
-
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("action.refreshFriend");
+        registerReceiver(mRefreshBroadcastReceiver, intentFilter);
     }
 
     public void setListener() {
@@ -104,15 +112,29 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         }
     }
 
-    public void onEventMainThread(MessageEvent event) {
-        if (TextUtils.equals("11", event.getMessage())) {
-            mFreshPhoto.getPhoto("1");
-        }
-    }
 
+    private BroadcastReceiver mRefreshBroadcastReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals("action.refreshFriend")) {
+                if (mFreshPhoto != null) {
+                    mFreshPhoto.getPhoto();
+                }
+                if (mFresh_365 != null) {
+                    mFresh_365.reFresh365();
+                }
+            }
+        }
+    };
 
     public void setCallBack(FreshPhoto callBack) {
         this.mFreshPhoto = callBack;
+    }
+
+    public void setFresh365(Fresh_365 fresh365) {
+        mFresh_365 = fresh365;
     }
 
     @Override
@@ -235,4 +257,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             currentTabIndex = index;
         }
     }
+
+
 }

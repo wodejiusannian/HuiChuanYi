@@ -69,6 +69,8 @@ public class ListAddressAdapter extends BaseAdapter {
         for (int i = 0; i < mData.size(); i++) {
             if (i == 0) {
                 isClicks.add(true);
+            } else if (i == mData.size()) {
+                isClicks.add(false);
             } else {
                 isClicks.add(false);
             }
@@ -79,6 +81,7 @@ public class ListAddressAdapter extends BaseAdapter {
         final String name = address.getReceive_name();
         final String phone = address.getReceive_phone();
         final String receive_city = address.getReceive_city();
+        final String address_id = address.getId();
         holder.name.setText(name);
         holder.phone.setText(phone);
         holder.address.setText(receive_city + add);
@@ -92,7 +95,7 @@ public class ListAddressAdapter extends BaseAdapter {
         holder.mAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mInfo.getInfo(receive_city, name, phone, add);
+                mInfo.getInfo(address_id, receive_city, name, phone, add);
                 for (int i = 0; i < mData.size(); i++) {
                     isClicks.set(i, false);
                 }
@@ -124,7 +127,7 @@ public class ListAddressAdapter extends BaseAdapter {
     }
 
     public interface Info {
-        void getInfo(String city, String name, String phone, String add);
+        void getInfo(String address_id, String city, String name, String phone, String add);
     }
 
 }

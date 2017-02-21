@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.custom.RoundImageView;
-import com.example.huichuanyi.modle.Pic;
+import com.example.huichuanyi.bean.Pic;
 import com.example.huichuanyi.utils.ImageUtils;
 
 import org.json.JSONArray;

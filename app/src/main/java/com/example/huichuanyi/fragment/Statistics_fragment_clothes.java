@@ -11,7 +11,7 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.InfoATClothesAdapter;
 import com.example.huichuanyi.base.BaseFragment;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.modle.Statistics;
+import com.example.huichuanyi.bean.Statistics;
 import com.example.huichuanyi.utils.User;
 import com.google.gson.Gson;
 

@@ -17,7 +17,7 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.MatchAdapter;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.modle.Match;
+import com.example.huichuanyi.bean.Match;
 import com.example.huichuanyi.secondui.AddMatch;
 import com.example.huichuanyi.secondui.ShowPhotoActivity;
 import com.example.huichuanyi.utils.ActivityUtils;

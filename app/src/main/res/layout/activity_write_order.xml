@@ -160,11 +160,11 @@
                     android:layout_height="100dp">
 
                     <ImageView
-                        android:padding="@dimen/distance_5"
                         android:id="@+id/tv_write_order_who_send"
-                        android:src="@mipmap/factory_send"
                         android:layout_width="100dp"
-                        android:layout_height="100dp"/>
+                        android:layout_height="100dp"
+                        android:padding="@dimen/distance_5"
+                        android:src="@mipmap/factory_send" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -198,6 +198,7 @@
             android:text="总计：¥598" />
 
         <Button
+            android:id="@+id/btn_write_order_submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

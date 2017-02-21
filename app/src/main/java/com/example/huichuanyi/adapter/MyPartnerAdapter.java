@@ -61,9 +61,9 @@ public class MyPartnerAdapter extends PagerAdapter {
         TextView style = (TextView) view.findViewById(R.id.item_clothes_style);
         TextView name = (TextView) view.findViewById(R.id.item_clothes_name);
         TextView content = (TextView) view.findViewById(R.id.item_clothes_content);
-        style.setText(item.getColor());
-        name.setText(item.getName());
+        style.setText(item.getColor_name());
         content.setText(item.getIntroduction());
+        name.setText(item.getColor_name());
     }
 
 }

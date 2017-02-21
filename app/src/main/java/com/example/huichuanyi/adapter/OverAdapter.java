@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.custom.RoundImageView;
-import com.example.huichuanyi.modle.Progress;
+import com.example.huichuanyi.bean.Progress;
 import com.example.huichuanyi.secondui.PingJiaActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.squareup.picasso.Picasso;

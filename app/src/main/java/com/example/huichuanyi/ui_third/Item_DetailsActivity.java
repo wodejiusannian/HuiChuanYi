@@ -1,5 +1,6 @@
 package com.example.huichuanyi.ui_third;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -8,10 +9,13 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Item_DetailsActivity extends BaseActivity implements View.OnClickListener {
     private RelativeLayout mJump;
+    private Map<String, Object> map = new HashMap<>();
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_details);
@@ -25,7 +29,7 @@ public class Item_DetailsActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void initData() {
-
+        getUpActivityData();
     }
 
     @Override
@@ -46,7 +50,7 @@ public class Item_DetailsActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl_item_details_select:
-                ActivityUtils.switchTo(this, Write_OrderActivity.class);
+                ActivityUtils.switchTo(this, Write_OrderActivity.class, map);
                 break;
            /* case R.id.pop_btn_buy_365_sure:
                 ActivityUtils.switchTo(this,My_AddressActivity.class);
@@ -57,6 +61,29 @@ public class Item_DetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
 
+    private void getUpActivityData() {
+        Intent intent = getIntent();
+        String clothes_get = intent.getStringExtra("clothes_get");
+        String color = intent.getStringExtra("color");
+        String color_name = intent.getStringExtra("color_name");
+        String id = intent.getStringExtra("id");
+        String introduction = intent.getStringExtra("introduction");
+        String name = intent.getStringExtra("name");
+        String price_dj = intent.getStringExtra("price_dj");
+        String reason = intent.getStringExtra("reason");
+        String size_name = intent.getStringExtra("size_name");
+        String type = intent.getStringExtra("type");
+        map.put("clothes_get", clothes_get);
+        map.put("color", color);
+        map.put("color_name", color_name);
+        map.put("id", id);
+        map.put("introduction", introduction);
+        map.put("name", name);
+        map.put("price_dj", price_dj);
+        map.put("reason", reason);
+        map.put("size_name", size_name);
+        map.put("type", type);
+    }
 
     /*rivate void showPopWindow() {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);

@@ -21,7 +21,6 @@ import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.custom.RoundImageView;
-import com.example.huichuanyi.modle.Video;
 import com.example.huichuanyi.utils.MySharedPreferences;
 import com.example.huichuanyi.utils.User;
 import com.google.gson.Gson;

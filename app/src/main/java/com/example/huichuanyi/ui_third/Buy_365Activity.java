@@ -11,6 +11,8 @@ import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.secondui.PayOrderActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
+import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.Utils;
 import com.example.huichuanyi.utils.UtilsInternet;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -27,7 +29,8 @@ public class Buy_365Activity extends BaseActivity implements UtilsInternet.XCall
     private Map<String, String> map = new HashMap<>();
     private SimpleDraweeView mStudioLogo;
     Map<String, Object> jumpMap = new HashMap<>();
-    private String studioId, studioLogo, studioName;
+    private String studioId, studioLogo, studioName, user_id;
+    private int flag = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,7 @@ public class Buy_365Activity extends BaseActivity implements UtilsInternet.XCall
 
     @Override
     public void initData() {
+        user_id = new User(this).getUseId() + "";
         Intent intent = getIntent();
         studioId = intent.getStringExtra("studioId");
         studioLogo = intent.getStringExtra("studioLogo");
@@ -70,14 +74,41 @@ public class Buy_365Activity extends BaseActivity implements UtilsInternet.XCall
 
     @Override
     public void onResponse(String result) {
-        try {
-            JSONObject object = new JSONObject(result);
-            JSONObject body = object.getJSONObject("body");
-            String num = body.getString("num");
-            mCount.setText(num);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        Utils.Log(result);
+
+        switch (flag) {
+            case 0:
+                try {
+                    JSONObject object = new JSONObject(result);
+                    JSONObject body = object.getJSONObject("body");
+                    String num = body.getString("num");
+                    mCount.setText(num);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case 1:
+                try {
+                    JSONObject obj = new JSONObject(result);
+                    JSONObject body = obj.getJSONObject("body");
+                    String id = body.getString("id");
+                    Utils.Log(id);
+                    jumpMap.put("managerPhoto", studioLogo);
+                    jumpMap.put("orderid", studioId);
+                    jumpMap.put("managerName", studioName);
+                    jumpMap.put("nowMoney", "365");
+                    jumpMap.put("type", "2");
+                    jumpMap.put("orderid", id);
+                    ActivityUtils.switchTo(Buy_365Activity.this, PayOrderActivity.class, jumpMap);
+                    finish();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                break;
+            default:
+                break;
         }
+
     }
 
     public void back(View view) {
@@ -102,11 +133,10 @@ public class Buy_365Activity extends BaseActivity implements UtilsInternet.XCall
     * 去开通
     * */
     private void goOpen() {
-        jumpMap.put("managerPhoto", studioLogo);
-        jumpMap.put("orderid", studioId);
-        jumpMap.put("managerName", studioName);
-        jumpMap.put("nowMoney", "365");
-        ActivityUtils.switchTo(Buy_365Activity.this, PayOrderActivity.class, jumpMap);
-        finish();
+        flag = 1;
+        map.clear();
+        map.put("user_id", user_id);
+        map.put("studio_id", studioId);
+        instance.post(NetConfig.SUBMIT_ORDER_365, map, this);
     }
 }

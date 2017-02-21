@@ -111,7 +111,6 @@ public class UtilsInternet {
                 params.addBodyParameter(entry.getKey(), entry.getValue().getAbsoluteFile());
             }
         }
-
         params.setMultipart(true);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override

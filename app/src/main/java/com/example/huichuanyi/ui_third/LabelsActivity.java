@@ -18,7 +18,7 @@ import com.example.huichuanyi.adapter.MyPicAdapter;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.LabelPopupWindow;
-import com.example.huichuanyi.modle.Pic;
+import com.example.huichuanyi.bean.Pic;
 import com.example.huichuanyi.utils.ImageUtils;
 import com.example.huichuanyi.utils.MyJson;
 import com.example.huichuanyi.utils.User;

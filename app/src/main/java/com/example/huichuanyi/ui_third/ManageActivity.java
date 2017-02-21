@@ -19,7 +19,7 @@ import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MyListView;
 import com.example.huichuanyi.custom.RoundImageView;
-import com.example.huichuanyi.modle.Comment;
+import com.example.huichuanyi.bean.Comment;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.squareup.picasso.Picasso;
 
@@ -194,6 +194,7 @@ public class ManageActivity extends BaseActivity implements View.OnClickListener
                 map.put("price_baseNum2", price_baseNum2);
                 map.put("price_raiseNum", price_raiseNum);
                 map.put("price_raisePrice", price_raisePrice);
+                map.put("type","1");
                 ActivityUtils.switchTo(this, OrderDetailsActivity.class, map);
                 finish();
                 break;

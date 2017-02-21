@@ -17,6 +17,7 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.alipay.PayResult;
 import com.example.huichuanyi.ui_second.MyOrderActivity;
 import com.example.huichuanyi.wxapi.Constants;
+import com.google.gson.JsonObject;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;

@@ -29,7 +29,7 @@ import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.LabelPopupWindow;
 import com.example.huichuanyi.custom.MyRelativeLayout;
 import com.example.huichuanyi.custom.MySelfDialog;
-import com.example.huichuanyi.modle.MyClothess;
+import com.example.huichuanyi.bean.MyClothess;
 import com.example.huichuanyi.utils.MyJson;
 import com.example.huichuanyi.utils.User;
 import com.example.huichuanyi.utils.Utils_Data;

@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MySelfDialog;
-import com.example.huichuanyi.modle.MyClothess;
+import com.example.huichuanyi.bean.MyClothess;
 import com.example.huichuanyi.utils.User;
 import com.squareup.picasso.Picasso;
 
