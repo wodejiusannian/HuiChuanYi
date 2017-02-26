@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_see_car"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.example.huichuanyi.fragment_second.SeeCarActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/color_ac0000">
+
+        <include layout="@layout/btn_back"></include>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="物流信息"
+            android:textColor="@color/main_color_write"
+            android:textSize="@dimen/text_size_18" />
+    </RelativeLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/sf_see_car"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/distance_5">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/distance_5">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background"
+                    android:padding="@dimen/distance_5">
+
+                    <TextView
+                        android:id="@+id/tv_clothes_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_margin="@dimen/distance_10"
+                        android:text="服饰名字"
+                        android:textSize="@dimen/text_size_17" />
+
+                    <TextView
+                        android:id="@+id/line"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/tv_clothes_name"
+                        android:background="@color/color_6c" />
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/line"
+                        android:layout_margin="@dimen/distance_10"
+                        android:layout_toRightOf="@+id/sv_see_car_clothes_photo"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="快递公司"
+                            android:textSize="@dimen/text_size_16" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/distance_5"
+                            android:text="订单编号"
+                            android:textSize="@dimen/text_size_16" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/distance_5"
+                            android:text="联系电话"
+                            android:textSize="@dimen/text_size_16" />
+                    </LinearLayout>
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/sv_see_car_clothes_photo"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        fresco:actualImageScaleType="fitCenter"
+                        fresco:placeholderImage="@mipmap/stand"
+                        fresco:placeholderImageScaleType="fitXY"
+                        fresco:roundedCornerRadius="4dp"
+                        android:layout_marginLeft="@dimen/distance_10"
+                        android:layout_marginRight="@dimen/distance_10"
+                        android:layout_alignTop="@+id/linearLayout"
+                        android:layout_alignParentStart="true" />
+                </RelativeLayout>
+
+                <com.example.huichuanyi.custom.MyListView
+                    android:id="@+id/lv_see_car"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/distance_10"
+                    android:background="@drawable/background"
+                    android:padding="@dimen/distance_5">
+
+                </com.example.huichuanyi.custom.MyListView>
+            </LinearLayout>
+
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</LinearLayout>

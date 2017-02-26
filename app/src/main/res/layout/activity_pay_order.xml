@@ -41,8 +41,10 @@
             android:layout_marginBottom="@dimen/distance"
             android:layout_marginLeft="@dimen/distance"
             android:layout_marginTop="@dimen/distance"
+            fresco:actualImageScaleType="fitCenter"
             fresco:failureImage="@mipmap/stand"
             fresco:placeholderImage="@mipmap/stand"
+            fresco:placeholderImageScaleType="fitXY"
             fresco:roundedCornerRadius="4dp" />
 
         <TextView

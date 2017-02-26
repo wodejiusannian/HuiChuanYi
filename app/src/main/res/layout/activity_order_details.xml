@@ -206,7 +206,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_below="@+id/et_order_writeCount"
                     android:layout_marginRight="10dp"
-                    android:text="200件以内价格为298\n详情请点击按钮查看"
+                    android:text="200件以内价格为298详情请点击按钮查看"
                     android:textSize="10sp" />
             </RelativeLayout>
 

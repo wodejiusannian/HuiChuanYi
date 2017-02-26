@@ -8,6 +8,7 @@
     tools:context="com.example.huichuanyi.ui_third.Item_DetailsActivity">
 
     <RelativeLayout
+        android:id="@+id/rl_item_details_top"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/text_color">
@@ -25,12 +26,23 @@
             android:textSize="@dimen/text_size_big" />
     </RelativeLayout>
 
+    <WebView
+        android:id="@+id/wb_item_show"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_item_details_top">
+
+    </WebView>
+
     <RelativeLayout
         android:id="@+id/rl_item_details_select"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/text_color">
+        android:layout_marginBottom="@dimen/distance_10"
+        android:layout_marginLeft="@dimen/distance_10"
+        android:layout_marginRight="@dimen/distance_10"
+        android:background="@drawable/btn_select">
 
         <TextView
             android:layout_width="wrap_content"

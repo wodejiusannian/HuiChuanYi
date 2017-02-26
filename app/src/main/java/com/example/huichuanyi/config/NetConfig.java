@@ -25,8 +25,6 @@ public interface NetConfig {
     String ME_INFORMATION = BASE_URL + "user!updateData.action";
     //头像上传接口
     String USER_PHOTO = BASE_URL + "appPhotoUpload!changeHeadP.action";
-    //多图上传接口
-    String UP_MANY_PICTURE = BASE_URL + "appPhotoUpload!zjUserClothes.action";
     //搭配日记的接口
     String MATCH_DIARY = BASE_URL + "appMatchDiary!getmatchDiary.action";
     //衣服统计接口按款式分
@@ -95,12 +93,6 @@ public interface NetConfig {
     String UPDATE_CLO = BASE_URL + "appClothesOpe!xgUserClothes.action";
 
     /*
-    * 购买365推荐衣服的接口
-    * */
-    String BUY_365_CLOTHES = BASE_URL + "a_04/xz_yf_dd.do\"";
-
-
-    /*
     * 365工作室的数据接口
     * */
 
@@ -117,13 +109,6 @@ public interface NetConfig {
     //判断用户是否购买过365会员
     String IS_BUY_365 = BASE_URL_NEW + "a_03/hq_365_xx.do";
 
-    //购买365VIP下单的接口
-    String BUY_365_VIP = BASE_URL_NEW + "a_03/xz_dd.do";
-
-    /*
-    * 地址的增删改查
-    * */
-
     //添加个人地址
     String ADD_PERSON_ADDRESS = BASE_URL_NEW + "a_01/xz_dz.do";
     //删除个人地址
@@ -136,7 +121,8 @@ public interface NetConfig {
     /*
     * 支付接口
     * */
-
+    //支付宝中中上门服务的接口
+    String ALI_PAY_OLD = BASE_URL + "appAlipay!OrderAlipay.action";
     //支付宝支付的接口
     String ALI_PAY = BASE_URL_NEW + "h_02/hq_qm.do";
     //微信支付的接口
@@ -144,12 +130,8 @@ public interface NetConfig {
     /*
     * 推荐衣服数据
     * */
-    //获取所有推荐衣服
-    String GET_RECOMMEND_ALL = BASE_URL_NEW + "a_02/hq_sy.do";
     //获取最新推荐的衣服
     String GET_RECOMMEND_NEW = BASE_URL_NEW + "a_02/hq_zx.do";
-    //获取推荐单品衣服的信息
-    String GET_RECOMMEND_SINGLE = BASE_URL_NEW + "a_02/hq_yjxq.do";
 
     //365衣服的订单，提交订单
     String PAY_365_CLO_ORDER = BASE_URL_NEW + "a_04/xz_yf_dd.do";
@@ -172,5 +154,11 @@ public interface NetConfig {
     String UP_J_PUSH_REGISTRATION_ID = BASE_URL_NEW + "a_06/xz_rg_id.do";
     /*用户退出登录后传输极光推送的registration_id到服务器，清空registration_id*/
     String UP_J_PUSH_REGISTRATION_ID_CLEAR = BASE_URL_NEW + "a_06/xz_yf_dd.do";
+
+    /*
+    * 365记录中的确认收货，联系我们，查看物流
+    * */
+    /*365购买衣服的确认收货*/
+    String CONFIRM_RECEIPT_365 = BASE_URL_NEW + "a_04/xg_dd.do";
 }
 

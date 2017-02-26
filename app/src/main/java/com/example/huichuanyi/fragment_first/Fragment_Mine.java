@@ -43,6 +43,8 @@ import org.xutils.x;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class Fragment_Mine extends BaseFragment implements View.OnClickListener, FreshPhoto {
@@ -55,7 +57,9 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
             mLinearLayoutInvite, mLinearLayoutExit, m365;
     private User mUser;
     private static final int REQUEST_CAMERA_CODE = 11;
+    private Map<String, Object> map = new HashMap<>();
     private int useId = -1;
+    private String userPhoto;
 
     @Override
     protected View initView() {
@@ -91,9 +95,9 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
                         mTextViewDaiTi.setVisibility(View.VISIBLE);
                         mTextViewDaiTi.setText(name);
                     }
-                    String photopath = jsonObject.getString("photopath");
-                    if (!TextUtils.isEmpty(photopath)) {
-                        mPhoto.setImageURI(photopath);
+                    userPhoto = jsonObject.getString("photopath");
+                    if (!TextUtils.isEmpty(userPhoto)) {
+                        mPhoto.setImageURI(userPhoto);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -138,7 +142,7 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
         useId = mUser.getUseId();
         switch (v.getId()) {
             case R.id.tv_mine_registerandlogin:
-                ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
+                goLogin();
                 break;
             case R.id.iv_mine_photo:
                 if (useId > 0) {
@@ -174,19 +178,18 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
                 break;
             case R.id.ll_mine_365:
                 if (useId > 0) {
-                    ActivityUtils.switchTo(getActivity(), My_365Activity.class);
+                    map.put("userPhoto", userPhoto);
+                    ActivityUtils.switchTo(getActivity(), My_365Activity.class, map);
                 } else {
                     ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
                 }
                 break;
             case R.id.ll_mine_indent:
-
                 if (useId > 0) {
                     ActivityUtils.switchTo(getActivity(), IndentActivity.class);
                 } else {
                     ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
                 }
-
                 break;
             case R.id.ll_mine_invite:
                 if (useId > 0) {
@@ -196,28 +199,17 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
                 }
                 break;
             case R.id.ll_mine_exit:
-                if (useId > 0) {
-                    MySelfDialog mDialog = new MySelfDialog(getActivity());
-                    mDialog.setMessage("退出后看不到具体数据");
-                    mDialog.setOnNoListener("取消", null);
-                    mDialog.setOnYesListener("确定", new MySelfDialog.OnYesClickListener() {
-                        @Override
-                        public void onClick() {
-                            User mUser = new User(getActivity());
-                            mUser.writeUserId(0);
-                            mPhoto.setImageURI(Uri.parse("res://com.example.huichuanyi/" + R.mipmap.managephoto));
-                            mTextViewDaiTi.setVisibility(View.GONE);
-                            mTextViewRegisterAndLogin.setVisibility(View.VISIBLE);
-                            MySharedPreferences.save365(getContext(), null);
-                            Toast.makeText(getActivity(), "退出登录成功", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    mDialog.show();
-                } else {
-                    ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
-                }
+                goExit(useId);
                 break;
         }
+    }
+
+
+    /*
+    * 去登陆
+    * */
+    private void goLogin() {
+        ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
     }
 
     private void upLoadingPhoto() {
@@ -298,8 +290,34 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
 
     @Override
     public void getPhoto() {
+        Toast.makeText(getContext(), "登陆成功后，刷新下头像和姓名", Toast.LENGTH_SHORT).show();
         useId = new User(getActivity()).getUseId();
-        Toast.makeText(getContext(), "useId" + useId, Toast.LENGTH_SHORT).show();
         getUserPhoto();
+    }
+
+    /*
+    * 去退出
+    * */
+    private void goExit(int useId) {
+        if (useId > 0) {
+            MySelfDialog mDialog = new MySelfDialog(getActivity());
+            mDialog.setMessage("退出后看不到具体数据");
+            mDialog.setOnNoListener("取消", null);
+            mDialog.setOnYesListener("确定", new MySelfDialog.OnYesClickListener() {
+                @Override
+                public void onClick() {
+                    User mUser = new User(getActivity());
+                    mUser.writeUserId(0);
+                    mPhoto.setImageURI(Uri.parse("res://com.example.huichuanyi/" + R.mipmap.managephoto));
+                    mTextViewDaiTi.setVisibility(View.GONE);
+                    mTextViewRegisterAndLogin.setVisibility(View.VISIBLE);
+                    MySharedPreferences.save365(getContext(), null);
+                    Toast.makeText(getActivity(), "退出登录成功", Toast.LENGTH_SHORT).show();
+                }
+            });
+            mDialog.show();
+        } else {
+            ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
+        }
     }
 }

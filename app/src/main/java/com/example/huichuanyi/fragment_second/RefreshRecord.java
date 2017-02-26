@@ -2,7 +2,6 @@ package com.example.huichuanyi.fragment_second;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
@@ -55,7 +54,7 @@ public class RefreshRecord extends BaseFragment implements UtilsInternet.XCallBa
         super.initData();
         user_id = new User(getContext()).getUseId() + "";
         mData = new ArrayList<>();
-        adapter = new RefreshRecordAdapter(getContext(), mData, R.layout.item_fragment_refresh_record);
+        adapter = new RefreshRecordAdapter(mData, getContext());
         mShow.setAdapter(adapter);
     }
 
@@ -88,6 +87,7 @@ public class RefreshRecord extends BaseFragment implements UtilsInternet.XCallBa
                     str = time;
                     a = new ArrayList<>();
                     rr = new RecordRefresh();
+                    rr.setTime(time);
                     mData.add(rr);
                 }
                 RecordRefresh.RefreshBean bean = new RecordRefresh.RefreshBean();
@@ -95,7 +95,6 @@ public class RefreshRecord extends BaseFragment implements UtilsInternet.XCallBa
                 a.add(bean);
                 rr.setList(a);
             }
-            Log.i("TAG", "-------" + mData.size());
             adapter.notifyDataSetChanged();
         } catch (JSONException e) {
             e.printStackTrace();

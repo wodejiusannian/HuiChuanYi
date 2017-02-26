@@ -22,7 +22,7 @@
             android:layout_centerInParent="true"
             android:text="我的365"
             android:textColor="@color/main_color_write"
-            android:textSize="@dimen/text_size_big" />
+            android:textSize="@dimen/text_size_18" />
     </RelativeLayout>
 
     <LinearLayout
@@ -38,29 +38,30 @@
             android:padding="@dimen/distance_10">
 
             <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/sv_365_photo"
+                android:id="@+id/sv_user_photo"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                fresco:actualImageScaleType="fitCenter"
-                fresco:failureImage="@mipmap/managephoto"
-                fresco:placeholderImage="@mipmap/managephoto"
+                fresco:actualImageScaleType="fitXY"
+                fresco:failureImage="@mipmap/stand"
+                fresco:placeholderImage="@mipmap/stand"
                 fresco:roundAsCircle="true" />
 
             <TextView
-                android:id="@+id/tv_365_name"
+                android:id="@+id/tv_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/distance_10"
-                android:layout_toRightOf="@+id/sv_365_photo"
+                android:layout_toRightOf="@+id/sv_user_photo"
                 android:text="name" />
 
             <TextView
+                android:id="@+id/tv_uesr_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_365_name"
+                android:layout_below="@+id/tv_user_name"
                 android:layout_marginLeft="@dimen/distance_10"
                 android:layout_marginTop="@dimen/distance_10"
-                android:layout_toRightOf="@+id/sv_365_photo"
+                android:layout_toRightOf="@+id/sv_user_photo"
                 android:text="date" />
         </RelativeLayout>
 
@@ -87,41 +88,62 @@
                 android:layout_below="@+id/tv_365_studio"
                 android:background="@color/back_ground" />
 
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/sv_365_studio_photo"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_below="@+id/tv_365_line"
-                android:layout_marginTop="@dimen/distance_10"
-                fresco:actualImageScaleType="fitCenter"
-                fresco:failureImage="@mipmap/managephoto"
-                fresco:placeholderImage="@mipmap/managephoto"
-                fresco:roundAsCircle="true" />
-
             <TextView
-                android:id="@+id/tv_365_studio_name"
+                android:id="@+id/tv_studio_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_365_line"
+                android:layout_marginLeft="@dimen/distance_10"
                 android:layout_marginTop="@dimen/distance_10"
-                android:layout_toRightOf="@+id/sv_365_studio_photo"
+                android:layout_toRightOf="@+id/sv_studio_logo"
                 android:text="studio_name" />
 
             <TextView
+                android:id="@+id/tv_studio_is_open"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_365_studio_name"
+                android:layout_below="@+id/tv_studio_name"
+                android:layout_marginLeft="@dimen/distance_10"
                 android:layout_marginTop="@dimen/distance_10"
-                android:layout_toRightOf="@+id/sv_365_studio_photo"
-                android:text="开通" />
+                android:layout_toRightOf="@+id/sv_studio_logo"
+                android:text="未开通" />
 
             <TextView
-                android:id="@+id/tv_365_studio_details"
+                android:id="@+id/tv_365_studio_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/sv_365_studio_photo"
+                android:layout_below="@+id/sv_studio_logo"
                 android:layout_margin="@dimen/distance_10"
                 android:text="工作室详情" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sv_studio_logo"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignTop="@+id/tv_studio_name"
+                android:layout_marginLeft="@dimen/distance_10"
+                fresco:actualImageScaleType="fitCenter"
+                fresco:failureImage="@mipmap/stand"
+                fresco:placeholderImage="@mipmap/stand"
+                fresco:roundAsCircle="true" />
         </RelativeLayout>
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/color_ac0000">
+
+        <include layout="@layout/btn_back"></include>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="我的365"
+            android:textColor="@color/main_color_write"
+            android:textSize="@dimen/text_size_big" />
+    </RelativeLayout>
+
 </LinearLayout>

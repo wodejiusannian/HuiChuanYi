@@ -196,6 +196,7 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
                         map.put("managerName", managerName);
                         map.put("nowMoney", nowMoney);
                         map.put("orderid", result);
+                        map.put("type", "1");
                         ActivityUtils.switchTo(OrderDetailsActivity.this, PayOrderActivity.class, map);
                     } else if ("0".equals(result)) {
                         Toast.makeText(OrderDetailsActivity.this, "操作失败", Toast.LENGTH_SHORT).show();

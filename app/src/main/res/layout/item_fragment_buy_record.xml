@@ -1,43 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    android:padding="@dimen/distance"
-    android:orientation="vertical"
-    android:background="@drawable/background"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical"
+    android:padding="@dimen/distance">
+
     <include layout="@layout/clothes_item_info"></include>
 
     <RelativeLayout
-        android:layout_marginTop="@dimen/distance"
-        android:layout_below="@+id/sv_item_buy_record"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sv_item_buy_record"
+        android:layout_marginTop="@dimen/distance">
 
         <Button
-            android:textColor="@color/main_color_write"
-            android:layout_centerHorizontal="true"
-            android:text="查看物流"
-            android:background="@drawable/btn_select"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp" />
-        <Button
-            android:layout_alignParentEnd="true"
-            android:text="确认收货"
-            android:textColor="@color/main_color_write"
-            android:background="@drawable/btn_select"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp" />
-
-        <Button
-            android:textColor="@color/main_color_write"
-            android:text="联系客服"
-            android:background="@drawable/btn_select"
+            android:id="@+id/btn_see_car"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:id="@+id/button"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/btn_select"
+            android:text="查看物流"
+            android:textColor="@color/main_color_write"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btn_confirm_receipt"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/btn_select"
+            android:text="确认收货"
+            android:textColor="@color/main_color_write"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btn_go_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/btn_select"
+            android:text="去支付"
+            android:textColor="@color/main_color_write"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btn_connection_our"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
+            android:background="@drawable/btn_select"
+            android:text="联系客服"
+            android:textColor="@color/main_color_write"
+            android:visibility="gone" />
     </RelativeLayout>
 
 </LinearLayout>

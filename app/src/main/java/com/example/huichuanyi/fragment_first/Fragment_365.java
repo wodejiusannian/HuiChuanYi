@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.MyPartnerAdapter;
@@ -210,6 +211,7 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void reFresh365() {
+        Toast.makeText(getContext(), "登陆成功后，刷新下是否购买365", Toast.LENGTH_SHORT).show();
         MySharedPreferences.save365(getContext(), null);
         isYetPay();
     }

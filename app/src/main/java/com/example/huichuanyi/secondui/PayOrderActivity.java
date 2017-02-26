@@ -3,7 +3,6 @@ package com.example.huichuanyi.secondui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -74,7 +73,6 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
         order_id = intent.getStringExtra("orderid");
         type = intent.getStringExtra("type");
         mPay = new UtilsPay(this);
-        Utils.Toa(this, type);
     }
 
     @Override
@@ -113,6 +111,10 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
                 AliPayOrWeChat = 2;
                 break;
             case R.id.bt_payorder_pay:
+                if (TextUtils.equals("1", type) && AliPayOrWeChat == 2) {
+                    Toast.makeText(this, "正在开发中，敬请期待", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 postData();
                 break;
         }
@@ -122,14 +124,21 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
         Map<String, String> map = new HashMap<>();
         switch (AliPayOrWeChat) {
             case 1:
-                Log.i("TAG", "alipay--" + order_id + "----" + user_id + "----" + type);
+                if (TextUtils.equals("1", type)) {
+                    map.put("orderid", order_id);
+                    map.put("type", type);
+                    map.put("money", nowMoney);
+                    map.put("manager_name", managerName);
+                    map.put("remarks", "");
+                    instance.post(NetConfig.ALI_PAY_OLD, map, this);
+                    return;
+                }
                 map.put("order_id", order_id);
                 map.put("type", type);
                 map.put("user_id", user_id);
                 instance.post(NetConfig.ALI_PAY, map, this);
                 break;
             case 2:
-                Log.i("TAG", "WECHAT--" + order_id + "----" + user_id);
                 map.put("order_id", order_id);
                 map.put("user_id", user_id);
                 map.put("type", type);
@@ -143,9 +152,13 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onResponse(String result) {
+        Utils.Log(result);
         switch (AliPayOrWeChat) {
             case 1:
-                Log.i("TAG", "alipay--" + result);
+                if (TextUtils.equals("1", type)) {
+                    mPay.aliPay(result);
+                    return;
+                }
                 try {
                     JSONObject object = new JSONObject(result);
                     JSONObject body = object.getJSONObject("body");
@@ -156,7 +169,6 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
                 }
                 break;
             case 2:
-                Log.i("TAG", "WECHAT--" + result);
                 mPay.weChatPay(result);
                 break;
             default:

@@ -168,7 +168,8 @@
         <activity android:name=".ui_third.Write_AddressActivity" />
         <activity android:name=".ui_third.ListAddress" />
         <activity android:name=".ui_third.My_365Activity" />
-        <activity android:name=".ui_third.Buy_365Activity"></activity>
+        <activity android:name=".ui_third.Buy_365Activity" />
+        <activity android:name=".fragment_second.SeeCarActivity"></activity>
     </application>
 
 </manifest>

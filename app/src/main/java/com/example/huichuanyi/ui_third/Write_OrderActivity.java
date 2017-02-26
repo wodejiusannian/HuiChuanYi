@@ -94,6 +94,8 @@ public class Write_OrderActivity extends BaseActivity implements View.OnClickLis
         mColor.setText(color_name);
         TextView mPrice = (TextView) this.findViewById(R.id.tv_clothe_item_info_record_price);
         mPrice.setText("￥" + price_dj);
+        TextView mPriceAll = (TextView) this.findViewById(R.id.tv_write_order_price);
+        mPriceAll.setText("￥" + price_dj);
     }
 
     @Override

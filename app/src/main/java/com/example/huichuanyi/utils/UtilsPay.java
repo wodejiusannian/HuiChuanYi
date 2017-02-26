@@ -109,7 +109,6 @@ public class UtilsPay {
             //签名*
             String sign = body.getString("sign");
             req.sign = sign;
-            Log.i("TAG", "===wechatpay==" + partnerId + "--" + prepayId + "--" + nonceStr + "--" + timeStamp + "--" + sign);
             mWxApi.sendReq(req);
         } catch (org.json.JSONException e) {
             e.printStackTrace();
