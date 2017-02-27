@@ -63,8 +63,6 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
         mPay = (LinearLayout) view.findViewById(R.id.ll_yet_pay_money);
         mAdd = (Button) view.findViewById(R.id.btn_365_add);
         mWill = (Button) view.findViewById(R.id.btn_will_pay);
-        MySharedPreferences.save365(getContext(), "365");
-        isYetPay();
     }
 
 
@@ -83,11 +81,7 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
     @Override
     protected void setData() {
         super.setData();
-        userID = new User(getContext()).getUseId();
-        if (userID > 0) {
-            map.put("user_id", userID + "");
-            instance.post(NetConfig.GET_RECOMMEND_NEW, map, this);
-        }
+
     }
 
     @Override
@@ -196,7 +190,13 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
     * 是否已经购买365服务,购买成功or购买失败
     * */
     private void isYetPay() {
+        userID = new User(getContext()).getUseId();
+        if (userID > 0) {
+            map.put("user_id", userID + "");
+            instance.post(NetConfig.GET_RECOMMEND_NEW, map, this);
+        }
         String m365 = MySharedPreferences.get365(getContext());
+        Toast.makeText(getActivity(), m365, Toast.LENGTH_SHORT).show();
         if (TextUtils.equals("365", m365)) {
             mPay.setVisibility(View.VISIBLE);
             mRecord.setVisibility(View.VISIBLE);
@@ -211,8 +211,6 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void reFresh365() {
-        Toast.makeText(getContext(), "登陆成功后，刷新下是否购买365", Toast.LENGTH_SHORT).show();
-        MySharedPreferences.save365(getContext(), null);
         isYetPay();
     }
 }

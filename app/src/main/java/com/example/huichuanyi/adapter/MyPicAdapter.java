@@ -34,21 +34,23 @@ public class MyPicAdapter extends BaseAdapter {
     private List<Pic> mData;
     private Context mContext;
     private View.OnClickListener mClick;
-    private String[] occ = {"休闲","商务","社交"};
-    private String[] sort = {"上衣","裤子","裙子","鞋子","包","配饰","家居服"};
+    private String[] occ = {"休闲", "商务", "社交"};
+    private String[] sort = {"上衣", "裤子", "裙子", "鞋子", "包", "配饰", "家居服"};
     private String mJsons;
-    public MyPicAdapter(Context context,List<Pic> data,String jsons) {
+
+    public MyPicAdapter(Context context, List<Pic> data, String jsons) {
         mContext = context;
         mData = data;
         mJsons = jsons;
     }
 
-    public void setOnItemClick(View.OnClickListener click){
+    public void setOnItemClick(View.OnClickListener click) {
         mClick = click;
     }
+
     @Override
     public int getCount() {
-        return mData.size()==0?0:mData.size();
+        return mData.size() == 0 ? 0 : mData.size();
     }
 
     @Override
@@ -64,11 +66,11 @@ public class MyPicAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder holder;
-        if (convertView==null){
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_label,null);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_label, null);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
-        }else {
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.mStyle.removeAllViews();
@@ -77,17 +79,17 @@ public class MyPicAdapter extends BaseAdapter {
         final Pic pic = mData.get(position);
         final List<String> strings = pic.getmListStyle();
         final List<String> strings1 = pic.getmListStyleId();
-        if (pic.isCheckOcc()){
-            for (int i = 0; i< this.occ.length; i++){
+        if (pic.isCheckOcc()) {
+            for (int i = 0; i < this.occ.length; i++) {
                 RadioButton rbOcc = new RadioButton(mContext);
                 rbOcc.setBackgroundResource(R.drawable.rb_sealect);
                 rbOcc.setText(this.occ[i]);
                 rbOcc.setTag(i);
                 rbOcc.setGravity(Gravity.CENTER);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT,1);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
                 rbOcc.setLayoutParams(params);
                 rbOcc.setButtonDrawable(android.R.color.transparent);
-                if (pic.tagOcc == i){
+                if (pic.tagOcc == i) {
                     rbOcc.setChecked(true);
                     rbOcc.setTextColor(mContext.getResources().getColor(R.color.write));
                 }
@@ -103,14 +105,14 @@ public class MyPicAdapter extends BaseAdapter {
                     }
                 });
             }
-        }else{
-            for (int i = 0; i< this.occ.length; i++){
+        } else {
+            for (int i = 0; i < this.occ.length; i++) {
                 RadioButton rbOcc = new RadioButton(mContext);
                 rbOcc.setBackgroundResource(R.drawable.rb_sealect);
                 rbOcc.setText(this.occ[i]);
                 rbOcc.setTag(i);
                 rbOcc.setGravity(Gravity.CENTER);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT,1);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
                 rbOcc.setLayoutParams(params);
                 rbOcc.setButtonDrawable(android.R.color.transparent);
                 holder.mOcc.addView(rbOcc);
@@ -127,18 +129,18 @@ public class MyPicAdapter extends BaseAdapter {
             }
         }
 
-        if (pic.isCheckSort){
-            for (int i = 0;i<sort.length;i++){
+        if (pic.isCheckSort) {
+            for (int i = 0; i < sort.length; i++) {
                 RadioButton rbSort = new RadioButton(mContext);
                 rbSort.setBackgroundResource(R.drawable.rb_sealect);
                 rbSort.setText(sort[i]);
                 rbSort.setTag(i);
                 rbSort.setGravity(Gravity.CENTER);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT,1);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
                 rbSort.setLayoutParams(params);
                 rbSort.setButtonDrawable(android.R.color.transparent);
                 rbSort.setTag(i);
-                if (pic.getTagSort()==i){
+                if (pic.getTagSort() == i) {
                     rbSort.setChecked(true);
                     rbSort.setTextColor(mContext.getResources().getColor(R.color.write));
                 }
@@ -148,26 +150,26 @@ public class MyPicAdapter extends BaseAdapter {
                         int tag = (int) v.getTag();
                         pic.setCheckSort(true);
                         pic.setTagSort(tag);
-                        pic.setSort((tag+1)+"");
+                        pic.setSort((tag + 1) + "");
                         holder.mStyle.removeAllViews();
                         pic.setCheckStyle(false);
                         pic.setTagStyle(-1);
                         pic.setStyle(null);
-                        tag = tag+1;
-                        pic.setmListStyle(getStyle(tag+""));
-                        pic.setmListStyleId(getStyleId(tag+""));
+                        tag = tag + 1;
+                        pic.setmListStyle(getStyle(tag + ""));
+                        pic.setmListStyleId(getStyleId(tag + ""));
                         notifyDataSetChanged();
                     }
                 });
                 holder.mSort.addView(rbSort);
             }
-        }else{
-            for (int i = 0;i<sort.length;i++){
+        } else {
+            for (int i = 0; i < sort.length; i++) {
                 RadioButton rbSort = new RadioButton(mContext);
                 rbSort.setBackgroundResource(R.drawable.rb_sealect);
                 rbSort.setText(sort[i]);
                 rbSort.setTag(i);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT,1);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
                 rbSort.setLayoutParams(params);
                 rbSort.setGravity(Gravity.CENTER);
                 rbSort.setButtonDrawable(android.R.color.transparent);
@@ -178,32 +180,32 @@ public class MyPicAdapter extends BaseAdapter {
                         int tag = (int) v.getTag();
                         pic.setCheckSort(true);
                         pic.setTagSort(tag);
-                        pic.setSort((tag+1)+"");
-                        tag = tag+1;
+                        pic.setSort((tag + 1) + "");
+                        tag = tag + 1;
                         holder.mStyle.removeAllViews();
                         pic.setCheckStyle(false);
                         pic.setTagStyle(-1);
                         pic.setStyle(null);
-                        pic.setmListStyle(getStyle(tag+""));
-                        pic.setmListStyleId(getStyleId(tag+""));
+                        pic.setmListStyle(getStyle(tag + ""));
+                        pic.setmListStyleId(getStyleId(tag + ""));
                         notifyDataSetChanged();
                     }
                 });
                 holder.mSort.addView(rbSort);
             }
         }
-        if (strings!=null){
-            if (pic.isCheckStyle()){
-                for (int i = 0;i<strings.size();i++){
+        if (strings != null) {
+            if (pic.isCheckStyle()) {
+                for (int i = 0; i < strings.size(); i++) {
                     RadioButton rbStyle = new RadioButton(mContext);
                     rbStyle.setBackgroundResource(R.drawable.rb_sealect);
                     rbStyle.setText(strings.get(i));
                     rbStyle.setTag(i);
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT,1);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
                     rbStyle.setLayoutParams(params);
                     rbStyle.setGravity(Gravity.CENTER);
                     rbStyle.setButtonDrawable(android.R.color.transparent);
-                    if (pic.getTagStyle()==i){
+                    if (pic.getTagStyle() == i) {
                         rbStyle.setChecked(true);
                         rbStyle.setTextColor(mContext.getResources().getColor(R.color.write));
                     }
@@ -219,13 +221,13 @@ public class MyPicAdapter extends BaseAdapter {
                         }
                     });
                 }
-            }else{
-                for (int i = 0;i<strings.size();i++){
+            } else {
+                for (int i = 0; i < strings.size(); i++) {
                     RadioButton rbStyle = new RadioButton(mContext);
                     rbStyle.setBackgroundResource(R.drawable.rb_sealect);
                     rbStyle.setText(strings.get(i));
                     rbStyle.setTag(i);
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT,1);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
                     rbStyle.setLayoutParams(params);
                     rbStyle.setGravity(Gravity.CENTER);
                     rbStyle.setButtonDrawable(android.R.color.transparent);
@@ -246,12 +248,12 @@ public class MyPicAdapter extends BaseAdapter {
         }
 
         String picPath = pic.getPicPath();
-        if (!TextUtils.isEmpty(picPath)){
+        if (!TextUtils.isEmpty(picPath)) {
             Bitmap smallBitmap = ImageUtils.getSmallBitmap(picPath);
             holder.mImage.setImageBitmap(smallBitmap);
         }
 
-        if (mClick!=null){
+        if (mClick != null) {
             holder.mMore.setTag(position);
             holder.mMore.setOnClickListener(mClick);
             holder.mDelete.setTag(position);
@@ -261,30 +263,32 @@ public class MyPicAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public static class ViewHolder{
+    public static class ViewHolder {
         private RoundImageView mImage;
-        private RadioGroup mOcc,mSort,mStyle;
+        private RadioGroup mOcc, mSort, mStyle;
         private TextView mMore;
         private ImageView mDelete;
+
         public ViewHolder(View view) {
             mImage = (RoundImageView) view.findViewById(R.id.rv_item_up_clothes);
             mOcc = (RadioGroup) view.findViewById(R.id.rg_item_label_occ);
-            mSort= (RadioGroup) view.findViewById(R.id.rg_item_label_sort);
+            mSort = (RadioGroup) view.findViewById(R.id.rg_item_label_sort);
             mStyle = (RadioGroup) view.findViewById(R.id.rg_item_label_style);
             mMore = (TextView) view.findViewById(R.id.tv_item_label_more);
             mDelete = (ImageView) view.findViewById(R.id.iv_item_label_delete);
         }
     }
+
     //更新下数据
-    private List<String> getStyle(String str){
+    private List<String> getStyle(String str) {
         List<String> mStyles = new ArrayList<>();
         try {
             JSONObject object = new JSONObject(mJsons);
             JSONObject body = object.getJSONObject("body");
             JSONArray cloStyle = body.getJSONArray("cloStyle");
-            for (int i = 0;i<cloStyle.length();i++){
+            for (int i = 0; i < cloStyle.length(); i++) {
                 JSONObject arr = cloStyle.getJSONObject(i);
-                if (TextUtils.equals(str,arr.getString("cloType_id"))){
+                if (TextUtils.equals(str, arr.getString("cloType_id"))) {
                     mStyles.add(arr.getString("cloStyle_name"));
                 }
             }
@@ -295,15 +299,15 @@ public class MyPicAdapter extends BaseAdapter {
         return null;
     }
 
-    private List<String> getStyleId(String str){
+    private List<String> getStyleId(String str) {
         List<String> mStylesId = new ArrayList<>();
         try {
             JSONObject object = new JSONObject(mJsons);
             JSONObject body = object.getJSONObject("body");
             JSONArray cloStyle = body.getJSONArray("cloStyle");
-            for (int i = 0;i<cloStyle.length();i++){
+            for (int i = 0; i < cloStyle.length(); i++) {
                 JSONObject arr = cloStyle.getJSONObject(i);
-                if (TextUtils.equals(str,arr.getString("cloType_id"))){
+                if (TextUtils.equals(str, arr.getString("cloType_id"))) {
                     mStylesId.add(arr.getString("cloStyle_id"));
                 }
             }

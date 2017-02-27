@@ -40,7 +40,7 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
     private RoundImageView mImageViewPhoto;
     private EditText mETWriteCount, mEditTextUserName, mEditTextUserPhone,
             mEditTextUserAddress, mEditTextRemarks;
-    private TextView moneyAll, allMoney, mTextViewManageName, mTime;
+    private TextView moneyAll, allMoney, mTextViewManageName, mTime, mPrice;
     private String nowMoney, city;
     private Button mButtonSubmit;
     private String managerid, managerName, managerPhone, managerPhoto, price1, price2, price_baseNum1, price_baseNum2, price_raiseNum, price_raisePrice;
@@ -69,6 +69,7 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
         mTime = (TextView) findViewById(R.id.tv_order_details_mTime);
         mImageViewPhoto = (RoundImageView) findViewById(R.id.iv_order_photo);
         mTextViewManageName = (TextView) findViewById(R.id.tv_order_name);
+        mPrice = (TextView) findViewById(R.id.tv_price_details);
     }
 
     @Override
@@ -104,7 +105,7 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
         if (!TextUtils.isEmpty(price_raisePrice) && !TextUtils.equals("null", price_raisePrice)) {
             intPrice_raisePrice = Integer.parseInt(price_raisePrice);
         }
-
+        mPrice.setText("200件以内价格为" + price1 + "\n详情请点击按钮查看");
     }
 
     @Override
@@ -250,9 +251,7 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
                 return;
             } else {
                 int a = (nowCount - intPrice_baseNum2) / intPrice_raiseNum;
-                if (nowCount % 100 != 0) {
-                    a = a + 1;
-                }
+                a = a + 1;
                 nowMoney = (a * intPrice_raisePrice + intPrice2) + "";
                 allMoney.setText(nowMoney);
                 moneyAll.setText(nowMoney);

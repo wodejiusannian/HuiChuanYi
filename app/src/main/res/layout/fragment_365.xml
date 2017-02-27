@@ -37,7 +37,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_365_top"
         android:orientation="vertical"
-        android:padding="@dimen/distance_10">
+        android:padding="@dimen/distance_10"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -193,9 +194,11 @@
 
             <Button
                 android:id="@+id/btn_365_add"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/distance_20"
+                android:layout_marginRight="@dimen/distance_20"
                 android:background="@drawable/btn_select"
                 android:text="立即购买"
                 android:textColor="@color/main_color_write" />

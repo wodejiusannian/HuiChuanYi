@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
-               <TextView
-                   android:layout_marginTop="@dimen/distance"
-                   android:id="@+id/tv_dialog_show"
-                   android:layout_centerHorizontal="true"
-                   android:text="价格说明"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"/>
-               <TextView
-                   android:layout_marginTop="@dimen/distance"
-                   android:id="@+id/tv_dialog_line"
-                   android:layout_below="@+id/tv_dialog_show"
-                   android:layout_width="match_parent"
-                   android:layout_height="1dp"
-                   android:background="@color/back_ground"
-                   />
-                <TextView
-                    android:padding="@dimen/distance"
-                    android:text="1.以上价格仅为200件以内服饰整理价格，价格为298元；\n2.200件--500件服饰的整理价格为698元\n3.超过500件以后每增加200件，价格在原有基础上增加300元（即700件以内998；900件以内1298元；以此类推）"
-                    android:layout_below="@+id/tv_dialog_line"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_dialog_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/distance"
+        android:text="价格说明" />
+
+    <TextView
+        android:id="@+id/tv_dialog_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_dialog_show"
+        android:layout_marginTop="@dimen/distance"
+        android:background="@color/back_ground" />
+
+    <TextView
+        android:id="@+id/tv_price_explain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_dialog_line"
+        android:padding="@dimen/distance"
+        android:text="1.以上价格仅为200件以内服饰整理价格，价格为298元（部分地区略有不同）；\n2.200件--500件服饰的整理价格为698元\n3.超过500件以后每增加200件，价格在原有基础上增加300元（即700件以内998；900件以内1298元；以此类推）" />
 </RelativeLayout>

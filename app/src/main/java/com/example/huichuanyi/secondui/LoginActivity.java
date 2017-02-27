@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,7 +13,6 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.baidumap.MyThirdData;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.share.Login;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.MyJson;
 import com.example.huichuanyi.utils.MySharedPreferences;
@@ -30,14 +28,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cn.jpush.android.api.JPushInterface;
-import cn.sharesdk.tencent.qq.QQ;
-import cn.sharesdk.wechat.friends.Wechat;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener, MyThirdData, UtilsInternet.XCallBack {
     private EditText mEditTextPhone, mEditTextPWD;
     private Button mButtonLogin;
     private User mUser;
-    private ImageView mImageViewWechat, mImageViewQQ, mImageViewBack;
     private TextView mTextViewForgetPwd;
     private int flag = 0;
     private UtilsInternet internet = UtilsInternet.getInstance();
@@ -47,7 +42,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login2);
+        setContentView(R.layout.activity_login);
 
     }
 
@@ -56,9 +51,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         mEditTextPhone = (EditText) findViewById(R.id.et_login_writephone);
         mEditTextPWD = (EditText) findViewById(R.id.et_login_pwd);
         mButtonLogin = (Button) findViewById(R.id.btn_login_login);
-        mImageViewWechat = (ImageView) findViewById(R.id.tv_login2_wechat);
-        mImageViewQQ = (ImageView) findViewById(R.id.tv_login2_qq);
-        mImageViewBack = (ImageView) findViewById(R.id.iv_login2_back);
         mTextViewForgetPwd = (TextView) findViewById(R.id.tv_login_forgetpwd);
     }
 
@@ -75,9 +67,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void setListener() {
         mButtonLogin.setOnClickListener(this);
-        mImageViewWechat.setOnClickListener(this);
-        mImageViewQQ.setOnClickListener(this);
-        mImageViewBack.setOnClickListener(this);
         mTextViewForgetPwd.setOnClickListener(this);
     }
 
@@ -92,15 +81,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 } else {
                     Toast.makeText(LoginActivity.this, "手机号和密码不能为空", Toast.LENGTH_SHORT).show();
                 }
-                break;
-            case R.id.tv_login2_wechat:
-                new Login(this).whileLogin(this, Wechat.NAME);
-                break;
-            case R.id.tv_login2_qq:
-                new Login(this).whileLogin(this, QQ.NAME);
-                break;
-            case R.id.iv_login2_back:
-                finish();
                 break;
             case R.id.tv_login_forgetpwd:
                 ActivityUtils.switchTo(this, ForgetPWDAcitity.class);
@@ -142,7 +122,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         map.clear();
         map.put("user_id", userID + "");
         internet.post(NetConfig.IS_BUY_365, map, this);
-
     }
 
     @Override
@@ -159,6 +138,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 break;
             case 3:
                 mUser.writeUserId(user_id);
+                MySharedPreferences.save365(LoginActivity.this, "365");
                 Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                 sendBroad();
                 finish();
@@ -224,7 +204,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     * 处理服务器返回的数据
     * */
     private void goLoginAfter(String result) {
-
         int b = 0;
         try {
             b = (int) Double.parseDouble(result);
@@ -245,5 +224,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         Intent intent = new Intent();
         intent.setAction("action.refreshFriend");
         sendBroadcast(intent);
+    }
+
+    public void back(View view) {
+        finish();
     }
 }

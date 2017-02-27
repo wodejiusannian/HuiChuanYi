@@ -201,12 +201,12 @@
                     android:textSize="@dimen/body_two_size" />
 
                 <TextView
+                    android:id="@+id/tv_price_details"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_below="@+id/et_order_writeCount"
                     android:layout_marginRight="10dp"
-                    android:text="200件以内价格为298详情请点击按钮查看"
                     android:textSize="10sp" />
             </RelativeLayout>
 
@@ -442,7 +442,7 @@
     <Button
         android:id="@+id/bt_details_submit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/distance"
         android:layout_marginLeft="@dimen/distance"

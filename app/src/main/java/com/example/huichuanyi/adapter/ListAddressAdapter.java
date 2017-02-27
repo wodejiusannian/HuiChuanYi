@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -113,8 +114,9 @@ public class ListAddressAdapter extends BaseAdapter {
     }
 
     public static class ViewHolder {
-        public TextView name, address, phone, mSelect, mUpdate;
+        public TextView name, address, phone, mSelect;
         public RelativeLayout mAll;
+        public ImageView mUpdate;
 
         public ViewHolder(View view) {
             mAll = (RelativeLayout) view.findViewById(R.id.rl_all);
@@ -122,7 +124,7 @@ public class ListAddressAdapter extends BaseAdapter {
             phone = (TextView) view.findViewById(R.id.tv_item_address_phone);
             address = (TextView) view.findViewById(R.id.tv_item_address_address);
             mSelect = (TextView) view.findViewById(R.id.tv_item_address_is_select);
-            mUpdate = (TextView) view.findViewById(R.id.tv_item_update_address);
+            mUpdate = (ImageView) view.findViewById(R.id.tv_item_update_address);
         }
     }
 

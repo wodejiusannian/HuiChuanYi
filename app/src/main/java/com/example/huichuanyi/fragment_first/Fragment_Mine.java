@@ -312,6 +312,7 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
                     mTextViewDaiTi.setVisibility(View.GONE);
                     mTextViewRegisterAndLogin.setVisibility(View.VISIBLE);
                     MySharedPreferences.save365(getContext(), null);
+                    sendBroad();
                     Toast.makeText(getActivity(), "退出登录成功", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -319,5 +320,12 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
         } else {
             ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
         }
+    }
+
+
+    public void sendBroad() {
+        Intent intent = new Intent();
+        intent.setAction("action.refreshFriend");
+        getActivity().sendBroadcast(intent);
     }
 }

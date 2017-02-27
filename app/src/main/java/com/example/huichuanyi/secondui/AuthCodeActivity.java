@@ -1,14 +1,13 @@
 package com.example.huichuanyi.secondui;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,24 +26,23 @@ import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 
 public class AuthCodeActivity extends BaseActivity implements View.OnClickListener {
-    private ImageView mImageViewBack;
-    private EditText mEditTextAuth,mEditTextPWD;
+    private EditText mEditTextAuth, mEditTextPWD;
     private Button mButtonRegister;
     private String phone;
     private Callback.Cancelable cancelable;
     private User mUser;
     private TextView mTextView;
     private int time = 60;
-    private Handler mHandler = new Handler(){
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             time--;
-            mTextView.setText(time+"");
-            if(time==0) {
+            mTextView.setText(time + "");
+            if (time == 0) {
                 return;
             }
-            mHandler.sendEmptyMessageDelayed(1,1000);
+            mHandler.sendEmptyMessageDelayed(1, 1000);
         }
     };
     private static final int SUBMIT_VERIFICATION_CODE_COMPLETE = 1;
@@ -102,16 +100,16 @@ public class AuthCodeActivity extends BaseActivity implements View.OnClickListen
             }
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_authcode);
 
     }
 
     @Override
     public void initView() {
-        mImageViewBack = (ImageView) findViewById(R.id.iv_authcode_back);
         mEditTextAuth = (EditText) findViewById(R.id.et_authcode_auth);
         mEditTextPWD = (EditText) findViewById(R.id.et_authcode_pwd);
         mButtonRegister = (Button) findViewById(R.id.btn_authcode_register);
@@ -123,7 +121,7 @@ public class AuthCodeActivity extends BaseActivity implements View.OnClickListen
         Intent intent = getIntent();
         phone = intent.getStringExtra("phone");
         mUser = new User(this);
-        Toast.makeText(AuthCodeActivity.this,"发送验证码到："+phone, Toast.LENGTH_SHORT).show();
+        Toast.makeText(AuthCodeActivity.this, "发送验证码到：" + phone, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -135,32 +133,30 @@ public class AuthCodeActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void setListener() {
-        mImageViewBack.setOnClickListener(this);
         mButtonRegister.setOnClickListener(this);
-        mHandler.sendEmptyMessageDelayed(1,1000);
+        mHandler.sendEmptyMessageDelayed(1, 1000);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case  R.id.iv_authcode_back:
-                finish();
-                break;
+
             case R.id.btn_authcode_register:
                 String auth = mEditTextAuth.getText().toString().trim();
                 String pwd = mEditTextPWD.getText().toString().trim();
-                if(!TextUtils.isEmpty(auth)&&!TextUtils.isEmpty(pwd)) {
-                    if(pwd.length()>=6&&pwd.length()<=12) {
+                if (!TextUtils.isEmpty(auth) && !TextUtils.isEmpty(pwd)) {
+                    if (pwd.length() >= 6 && pwd.length() <= 12) {
                         SMSSDK.submitVerificationCode("86", phone, auth);
-                    }else{
+                    } else {
                         Toast.makeText(AuthCodeActivity.this, "亲，密码是6到12位", Toast.LENGTH_SHORT).show();
                     }
-                }else{
+                } else {
                     Toast.makeText(AuthCodeActivity.this, "验证不要和密码不要为空", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -170,23 +166,24 @@ public class AuthCodeActivity extends BaseActivity implements View.OnClickListen
             cancelable.cancel();
         }
     }
-    public void msmSuccess(){
+
+    public void msmSuccess() {
         RequestParams params = new RequestParams(NetConfig.SEND_PASSWORD);
-        params.addBodyParameter("pwd",mEditTextPWD.getText().toString().trim());
-        params.addBodyParameter("phone",phone);
+        params.addBodyParameter("pwd", mEditTextPWD.getText().toString().trim());
+        params.addBodyParameter("phone", phone);
         cancelable = x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 int b = -1;
                 try {
-                    b = (int)Double.parseDouble(result);
+                    b = (int) Double.parseDouble(result);
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
                 }
-                if(b>0) {
+                if (b > 0) {
                     mUser.writeUserId(b);
                     Toast.makeText(AuthCodeActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
                     Toast.makeText(AuthCodeActivity.this, "请检查网络", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -206,5 +203,9 @@ public class AuthCodeActivity extends BaseActivity implements View.OnClickListen
 
             }
         });
+    }
+
+    public void back(View view) {
+        finish();
     }
 }

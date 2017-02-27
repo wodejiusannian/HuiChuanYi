@@ -162,7 +162,6 @@
         <activity android:name=".ui_four.ReviseActivity" />
         <activity android:name=".ui_third.LabelsActivity" />
         <activity android:name=".ui_third.Item_DetailsActivity" />
-        <activity android:name=".ui_third.My_AddressActivity" />
         <activity android:name=".ui_third.RecordActivity" />
         <activity android:name=".ui_third.Write_OrderActivity" />
         <activity android:name=".ui_third.Write_AddressActivity" />

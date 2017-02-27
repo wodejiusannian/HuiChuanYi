@@ -20,6 +20,7 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
     private ViewPager mViewPager;
     private LoadingAdapter mAdapter;
     private List<ImageView> mData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,22 +42,19 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
 
     public void initData() {
         mData = new ArrayList<>();
-        for(int i = 0; i < 4; i++) {
-          ImageView mImageView = new ImageView(this);
-          if(i==0) {
+        for (int i = 0; i < 3; i++) {
+            ImageView mImageView = new ImageView(this);
+            if (i == 0) {
+                mImageView.setImageResource(R.drawable.yindao1);
+            }
+            if (i == 1) {
+                mImageView.setImageResource(R.drawable.yindao2);
+            }
+            if (i == 2) {
                 mImageView.setImageResource(R.drawable.yindao3);
-          }
-          if(i==1) {
-              mImageView.setImageResource(R.drawable.yindao);
-          }
-          if(i==2) {
-              mImageView.setImageResource(R.drawable.yindao2);
-          }
-          if(i==3) {
-             mImageView.setImageResource(R.drawable.qidong);
-          }
-          mImageView.setScaleType(ImageView.ScaleType.FIT_XY);
-          mData.add(mImageView);
+            }
+            mImageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            mData.add(mImageView);
         }
         mAdapter = new LoadingAdapter(mData);
         mViewPager.setAdapter(mAdapter);
@@ -66,12 +64,12 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void setListener() {
-        mData.get(3).setOnClickListener(this);
+        mData.get(2).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        ActivityUtils.switchTo(this,MainActivity.class);
+        ActivityUtils.switchTo(this, MainActivity.class);
         finish();
     }
 }
