@@ -73,13 +73,14 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/textView3"
+                            android:id="@+id/act_way_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="快递公司"
                             android:textSize="@dimen/text_size_16" />
 
                         <TextView
+                            android:id="@+id/act_way_no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/distance_5"
@@ -87,6 +88,7 @@
                             android:textSize="@dimen/text_size_16" />
 
                         <TextView
+                            android:id="@+id/act_way_phone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/distance_5"
@@ -98,14 +100,14 @@
                         android:id="@+id/sv_see_car_clothes_photo"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        fresco:actualImageScaleType="fitCenter"
-                        fresco:placeholderImage="@mipmap/stand"
-                        fresco:placeholderImageScaleType="fitXY"
-                        fresco:roundedCornerRadius="4dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignTop="@+id/linearLayout"
                         android:layout_marginLeft="@dimen/distance_10"
                         android:layout_marginRight="@dimen/distance_10"
-                        android:layout_alignTop="@+id/linearLayout"
-                        android:layout_alignParentStart="true" />
+                        fresco:actualImageScaleType="fitXY"
+                        fresco:placeholderImage="@mipmap/stand"
+                        fresco:placeholderImageScaleType="fitXY"
+                        fresco:roundedCornerRadius="4dp" />
                 </RelativeLayout>
 
                 <com.example.huichuanyi.custom.MyListView

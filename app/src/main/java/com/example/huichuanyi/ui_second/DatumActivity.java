@@ -22,6 +22,7 @@ import com.example.huichuanyi.adapter.EventExpectAdapter;
 import com.example.huichuanyi.adapter.EventSelfAdapter;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
+import com.example.huichuanyi.utils.MySharedPreferences;
 import com.example.huichuanyi.utils.User;
 
 import org.json.JSONException;
@@ -350,7 +351,7 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
         String name = mEditTextName.getText().toString().trim();
         String sex = mEditTextSex.getText().toString().trim();
         String age = mEditTextAge.getText().toString().trim();
-        String city = mEditTextCity.getText().toString().trim();
+        final String city = mEditTextCity.getText().toString().trim();
         String height = mEditTextHeight.getText().toString().trim();
         String weight = mEditTextWeight.getText().toString().trim();
         String trim1 = mEditTextBusiness.getText().toString().trim();
@@ -447,6 +448,8 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
             public void onSuccess(String result) {
                 if (TextUtils.equals("1", result)) {
                     Toast.makeText(DatumActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+                    MySharedPreferences.saveBuyCity(DatumActivity.this, city);
+                    finish();
                 } else {
                     Toast.makeText(DatumActivity.this, "修改失败", Toast.LENGTH_SHORT).show();
                 }

@@ -14,7 +14,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.baidumap.FreshPhoto;
@@ -29,6 +28,7 @@ import com.example.huichuanyi.fragment_first.Fragment_365;
 import com.example.huichuanyi.fragment_first.Fragment_Home;
 import com.example.huichuanyi.fragment_first.Fragment_Mine;
 import com.example.huichuanyi.fragment_first.Fragment_Order;
+import com.example.huichuanyi.utils.UtilsWaring;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -104,8 +104,7 @@ MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener 
     private void exit() {
         if (!isExit) {
             isExit = true;
-            Toast.makeText(getApplicationContext(), "再按一次退出程序",
-                    Toast.LENGTH_SHORT).show();
+            UtilsWaring.Toast(getApplicationContext(), "再按一次退出程序");
             mHandler.sendEmptyMessageDelayed(0, 2000);
         } else {
             System.exit(0);

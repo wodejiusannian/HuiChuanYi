@@ -17,7 +17,12 @@ import com.baidu.location.LocationClientOption;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.baidumap.MyLocationListener;
 import com.example.huichuanyi.config.NetConfig;
+import com.example.huichuanyi.utils.MyJson;
+import com.example.huichuanyi.utils.MySharedPreferences;
+import com.example.huichuanyi.utils.User;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -65,7 +70,42 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public void initView() {
+        RequestParams params = new RequestParams(NetConfig.IS_BUY_365);
+        params.addBodyParameter("user_id", new User(this).getUseId() + "");
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                String ret = MyJson.getRet(result);
+                if (TextUtils.equals("0", ret)) {
+                    MySharedPreferences.save365(SplashActivity.this, "365");
+                } else {
+                    try {
+                        JSONObject object = new JSONObject(result);
+                        JSONObject body = object.getJSONObject("body");
+                        String price = body.getString("activity_price");
+                        String activity = body.getString("activity_state");
+                        MySharedPreferences.saveActivity(SplashActivity.this, activity, price);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
 
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 
     public void initData() {

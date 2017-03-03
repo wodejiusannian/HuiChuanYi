@@ -17,7 +17,6 @@ import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.secondui.PayOrderActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.User;
-import com.example.huichuanyi.utils.Utils;
 import com.example.huichuanyi.utils.UtilsInternet;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -35,7 +34,7 @@ public class Write_OrderActivity extends BaseActivity implements View.OnClickLis
     private UtilsInternet instance = UtilsInternet.getInstance();
     private Map<String, String> map = new HashMap<>();
     private Button mSubmit;
-    private String user_id, clothes_id, address_id, color_name, size_name, clothes_get, name, type;
+    private String clothes_id, address_id, color_name, size_name, clothes_get, name, type;
     private int flag = 0;
     private Map<String, Object> jumpMap = new HashMap<>();
     private android.os.Handler mHandler = new android.os.Handler() {
@@ -89,7 +88,7 @@ public class Write_OrderActivity extends BaseActivity implements View.OnClickLis
         TextView mName = (TextView) this.findViewById(R.id.tv_clothe_item_info_record_style);
         mName.setText(name);
         TextView mSize = (TextView) this.findViewById(R.id.tv_clothe_item_info_record_size);
-        mSize.setText(size_name);
+        mSize.setText("尺码:" + size_name);
         TextView mColor = (TextView) this.findViewById(R.id.tv_clothe_item_info_record_color);
         mColor.setText(color_name);
         TextView mPrice = (TextView) this.findViewById(R.id.tv_clothe_item_info_record_price);
@@ -137,6 +136,7 @@ public class Write_OrderActivity extends BaseActivity implements View.OnClickLis
                 jumpListAddress();
                 break;
             case R.id.btn_write_order_submit:
+                showLoading();
                 String remarks = mRemarks.getText().toString().trim();
                 flag = 1;
                 map.clear();
@@ -185,7 +185,7 @@ public class Write_OrderActivity extends BaseActivity implements View.OnClickLis
                 }
                 break;
             case 1:
-                Utils.Log(result);
+                dismissLoading();
                 try {
                     JSONObject obj = new JSONObject(result);
                     String ret = obj.getString("ret");

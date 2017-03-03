@@ -6,10 +6,12 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.huichuanyi.R;
+import com.example.huichuanyi.custom.MyProgressDialog;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.umeng.analytics.MobclickAgent;
 
 public abstract class BaseActivity extends AppCompatActivity {
+    private MyProgressDialog progressDialog;
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
@@ -47,4 +49,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
+    protected void showLoading() {
+        progressDialog = new MyProgressDialog(this);
+        progressDialog.show();
+    }
+
+    protected void dismissLoading() {
+        progressDialog.dismiss();
+    }
 }

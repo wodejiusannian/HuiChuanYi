@@ -62,7 +62,8 @@
                 android:layout_marginLeft="@dimen/distance_10"
                 android:layout_marginTop="@dimen/distance_10"
                 android:layout_toRightOf="@+id/sv_user_photo"
-                android:text="date" />
+                android:text="date"
+                android:textColor="@color/color_ac0000" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -79,7 +80,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="@dimen/distance_10"
                 android:padding="@dimen/distance_10"
-                android:text="服务工作室" />
+                android:text="服务工作室"
+                android:textSize="@dimen/text_size_18" />
 
             <TextView
                 android:id="@+id/tv_365_line"
@@ -106,14 +108,25 @@
                 android:layout_marginLeft="@dimen/distance_10"
                 android:layout_marginTop="@dimen/distance_10"
                 android:layout_toRightOf="@+id/sv_studio_logo"
-                android:text="未开通" />
+                android:text="未开通"
+                android:textColor="@color/color_ac0000" />
+
+            <TextView
+                android:id="@+id/tv_365_studio_infos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sv_studio_logo"
+                android:layout_margin="@dimen/distance_10"
+                android:text="工作室详情" />
 
             <TextView
                 android:id="@+id/tv_365_studio_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/sv_studio_logo"
-                android:layout_margin="@dimen/distance_10"
+                android:layout_below="@+id/tv_365_studio_infos"
+                android:layout_marginBottom="@dimen/distance_10"
+                android:layout_marginLeft="@dimen/distance_10"
+                android:layout_marginRight="@dimen/distance_10"
                 android:text="工作室详情" />
 
             <com.facebook.drawee.view.SimpleDraweeView

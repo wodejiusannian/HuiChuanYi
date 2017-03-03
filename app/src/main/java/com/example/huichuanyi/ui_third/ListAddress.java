@@ -19,6 +19,7 @@ import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.utils.MyJson;
 import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.Utils;
 import com.example.huichuanyi.utils.UtilsInternet;
 
 import org.json.JSONArray;
@@ -224,6 +225,7 @@ public class ListAddress extends BaseActivity implements ListAddressAdapter.Info
     * */
     @Override
     public void onResponse(String result) {
+        Utils.Log(result);
         switch (flag) {
             case 0:
                 mData.clear();
@@ -235,6 +237,7 @@ public class ListAddress extends BaseActivity implements ListAddressAdapter.Info
                     mPhone = jsonObject1.getString("receive_phone");
                     mCity = jsonObject1.getString("receive_city");
                     mAddress = jsonObject1.getString("receive_address");
+                    address_id = jsonObject1.getString("id");
                     for (int i = 0; i < body.length(); i++) {
                         JSONObject object = body.getJSONObject(i);
                         MyAddress address = new MyAddress();

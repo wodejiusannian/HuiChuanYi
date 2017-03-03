@@ -19,6 +19,7 @@ import com.example.huichuanyi.secondui.PayOrderActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.MyJson;
 import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.Utils;
 import com.example.huichuanyi.utils.UtilsInternet;
 
 import org.json.JSONArray;
@@ -103,7 +104,18 @@ public class BuyRecord extends BaseFragment implements UtilsInternet.XCallBack, 
                 connectionOur();
                 break;
             case R.id.btn_see_car:
-                ActivityUtils.switchTo(getActivity(),SeeCarActivity.class);
+                Map<String, Object> map = new HashMap<>();
+                String way_no = recordBuy.getWay_no();
+                String way_name = recordBuy.getWay_name();
+                String way_code = recordBuy.getWay_code();
+                String way_phone = recordBuy.getWay_phone();
+                String clothes_get = recordBuy.getClothes_get();
+                map.put("way_no", way_no);
+                map.put("way_name", way_name);
+                map.put("way_code", way_code);
+                map.put("way_phone", way_phone);
+                map.put("clothes_get", clothes_get);
+                ActivityUtils.switchTo(getActivity(), SeeCarActivity.class, map);
                 break;
             case R.id.btn_go_pay:
                 goPay(recordBuy);
@@ -171,6 +183,7 @@ public class BuyRecord extends BaseFragment implements UtilsInternet.XCallBack, 
 
     @Override
     public void onResponse(String result) {
+        Utils.Log(result);
         switch (internetTag) {
             case 0:
                 mData.clear();
@@ -184,9 +197,13 @@ public class BuyRecord extends BaseFragment implements UtilsInternet.XCallBack, 
                         record.setNum(obj.getString("num"));
                         record.setClothes_name(obj.getString("clothes_name"));
                         record.setSize_name(obj.getString("size_name"));
-                        record.setWay_no(obj.getString("clothes_get"));
+                        record.setWay_no(obj.getString("way_no"));
+                        record.setWay_code(obj.getString("way_code"));
+                        record.setWay_name(obj.getString("way_name"));
+                        record.setWay_phone(obj.getString("way_phone"));
                         record.setTotal_price(obj.getString("total_price"));
                         record.setState(obj.getString("state"));
+                        record.setColor_name(obj.getString("color_name"));
                         record.setOrder_id(obj.getString("order_id"));
                         record.setRemarks(obj.getString("remarks"));
                         mData.add(record);

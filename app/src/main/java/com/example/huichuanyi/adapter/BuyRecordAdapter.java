@@ -8,7 +8,6 @@ import android.widget.TextView;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.CommonAdapter;
 import com.example.huichuanyi.bean.RecordBuy;
-import com.example.huichuanyi.utils.Utils;
 import com.example.huichuanyi.utils.ViewHolder;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -47,9 +46,9 @@ public class BuyRecordAdapter extends CommonAdapter<RecordBuy> {
         TextView count = viewHolder.getView(R.id.tv_clothe_item_info_record_count);
         style.setText(record.getClothes_name());
         color.setText(record.getColor_name());
-        size.setText(record.getSize_name());
-        price.setText(record.getTotal_price());
-        count.setText(record.getNum());
+        size.setText("尺码:" + record.getSize_name());
+        price.setText("￥:" + record.getTotal_price());
+        count.setText("X" + record.getNum());
         String state = record.getState();
         Button connection_our = viewHolder.getView(R.id.btn_connection_our);
         Button see_car = viewHolder.getView(R.id.btn_see_car);
@@ -60,7 +59,7 @@ public class BuyRecordAdapter extends CommonAdapter<RecordBuy> {
         see_car.setOnClickListener(mOnClick);
         confirm_receipt.setOnClickListener(mOnClick);
 
-        switch(state){
+        switch (state) {
             case "11":
                 confirm_receipt.setVisibility(View.VISIBLE);
                 see_car.setVisibility(View.VISIBLE);

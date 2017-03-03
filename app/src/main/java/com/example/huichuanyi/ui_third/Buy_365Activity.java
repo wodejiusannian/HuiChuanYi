@@ -7,10 +7,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.huichuanyi.R;
+import com.example.huichuanyi.baidumap.Location;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.secondui.PayOrderActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
+import com.example.huichuanyi.utils.MySharedPreferences;
 import com.example.huichuanyi.utils.User;
 import com.example.huichuanyi.utils.Utils;
 import com.example.huichuanyi.utils.UtilsInternet;
@@ -24,13 +26,15 @@ import java.util.Map;
 
 public class Buy_365Activity extends BaseActivity implements UtilsInternet.XCallBack, View.OnClickListener {
     private UtilsInternet instance = UtilsInternet.getInstance();
-    private TextView mCount, mStudioName, mPay;
+    private TextView mCount, mStudioName, mPay, mWillPay;
     private Button mBtnPay;
     private Map<String, String> map = new HashMap<>();
     private SimpleDraweeView mStudioLogo;
     Map<String, Object> jumpMap = new HashMap<>();
     private String studioId, studioLogo, studioName, user_id;
     private int flag = 0;
+    private String nowMoney = "365";
+    private String is_share;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,7 @@ public class Buy_365Activity extends BaseActivity implements UtilsInternet.XCall
         mStudioName = (TextView) findViewById(R.id.tv_buy_365_studio_name);
         mPay = (TextView) findViewById(R.id.tv_365_pay);
         mBtnPay = (Button) findViewById(R.id.btn_365_pay);
+        mWillPay = (TextView) findViewById(R.id.act_tv_buy_365_will_price);
     }
 
     @Override
@@ -64,6 +69,11 @@ public class Buy_365Activity extends BaseActivity implements UtilsInternet.XCall
     @Override
     public void setData() {
 
+        if (Location.Location_type == 1) {
+            nowMoney = MySharedPreferences.getActivityPrice(this);
+            mWillPay.setText("￥" + nowMoney);
+            is_share = "Y";
+        }
     }
 
     @Override
@@ -96,7 +106,7 @@ public class Buy_365Activity extends BaseActivity implements UtilsInternet.XCall
                     jumpMap.put("managerPhoto", studioLogo);
                     jumpMap.put("orderid", studioId);
                     jumpMap.put("managerName", studioName);
-                    jumpMap.put("nowMoney", "365");
+                    jumpMap.put("nowMoney", nowMoney);
                     jumpMap.put("type", "2");
                     jumpMap.put("orderid", id);
                     ActivityUtils.switchTo(Buy_365Activity.this, PayOrderActivity.class, jumpMap);
@@ -137,6 +147,7 @@ public class Buy_365Activity extends BaseActivity implements UtilsInternet.XCall
         map.clear();
         map.put("user_id", user_id);
         map.put("studio_id", studioId);
+        map.put("is_share", is_share);
         instance.post(NetConfig.SUBMIT_ORDER_365, map, this);
     }
 }

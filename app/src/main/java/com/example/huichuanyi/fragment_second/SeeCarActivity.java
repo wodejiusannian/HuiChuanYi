@@ -1,16 +1,19 @@
 package com.example.huichuanyi.fragment_second;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.SeeCarAdapter;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.bean.SeeCar;
 import com.example.huichuanyi.custom.MyListView;
-import com.example.huichuanyi.utils.Utils;
 import com.example.huichuanyi.utils.UtilsInternet;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,6 +44,8 @@ public class SeeCarActivity extends BaseActivity implements UtilsInternet.XCallB
     //请求url
     private String ReqURL = "http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx";
 
+    private String way_name, way_code, way_no, way_phone;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +57,27 @@ public class SeeCarActivity extends BaseActivity implements UtilsInternet.XCallB
     public void initView() {
         mShow = (MyListView) findViewById(R.id.lv_see_car);
         mRefresh = (SwipeRefreshLayout) findViewById(R.id.sf_see_car);
+        Intent intent = getIntent();
+        way_name = intent.getStringExtra("way_name");
+        way_code = intent.getStringExtra("way_code");
+        way_no = intent.getStringExtra("way_no");
+        way_phone = intent.getStringExtra("way_phone");
+        String clothes_get = intent.getStringExtra("clothes_get");
+        SimpleDraweeView viewById = (SimpleDraweeView) this.findViewById(R.id.sv_see_car_clothes_photo);
+        viewById.setImageURI(clothes_get);
+        TextView mWay_name = (TextView) this.findViewById(R.id.act_way_name);
+        TextView mWay_no = (TextView) this.findViewById(R.id.act_way_no);
+        final TextView mWay_phone = (TextView) this.findViewById(R.id.act_way_phone);
+        mWay_name.setText("承运公司:" + way_name);
+        mWay_phone.setText("联系电话:" + way_phone);
+        mWay_no.setText("订单编号:" + way_no);
+        mWay_phone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + way_phone));
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -59,7 +85,7 @@ public class SeeCarActivity extends BaseActivity implements UtilsInternet.XCallB
     public void initData() {
         mAdapter = new SeeCarAdapter(this, mData, R.layout.item_see_car);
         try {
-            String requestData = "{'OrderCode':'','ShipperCode':'" + "YTO" + "','LogisticCode':'" + "884277852077063671 " + "'}";
+            String requestData = "{'OrderCode':'','ShipperCode':'" + way_code + "','LogisticCode':'" + way_no + "'}";
             String dataSign = encrypt(requestData, AppKey, "UTF-8");
             map.put("RequestData", urlEncoder(requestData, "UTF-8"));
             map.put("EBusinessID", EBusinessID);

@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.ClosetAdapter;
@@ -26,6 +28,7 @@ public class LiJiYuYueActivity extends BaseActivity implements View.OnClickListe
     private List<String> mTitles;
     private List<Fragment> mData;
     private ClosetAdapter mAdapter;
+    private TextView mTop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,7 @@ public class LiJiYuYueActivity extends BaseActivity implements View.OnClickListe
         mImageViewBack = (ImageView) findViewById(R.id.iv_order_back);
         mTabLayout = (TabLayout) findViewById(R.id.tb_order_mTitle);
         mViewPager = (ViewPager) findViewById(R.id.vp_order_mPager);
+        mTop = (TextView) findViewById(R.id.tv_order_top);
     }
 
     @Override
@@ -46,6 +50,9 @@ public class LiJiYuYueActivity extends BaseActivity implements View.OnClickListe
         Location.mAddress = intent.getStringExtra("location");
         Location.mTime = intent.getStringExtra("time");
         Location.mOrder_365 = intent.getStringExtra("order_365");
+        if (TextUtils.equals("365", Location.mOrder_365)) {
+            mTop.setText("选择工作室");
+        }
         mTitles = new ArrayList<>();
         mData = new ArrayList<>();
         mTitles.add("默认排序");

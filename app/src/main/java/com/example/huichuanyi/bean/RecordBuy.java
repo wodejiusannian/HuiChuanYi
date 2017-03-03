@@ -9,9 +9,37 @@ public class RecordBuy {
     private String size_name;
     private String clothes_name;
     private String way_no;
+    private String way_name;
+    private String way_code;
+    private String way_phone;
     private String total_price;
     private String num;
     private String clothes_get;
+
+    public String getWay_name() {
+        return way_name;
+    }
+
+    public void setWay_name(String way_name) {
+        this.way_name = way_name;
+    }
+
+    public String getWay_code() {
+        return way_code;
+    }
+
+    public void setWay_code(String way_code) {
+        this.way_code = way_code;
+    }
+
+    public String getWay_phone() {
+        return way_phone;
+    }
+
+    public void setWay_phone(String way_phone) {
+        this.way_phone = way_phone;
+    }
+
     private String color_name;
     private String state;
     private String order_id;

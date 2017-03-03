@@ -26,8 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="@dimen/distance_10"
-            android:layout_marginRight="@dimen/distance_10"
-            android:text="年" />
+            android:layout_marginRight="@dimen/distance_10" />
 
         <TextView
             android:layout_width="0dp"
@@ -37,31 +36,29 @@
             android:background="@color/back_ground" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tv_item_refresh_record_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_17"
+        android:layout_below="@+id/line"
+        android:layout_marginTop="@dimen/distance_5" />
 
     <TextView
         android:id="@+id/tv_item_refresh_record_month"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/line"
-        android:layout_marginTop="@dimen/distance_5"
-        android:text="月" />
-
-    <TextView
-        android:id="@+id/tv_item_refresh_record_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/line"
         android:layout_marginLeft="@dimen/distance_5"
         android:layout_marginTop="@dimen/distance_10"
-        android:layout_toRightOf="@+id/tv_item_refresh_record_month"
-        android:text="日" />
+        android:layout_toRightOf="@+id/tv_item_refresh_record_date" />
 
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/line"
         android:layout_marginLeft="@dimen/distance_10"
-        android:layout_toRightOf="@+id/tv_item_refresh_record_date">
+        android:layout_toRightOf="@+id/tv_item_refresh_record_month">
 
         <LinearLayout
             android:id="@+id/ll_item_refresh_record"

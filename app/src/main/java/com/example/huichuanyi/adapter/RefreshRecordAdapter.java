@@ -1,6 +1,6 @@
 package com.example.huichuanyi.adapter;
 
-import android.content.Context;
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +10,17 @@ import android.widget.TextView;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.bean.RecordRefresh;
+import com.example.huichuanyi.ui_third.Item_DetailsActivity;
+import com.example.huichuanyi.utils.ActivityUtils;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 /**
  * Created by 小五 on 2017/2/8.
@@ -23,11 +28,11 @@ import java.util.List;
 
 public class RefreshRecordAdapter extends BaseAdapter {
     private List<RecordRefresh> mData;
-    private Context mContext;
+    private Activity mActivity;
 
-    public RefreshRecordAdapter(List<RecordRefresh> mData, Context mContext) {
+    public RefreshRecordAdapter(List<RecordRefresh> mData, Activity mActivity) {
         this.mData = mData;
-        this.mContext = mContext;
+        this.mActivity = mActivity;
     }
 
     @Override
@@ -49,7 +54,7 @@ public class RefreshRecordAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_fragment_refresh_record, null);
+            convertView = LayoutInflater.from(mActivity).inflate(R.layout.item_fragment_refresh_record, null);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         } else {
@@ -59,7 +64,7 @@ public class RefreshRecordAdapter extends BaseAdapter {
         RecordRefresh recordRefresh = mData.get(position);
         String time = recordRefresh.getTime();
         String[] split = time.split("-");
-        holder.mTime.setText(split[1]);
+        holder.mTime.setText(split[1] + "月");
         holder.mDate.setText(split[2]);
         if (position == 0) {
             holder.line.setVisibility(View.VISIBLE);
@@ -67,21 +72,47 @@ public class RefreshRecordAdapter extends BaseAdapter {
         } else {
             holder.line.setVisibility(View.GONE);
         }
-        List<RecordRefresh.RefreshBean> list = recordRefresh.getList();
+        final List<RecordRefresh.RefreshBean> list = recordRefresh.getList();
         if (list.size() != 0) {
             for (int i = 0; i < list.size(); i++) {
-                SimpleDraweeView pic = new SimpleDraweeView(mContext);
+                SimpleDraweeView pic = new SimpleDraweeView(mActivity);
                 pic.setMinimumWidth(200);
                 pic.setMinimumHeight(200);
                 pic.setPaddingRelative(10, 10, 10, 10);
-                GenericDraweeHierarchy build = GenericDraweeHierarchyBuilder.newInstance(mContext.getResources()).
+                GenericDraweeHierarchy build = GenericDraweeHierarchyBuilder.newInstance(mActivity.getResources()).
                         setRoundingParams(RoundingParams.fromCornersRadius(20)).build();
                 pic.setHierarchy(build);
-                if (i % 5 == 0) {
-                    pic.setImageURI("http://a.hiphotos.baidu.com/image/pic/item/78310a55b319ebc497ee99908026cffc1e171620.jpg");
-                } else {
-                    pic.setImageURI("https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png");
-                }
+                pic.setTag(i);
+                RecordRefresh.RefreshBean bean = list.get(i);
+                final String clothes_get = bean.getClothes_get();
+                final String id = bean.getId();
+                final String color = bean.getColor();
+                final String introduction = bean.getIntroduction();
+                final String reason = bean.getReason();
+                final String price_dj = bean.getPrice_dj();
+                final String size_name = bean.getSize_name();
+                final String name = bean.getName();
+                pic.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Map<String, Object> map = new HashMap<String, Object>();
+                        int tag = (int) v.getTag();
+                        String recommend_id = list.get(tag).getRecommend_id();
+                        map.put("recommend_id", recommend_id);
+                        map.put("clothes_get", clothes_get);
+                        map.put("id", id);
+                        map.put("introduction", introduction);
+                        map.put("clothes_get", clothes_get);
+                        map.put("price_dj", price_dj);
+                        map.put("name", name);
+                        map.put("color_name", color);
+                        map.put("reason", reason);
+                        map.put("size_name", size_name);
+                        map.put("type", "3");
+                        ActivityUtils.switchTo(mActivity, Item_DetailsActivity.class, map);
+                    }
+                });
+                pic.setImageURI(clothes_get);
                 holder.pics.addView(pic);
             }
         } else {

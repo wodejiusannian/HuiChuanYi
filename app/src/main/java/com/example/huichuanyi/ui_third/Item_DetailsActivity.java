@@ -4,13 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
+import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.utils.ActivityUtils;
 
 import java.util.HashMap;
@@ -20,7 +23,8 @@ public class Item_DetailsActivity extends BaseActivity implements View.OnClickLi
     private RelativeLayout mJump;
     private Map<String, Object> map = new HashMap<>();
     private WebView mShow;
-    private String test_url = "http://item.meilishuo.com/detail/1h3vzz8?ptp=1.zfrD1b.preferitem_mls.2.8O0Ij&acm=3.mce.2_4_1h3vzz8.37435.0.2PccHqbUZD8Vf.m_5168186";
+    private String loadUrl;
+    private ProgressBar mLoading;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,12 +36,13 @@ public class Item_DetailsActivity extends BaseActivity implements View.OnClickLi
     public void initView() {
         mJump = (RelativeLayout) findViewById(R.id.rl_item_details_select);
         mShow = (WebView) findViewById(R.id.wb_item_show);
+        mLoading = (ProgressBar) findViewById(R.id.pb_buy_loading);
     }
 
     @Override
     public void initData() {
-        initWebView();
         getUpActivityData();
+        initWebView();
     }
 
     /*
@@ -59,8 +64,29 @@ public class Item_DetailsActivity extends BaseActivity implements View.OnClickLi
         mShow.setInitialScale(100);
         webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);
-        if (!TextUtils.isEmpty(test_url)) {
-            mShow.loadUrl(test_url);
+        WebChromeClient wvcc = new WebChromeClient() {
+
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+                super.onReceivedTitle(view, title);
+            }
+
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+
+                if (newProgress == 100) {
+                    mLoading.setVisibility(View.GONE);//加载完网页进度条消失
+                } else {
+                    mLoading.setVisibility(View.VISIBLE);//开始加载网页时显示进度条
+                    mLoading.setProgress(newProgress);//设置进度值
+                }
+
+            }
+
+        };
+        mShow.setWebChromeClient(wvcc);
+        if (!TextUtils.isEmpty(loadUrl)) {
+            mShow.loadUrl(loadUrl);
         }
     }
 
@@ -88,6 +114,8 @@ public class Item_DetailsActivity extends BaseActivity implements View.OnClickLi
 
     private void getUpActivityData() {
         Intent intent = getIntent();
+        String recommend_id = intent.getStringExtra("recommend_id");
+        loadUrl = String.format(NetConfig.SHOP_DETAILS, recommend_id);
         String clothes_get = intent.getStringExtra("clothes_get");
         String color = intent.getStringExtra("color");
         String color_name = intent.getStringExtra("color_name");
@@ -108,6 +136,7 @@ public class Item_DetailsActivity extends BaseActivity implements View.OnClickLi
         map.put("reason", reason);
         map.put("size_name", size_name);
         map.put("type", type);
+
     }
 
     public void back(View view) {

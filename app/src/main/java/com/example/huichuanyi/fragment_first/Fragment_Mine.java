@@ -6,15 +6,14 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.baidumap.FreshPhoto;
 import com.example.huichuanyi.base.BaseFragment;
 import com.example.huichuanyi.config.NetConfig;
+import com.example.huichuanyi.custom.CustomToast;
 import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.share.Share;
 import com.example.huichuanyi.ui_first.MainActivity;
@@ -49,9 +48,8 @@ import java.util.Map;
 
 public class Fragment_Mine extends BaseFragment implements View.OnClickListener, FreshPhoto {
     private View view;
-    private TextView mTextViewRegisterAndLogin, mTextViewDaiTi;
-    private SimpleDraweeView mPhoto;
-    private ImageView mImageViewSetting;
+    private TextView mTextViewRegisterAndLogin, mTextViewDaiTi, mImageViewSetting;
+    private SimpleDraweeView mPhoto,mVip;
     private LinearLayout mLinearLayoutDatum, mLinearLayoutReport,
             mLinearLayoutOrder, mLinearLayoutIndent,
             mLinearLayoutInvite, mLinearLayoutExit, m365;
@@ -77,6 +75,12 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
     }
 
     private void getUserPhoto() {
+        String m365 = MySharedPreferences.get365(getContext());
+        if (!TextUtils.equals("365",m365)){
+            mVip.setVisibility(View.GONE);
+        }else{
+            mVip.setVisibility(View.VISIBLE);
+        }
         if (useId == 0) {
             return;
         }
@@ -148,7 +152,7 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
                 if (useId > 0) {
                     upLoadingPhoto();
                 } else {
-                    Toast.makeText(getActivity(), "亲，请先登陆哦", Toast.LENGTH_SHORT).show();
+                    CustomToast.showToast(getContext(),"亲，请先登陆哦");
                     ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
                 }
                 break;
@@ -193,7 +197,7 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
                 break;
             case R.id.ll_mine_invite:
                 if (useId > 0) {
-                    Share.showShare(getActivity(), "慧美衣橱", "http://hmyc365.net:8080/html/share/share.html", "轻松生活来自慧美,让衣橱管理走进千万家", "http://101.201.36.18:8080/images/syspic/1.jpg", null);
+                    Share.inviteFriend(getContext());
                 } else {
                     ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
                 }
@@ -225,7 +229,7 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
         mTextViewRegisterAndLogin = (TextView) view.findViewById(R.id.tv_mine_registerandlogin);
         mLinearLayoutExit = (LinearLayout) view.findViewById(R.id.ll_mine_exit);
         mPhoto = (SimpleDraweeView) view.findViewById(R.id.iv_mine_photo);
-        mImageViewSetting = (ImageView) view.findViewById(R.id.iv_mine_setting);
+        mImageViewSetting = (TextView) view.findViewById(R.id.iv_mine_setting);
         mLinearLayoutDatum = (LinearLayout) view.findViewById(R.id.ll_mine_datum);
         mLinearLayoutReport = (LinearLayout) view.findViewById(R.id.ll_mine_report);
         mLinearLayoutOrder = (LinearLayout) view.findViewById(R.id.ll_mine_order);
@@ -233,6 +237,7 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
         mLinearLayoutInvite = (LinearLayout) view.findViewById(R.id.ll_mine_invite);
         mTextViewDaiTi = (TextView) view.findViewById(R.id.tv_mine_daiti);
         m365 = (LinearLayout) view.findViewById(R.id.ll_mine_365);
+        mVip = (SimpleDraweeView) view.findViewById(R.id.sv_mine_vip);
     }
 
     @Override
@@ -252,11 +257,11 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
                         @Override
                         public void onSuccess(String result) {
                             if ("0".equals(result)) {
-                                Toast.makeText(getActivity(), "修改失败", Toast.LENGTH_SHORT).show();
+                                CustomToast.showToast(getContext(),"修改失败");
                                 return;
                             } else {
                                 mPhoto.setImageURI(result);
-                                Toast.makeText(getActivity(), "修改成功", Toast.LENGTH_SHORT).show();
+                                CustomToast.showToast(getContext(),"修改成功");
                             }
 
                         }
@@ -290,7 +295,6 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
 
     @Override
     public void getPhoto() {
-        Toast.makeText(getContext(), "登陆成功后，刷新下头像和姓名", Toast.LENGTH_SHORT).show();
         useId = new User(getActivity()).getUseId();
         getUserPhoto();
     }
@@ -313,7 +317,7 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
                     mTextViewRegisterAndLogin.setVisibility(View.VISIBLE);
                     MySharedPreferences.save365(getContext(), null);
                     sendBroad();
-                    Toast.makeText(getActivity(), "退出登录成功", Toast.LENGTH_SHORT).show();
+                    CustomToast.showToast(getContext(),"退出登录成功");
                 }
             });
             mDialog.show();

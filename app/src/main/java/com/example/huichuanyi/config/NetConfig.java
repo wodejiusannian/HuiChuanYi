@@ -3,7 +3,7 @@ package com.example.huichuanyi.config;
 public interface NetConfig {
     /*http://hmyc365.net*/
     String BASE_URL = "http://hmyc365.net:8080/HuiMei/";
-    String BASE_URL_NEW = "http://hmyc365.net:8081/HM/";
+    String BASE_URL_NEW = "http://hmyc365.net:8081/HM/app/";
     String BASE_BENDI = "http://192.168.1.122:8080/HM/";
     //获取Bannner轮播图
     String BANNER_ONE = BASE_URL + "picture!getPictures.action";
@@ -160,5 +160,8 @@ public interface NetConfig {
     * */
     /*365购买衣服的确认收货*/
     String CONFIRM_RECEIPT_365 = BASE_URL_NEW + "a_04/xg_dd.do";
+    //
+    String SHOP_DETAILS = BASE_URL_NEW + "a_02/hq_yjxq.do?rec_id=%s";
+
 }
 

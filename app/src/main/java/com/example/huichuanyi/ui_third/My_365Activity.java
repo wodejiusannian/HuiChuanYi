@@ -11,6 +11,7 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.utils.MyJson;
+import com.example.huichuanyi.utils.MySharedPreferences;
 import com.example.huichuanyi.utils.User;
 import com.example.huichuanyi.utils.UtilsInternet;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -25,9 +26,10 @@ public class My_365Activity extends BaseActivity implements UtilsInternet.XCallB
     private UtilsInternet internet = UtilsInternet.getInstance();
     private Map<String, String> map = new HashMap<>();
 
+
     private SimpleDraweeView userPhoto, studioLogo;
     private TextView userName, useDate, studioName, isOpen, studioInfo;
-    private String user_id;
+    private String user_id, m365;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -41,9 +43,11 @@ public class My_365Activity extends BaseActivity implements UtilsInternet.XCallB
             String studio_photo = data.getString("studio_photo");
             studioLogo.setImageURI(studio_photo);
             userName.setText(user_name);
-            useDate.setText("会员开始时间" + start_time + "会员截止时间" + end_time);
+            useDate.setText(end_time + "到期");
             studioName.setText(studio_name);
-            isOpen.setText("已开通");
+            if (TextUtils.equals("365", m365)) {
+                isOpen.setText("已开通");
+            }
             studioInfo.setText(studio_introduction);
         }
     };
@@ -76,7 +80,7 @@ public class My_365Activity extends BaseActivity implements UtilsInternet.XCallB
 
     @Override
     public void setData() {
-
+        m365 = MySharedPreferences.get365(this);
     }
 
     @Override

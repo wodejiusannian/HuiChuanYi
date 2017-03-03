@@ -78,10 +78,10 @@
             android:layout_below="@+id/tv_person_city"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/distance_5"
-            android:background="@drawable/background2"
+            android:background="@drawable/btn_select"
             android:padding="@dimen/distance_5"
             android:text="资格认证"
-            android:textColor="@color/text_color" />
+            android:textColor="@color/main_color_write" />
     </RelativeLayout>
 
 </LinearLayout>

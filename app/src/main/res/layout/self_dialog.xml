@@ -4,13 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
-        android:layout_width="260dp"
+        android:layout_width="300dp"
         android:background="@drawable/free_dialog_bg"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical">
 
         <TextView
+
+            android:textColor="#000000"
             android:id="@+id/my_self_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -18,7 +20,7 @@
             android:layout_margin="15dp"
             android:gravity="center"
             android:text="消息提示"
-            android:textSize="16sp" />
+            android:textSize="@dimen/text_size_18" />
         <RelativeLayout
             android:visibility="gone"
             android:id="@+id/rl_myself_dialog_alipay"
@@ -62,8 +64,10 @@
                 android:layout_height="wrap_content"/>
         </RelativeLayout>
         <TextView
+            android:textColor="#000000"
             android:id="@+id/my_self_message"
-            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp" />
@@ -80,31 +84,28 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/my_self_no"
+                android:id="@+id/my_self_yes"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
                 android:layout_weight="1"
-                android:background="@null"
+                android:background="@color/back_ground_6e"
+                android:textColor="#000"
                 android:gravity="center"
-                android:textColor="@color/text_color"
                 android:singleLine="true"
                 android:textSize="16sp" />
-
             <View
                 android:layout_width="1px"
                 android:layout_height="match_parent"
                 android:background="#E4E4E4" />
 
             <Button
-                android:id="@+id/my_self_yes"
+                android:id="@+id/my_self_no"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:background="@null"
-                android:textColor="@color/text_color"
+                android:background="@color/color_ac0000"
                 android:gravity="center"
+                android:textColor="@color/main_color_write"
                 android:singleLine="true"
                 android:textSize="16sp" />
         </LinearLayout>

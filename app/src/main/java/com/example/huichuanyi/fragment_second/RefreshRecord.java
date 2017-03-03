@@ -54,7 +54,7 @@ public class RefreshRecord extends BaseFragment implements UtilsInternet.XCallBa
         super.initData();
         user_id = new User(getContext()).getUseId() + "";
         mData = new ArrayList<>();
-        adapter = new RefreshRecordAdapter(mData, getContext());
+        adapter = new RefreshRecordAdapter(mData, getActivity());
         mShow.setAdapter(adapter);
     }
 
@@ -92,6 +92,14 @@ public class RefreshRecord extends BaseFragment implements UtilsInternet.XCallBa
                 }
                 RecordRefresh.RefreshBean bean = new RecordRefresh.RefreshBean();
                 bean.setClothes_get(jsonObject.getString("clothes_get"));
+                bean.setRecommend_id(jsonObject.getString("recommend_id"));
+                bean.setColor(jsonObject.getString("color_name"));
+                bean.setId(jsonObject.getString("id"));
+                bean.setPrice_dj(jsonObject.getString("price_dj"));
+                bean.setIntroduction(jsonObject.getString("introduction"));
+                bean.setReason(jsonObject.getString("reason"));
+                bean.setSize_name(jsonObject.getString("size_name"));
+                bean.setName(jsonObject.getString("clothes_name"));
                 a.add(bean);
                 rr.setList(a);
             }

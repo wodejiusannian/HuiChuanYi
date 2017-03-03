@@ -17,9 +17,17 @@ public class CardItem {
     private String size_get;
     private String color_name;
     private String clothes_name;
-
+    private String recommend_id;
     public String getClothes_name() {
         return clothes_name;
+    }
+
+    public String getRecommend_id() {
+        return recommend_id;
+    }
+
+    public void setRecommend_id(String recommend_id) {
+        this.recommend_id = recommend_id;
     }
 
     public void setClothes_name(String clothes_name) {

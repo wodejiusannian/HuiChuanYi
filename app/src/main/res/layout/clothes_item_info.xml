@@ -10,9 +10,9 @@
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_marginLeft="@dimen/distance_10"
-        fresco:actualImageScaleType="fitCenter"
-        fresco:placeholderImageScaleType="fitXY"
+        fresco:actualImageScaleType="fitXY"
         fresco:placeholderImage="@mipmap/stand"
+        fresco:placeholderImageScaleType="fitXY"
         fresco:roundedCornerRadius="4dp" />
 
     <RelativeLayout
@@ -41,8 +41,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/distance"
-            android:layout_toRightOf="@+id/tv_clothe_item_info_record_size"
+            android:layout_marginLeft="@dimen/distance_20"
+            android:layout_toRightOf="@+id/tv_clothe_item_info_record_price"
             android:text="颜色" />
 
         <TextView
@@ -59,17 +59,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="@dimen/distance"
+            android:layout_marginLeft="@dimen/distance_20"
             android:layout_toRightOf="@+id/tv_clothe_item_info_record_price"
-            android:text="*1" />
+            android:text="x1" />
 
         <TextView
             android:id="@+id/tv_clothe_item_info_record_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="款式"
-            android:textSize="@dimen/text_size_16"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
+            android:textSize="@dimen/text_size_16" />
     </RelativeLayout>
 </RelativeLayout>

@@ -10,9 +10,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.huichuanyi.R;
-import com.example.huichuanyi.baidumap.MyThirdData;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
+import com.example.huichuanyi.custom.CustomToast;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.MyJson;
 import com.example.huichuanyi.utils.MySharedPreferences;
@@ -20,7 +20,6 @@ import com.example.huichuanyi.utils.User;
 import com.example.huichuanyi.utils.Utils;
 import com.example.huichuanyi.utils.UtilsInternet;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,15 +28,17 @@ import java.util.Map;
 
 import cn.jpush.android.api.JPushInterface;
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener, MyThirdData, UtilsInternet.XCallBack {
-    private EditText mEditTextPhone, mEditTextPWD;
-    private Button mButtonLogin;
-    private User mUser;
-    private TextView mTextViewForgetPwd;
-    private int flag = 0;
+public class LoginActivity extends BaseActivity implements View.OnClickListener/*, MyThirdData*/, UtilsInternet.XCallBack {
     private UtilsInternet internet = UtilsInternet.getInstance();
     private Map<String, String> map = new HashMap<>();
+
+    private EditText mEditTextPhone, mEditTextPWD;
+    private TextView mTextViewForgetPwd;
+    private Button mButtonLogin;
+    private User mUser;
     private int user_id;
+
+    private int internetFlag = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,22 +89,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         }
     }
 
-    @Override
-    public void getData(String url, final String userId, String userName) {
-        goLoginThird(url, userId, userName);
-    }
-
-    /*
-    * 第三方登录
-    * */
-    private void goLoginThird(String url, String userId, String userName) {
-        flag = 1;
-        map.put("account", userId);
-        map.put("photopath", url);
-        map.put("username", userName);
-        internet.post(NetConfig.THIRD_LOGIN, map, this);
-    }
-
     /*
     * 手机用户去登陆
     * */
@@ -118,58 +103,135 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     * 登录成功所需要做的事情
     * */
     private void afterLoginSuccess(int userID) {
-        flag = 2;
+        internetFlag = 2;
         map.clear();
         map.put("user_id", userID + "");
         internet.post(NetConfig.IS_BUY_365, map, this);
     }
 
-    @Override
-    public void onResponse(String result) {
-        switch (flag) {
-            case 0:
-                goLoginAfter(result);
-                break;
-            case 1:
-                goLoginThirdAfter(result);
-                break;
-            case 2:
-                isBuy365(result);
-                break;
-            case 3:
-                mUser.writeUserId(user_id);
-                MySharedPreferences.save365(LoginActivity.this, "365");
-                Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                sendBroad();
-                finish();
-                break;
-            default:
-                break;
+    /*
+     * 处理服务器返回的数据
+     * */
+    private void goLoginAfter(String result) {
+        int b = 0;
+        try {
+            b = (int) Double.parseDouble(result);
+            user_id = b;
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        if (b > 0) {
+            afterLoginSuccess(b);
+        } else if (b == 0) {
+            Toast.makeText(LoginActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
+        } else if (b == -1) {
+            Toast.makeText(LoginActivity.this, "网络错误", Toast.LENGTH_SHORT).show();
         }
     }
 
     /*
-    * 是否购买365，购买或者未购买的操作
-    * */
+     * 是否购买365，购买或者未购买的操作
+     * */
     private void isBuy365(String result) {
         String ret = MyJson.getRet(result);
-        if (!TextUtils.equals("0", ret)) {
+        if (TextUtils.equals("0", ret)) {
             MySharedPreferences.save365(LoginActivity.this, "365");
+        } else {
+            try {
+                JSONObject object = new JSONObject(result);
+                JSONObject body = object.getJSONObject("body");
+                String price = body.getString("activity_price");
+                String activity = body.getString("activity_state");
+                MySharedPreferences.saveActivity(LoginActivity.this, activity, price);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
         upRegistrationID();
     }
 
     private void upRegistrationID() {
-        flag = 3;
+        internetFlag = 3;
         String rid = JPushInterface.getRegistrationID(getApplicationContext());
-        Utils.Log(rid);
         map.put("registration_id", rid);
         internet.post(NetConfig.UP_J_PUSH_REGISTRATION_ID, map, this);
     }
 
-    /*
+    public void sendBroad() {
+        Intent intent = new Intent();
+        intent.setAction("action.refreshFriend");
+        sendBroadcast(intent);
+    }
+
+    @Override
+    public void onResponse(String result) {
+
+        switch (internetFlag) {
+            case 0:
+                goLoginAfter(result);
+                break;
+            case 2:
+                Utils.Log(result);
+                isBuy365(result);
+                break;
+            case 3:
+                getAddress();
+                break;
+            case 4:
+                try {
+                    JSONObject object = new JSONObject(result);
+                    String city = object.getString("city");
+                    mUser.writeUserId(user_id);
+                    MySharedPreferences.saveCity(LoginActivity.this, city);
+                    CustomToast.showToast(this, "登录成功");
+                    sendBroad();
+                    finish();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    private void getAddress() {
+        internetFlag = 4;
+        map.clear();
+        map.put("userid", user_id + "");
+        internet.post(NetConfig.GET_INFORMATION, map, this);
+    }
+
+
+    public void back(View view) {
+        finish();
+    }
+
+
+
+
+
+   /* @Override
+    public void getData(String url, final String userId, String userName) {
+        goLoginThird(url, userId, userName);
+    }*/
+
+  /*  *//*
+    * 第三方登录
+    * *//*
+    private void goLoginThird(String url, String userId, String userName) {
+        internetFlag = 1;
+        map.put("account", userId);
+        map.put("photopath", url);
+        map.put("username", userName);
+        internet.post(NetConfig.THIRD_LOGIN, map, this);
+    }*/
+
+
+     /*
     * 第三方登陆后，处理服务器返回的数据
-    * */
+    * *//*
     private void goLoginThirdAfter(String result) {
         try {
             JSONObject object = new JSONObject(result);
@@ -198,35 +260,5 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    /*
-    * 处理服务器返回的数据
-    * */
-    private void goLoginAfter(String result) {
-        int b = 0;
-        try {
-            b = (int) Double.parseDouble(result);
-            user_id = b;
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-        if (b > 0) {
-            afterLoginSuccess(b);
-        } else if (b == 0) {
-            Toast.makeText(LoginActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
-        } else if (b == -1) {
-            Toast.makeText(LoginActivity.this, "网络错误", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void sendBroad() {
-        Intent intent = new Intent();
-        intent.setAction("action.refreshFriend");
-        sendBroadcast(intent);
-    }
-
-    public void back(View view) {
-        finish();
-    }
+    }*/
 }

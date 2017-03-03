@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_share"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.example.huichuanyi.ui_third.ShareActivity">
+
+    <RelativeLayout
+        android:id="@+id/tl_top"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/color_ac0000">
+
+        <include layout="@layout/btn_back"></include>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="365会员分享"
+            android:textColor="@color/main_color_write"
+            android:textSize="@dimen/text_size_18" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/act_btn_share_activity"
+        android:layout_below="@+id/tl_top">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitStart"
+                android:src="@mipmap/share_activity" />
+        </RelativeLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/act_btn_share_activity"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/distance_10"
+        android:layout_marginLeft="@dimen/distance_10"
+        android:layout_marginRight="@dimen/distance_10"
+        android:background="@drawable/btn_select"
+        android:text="点击分享"
+        android:textColor="@color/main_color_write" />
+</RelativeLayout>
