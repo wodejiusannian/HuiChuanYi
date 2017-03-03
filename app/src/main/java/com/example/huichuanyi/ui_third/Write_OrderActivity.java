@@ -34,7 +34,7 @@ public class Write_OrderActivity extends BaseActivity implements View.OnClickLis
     private UtilsInternet instance = UtilsInternet.getInstance();
     private Map<String, String> map = new HashMap<>();
     private Button mSubmit;
-    private String clothes_id, address_id, color_name, size_name, clothes_get, name, type;
+    private String clothes_id, address_id, color_name, size_name, clothes_get, name, type, recommend_id;
     private int flag = 0;
     private Map<String, Object> jumpMap = new HashMap<>();
     private android.os.Handler mHandler = new android.os.Handler() {
@@ -83,6 +83,7 @@ public class Write_OrderActivity extends BaseActivity implements View.OnClickLis
         String price_dj = intent.getStringExtra("price_dj");
         String reason = intent.getStringExtra("reason");
         size_name = intent.getStringExtra("size_name");
+        recommend_id = intent.getStringExtra("recommend_id");
         SimpleDraweeView studioLogo = (SimpleDraweeView) this.findViewById(R.id.sv_clothe_item_info_record);
         studioLogo.setImageURI(clothes_get);
         TextView mName = (TextView) this.findViewById(R.id.tv_clothe_item_info_record_style);
@@ -147,6 +148,7 @@ public class Write_OrderActivity extends BaseActivity implements View.OnClickLis
                 map.put("size_name", size_name);
                 map.put("num", "1");
                 map.put("remarks", remarks);
+                map.put("recommend_id", recommend_id);
                 instance.post(NetConfig.PAY_365_CLO_ORDER, map, this);
                 break;
             default:

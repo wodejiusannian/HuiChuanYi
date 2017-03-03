@@ -98,6 +98,7 @@ public class Buy_365Activity extends BaseActivity implements UtilsInternet.XCall
                 }
                 break;
             case 1:
+                dismissLoading();
                 try {
                     JSONObject obj = new JSONObject(result);
                     JSONObject body = obj.getJSONObject("body");
@@ -143,6 +144,7 @@ public class Buy_365Activity extends BaseActivity implements UtilsInternet.XCall
     * 去开通
     * */
     private void goOpen() {
+        showLoading();
         flag = 1;
         map.clear();
         map.put("user_id", user_id);

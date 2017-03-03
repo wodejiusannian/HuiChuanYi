@@ -101,7 +101,9 @@
         <activity android:name=".ui_third.MC_TripAndElseActivity" />
         <activity android:name=".ui_second.RegisterActivity" />
         <activity android:name=".secondui.AuthCodeActivity" />
-        <activity android:name=".secondui.LoginActivity" />
+        <activity
+            android:name=".secondui.LoginActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".secondui.BoundActivity" />
         <activity android:name=".ui_second.IndentActivity" />
         <activity android:name=".ui_second.ReportActivity" />

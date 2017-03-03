@@ -25,12 +25,12 @@ public class Share {
         ShareSDK.initSDK(mContext);
         OnekeyShare oks = new OnekeyShare();
         oks.disableSSOWhenAuthorize();
-        oks.setTitle("慧美优惠你大吃一惊");
+        oks.setTitle("慧美衣橱");
         oks.setTitleUrl("http://hmyc365.net:8080/html/share/share.html");
-        oks.setText("交个朋友吧");
+        oks.setText("轻松生活来自慧美，让衣橱管理走进千万家");
         oks.setUrl("http://hmyc365.net:8080/html/share/share.html");
-        oks.setComment("交个朋友吧");
-        oks.setImageUrl("http://101.201.36.18:8080/images/syspic/1.jpg");
+        oks.setComment("轻松生活来自慧美，让衣橱管理走进千万家");
+        oks.setImageUrl("http://hmyc365.net:8080/html/share/share.html");
         oks.show(mContext);
     }
 }

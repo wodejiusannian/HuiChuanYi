@@ -136,7 +136,7 @@ public class Item_DetailsActivity extends BaseActivity implements View.OnClickLi
         map.put("reason", reason);
         map.put("size_name", size_name);
         map.put("type", type);
-
+        map.put("recommend_id", recommend_id);
     }
 
     public void back(View view) {

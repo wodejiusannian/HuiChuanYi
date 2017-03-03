@@ -29,26 +29,25 @@
             android:id="@+id/item_clothes_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="轻奢"
-            android:textSize="@dimen/text_size_15" />
+            android:textSize="@dimen/text_size_17" />
 
         <TextView
             android:id="@+id/item_clothes_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/distance_15"
+            android:layout_marginLeft="@dimen/text_size_17"
             android:layout_toRightOf="@+id/item_clothes_style"
-            android:text="name"
             android:textSize="@dimen/text_size_15" />
 
         <TextView
-            android:layout_marginRight="@dimen/distance_5"
-            android:layout_toLeftOf="@+id/iv_edit"
             android:id="@+id/item_clothes_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/item_clothes_style"
-            android:layout_marginTop="@dimen/distance_10" />
+            android:layout_marginRight="@dimen/distance_5"
+            android:layout_marginTop="@dimen/distance_10"
+            android:layout_toLeftOf="@+id/iv_edit"
+            android:lines="2" />
 
         <ImageView
             android:id="@+id/iv_edit"

@@ -42,12 +42,11 @@ public class ShareActivity extends BaseActivity {
         ShareSDK.initSDK(this);
         OnekeyShare oks = new OnekeyShare();
         oks.disableSSOWhenAuthorize();
-        oks.setTitle("我叫小康子");
-        oks.setTitleUrl("http://hmyc365.net:8080/html/share/share.html");
-        oks.setText("我是一只来自北方的狐");
-        oks.setUrl("http://hmyc365.net:8080/html/share/share.html");
-        oks.setImageUrl("http://hmyc365.net:8080/html/share/share.html");
-        oks.setComment("http://hmyc365.net:8080/html/share/share.html");
+        oks.setTitle("慧美衣橱");
+        oks.setTitleUrl("http://hmyc365.net:8080/html/365/365.html");
+        oks.setText("轻松生活来自慧美，让衣橱管理走进千万家");
+        oks.setUrl("http://hmyc365.net:8080/html/365/365.html");
+        oks.setImageUrl("http://hmyc365.net:8080/html/365/365.html");
         oks.setCallback(new PlatformActionListener() {
             @Override
             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {

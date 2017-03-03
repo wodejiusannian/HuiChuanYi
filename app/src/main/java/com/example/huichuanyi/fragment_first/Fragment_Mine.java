@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -249,6 +250,7 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
                     ArrayList<String> list = data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT);
                     String s = list.get(0);
                     Bitmap bitmap = ImageUtils.ratio(s, 240f, 240f);
+                    Log.i("TAG", "--------------"+s);
                     String photo = ImageUtils.saveBitMapToFile(getActivity(), "myPhoto", bitmap, true);
                     RequestParams params = new RequestParams(NetConfig.USER_PHOTO);
                     params.addBodyParameter("userid", new User(getActivity()).getUseId() + "");
@@ -256,6 +258,7 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
                     x.http().post(params, new Callback.CommonCallback<String>() {
                         @Override
                         public void onSuccess(String result) {
+                            Log.i("TAG", "--------------"+result);
                             if ("0".equals(result)) {
                                 CustomToast.showToast(getContext(),"修改失败");
                                 return;

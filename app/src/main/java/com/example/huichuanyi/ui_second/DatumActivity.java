@@ -24,6 +24,7 @@ import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.utils.MySharedPreferences;
 import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.UtilsWaring;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -320,7 +321,7 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
                 return;
             }
             if (mIntegersExpect.size() == 3) {
-                Toast.makeText(DatumActivity.this, "最多选择3个哦，亲", Toast.LENGTH_SHORT).show();
+                UtilsWaring.Toast(DatumActivity.this, "最多选择3个哦，亲");
                 return;
             }
             recyclerViewExpect.getChildAt(position).setSelected(true);
@@ -338,7 +339,7 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
                 return;
             }
             if (mIntegersSelf.size() == 3) {
-                Toast.makeText(DatumActivity.this, "最多选择3个哦，亲", Toast.LENGTH_SHORT).show();
+                UtilsWaring.Toast(DatumActivity.this, "最多选择3个哦，亲");
                 return;
             }
             recyclerViewselfdom.getChildAt(position).setSelected(true);
@@ -360,13 +361,13 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
         String orientate = null;
         if (!TextUtils.isEmpty(trim1) && !TextUtils.isEmpty(trim2) && !TextUtils.isEmpty(trim3)) {
             if (Integer.parseInt(trim1) + Integer.parseInt(trim2) + Integer.parseInt(trim3) != 100) {
-                Toast.makeText(DatumActivity.this, "定位的值相加要等于100", Toast.LENGTH_SHORT).show();
+                UtilsWaring.Toast(DatumActivity.this, "定位的值相加要等于100");
                 return;
             }
             orientate = trim1 + "|" + trim2
                     + "|" + trim3;
         } else {
-            Toast.makeText(DatumActivity.this, "三个定位的值不能为空", Toast.LENGTH_SHORT).show();
+            UtilsWaring.Toast(DatumActivity.this, "三个定位的值不能为空");
             return;
         }
 
@@ -447,17 +448,16 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
             @Override
             public void onSuccess(String result) {
                 if (TextUtils.equals("1", result)) {
-                    Toast.makeText(DatumActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+                    UtilsWaring.Toast(DatumActivity.this, "修改成功");
                     MySharedPreferences.saveBuyCity(DatumActivity.this, city);
                     finish();
                 } else {
-                    Toast.makeText(DatumActivity.this, "修改失败", Toast.LENGTH_SHORT).show();
+                    UtilsWaring.Toast(DatumActivity.this, "修改失败");
                 }
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                Toast.makeText(DatumActivity.this, "网络错误，请检查网络", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -481,7 +481,7 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
                 return;
             }
             if (isContains.size() == 3) {
-                Toast.makeText(DatumActivity.this, "最多选择3个哦，亲", Toast.LENGTH_SHORT).show();
+                UtilsWaring.Toast(DatumActivity.this, "最多选择3个哦，亲");
                 return;
             }
             mRecycle.getChildAt(position).setSelected(true);

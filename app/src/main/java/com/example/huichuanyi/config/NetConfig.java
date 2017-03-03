@@ -4,7 +4,7 @@ public interface NetConfig {
     /*http://hmyc365.net*/
     String BASE_URL = "http://hmyc365.net:8080/HuiMei/";
     String BASE_URL_NEW = "http://hmyc365.net:8081/HM/app/";
-    String BASE_BENDI = "http://192.168.1.122:8080/HM/";
+    String BASE_BENDI = "http://192.168.0.102:8080/HuiMei/";
     //获取Bannner轮播图
     String BANNER_ONE = BASE_URL + "picture!getPictures.action";
     //手机号注册的链接

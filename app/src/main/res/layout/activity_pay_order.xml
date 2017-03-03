@@ -54,17 +54,6 @@
             android:layout_marginLeft="@dimen/distance"
             android:layout_marginTop="@dimen/distance"
             android:layout_toRightOf="@+id/iv_payorder_photo"
-            android:text="王达"
-            android:textColor="#080808"
-            android:textSize="18sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/distance"
-            android:layout_marginTop="@dimen/distance"
-            android:layout_toRightOf="@+id/tv_payorder_name"
-            android:text="衣橱管理师"
             android:textColor="#080808"
             android:textSize="18sp" />
 

@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
@@ -20,6 +19,7 @@ import com.example.huichuanyi.utils.User;
 import com.example.huichuanyi.utils.Utils;
 import com.example.huichuanyi.utils.UtilsInternet;
 import com.example.huichuanyi.utils.UtilsPay;
+import com.example.huichuanyi.utils.UtilsWaring;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.json.JSONException;
@@ -112,7 +112,7 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
                 break;
             case R.id.bt_payorder_pay:
                 if (TextUtils.equals("1", type) && AliPayOrWeChat == 2) {
-                    Toast.makeText(this, "正在开发中，敬请期待", Toast.LENGTH_SHORT).show();
+                    UtilsWaring.Toast(this, "正在开发中，敬请期待");
                     return;
                 }
                 postData();
@@ -180,12 +180,15 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
     public void isSuccess(int success) {
         switch (success) {
             case 9000:
-                Toast.makeText(this, "支付成功", Toast.LENGTH_SHORT).show();
-                mPay.showNotation();
-                ActivityUtils.switchTo(this, MyOrderActivity.class);
+                UtilsWaring.Toast(this, "支付成功");
+                if (TextUtils.equals("1", type)) {
+                    mPay.showNotation();
+                    ActivityUtils.switchTo(this, MyOrderActivity.class);
+                }
+                finish();
                 break;
             case 9001:
-                Toast.makeText(this, "支付失败", Toast.LENGTH_SHORT).show();
+                UtilsWaring.Toast(this, "支付失败");
                 break;
             default:
                 break;
