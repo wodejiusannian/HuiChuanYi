@@ -10,14 +10,12 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.alipay.sdk.app.PayTask;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.alipay.PayResult;
-import com.example.huichuanyi.ui_second.MyOrderActivity;
+import com.example.huichuanyi.ui.activity.MyOrderActivity;
 import com.example.huichuanyi.wxapi.Constants;
-import com.google.gson.JsonObject;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;

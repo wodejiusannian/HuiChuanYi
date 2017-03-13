@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.bean.RecordRefresh;
-import com.example.huichuanyi.ui_third.Item_DetailsActivity;
+import com.example.huichuanyi.ui.activity.Item_DetailsActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;

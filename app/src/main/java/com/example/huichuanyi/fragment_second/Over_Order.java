@@ -12,7 +12,7 @@ import com.example.huichuanyi.adapter.OverAdapter;
 import com.example.huichuanyi.base.BaseFragment;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.bean.Progress;
-import com.example.huichuanyi.ui_four.MyOrderDetailsActivity;
+import com.example.huichuanyi.ui.activity.MyOrderDetailsActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.User;
 import com.google.gson.Gson;

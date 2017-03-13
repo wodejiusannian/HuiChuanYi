@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="com.example.huichuanyi.ui_third.Write_AddressActivity">
+    tools:context="com.example.huichuanyi.ui.activity.Write_AddressActivity">
 
     <RelativeLayout
         android:id="@+id/rl_write_order_title"

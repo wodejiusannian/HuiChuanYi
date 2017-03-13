@@ -16,6 +16,7 @@
     <dimen name="body_two_size">14sp</dimen>
     <dimen name="body_size_size">13sp</dimen>
     <dimen name="text_size_big">18sp</dimen>
+    <dimen name="text_size_top_title">18sp</dimen>
     <dimen name="text_size_middle">16sp</dimen>
     <dimen name="text_size_small">14sp</dimen>
     <dimen name="top_title">20dp</dimen>

@@ -7,6 +7,7 @@ import android.view.WindowManager;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.custom.MyProgressDialog;
+import com.example.huichuanyi.utils.User;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.umeng.analytics.MobclickAgent;
 
@@ -56,5 +57,12 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected void dismissLoading() {
         progressDialog.dismiss();
+    }
+
+    protected boolean getUser() {
+        if (new User(this).getUseId() > 0) {
+            return true;
+        }
+        return false;
     }
 }

@@ -14,9 +14,10 @@ import com.example.huichuanyi.baidumap.Location;
 import com.example.huichuanyi.base.BaseFragment;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.bean.City;
-import com.example.huichuanyi.ui_third.ManageActivity;
+import com.example.huichuanyi.ui.activity.ManageActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.MyJson;
+import com.example.huichuanyi.utils.Utils;
 import com.example.huichuanyi.utils.UtilsInternet;
 import com.google.gson.Gson;
 
@@ -121,6 +122,7 @@ public class Fragment_Default extends BaseFragment implements SwipeRefreshLayout
 
     @Override
     public void onResponse(String result) {
+        Utils.Log(result);
         String s = MyJson.getRet(result);
         if (TextUtils.equals("0", s)) {
             mCity.clear();

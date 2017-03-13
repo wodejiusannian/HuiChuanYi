@@ -12,14 +12,18 @@ import android.widget.TextView;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.ui_second.MyOrderActivity;
+import com.example.huichuanyi.ui.activity.Item_DetailsActivity;
+import com.example.huichuanyi.ui.activity.MyOrderActivity;
+import com.example.huichuanyi.ui.activity.My_365Activity;
+import com.example.huichuanyi.ui.activity.Write_OrderActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
+import com.example.huichuanyi.utils.CommonStatic;
+import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.IsSuccess;
+import com.example.huichuanyi.utils.MySharedPreferences;
 import com.example.huichuanyi.utils.User;
-import com.example.huichuanyi.utils.Utils;
 import com.example.huichuanyi.utils.UtilsInternet;
 import com.example.huichuanyi.utils.UtilsPay;
-import com.example.huichuanyi.utils.UtilsWaring;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.json.JSONException;
@@ -40,12 +44,13 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
     private UtilsInternet instance = UtilsInternet.getInstance();
     private UtilsPay mPay;
     private String user_id;
+    public static PayOrderActivity payOrderActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay_order);
-
+        payOrderActivity = this;
     }
 
     @Override
@@ -72,6 +77,7 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
         nowMoney = intent.getStringExtra("nowMoney");
         order_id = intent.getStringExtra("orderid");
         type = intent.getStringExtra("type");
+        CommonStatic.wechatType = type;
         mPay = new UtilsPay(this);
     }
 
@@ -112,7 +118,7 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
                 break;
             case R.id.bt_payorder_pay:
                 if (TextUtils.equals("1", type) && AliPayOrWeChat == 2) {
-                    UtilsWaring.Toast(this, "正在开发中，敬请期待");
+                    CommonUtils.Toast(this, "正在开发中，敬请期待");
                     return;
                 }
                 postData();
@@ -152,7 +158,6 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onResponse(String result) {
-        Utils.Log(result);
         switch (AliPayOrWeChat) {
             case 1:
                 if (TextUtils.equals("1", type)) {
@@ -180,15 +185,28 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
     public void isSuccess(int success) {
         switch (success) {
             case 9000:
-                UtilsWaring.Toast(this, "支付成功");
-                if (TextUtils.equals("1", type)) {
-                    mPay.showNotation();
-                    ActivityUtils.switchTo(this, MyOrderActivity.class);
+                CommonUtils.Toast(this, "支付成功");
+                switch (type) {
+                    case "1":
+                        mPay.showNotation();
+                        closeActivity();
+                        ActivityUtils.switchTo(this, MyOrderActivity.class);
+                        break;
+                    case "2":
+                        MySharedPreferences.save365(this, "365");
+                        sendBroad();
+                        ActivityUtils.switchTo(this, My_365Activity.class);
+                        break;
+                    case "3":
+                        closeActivity();
+                        break;
+                    default:
+                        break;
                 }
-                finish();
+
                 break;
             case 9001:
-                UtilsWaring.Toast(this, "支付失败");
+                CommonUtils.Toast(this, "支付失败");
                 break;
             default:
                 break;
@@ -197,5 +215,26 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
 
     public void back(View view) {
         finish();
+    }
+
+    private void closeActivity() {
+        if (PayOrderActivity.payOrderActivity != null) {
+            PayOrderActivity.payOrderActivity.finish();
+            PayOrderActivity.payOrderActivity = null;
+        }
+        if (Write_OrderActivity.write_orderActivity != null) {
+            Write_OrderActivity.write_orderActivity.finish();
+            Write_OrderActivity.write_orderActivity = null;
+        }
+        if (Item_DetailsActivity.item_detailsActivity != null) {
+            Item_DetailsActivity.item_detailsActivity.finish();
+            Item_DetailsActivity.item_detailsActivity = null;
+        }
+    }
+
+    public void sendBroad() {
+        Intent intent = new Intent();
+        intent.setAction("action.refreshFriend");
+        sendBroadcast(intent);
     }
 }

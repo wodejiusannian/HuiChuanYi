@@ -184,19 +184,64 @@
                     android:layout_height="1dp"
                     android:background="@color/color_6c" />
 
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/distance_15"
-                    android:text="☆用户只能开通本地城市工作室" />
+                    android:orientation="horizontal"
+                    android:padding="@dimen/distance_5">
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/order" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/distance_5"
+                        android:text="用户只能开通本地城市工作室" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/distance_15"
-                    android:text="☆开通服务一年后方可以更换工作室" />
+                    android:orientation="horizontal"
+                    android:padding="@dimen/distance_5">
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/order" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/distance_5"
+                        android:text="开通服务一年后方可以更换工作室" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/distance_5">
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@mipmap/order" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/distance_5"
+                        android:text="365服务功能介绍：何为365服务？365就是用户一天一元，即可聘请一位私人衣橱顾问，轻松实现365天的美丽。为用户带来省时、省事、省空间，美好、秒找、无烦恼的全新生活方式。365功能包括个人风格报告、服饰实时统计、专属衣橱诊断与购买建议，把您的衣橱搬到手机上，随时随地查看衣物" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

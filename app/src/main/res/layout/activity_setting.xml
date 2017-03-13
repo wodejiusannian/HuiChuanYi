@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ui_second.SettingActivity">
+    tools:context=".ui.activity.SettingActivity">
 
     <RelativeLayout
         android:id="@+id/tl_setting_mTool"

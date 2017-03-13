@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ui_second.WoDeYiChuActivity">
+    tools:context=".ui.activity.WoDeYiChuActivity">
     <RelativeLayout
         android:id="@+id/tl_clothess_mTool"
         android:background="@color/top_color"

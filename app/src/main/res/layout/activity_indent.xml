@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context=".ui_second.IndentActivity">
+    tools:context=".ui.activity.IndentActivity">
 
     <RelativeLayout
         android:id="@+id/tl_addmatch_mTool_show"

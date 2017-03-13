@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context="com.example.huichuanyi.ui_third.ListAddress">
+    tools:context="com.example.huichuanyi.ui.activity.ListAddress">
 
     <RelativeLayout
         android:id="@+id/rl_list_address_top"

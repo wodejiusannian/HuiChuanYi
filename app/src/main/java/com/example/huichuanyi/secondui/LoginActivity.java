@@ -17,7 +17,6 @@ import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.MyJson;
 import com.example.huichuanyi.utils.MySharedPreferences;
 import com.example.huichuanyi.utils.User;
-import com.example.huichuanyi.utils.Utils;
 import com.example.huichuanyi.utils.UtilsInternet;
 
 import org.json.JSONException;
@@ -171,7 +170,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener/
                 goLoginAfter(result);
                 break;
             case 2:
-                Utils.Log(result);
                 isBuy365(result);
                 break;
             case 3:
@@ -182,7 +180,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener/
                     JSONObject object = new JSONObject(result);
                     String city = object.getString("city");
                     mUser.writeUserId(user_id);
-                    MySharedPreferences.saveCity(LoginActivity.this, city);
+                    MySharedPreferences.saveBuyCity(LoginActivity.this, city);
                     CustomToast.showToast(this, "登录成功");
                     sendBroad();
                     finish();
@@ -209,56 +207,4 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener/
     }
 
 
-
-
-
-   /* @Override
-    public void getData(String url, final String userId, String userName) {
-        goLoginThird(url, userId, userName);
-    }*/
-
-  /*  *//*
-    * 第三方登录
-    * *//*
-    private void goLoginThird(String url, String userId, String userName) {
-        internetFlag = 1;
-        map.put("account", userId);
-        map.put("photopath", url);
-        map.put("username", userName);
-        internet.post(NetConfig.THIRD_LOGIN, map, this);
-    }*/
-
-
-     /*
-    * 第三方登陆后，处理服务器返回的数据
-    * *//*
-    private void goLoginThirdAfter(String result) {
-        try {
-            JSONObject object = new JSONObject(result);
-            JSONArray list = object.getJSONArray("list");
-            JSONObject jsonObject = list.getJSONObject(0);
-            String id = jsonObject.getString("id");
-            String phone_number = jsonObject.getString("phone_number");
-            int b = 0;
-            try {
-                b = (int) Double.parseDouble(id);
-                user_id = b;
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            }
-            if (b > 0) {
-                if (TextUtils.equals("null", phone_number)) {
-                    afterLoginSuccess(b);
-                    ActivityUtils.switchTo(LoginActivity.this, BoundActivity.class);
-                    finish();
-                    return;
-                }
-                afterLoginSuccess(b);
-            } else if (b == 0) {
-                Toast.makeText(LoginActivity.this, "登录失败，请重新登录", Toast.LENGTH_SHORT).show();
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }*/
 }

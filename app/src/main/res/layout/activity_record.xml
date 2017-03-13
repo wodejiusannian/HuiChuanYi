@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context="com.example.huichuanyi.ui_third.RecordActivity">
+    tools:context="com.example.huichuanyi.ui.activity.RecordActivity">
 
     <RelativeLayout
         android:id="@+id/rl_partner_clothes_top"

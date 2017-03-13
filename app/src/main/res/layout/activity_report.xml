@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ui_second.ReportActivity">
+    tools:context=".ui.activity.ReportActivity">
 
     <RelativeLayout
         android:id="@+id/tl_addmatch_mTool_show"

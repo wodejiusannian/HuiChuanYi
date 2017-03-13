@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context="com.example.huichuanyi.ui_four.ComplainActivity">
+    tools:context="com.example.huichuanyi.ui.activity.ComplainActivity">
     <RelativeLayout
         android:id="@+id/tl_order_detailsr_mTool"
         android:background="@color/top_color"

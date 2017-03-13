@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="com.example.huichuanyi.ui_third.Buy_365Activity">
+    tools:context="com.example.huichuanyi.ui.activity.Buy_365Activity">
 
     <RelativeLayout
         android:layout_width="match_parent"

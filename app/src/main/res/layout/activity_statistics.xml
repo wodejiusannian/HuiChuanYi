@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ui_third.MC_HomeActivity">
+    tools:context=".ui.activity.MC_HomeActivity">
 
     <RelativeLayout
         android:id="@+id/tl_info_mTool"

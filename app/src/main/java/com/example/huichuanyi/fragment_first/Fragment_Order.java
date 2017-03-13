@@ -1,28 +1,26 @@
 package com.example.huichuanyi.fragment_first;
 
 import android.graphics.Color;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.HomeAdapter;
 import com.example.huichuanyi.base.BaseFragment;
+import com.example.huichuanyi.bean.Banner;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.DateTimePickDialogUtil;
-import com.example.huichuanyi.bean.Banner;
+import com.example.huichuanyi.custom.EditDialog;
 import com.example.huichuanyi.secondui.AtMyAcitivty;
-import com.example.huichuanyi.ui_second.DaPeiRiJiActivity;
-import com.example.huichuanyi.ui_second.LiJiYuYueActivity;
-import com.example.huichuanyi.ui_second.MyOrderActivity;
-import com.example.huichuanyi.ui_second.RegisterActivity;
+import com.example.huichuanyi.ui.activity.DaPeiRiJiActivity;
+import com.example.huichuanyi.ui.activity.LiJiYuYueActivity;
+import com.example.huichuanyi.ui.activity.MyOrderActivity;
+import com.example.huichuanyi.ui.activity.RegisterActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
+import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.MySharedPreferences;
-import com.example.huichuanyi.utils.User;
 import com.google.gson.Gson;
 import com.jude.rollviewpager.OnItemClickListener;
 import com.jude.rollviewpager.RollPagerView;
@@ -40,12 +38,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Fragment_Order extends BaseFragment implements View.OnClickListener, OnItemClickListener {
+import butterknife.BindViews;
+import butterknife.OnClick;
+
+public class Fragment_Order extends BaseFragment implements View.OnClickListener, OnItemClickListener, EditDialog.EditYes {
     private RollPagerView mRollPagerView;
     private List<Banner.ListBean> mImages;
     private HomeAdapter mPageAdapter;
     private static final int JUMP_TIME = 4000;
-    private Button mButtonLocation, mButtonTime, mButtonOrder;
+    @BindViews({R.id.btn_fragment_first_location, R.id.btn_fragment_first_time})
+    public Button[] buttons;
 
     @Override
     protected View initView() {
@@ -56,9 +58,6 @@ public class Fragment_Order extends BaseFragment implements View.OnClickListener
 
     private void getChildView(View view) {
         mRollPagerView = (RollPagerView) view.findViewById(R.id.rv_fragment_first_order);
-        mButtonLocation = (Button) view.findViewById(R.id.btn_fragment_first_location);
-        mButtonTime = (Button) view.findViewById(R.id.btn_fragment_first_time);
-        mButtonOrder = (Button) view.findViewById(R.id.btn_fragment_first_order);
     }
 
     @Override
@@ -73,26 +72,23 @@ public class Fragment_Order extends BaseFragment implements View.OnClickListener
         super.setData();
         mRollPagerView.setAdapter(mPageAdapter);
         String city = MySharedPreferences.getCity(getContext());
-        if (city == null || TextUtils.equals("null", city) || TextUtils.isEmpty(city)) {
-            mButtonLocation.setText("亲，请添加定位权限");
+        if (CommonUtils.isEmpty(city)) {
+            buttons[0].setText("亲，请添加定位权限");
         } else {
-            mButtonLocation.setText(city);
+            buttons[0].setText(city);
         }
-        mButtonTime.setText(getNowTime());
+        buttons[1].setText(getNowTime());
     }
 
     @Override
     protected void initEvent() {
         super.initEvent();
-        mButtonLocation.setOnClickListener(this);
-        mButtonTime.setOnClickListener(this);
-        mButtonOrder.setOnClickListener(this);
         mRollPagerView.setOnItemClickListener(this);
     }
 
     private void initViewPager() {
         mPageAdapter = new HomeAdapter(mRollPagerView, mImages, getActivity());
-        RequestParams params = new RequestParams(NetConfig.BANNER_ONE);
+        RequestParams params = new RequestParams(NetConfig.BANNER_URL);
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -133,7 +129,7 @@ public class Fragment_Order extends BaseFragment implements View.OnClickListener
         return null;
     }
 
-    @Override
+    @OnClick({R.id.btn_fragment_first_location, R.id.btn_fragment_first_time, R.id.btn_fragment_first_order})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_fragment_first_location:
@@ -144,15 +140,15 @@ public class Fragment_Order extends BaseFragment implements View.OnClickListener
                 break;
             case R.id.btn_fragment_first_order:
                 Map<String, Object> map = new HashMap<>();
-                String mLocation = mButtonLocation.getText().toString().trim();
-                String mTime = mButtonTime.getText().toString().trim();
+                String mLocation = buttons[0].getText().toString().trim();
+                String mTime = buttons[1].getText().toString().trim();
                 if (!TextUtils.isEmpty(mLocation) && !TextUtils.isEmpty(mTime) && !TextUtils.equals("亲，请添加定位权限", mLocation)) {
                     map.put("location", mLocation);
                     map.put("time", mTime);
                     map.put("order_365", "order");
                     ActivityUtils.switchTo(getActivity(), LiJiYuYueActivity.class, map);
                 } else {
-                    Toast.makeText(getActivity(), "请输入所在城市哦", Toast.LENGTH_SHORT).show();
+                    CommonUtils.Toast(getContext(), "请输入所在城市");
                 }
                 break;
         }
@@ -163,50 +159,40 @@ public class Fragment_Order extends BaseFragment implements View.OnClickListener
         String str = sdf.format(new Date());
         DateTimePickDialogUtil dateTimePicKDialog = new DateTimePickDialogUtil(
                 getActivity(), str);
-        dateTimePicKDialog.dateTimePicKDialog(mButtonTime);
+        dateTimePicKDialog.dateTimePicKDialog(buttons[1]);
     }
 
     @Override
     public void onItemClick(int position) {
-        int useId = new User(getActivity()).getUseId();
-        if (useId == 0) {
+        if (!getUser()) {
             ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
             return;
         }
-        if (position == 0) {
-            ActivityUtils.switchTo(getActivity(), AtMyAcitivty.class);
-        }
-        if (position == 1) {
-            ActivityUtils.switchTo(getActivity(), MyOrderActivity.class);
-        }
-        if (position == 2) {
-            ActivityUtils.switchTo(getActivity(), DaPeiRiJiActivity.class);
+        switch (position) {
+            case 0:
+                ActivityUtils.switchTo(getActivity(), AtMyAcitivty.class);
+                break;
+            case 1:
+                ActivityUtils.switchTo(getActivity(), MyOrderActivity.class);
+                break;
+            case 2:
+                ActivityUtils.switchTo(getActivity(), DaPeiRiJiActivity.class);
+                break;
+            default:
+                break;
         }
 
     }
 
     private void initEditText() {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_order_location, null);
-        final AlertDialog dialog = new AlertDialog.Builder(getContext()).setView(view).create();
-        final EditText edit = (EditText) view.findViewById(R.id.et_location_edit);
-        view.findViewById(R.id.btn_location_sure).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String mLocation = edit.getText().toString();
-                if (!TextUtils.isEmpty(mLocation)) {
-                    mButtonLocation.setText(mLocation);
-                    dialog.dismiss();
-                } else {
-                    Toast.makeText(getActivity(), "亲，请输入地址哦", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        view.findViewById(R.id.btn_location_cancle).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
+        EditDialog editDialog = new EditDialog(getContext());
+        editDialog.setOnClickNo("取消");
+        editDialog.setOnClickYes("确定", this);
+        editDialog.show();
+    }
+
+    @Override
+    public void getEdit(String edit) {
+        buttons[0].setText(edit);
     }
 }

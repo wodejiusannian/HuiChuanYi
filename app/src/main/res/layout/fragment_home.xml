@@ -5,124 +5,104 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tv_home_title"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:background="@color/top_color"
         android:gravity="center"
         android:text="首页"
-        android:textColor="#fff"
-        android:textSize="@dimen/text_size_big" />
+        android:textColor="@color/main_color_write"
+        android:textSize="@dimen/text_size_top_title" />
 
-    <ScrollView
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <com.jude.rollviewpager.RollPagerView
+            android:id="@+id/vp_home_banner"
+            android:layout_width="match_parent"
+            android:layout_height="215dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"></com.jude.rollviewpager.RollPagerView>
+
+        <ImageView
+            android:id="@+id/iv_test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/vp_home_banner"
+            android:layout_marginTop="10dp"
+            android:src="@mipmap/interval" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/iv_test"
             android:orientation="vertical">
 
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/ll_closet_one"
                 android:layout_width="match_parent"
-                android:layout_height="215dp">
+                android:layout_height="0dp"
+                android:layout_marginLeft="@dimen/distance_5"
+                android:layout_marginRight="@dimen/distance_5"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
-                <com.jude.rollviewpager.RollPagerView
-                    android:id="@+id/vp_home_banner"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"></com.jude.rollviewpager.RollPagerView>
-            </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/iv_test"
+                <ImageView
+                    android:id="@+id/iv_home_closet"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/distance_5"
+                    android:layout_weight="1"
+                    android:background="@drawable/home_pic_back"
+                    android:src="@mipmap/closet" />
+
+
+                <ImageView
+                    android:id="@+id/iv_home_info"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/distance_5"
+                    android:layout_weight="1"
+                    android:background="@drawable/home_pic_back"
+                    android:src="@mipmap/stat" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_closet_two"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:src="@mipmap/interval" />
+                android:layout_height="0dp"
+                android:layout_below="@+id/ll_closet_one"
+                android:layout_marginBottom="@dimen/distance_15"
+                android:layout_marginLeft="@dimen/distance_5"
+                android:layout_marginRight="@dimen/distance_5"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/iv_home_partner"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/distance_5"
+                    android:layout_weight="1"
+                    android:background="@drawable/home_pic_back"
+                    android:src="@mipmap/partner" />
 
-                <LinearLayout
-                    android:id="@+id/ll_closet_one"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
 
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_weight="1">
-
-                        <ImageView
-                            android:id="@+id/iv_home_closet"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:src="@mipmap/closet" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_weight="1">
-
-                        <ImageView
-                            android:id="@+id/iv_home_info"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:src="@mipmap/stat" />
-                    </RelativeLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_closet_two"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/ll_closet_one"
-                    android:orientation="horizontal">
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_weight="1">
-
-                        <ImageView
-                            android:id="@+id/iv_home_partner"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:scaleType="fitXY"
-                            android:src="@mipmap/partner" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_weight="1">
-
-                        <ImageView
-                            android:id="@+id/iv_home_match"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:src="@mipmap/match" />
-                    </RelativeLayout>
-                </LinearLayout>
-            </RelativeLayout>
+                <ImageView
+                    android:id="@+id/iv_home_match"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/distance_5"
+                    android:layout_weight="1"
+                    android:background="@drawable/home_pic_back"
+                    android:src="@mipmap/match" />
+            </LinearLayout>
         </LinearLayout>
 
-    </ScrollView>
+    </RelativeLayout>
 
 
 </LinearLayout>

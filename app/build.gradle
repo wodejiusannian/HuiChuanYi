@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'android-apt'
 android {
     compileSdkVersion 24
     buildToolsVersion '25.0.0'
@@ -7,7 +7,7 @@ android {
         applicationId "com.example.huichuanyi"
         minSdkVersion 18
         targetSdkVersion 22
-        versionCode 8
+        versionCode 9
         versionName "2.0"
         ndk {
             //选择要添加的对应cpu类型的.so库。
@@ -44,20 +44,23 @@ repositories {
 }
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.0.0'
     compile project(':rollviewpager')
+    compile name: 'SMSSDK-2.1.2', ext: 'aar'
+    compile name: 'SMSSDKGUI-2.1.2', ext: 'aar'
+    compile project(':ijkplayerlibrary')
+    compile project(':superplayerlibrary')
+    compile project(':wheelview')
+    compile 'com.android.support:appcompat-v7:24.0.0'
     compile 'cn.jiguang:jpush:2.1.8'
     compile 'org.xutils:xutils:3.3.36'
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.google.code.gson:gson:2.2.4'
-    compile name: 'SMSSDK-2.1.2', ext: 'aar'
-    compile name: 'SMSSDKGUI-2.1.2', ext: 'aar'
     compile 'com.foamtrace:photopicker:1.0'
     compile 'com.android.support:design:25.0.0'
-    compile project(':ijkplayerlibrary')
-    compile project(':superplayerlibrary')
-    compile project(':wheelview')
     compile 'com.facebook.fresco:fresco:1.0.0'
+    compile 'com.jakewharton:butterknife:8.0.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.1'
+    testCompile 'junit:junit:4.12'
+    apt 'com.jakewharton:butterknife-compiler:8.0.1'
 }

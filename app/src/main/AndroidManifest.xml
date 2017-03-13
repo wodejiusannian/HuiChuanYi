@@ -37,7 +37,7 @@
             android:value="hk2w5D0CTXsyFjgHOEPRLeqIYdC8GtBX" />
 
         <activity
-            android:name=".ui_first.SplashActivity"
+            android:name=".ui.activity.SplashActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,18 +46,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui_first.MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui_first.LoadingActivity" />
+        <activity android:name=".ui.activity.LoadingActivity" />
         <activity
-            android:name=".ui_second.HuiMeiWeiKeActivity"
+            android:name=".ui.activity.HuiMeiWeiKeActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="sensor" />
-        <activity android:name=".ui_third.ManageActivity" />
-        <activity android:name=".ui_third.OrderDetailsActivity" />
+        <activity android:name=".ui.activity.ManageActivity" />
+        <activity android:name=".ui.activity.OrderDetailsActivity" />
         <activity android:name=".secondui.PayOrderActivity" />
-        <activity android:name=".ui_second.DaPeiRiJiActivity" />
-        <activity android:name=".ui_third.MC_HomeActivity" />
+        <activity android:name=".ui.activity.DaPeiRiJiActivity" />
+        <activity android:name=".ui.activity.MC_HomeActivity" />
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -98,20 +98,20 @@
             android:enabled="true"
             android:process=":remote" />
 
-        <activity android:name=".ui_third.MC_TripAndElseActivity" />
-        <activity android:name=".ui_second.RegisterActivity" />
+        <activity android:name=".ui.activity.MC_TripAndElseActivity" />
+        <activity android:name=".ui.activity.RegisterActivity" />
         <activity android:name=".secondui.AuthCodeActivity" />
         <activity
             android:name=".secondui.LoginActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".secondui.BoundActivity" />
-        <activity android:name=".ui_second.IndentActivity" />
-        <activity android:name=".ui_second.ReportActivity" />
-        <activity android:name=".ui_second.SettingActivity" />
+        <activity android:name=".ui.activity.IndentActivity" />
+        <activity android:name=".ui.activity.ReportActivity" />
+        <activity android:name=".ui.activity.SettingActivity" />
         <activity android:name=".secondui.FanKuiActivity" />
         <activity android:name=".secondui.AtMyAcitivty" />
-        <activity android:name=".ui_second.DatumActivity" />
-        <activity android:name=".ui_third.MC_OldClothesActivity" />
+        <activity android:name=".ui.activity.DatumActivity" />
+        <activity android:name=".ui.activity.MC_OldClothesActivity" />
         <activity
             android:name="com.foamtrace.photopicker.PhotoPickerActivity"
             android:configChanges="orientation|screenSize"
@@ -121,7 +121,7 @@
             android:theme="@style/PhotoPickerTheme" />
         <activity android:name=".secondui.StatisticsActivity" />
         <activity android:name=".secondui.AddMatch" />
-        <activity android:name=".ui_four.MySortActivity" />
+        <activity android:name=".ui.activity.MySortActivity" />
         <activity android:name=".secondui.ShowPhotoActivity" />
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
@@ -134,7 +134,7 @@
             android:exported="false"
             android:screenOrientation="behind" />
         <activity android:name=".secondui.ForgetPWDAcitity" />
-        <activity android:name=".ui_second.MyOrderActivity" />
+        <activity android:name=".ui.activity.MyOrderActivity" />
         <activity android:name=".secondui.ShenQingTuiKuanActivity" />
         <activity android:name=".secondui.PingJiaActivity" />
         <activity
@@ -142,9 +142,9 @@
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui_third.BuChaJiaActivity" />
-        <activity android:name=".ui_second.WoDeYiChuActivity" />
-        <activity android:name=".ui_five.PicActivity" />
+        <activity android:name=".ui.activity.BuChaJiaActivity" />
+        <activity android:name=".ui.activity.WoDeYiChuActivity" />
+        <activity android:name=".ui.activity.PicActivity" />
         <activity android:name=".bean.PayVideoActivity" />
 
         <receiver android:name=".wxapi.AppRegister">
@@ -158,20 +158,21 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".ui_second.LiJiYuYueActivity" />
-        <activity android:name=".ui_four.ComplainActivity" />
-        <activity android:name=".ui_four.MyOrderDetailsActivity" />
-        <activity android:name=".ui_four.ReviseActivity" />
-        <activity android:name=".ui_third.LabelsActivity" />
-        <activity android:name=".ui_third.Item_DetailsActivity" />
-        <activity android:name=".ui_third.RecordActivity" />
-        <activity android:name=".ui_third.Write_OrderActivity" />
-        <activity android:name=".ui_third.Write_AddressActivity" />
-        <activity android:name=".ui_third.ListAddress" />
-        <activity android:name=".ui_third.My_365Activity" />
-        <activity android:name=".ui_third.Buy_365Activity" />
+        <activity android:name=".ui.activity.LiJiYuYueActivity" />
+        <activity android:name=".ui.activity.ComplainActivity" />
+        <activity android:name=".ui.activity.MyOrderDetailsActivity" />
+        <activity android:name=".ui.activity.ReviseActivity" />
+        <activity android:name=".ui.activity.LabelsActivity" />
+        <activity android:name=".ui.activity.Item_DetailsActivity" />
+        <activity android:name=".ui.activity.RecordActivity" />
+        <activity android:name=".ui.activity.Write_OrderActivity" />
+        <activity android:name=".ui.activity.Write_AddressActivity" />
+        <activity android:name=".ui.activity.ListAddress" />
+        <activity android:name=".ui.activity.My_365Activity" />
+        <activity android:name=".ui.activity.Buy_365Activity" />
         <activity android:name=".fragment_second.SeeCarActivity" />
-        <activity android:name=".ui_third.ShareActivity"></activity>
+        <activity android:name=".ui.activity.ShareActivity" />
+        <activity android:name=".ui.activity.ToaActivity"></activity>
     </application>
 
 </manifest>

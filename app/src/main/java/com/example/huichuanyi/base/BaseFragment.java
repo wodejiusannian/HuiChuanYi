@@ -8,8 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.huichuanyi.utils.User;
+
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 
 public abstract class BaseFragment extends Fragment {
+    private Unbinder unbind;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -20,6 +26,7 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = initView();
+        unbind = ButterKnife.bind(this, root);
         return root;
     }
 
@@ -56,5 +63,16 @@ public abstract class BaseFragment extends Fragment {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unbind.unbind();
+    }
 
+    protected boolean getUser() {
+        if (new User(getContext()).getUseId() > 0) {
+            return true;
+        }
+        return false;
+    }
 }

@@ -16,14 +16,14 @@ import com.example.huichuanyi.base.BaseFragment;
 import com.example.huichuanyi.bean.CardItem;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MySelfDialog;
-import com.example.huichuanyi.ui_first.MainActivity;
-import com.example.huichuanyi.ui_second.DatumActivity;
-import com.example.huichuanyi.ui_second.LiJiYuYueActivity;
-import com.example.huichuanyi.ui_second.RegisterActivity;
-import com.example.huichuanyi.ui_third.Item_DetailsActivity;
-import com.example.huichuanyi.ui_third.RecordActivity;
-import com.example.huichuanyi.ui_third.ShareActivity;
-import com.example.huichuanyi.ui_third.Write_OrderActivity;
+import com.example.huichuanyi.ui.activity.ToaActivity;
+import com.example.huichuanyi.ui.activity.MainActivity;
+import com.example.huichuanyi.ui.activity.DatumActivity;
+import com.example.huichuanyi.ui.activity.RegisterActivity;
+import com.example.huichuanyi.ui.activity.Item_DetailsActivity;
+import com.example.huichuanyi.ui.activity.RecordActivity;
+import com.example.huichuanyi.ui.activity.ShareActivity;
+import com.example.huichuanyi.ui.activity.Write_OrderActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.MySharedPreferences;
 import com.example.huichuanyi.utils.User;
@@ -175,11 +175,12 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
     * 点击去开通
     * */
     private void goDredge() {
-        String city = MySharedPreferences.getCity(getContext());
+        /*String city = MySharedPreferences.getBuyCity(getContext());
         Map<String, Object> map = new HashMap<>();
         map.put("location", city);
         map.put("order_365", "365");
-        ActivityUtils.switchTo(getActivity(), LiJiYuYueActivity.class, map);
+        ActivityUtils.switchTo(getActivity(), LiJiYuYueActivity.class, map);*/
+        ActivityUtils.switchTo(getActivity(), ToaActivity.class);
     }
 
     @Override

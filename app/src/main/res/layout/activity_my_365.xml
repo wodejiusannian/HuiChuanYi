@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="com.example.huichuanyi.ui_third.My_365Activity">
+    tools:context="com.example.huichuanyi.ui.activity.My_365Activity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -51,8 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/distance_10"
-                android:layout_toRightOf="@+id/sv_user_photo"
-                android:text="name" />
+                android:layout_toRightOf="@+id/sv_user_photo" />
 
             <TextView
                 android:id="@+id/tv_uesr_date"
@@ -62,7 +61,6 @@
                 android:layout_marginLeft="@dimen/distance_10"
                 android:layout_marginTop="@dimen/distance_10"
                 android:layout_toRightOf="@+id/sv_user_photo"
-                android:text="date"
                 android:textColor="@color/color_ac0000" />
         </RelativeLayout>
 
@@ -108,7 +106,6 @@
                 android:layout_marginLeft="@dimen/distance_10"
                 android:layout_marginTop="@dimen/distance_10"
                 android:layout_toRightOf="@+id/sv_studio_logo"
-                android:text="未开通"
                 android:textColor="@color/color_ac0000" />
 
             <TextView
@@ -126,8 +123,7 @@
                 android:layout_below="@+id/tv_365_studio_infos"
                 android:layout_marginBottom="@dimen/distance_10"
                 android:layout_marginLeft="@dimen/distance_10"
-                android:layout_marginRight="@dimen/distance_10"
-                android:text="工作室详情" />
+                android:layout_marginRight="@dimen/distance_10" />
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/sv_studio_logo"

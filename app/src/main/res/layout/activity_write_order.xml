@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.huichuanyi.ui_third.Write_OrderActivity">
+    tools:context="com.example.huichuanyi.ui.activity.Write_OrderActivity">
 
 
     <ScrollView

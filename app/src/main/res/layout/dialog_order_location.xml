@@ -1,48 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-        android:padding="@dimen/distance"
-        android:text="请输入地址"
-        android:textSize="@dimen/text_size_big"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:background="@color/back_ground"
-        android:layout_width="match_parent"
-        android:layout_height="1dp" />
-    <EditText
-        android:layout_margin="@dimen/distance"
-        android:id="@+id/et_location_edit"
-        android:background="@drawable/edittext_background"
-        android:layout_width="match_parent"
-        android:hint="   请输入您所在的城市"
+    android:layout_width="300dp"
+    android:layout_height="match_parent"
+    android:background="@drawable/free_dialog_bg"
+    android:orientation="vertical">
 
-        android:layout_height="40dp" />
-    <LinearLayout
-        android:orientation="horizontal"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/distance"
+        android:textColor="#acacac"
+        android:text="请输入地址"
+        android:textSize="@dimen/text_size_big" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/back_ground_6e" />
+
+    <EditText
+        android:id="@+id/et_location_edit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="@dimen/distance"
+        android:background="@drawable/edittext_background"
+        android:hint="请输入您所在的城市"
+        android:paddingLeft="@dimen/distance_5"
+        android:textColor="@color/black" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
         <Button
             android:id="@+id/btn_location_cancle"
-            android:layout_margin="@dimen/distance"
-            android:textColor="@color/write"
-            android:text="取消"
-            android:background="@drawable/btn_select"
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="40dp" />
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/dialog_6e"
+            android:text="取消"
+            android:textColor="@color/write" />
+
         <Button
             android:id="@+id/btn_location_sure"
-            android:layout_margin="@dimen/distance"
-            android:textColor="@color/write"
-            android:text="确定"
-            android:background="@drawable/btn_select"
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="40dp" />
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/dialog_ac0000"
+            android:text="确定"
+            android:textColor="@color/write" />
     </LinearLayout>
 </LinearLayout>

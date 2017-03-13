@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui_third.MC_HomeActivity">
+    tools:context=".ui.activity.MC_HomeActivity">
 
     <RelativeLayout
         android:id="@+id/tl_closet_mTool"
