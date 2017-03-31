@@ -194,8 +194,8 @@ public class ManageActivity extends BaseActivity implements View.OnClickListener
                 map.put("price_baseNum2", price_baseNum2);
                 map.put("price_raiseNum", price_raiseNum);
                 map.put("price_raisePrice", price_raisePrice);
-                map.put("type","1");
-                ActivityUtils.switchTo(this, OrderDetailsActivity.class, map);
+                map.put("type", "1");
+                ActivityUtils.switchTo(this, GoDoorInfoActivity.class, map);
                 finish();
                 break;
             case R.id.iv_manage_back:

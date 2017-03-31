@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/hm_login_background"
+    tools:context="com.example.huichuanyi.ui.activity.register.RegisterGetPhoneCodeActivity">
+
+    <include layout="@layout/include_back"></include>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
+
+        <TextView
+            android:id="@+id/tv_code_yet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="验证码已发送"
+            android:textColor="@color/write"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_code_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_code_yet"
+            android:layout_toRightOf="@+id/tv_code_yet"
+            android:textColor="@color/write"
+            android:textSize="13sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_code_yet"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="31dp"
+                android:text="验证码"
+                android:textColor="@color/write"
+                android:textSize="15sp" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp">
+
+                <EditText
+                    android:id="@+id/write_phone_code"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:hint="请输入验证码"
+                    android:phoneNumber="true"
+                    android:textColor="@color/write"
+                    android:textColorHint="@color/write"
+                    android:textCursorDrawable="@drawable/shape_edittext"
+                    android:textSize="14sp"
+                    android:theme="@style/MyEditText" />
+
+                <TextView
+                    android:id="@+id/btn_get_again"
+                    android:layout_width="84dp"
+                    android:layout_height="34dp"
+                    android:layout_toRightOf="@+id/write_phone_code"
+                    android:background="@mipmap/hm_small_background"
+                    android:gravity="center"
+                    android:text="获取验证码(60)"
+                    android:textColor="@color/write"
+                    android:textSize="11sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="密码"
+                android:textColor="@color/write"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/write_pass_world"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
+                android:digits="0123456789abcdefghigklmnopqrstuvwxyz
+            ABCDEFGHIJKLMNOPQRSTUVWXYZ_+=.!#*"
+                android:gravity="center"
+                android:hint="请设置至少四位密码"
+                android:textColor="@color/write"
+                android:textColorHint="@color/write"
+                android:textCursorDrawable="@drawable/shape_edittext"
+                android:textSize="14sp"
+                android:theme="@style/MyEditText" />
+
+            <TextView
+                android:id="@+id/phone_next"
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:layout_marginTop="59dp"
+                android:background="@mipmap/hm_nextstep_unselected"
+                android:gravity="center"
+                android:textColor="@color/text_color_middle"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

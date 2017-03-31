@@ -5,7 +5,7 @@
         <item name="android:layout_height">fill_parent</item>
         <item name="android:orientation">vertical</item>
         <item name="android:gravity">center_horizontal</item>
-        <!-- <item name="android:background">@drawable/nav_page</item> -->
+        <!-- <seekbar_item name="android:background">@drawable/nav_page</seekbar_item> -->
         <item name="android:background">@color/navpage</item>
     </style>
     <!-- Base application theme. -->
@@ -25,7 +25,9 @@
         <item name="colorAccent">#FF4081</item>
 
     </style>
-
+    <style name="MyEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">@color/write</item>
+    </style>
     <style name="my_dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:backgroundDimEnabled">true</item>
@@ -40,8 +42,8 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowBackground">@color/photopicker_background</item>
         <item name="actionMenuTextAppearance">@style/ActionMenuTextStyle</item>
-        <!--<item name="actionBarTheme">@style/actionBarTheme</item>-->
-        <!--<item name="actionBarPopupTheme">@style/actionBarPopupTheme</item>-->
+        <!--<seekbar_item name="actionBarTheme">@style/actionBarTheme</seekbar_item>-->
+        <!--<seekbar_item name="actionBarPopupTheme">@style/actionBarPopupTheme</seekbar_item>-->
     </style>
 
     <style name="ActionMenuTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Menu">

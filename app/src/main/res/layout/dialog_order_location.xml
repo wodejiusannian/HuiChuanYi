@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="@dimen/distance"
-        android:textColor="#acacac"
+        android:textColor="#333333"
         android:text="请输入地址"
         android:textSize="@dimen/text_size_big" />
 
@@ -27,7 +27,7 @@
         android:background="@drawable/edittext_background"
         android:hint="请输入您所在的城市"
         android:paddingLeft="@dimen/distance_5"
-        android:textColor="@color/black" />
+        android:textColor="#666666" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,7 +41,7 @@
             android:layout_weight="1"
             android:background="@drawable/dialog_6e"
             android:text="取消"
-            android:textColor="@color/write" />
+            android:textColor="#999999" />
 
         <Button
             android:id="@+id/btn_location_sure"

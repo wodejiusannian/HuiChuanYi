@@ -43,7 +43,7 @@ public class MyOrderDetailsActivity extends BaseActivity implements View.OnClick
             Bundle data = msg.getData();
             String order_person = data.getString("order_person");
             String phone = data.getString("phone");
-            String address = data.getString("address");
+            String address = data.getString("selector_address");
             String order_time = data.getString("order_time");
             String money = data.getString("money");
             String num = data.getString("num");
@@ -106,7 +106,7 @@ public class MyOrderDetailsActivity extends BaseActivity implements View.OnClick
                         JSONObject object = new JSONObject(result);
                         String order_person = object.getString("order_person");
                         String phone = object.getString("phone");
-                        String address = object.getString("address");
+                        String address = object.getString("selector_address");
                         String order_time = object.getString("order_time");
                         String money = object.getString("money");
                         String num = object.getString("num");
@@ -117,7 +117,7 @@ public class MyOrderDetailsActivity extends BaseActivity implements View.OnClick
                         Bundle bundle = new Bundle();
                         bundle.putString("order_person", order_person);
                         bundle.putString("phone", phone);
-                        bundle.putString("address", address);
+                        bundle.putString("selector_address", address);
                         bundle.putString("order_time", order_time);
                         bundle.putString("money", money);
                         bundle.putString("num", num);

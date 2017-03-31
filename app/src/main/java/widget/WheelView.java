@@ -99,7 +99,7 @@ public class WheelView extends View {
 	// Items layout
 	private LinearLayout itemsLayout;
 
-	// The number of first item in layout
+	// The number of first seekbar_item in layout
 	private int firstItem;
 
 	// View adapter
@@ -349,9 +349,9 @@ public class WheelView extends View {
 	}
 
 	/**
-	 * Sets the current item. Does nothing when index is wrong.
+	 * Sets the current seekbar_item. Does nothing when index is wrong.
 	 * 
-	 * @param index the item index
+	 * @param index the seekbar_item index
 	 * @param animated the animation flag
 	 */
 	public void setCurrentItem(int index, boolean animated) {
@@ -394,16 +394,16 @@ public class WheelView extends View {
 	}
 
 	/**
-	 * Sets the current item w/o animation. Does nothing when index is wrong.
+	 * Sets the current seekbar_item w/o animation. Does nothing when index is wrong.
 	 * 
-	 * @param index the item index
+	 * @param index the seekbar_item index
 	 */
 	public void setCurrentItem(int index) {
 		setCurrentItem(index, false);
 	}
 
 	/**
-	 * Tests if wheel is cyclic. That means before the 1st item there is shown the last one
+	 * Tests if wheel is cyclic. That means before the 1st seekbar_item there is shown the last one
 	 * @return true if wheel is cyclic
 	 */
 	public boolean isCyclic() {
@@ -519,8 +519,8 @@ public class WheelView extends View {
 	}
 
 	/**
-	 * Returns height of wheel item
-	 * @return the item height
+	 * Returns height of wheel seekbar_item
+	 * @return the seekbar_item height
 	 */
 	private int getItemHeight() {
 		if (itemHeight != 0) {
@@ -868,7 +868,7 @@ public class WheelView extends View {
 	}
 
 	/**
-	 * Creates item layouts if necessary
+	 * Creates seekbar_item layouts if necessary
 	 */
 	private void createItemsLayout() {
 		if (itemsLayout == null) {
@@ -898,10 +898,10 @@ public class WheelView extends View {
 	}
 
 	/**
-	 * Adds view for item to items layout
-	 * @param index the item index
+	 * Adds view for seekbar_item to items layout
+	 * @param index the seekbar_item index
 	 * @param first the flag indicates if view should be first
-	 * @return true if corresponding item exists and is added
+	 * @return true if corresponding seekbar_item exists and is added
 	 */
 	private boolean addViewItem(int index, boolean first) {
 		View view = getItemView(index);
@@ -920,8 +920,8 @@ public class WheelView extends View {
 
 	/**
 	 * Checks whether intem index is valid
-	 * @param index the item index
-	 * @return true if item index is not out of bounds or the wheel is cyclic
+	 * @param index the seekbar_item index
+	 * @return true if seekbar_item index is not out of bounds or the wheel is cyclic
 	 */
 	private boolean isValidItemIndex(int index) {
 		return viewAdapter != null && viewAdapter.getItemsCount() > 0 &&
@@ -929,9 +929,9 @@ public class WheelView extends View {
 	}
 
 	/**
-	 * Returns view for specified item
-	 * @param index the item index
-	 * @return item view or empty view if index is out of bounds
+	 * Returns view for specified seekbar_item
+	 * @param index the seekbar_item index
+	 * @return seekbar_item view or empty view if index is out of bounds
 	 */
 	private View getItemView(int index) {
 		if (viewAdapter == null || viewAdapter.getItemsCount() == 0) {

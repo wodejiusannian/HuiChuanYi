@@ -1,6 +1,7 @@
 package com.example.huichuanyi.utils;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.example.huichuanyi.custom.CustomToast;
 
@@ -14,12 +15,13 @@ public class CommonUtils {
     * 判断字符串是否为空
     * */
     public static boolean isEmpty(String str) {
-        if (!str.isEmpty() || str.length() != 0 || str != null || !str.equals("") || !str.equalsIgnoreCase("null")) {
+        if (TextUtils.isEmpty(str) || str.length() == 0 || str == null || str.equals("")) {
             return true;
         } else {
             return false;
         }
     }
+
 
     public static void Toast(Context mContext, String msg) {
         CustomToast.showToast(mContext, msg);

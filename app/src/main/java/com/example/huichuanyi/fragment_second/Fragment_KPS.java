@@ -92,7 +92,7 @@ public class Fragment_KPS extends BaseFragment implements SwipeRefreshLayout.OnR
         String price_raiseNum = listBean.getRaise_num();
         String price_raisePrice = listBean.getRaise_price();
         if (TextUtils.equals("已开通", service)) {
-            if (TextUtils.equals("order", Location.mOrder_365)) {
+            if (TextUtils.equals("select_order", Location.mOrder_365)) {
                 if (!TextUtils.isEmpty(mId) && !TextUtils.isEmpty(city)) {
                     jumpMap.put("studioId", mId);
                     jumpMap.put("city", city);

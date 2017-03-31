@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dk="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <!-- 列表，占满屏幕 -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none" />
+
+    <!-- 固定头item，浮在recyclerview上层的顶部 -->
+    <include layout="@layout/seekbar_header" />
+
+    <!-- 中间字母提示控件，浮在recyclerview上层的右侧 -->
+    <com.example.huichuanyi.custom.seekbar.CenterTipView
+        android:id="@+id/tv_center_tip"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:visibility="gone"
+        dk:seekbarbgColor="#90808080"
+        dk:seekbartextColor="#FF0000"
+        dk:seekbartextSize="60sp"
+        dk:seekbartype="round" />
+
+    <!-- 右侧索引控件，浮在recyclerview上层的中心 -->
+    <com.example.huichuanyi.custom.seekbar.RightIndexView
+        android:id="@+id/vg_right_container"
+        android:layout_width="25dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        dk:seekbaritemTextColor="@color/main_color_write"
+        dk:seekbaritemTextSize="10sp"
+        dk:seekbaritemTextTouchBgColor="@android:color/white"
+        dk:seekbaritemTouchBgColor="#9966FF"
+        dk:seekbarrootBgColor="#88999999"
+        dk:seekbarrootTouchBgColor="#ac0000" />
+</RelativeLayout>

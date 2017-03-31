@@ -52,7 +52,7 @@ public class WheelRecycle {
 	 * All the cached items are removed from original layout.
 	 * 
 	 * @param layout the layout containing items to be cached
-	 * @param firstItem the number of first item in layout
+	 * @param firstItem the number of first seekbar_item in layout
 	 * @param range the range of current wheel items 
 	 * @return the new value of first item number
 	 */
@@ -62,7 +62,7 @@ public class WheelRecycle {
 			if (!range.contains(index)) {
 				recycleView(layout.getChildAt(i), index);
 				layout.removeViewAt(i);
-				if (i == 0) { // first item
+				if (i == 0) { // first seekbar_item
 					firstItem++;
 				}
 			} else {

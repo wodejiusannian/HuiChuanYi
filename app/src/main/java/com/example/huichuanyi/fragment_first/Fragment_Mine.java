@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -17,14 +16,14 @@ import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.CustomToast;
 import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.share.Share;
-import com.example.huichuanyi.ui.activity.MainActivity;
 import com.example.huichuanyi.ui.activity.DatumActivity;
 import com.example.huichuanyi.ui.activity.IndentActivity;
+import com.example.huichuanyi.ui.activity.MainActivity;
 import com.example.huichuanyi.ui.activity.MyOrderActivity;
+import com.example.huichuanyi.ui.activity.My_365Activity;
 import com.example.huichuanyi.ui.activity.RegisterActivity;
 import com.example.huichuanyi.ui.activity.ReportActivity;
 import com.example.huichuanyi.ui.activity.SettingActivity;
-import com.example.huichuanyi.ui.activity.My_365Activity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.ImageUtils;
 import com.example.huichuanyi.utils.MySharedPreferences;
@@ -250,7 +249,6 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
                     ArrayList<String> list = data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT);
                     String s = list.get(0);
                     Bitmap bitmap = ImageUtils.ratio(s, 240f, 240f);
-                    Log.i("TAG", "--------------"+s);
                     String photo = ImageUtils.saveBitMapToFile(getActivity(), "myPhoto", bitmap, true);
                     RequestParams params = new RequestParams(NetConfig.USER_PHOTO);
                     params.addBodyParameter("userid", new User(getActivity()).getUseId() + "");
@@ -258,7 +256,6 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
                     x.http().post(params, new Callback.CommonCallback<String>() {
                         @Override
                         public void onSuccess(String result) {
-                            Log.i("TAG", "--------------"+result);
                             if ("0".equals(result)) {
                                 CustomToast.showToast(getContext(),"修改失败");
                                 return;

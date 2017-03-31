@@ -13,11 +13,7 @@
         android:layout_height="40dp"
         android:background="@color/top_color">
 
-        <ImageView
-            android:id="@+id/iv_order_back"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/back" />
+        <include layout="@layout/btn_back"></include>
 
         <TextView
             android:id="@+id/tv_order_top"
@@ -27,6 +23,16 @@
             android:text="工作室详情"
             android:textColor="#fff"
             android:textSize="@dimen/text_size_big" />
+
+        <TextView
+            android:id="@+id/tv_lijiyueyue_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/distance_5"
+            android:text="地址"
+            android:textColor="@color/main_color_write" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -50,5 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/distance"
-        android:layout_marginRight="@dimen/distance"></android.support.v4.view.ViewPager>
+        android:layout_marginRight="@dimen/distance">
+
+    </android.support.v4.view.ViewPager>
 </LinearLayout>

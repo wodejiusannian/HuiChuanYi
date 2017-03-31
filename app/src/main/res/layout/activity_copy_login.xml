@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/hm_login_background"
+    tools:context="com.example.huichuanyi.ui.activity.register.RegisterSelectActivity">
+
+    <include layout="@layout/include_back"></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="登录"
+            android:textColor="@color/write"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/login_phone"
+            android:layout_width="221dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="36dp"
+            android:background="@mipmap/hm_phonenum_login"
+            android:gravity="center"
+            android:textColor="@color/main_color_write"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="41dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="51dp"
+            android:background="@color/write"></TextView>
+
+        <Button
+            android:id="@+id/login_we_chat"
+            android:layout_width="221dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="36dp"
+            android:background="@mipmap/hm_wx_login"
+            android:gravity="center"
+            android:textColor="@color/text_color_middle"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/login_qq"
+            android:layout_width="221dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="36dp"
+            android:background="@mipmap/hm_qq_login"
+            android:gravity="center"
+            android:textColor="@color/text_color_middle"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/go_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="没有账号，去注册"
+            android:textColor="@color/text_color_middle"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+</RelativeLayout>

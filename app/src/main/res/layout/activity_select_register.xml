@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/hm_login_background"
+    tools:context="com.example.huichuanyi.ui.activity.register.RegisterSelectActivity">
+
+    <include layout="@layout/include_back"></include>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="注册账号"
+                android:textColor="@color/write"
+                android:textSize="15dp" />
+
+            <Button
+                android:id="@+id/register_phone"
+                android:layout_width="221dp"
+                android:layout_height="51dp"
+                android:layout_marginTop="36dp"
+                android:background="@mipmap/hm_phonenum_register"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="41dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="51dp"
+                android:background="@color/write"></TextView>
+
+            <Button
+                android:id="@+id/register_we_chat"
+                android:layout_width="221dp"
+                android:layout_height="51dp"
+                android:layout_marginTop="36dp"
+                android:background="@mipmap/hm_wx_login"
+                android:gravity="center" />
+
+            <Button
+                android:id="@+id/register_qq"
+                android:layout_width="221dp"
+                android:layout_height="51dp"
+                android:layout_marginTop="36dp"
+                android:background="@mipmap/hm_qq_login"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/go_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="已有账号去登陆"
+                android:textColor="@color/text_color_middle"
+                android:textSize="13sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/selector_checkbox"
+                android:checked="true" />
+
+            <TextView
+                android:id="@+id/go_service"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已阅读服务条款"
+                android:textColor="@color/text_color_low"
+                android:textSize="10sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -283,8 +283,12 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
                         android:text="退出登录" />
+
                 </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"></View>
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>

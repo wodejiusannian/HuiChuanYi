@@ -33,8 +33,7 @@
             android:id="@+id/tv_clothe_item_info_record_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="尺码" />
+            android:layout_centerVertical="true" />
 
         <TextView
             android:id="@+id/tv_clothe_item_info_record_color"
@@ -43,14 +42,13 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/distance_20"
             android:layout_toRightOf="@+id/tv_clothe_item_info_record_price"
-            android:text="颜色" />
+            />
 
         <TextView
             android:id="@+id/tv_clothe_item_info_record_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:text="价格"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size_16" />
 

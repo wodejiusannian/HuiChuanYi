@@ -126,7 +126,7 @@ public class Write_OrderActivity extends BaseActivity implements View.OnClickLis
             String name = data.getStringExtra("name");
             String phone = data.getStringExtra("phone");
             String city = data.getStringExtra("city");
-            String address = data.getStringExtra("address");
+            String address = data.getStringExtra("selector_address");
             address_id = data.getStringExtra("address_id");
             mName.setText(name);
             mPhone.setText(phone);

@@ -194,7 +194,7 @@
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_gravity="center"
-                        android:src="@mipmap/order" />
+                        android:src="@mipmap/select_order" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -213,7 +213,7 @@
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_gravity="center"
-                        android:src="@mipmap/order" />
+                        android:src="@mipmap/select_order" />
 
                     <TextView
                         android:id="@+id/textView2"
@@ -233,7 +233,7 @@
                     <ImageView
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:src="@mipmap/order" />
+                        android:src="@mipmap/select_order" />
 
                     <TextView
                         android:id="@+id/textView3"

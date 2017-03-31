@@ -23,7 +23,7 @@ package widget;
  * Range for visible items.
  */
 public class ItemsRange {
-	// First item number
+	// First seekbar_item number
 	private int first;
 	
 	// Items count
@@ -47,8 +47,8 @@ public class ItemsRange {
 	}
 	
 	/**
-	 * Gets number of  first item
-	 * @return the number of the first item
+	 * Gets number of  first seekbar_item
+	 * @return the number of the first seekbar_item
 	 */
 	public int getFirst() {
 		return first;
@@ -73,7 +73,7 @@ public class ItemsRange {
 	/**
 	 * Tests whether item is contained by range
 	 * @param index the item number
-	 * @return true if item is contained
+	 * @return true if seekbar_item is contained
 	 */
 	public boolean contains(int index) {
 		return index >= getFirst() && index <= getLast();

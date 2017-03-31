@@ -95,8 +95,7 @@
                 android:layout_below="@+id/tv_365_line"
                 android:layout_marginLeft="@dimen/distance_10"
                 android:layout_marginTop="@dimen/distance_10"
-                android:layout_toRightOf="@+id/sv_studio_logo"
-                android:text="studio_name" />
+                android:layout_toRightOf="@+id/sv_studio_logo" />
 
             <TextView
                 android:id="@+id/tv_studio_is_open"

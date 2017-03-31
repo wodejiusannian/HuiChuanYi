@@ -47,34 +47,34 @@
                     android:padding="@dimen/distance_15">
 
                     <TextView
-                        android:textSize="@dimen/text_size_15"
                         android:id="@+id/tv_write_order_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="点击添加地址" />
+                        android:text="点击添加地址"
+                        android:textSize="@dimen/text_size_15" />
 
                     <TextView
-                        android:textSize="@dimen/text_size_15"
                         android:id="@+id/tv_write_order_phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/distance_10"
-                        android:layout_toRightOf="@+id/tv_write_order_name" />
+                        android:layout_toRightOf="@+id/tv_write_order_name"
+                        android:textSize="@dimen/text_size_15" />
 
                     <TextView
-                        android:textSize="@dimen/text_size_15"
                         android:id="@+id/tv_write_order_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_write_order_name"
-                        android:layout_marginTop="@dimen/distance_10" />
+                        android:layout_marginTop="@dimen/distance_10"
+                        android:textSize="@dimen/text_size_15" />
 
                     <ImageView
-                        android:src="@mipmap/edit"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"/>
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/edit" />
                 </RelativeLayout>
 
             </LinearLayout>
@@ -131,6 +131,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
                 android:layout_marginTop="@dimen/distance_10"
                 android:background="@drawable/background"
                 android:orientation="vertical">
@@ -167,11 +168,9 @@
                         android:layout_marginRight="@dimen/distance_20"
                         android:layout_marginTop="@dimen/distance_10"
                         android:layout_toRightOf="@+id/tv_write_order_who_send"
-                        android:text="慧美科技签约厂家直接发货，保证服饰质量，而且不收邮费~"
+                        android:text="慧美科技签约厂家直接发货，保证服饰质量，并收取正常邮费！"
                         android:textSize="@dimen/text_size_16" />
-
                 </RelativeLayout>
-
 
             </LinearLayout>
 
@@ -201,7 +200,9 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/distance_10"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/distance_10"
+        android:layout_marginRight="@dimen/distance_10"
         android:background="@drawable/background"
         android:orientation="horizontal">
 
@@ -211,8 +212,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/distance_10"
-            android:layout_weight="1"
-            android:text="总计：¥598" />
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/btn_write_order_submit"

@@ -5,7 +5,7 @@ import java.util.List;
 public class Progress {
 
     /**
-     * address : 1
+     * selector_address : 1
      * city : 北京
      * contactnumber : 1
      * id : 14.0

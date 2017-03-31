@@ -21,7 +21,4 @@ public class MyApplication extends Application{
             SystemParams.init(this);
         }
 
-
-
-
 }

@@ -30,15 +30,20 @@
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
         tools:replace="Android:icon, android:theme">
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="hk2w5D0CTXsyFjgHOEPRLeqIYdC8GtBX" />
+            android:value="d1yekhlGGR9ZDjgKETAx64IevSYaQswB" />
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
 
         <activity
-            android:name=".ui.activity.SplashActivity"
-            android:theme="@style/AppTheme">
+            android:name=".ui.activity.loading.SplashActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,14 +52,14 @@
         </activity>
         <activity
             android:name=".ui.activity.MainActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"></activity>
         <activity android:name=".ui.activity.LoadingActivity" />
         <activity
             android:name=".ui.activity.HuiMeiWeiKeActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="sensor" />
         <activity android:name=".ui.activity.ManageActivity" />
-        <activity android:name=".ui.activity.OrderDetailsActivity" />
+        <activity android:name=".ui.activity.OrderInfoActivity" />
         <activity android:name=".secondui.PayOrderActivity" />
         <activity android:name=".ui.activity.DaPeiRiJiActivity" />
         <activity android:name=".ui.activity.MC_HomeActivity" />
@@ -92,11 +97,6 @@
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="Wandoujia" />
-
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote" />
 
         <activity android:name=".ui.activity.MC_TripAndElseActivity" />
         <activity android:name=".ui.activity.RegisterActivity" />
@@ -172,7 +172,18 @@
         <activity android:name=".ui.activity.Buy_365Activity" />
         <activity android:name=".fragment_second.SeeCarActivity" />
         <activity android:name=".ui.activity.ShareActivity" />
-        <activity android:name=".ui.activity.ToaActivity"></activity>
+        <activity android:name=".ui.activity.ToaActivity" />
+        <activity android:name=".ui.activity.GoDoorInfoActivity" />
+        <activity android:name=".ui.activity.register.RegisterSelectActivity" />
+        <activity android:name=".ui.activity.register.RegisterPhoneActivity" />
+        <activity android:name=".ui.activity.register.RegisterGetPhoneCodeActivity" />
+        <activity android:name=".ui.activity.register.RegisterUpPhotoActivity" />
+        <activity android:name=".ui.activity.register.RegisterOverActivity" />
+        <activity android:name=".ui.activity.register.RegisterOverCompleteInfoActivity" />
+        <activity android:name=".ui.activity.login.LoginSelectActivity" />
+        <activity android:name=".ui.activity.login.LoginByPhoneActivity" />
+        <activity android:name=".ui.activity.StudioSelectCityActivity" />
+        <activity android:name=".ui.activity.register.RegisterHMService"></activity>
     </application>
 
 </manifest>

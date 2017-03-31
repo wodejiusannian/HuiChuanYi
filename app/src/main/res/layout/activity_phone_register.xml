@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/hm_login_background"
+    tools:context="com.example.huichuanyi.ui.activity.register.RegisterPhoneActivity">
+
+    <include layout="@layout/include_back"></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="123dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="手机号"
+            android:textColor="@color/write"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/register_phone_write"
+            android:layout_width="218dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="65dp"
+            android:gravity="center"
+            android:hint="请输入手机号"
+            android:phoneNumber="true"
+            android:textColorHint="@color/main_color_write"
+            android:textColor="@color/main_color_write"
+            android:textCursorDrawable="@drawable/shape_edittext"
+            android:textSize="14sp"
+            android:theme="@style/MyEditText" />
+
+        <TextView
+            android:id="@+id/register_phone_next"
+            android:layout_width="221dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="83dp"
+            android:background="@mipmap/hm_nextstep_unselected"
+            android:gravity="center"
+            android:textSize="15sp" />
+
+
+    </LinearLayout>
+</RelativeLayout>

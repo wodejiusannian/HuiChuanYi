@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/hm_login_background"
+    tools:context="com.example.huichuanyi.ui.activity.register.RegisterUpPhotoActivity">
+
+    <include layout="@layout/include_back"></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="221dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="选择性别"
+                android:textColor="@color/write"
+                android:textSize="15sp" />
+
+            <RadioGroup
+                android:id="@+id/rg_boy_girl"
+                android:layout_width="221dp"
+                android:layout_height="51dp"
+                android:layout_below="@+id/tv_sex"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_boy"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:checked="true"
+                    android:drawableTop="@drawable/selector_boy"
+                    android:gravity="center"
+                    android:text="男"
+                    android:textColor="@drawable/selector_ac_88" />
+
+                <RadioButton
+                    android:id="@+id/rb_girl"
+                    android:layout_width="0dp"
+                    android:layout_height="51dp"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawableTop="@drawable/selector_girl"
+                    android:gravity="center"
+                    android:text="女"
+                    android:textColor="@drawable/selector_ac_88" />
+            </RadioGroup>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sv_photo"
+                android:layout_marginTop="36dp"
+                android:text="城市"
+                android:textColor="@color/write"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/click_get_location"
+                android:layout_width="221dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="22dp"
+                android:background="@mipmap/hm_small_background"
+                android:gravity="center"
+                android:text="获取定位"
+                android:textColor="@color/write"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:gravity="center"
+                android:text="方便为您提供专业服务"
+                android:textColor="@color/write"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/over_register"
+                android:layout_width="221dp"
+                android:layout_height="51dp"
+                android:layout_marginTop="137dp"
+                android:background="@mipmap/hm_perfectinfo_success" />
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

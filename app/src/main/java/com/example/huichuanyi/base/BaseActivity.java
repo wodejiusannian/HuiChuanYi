@@ -11,6 +11,8 @@ import com.example.huichuanyi.utils.User;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.umeng.analytics.MobclickAgent;
 
+import org.xutils.x;
+
 public abstract class BaseActivity extends AppCompatActivity {
     private MyProgressDialog progressDialog;
 
@@ -18,6 +20,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void setContentView(@LayoutRes int layoutResID) {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         super.setContentView(layoutResID);
+        x.view().inject(this);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         SystemBarTintManager systemBarTintManager = new SystemBarTintManager(this);
         systemBarTintManager.setStatusBarTintEnabled(true);

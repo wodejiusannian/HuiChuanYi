@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/hm_login_background"
+    tools:context="com.example.huichuanyi.ui.activity.register.RegisterUpPhotoActivity">
+
+    <include layout="@layout/include_back"></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="221dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_up_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="上传头像"
+                android:textColor="@color/write"
+                android:textSize="15sp" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sv_photo"
+                android:layout_width="86dp"
+                android:layout_height="86dp"
+                android:layout_marginLeft="75dp"
+                android:layout_toRightOf="@+id/tv_up_photo"
+                fresco:actualImageScaleType="centerCrop"
+                fresco:placeholderImage="@mipmap/hm_register_upphoto"
+                fresco:placeholderImageScaleType="centerCrop"
+                fresco:roundAsCircle="true"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sv_photo"
+                android:layout_marginTop="48dp"
+                android:text="昵称"
+                android:textColor="@color/write"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/et_nick_name"
+                android:layout_width="221dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
+                android:hint="请输入昵称"
+                android:textColor="@color/write"
+                android:textColorHint="@color/write"
+                android:textCursorDrawable="@drawable/shape_edittext"
+                android:textSize="14sp"
+                android:theme="@style/MyEditText" />
+
+            <TextView
+                android:id="@+id/over_register"
+                android:layout_width="221dp"
+                android:layout_height="51dp"
+                android:layout_marginTop="59dp"
+                android:background="@mipmap/hm_nextstep_unselected"
+                android:gravity="center" />
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

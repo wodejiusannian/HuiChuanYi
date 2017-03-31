@@ -2,33 +2,69 @@ package com.example.huichuanyi.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.ClosetAdapter;
+import com.example.huichuanyi.baidumap.GetCity;
 import com.example.huichuanyi.baidumap.Location;
 import com.example.huichuanyi.base.BaseActivity;
+import com.example.huichuanyi.custom.EditDialog;
 import com.example.huichuanyi.fragment_second.Fragment_Default;
 import com.example.huichuanyi.fragment_second.Fragment_KPS;
 import com.example.huichuanyi.fragment_second.Fragment_Sales;
+import com.example.huichuanyi.utils.ActivityUtils;
+import com.example.huichuanyi.utils.CommonUtils;
+
+import org.xutils.view.annotation.Event;
+import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LiJiYuYueActivity extends BaseActivity implements View.OnClickListener {
-    private ImageView mImageViewBack;
-    private TabLayout mTabLayout;
-    private ViewPager mViewPager;
-    private List<String> mTitles;
-    private List<Fragment> mData;
-    private ClosetAdapter mAdapter;
+public class LiJiYuYueActivity extends BaseActivity implements EditDialog.EditYes {
+    private List<String> mTitles = new ArrayList<>();
+    private List<Fragment> mData = new ArrayList<>();
+
+    @ViewInject(R.id.tv_order_top)
     private TextView mTop;
+    @ViewInject(R.id.tv_lijiyueyue_address)
+    private TextView address;
+    @ViewInject(R.id.tb_order_mTitle)
+    private TabLayout mTabLayout;
+    @ViewInject(R.id.vp_order_mPager)
+    private ViewPager mViewPager;
+
+    private OnRefreshAddress mOnRefreshAddress;
+    private ClosetAdapter mAdapter;
+    private GetCity mGetCity;
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            Bundle data = msg.getData();
+            String location = data.getString("location");
+            address.setText(location);
+            mOnRefreshAddress.reFreshAddress(location);
+            //Toast.makeText(LiJiYuYueActivity.this, "location" + location, Toast.LENGTH_SHORT).show();
+            if (!CommonUtils.isEmpty(location)) {
+                mGetCity.stopLocation();
+            }
+        }
+    };
+
+    public void setRefreshAddress(OnRefreshAddress onRefreshAddress) {
+        mOnRefreshAddress = onRefreshAddress;
+    }
+
+    ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,24 +73,42 @@ public class LiJiYuYueActivity extends BaseActivity implements View.OnClickListe
     }
 
     @Override
+    public void setListener() {
+
+    }
+
+    @Override
     public void initView() {
-        mImageViewBack = (ImageView) findViewById(R.id.iv_order_back);
-        mTabLayout = (TabLayout) findViewById(R.id.tb_order_mTitle);
-        mViewPager = (ViewPager) findViewById(R.id.vp_order_mPager);
-        mTop = (TextView) findViewById(R.id.tv_order_top);
+        // String city = MySharedPreferences.getCity(this);
     }
 
     @Override
     public void initData() {
+        mGetCity = new GetCity(getApplicationContext());
+        mGetCity.startLocation();
+        mGetCity.setGetCity(new GetCity.WillGetCity() {
+            @Override
+            public void getWillGetCity(String city) {
+                Bundle bundle = new Bundle();
+                bundle.putString("location", city);
+                Message message = Message.obtain();
+                message.setData(bundle);
+                mHandler.sendMessage(message);
+              /*  mOnRefreshAddress.reFreshAddress(city);
+                address.setText(city);
+                if (!CommonUtils.isEmpty(city)) {
+                    mGetCity.stopLocation();
+                }*/
+            }
+        });
         Intent intent = getIntent();
         Location.mAddress = intent.getStringExtra("location");
         Location.mTime = intent.getStringExtra("time");
         Location.mOrder_365 = intent.getStringExtra("order_365");
         if (TextUtils.equals("365", Location.mOrder_365)) {
             mTop.setText("选择工作室");
+            address.setVisibility(View.GONE);
         }
-        mTitles = new ArrayList<>();
-        mData = new ArrayList<>();
         mTitles.add("默认排序");
         mTitles.add("评分最高");
         mTitles.add("销量最好");
@@ -64,23 +118,51 @@ public class LiJiYuYueActivity extends BaseActivity implements View.OnClickListe
         mAdapter = new ClosetAdapter(getSupportFragmentManager(), mData, mTitles);
     }
 
+
     @Override
     public void setData() {
         mTabLayout.setupWithViewPager(mViewPager);
         mViewPager.setAdapter(mAdapter);
     }
 
-    @Override
-    public void setListener() {
-        mImageViewBack.setOnClickListener(this);
+
+    public void back(View view) {
+        finish();
+    }
+
+    private void initEditText() {
+        EditDialog editDialog = new EditDialog(this);
+        editDialog.setOnClickNo("取消");
+        editDialog.setOnClickYes("确定", this);
+        editDialog.show();
     }
 
     @Override
-    public void onClick(View v) {
+    public void getEdit(String city) {
+        address.setText(city);
+        mOnRefreshAddress.reFreshAddress(city);
+    }
+
+
+    public interface OnRefreshAddress {
+        void reFreshAddress(String city);
+    }
+
+    @Event(R.id.tv_lijiyueyue_address)
+    private void onClick(View v) {
         switch (v.getId()) {
-            case R.id.iv_order_back:
-                finish();
+            case R.id.tv_lijiyueyue_address:
+                /*initEditText();*/
+                ActivityUtils.switchTo(this, StudioSelectCityActivity.class);
+                break;
+            default:
                 break;
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mGetCity.stopLocation();
     }
 }

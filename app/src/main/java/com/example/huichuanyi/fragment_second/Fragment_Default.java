@@ -3,7 +3,6 @@ package com.example.huichuanyi.fragment_second;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -11,56 +10,53 @@ import android.widget.ListView;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.PersonAdapter;
 import com.example.huichuanyi.baidumap.Location;
-import com.example.huichuanyi.base.BaseFragment;
-import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.bean.City;
+import com.example.huichuanyi.config.NetConfig;
+import com.example.huichuanyi.ui.activity.LiJiYuYueActivity;
 import com.example.huichuanyi.ui.activity.ManageActivity;
+import com.example.huichuanyi.ui.base.BaseFragment;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.MyJson;
-import com.example.huichuanyi.utils.Utils;
 import com.example.huichuanyi.utils.UtilsInternet;
 import com.google.gson.Gson;
+
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Fragment_Default extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener, UtilsInternet.XCallBack {
+@ContentView(R.layout.fragment_reuser_order)
+public class Fragment_Default extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener, UtilsInternet.XCallBack, LiJiYuYueActivity.OnRefreshAddress {
 
-    private SwipeRefreshLayout mRefresh;
-    private ListView mShow;
     private PersonAdapter mAdapter;
-    private List<City.BodyBean> mCity;
-    private Map<String, String> valueMap;
+    private List<City.BodyBean> mCity = new ArrayList<>();
+    private Map<String, String> valueMap = new HashMap<>();
+    private UtilsInternet internet = UtilsInternet.getInstance();
 
-    @Override
-    protected View initView() {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_reuser_order, null);
-        getChildView(view);
-        return view;
-    }
+    @ViewInject(R.id.sf_reuse_refresh)
+    private SwipeRefreshLayout mRefresh;
+    @ViewInject(R.id.lv_reuse_order)
+    private ListView mShow;
 
-    private void getChildView(View view) {
-        mShow = (ListView) view.findViewById(R.id.lv_reuse_order);
-        mRefresh = (SwipeRefreshLayout) view.findViewById(R.id.sf_reuse_refresh);
-    }
+    private String getCity;
 
     @Override
     protected void initData() {
         super.initData();
-        mCity = new ArrayList<>();
-        valueMap = new HashMap<>();
         mAdapter = new PersonAdapter(getActivity(), mCity, R.layout.order_person);
-        valueMap.put("city", Location.mAddress);
-        valueMap.put("type", "0");
-        loadMore();
+        getCity = Location.mAddress;
+        loadMore(getCity);
     }
 
     @Override
     protected void setData() {
         super.setData();
         mShow.setAdapter(mAdapter);
+        LiJiYuYueActivity activity = (LiJiYuYueActivity) getActivity();
+        activity.setRefreshAddress(this);
     }
 
     @Override
@@ -73,7 +69,7 @@ public class Fragment_Default extends BaseFragment implements SwipeRefreshLayout
 
     @Override
     public void onRefresh() {
-        loadMore();
+        loadMore(getCity);
         mRefresh.setRefreshing(false);
     }
 
@@ -93,7 +89,7 @@ public class Fragment_Default extends BaseFragment implements SwipeRefreshLayout
         String price_raiseNum = listBean.getRaise_num();
         String price_raisePrice = listBean.getRaise_price();
         if (TextUtils.equals("已开通", service)) {
-            if (TextUtils.equals("order", Location.mOrder_365)) {
+            if (TextUtils.equals("select_order", Location.mOrder_365)) {
                 if (!TextUtils.isEmpty(mId) && !TextUtils.isEmpty(city)) {
                     jumpMap.put("studioId", mId);
                     jumpMap.put("city", city);
@@ -104,14 +100,14 @@ public class Fragment_Default extends BaseFragment implements SwipeRefreshLayout
                     jumpMap.put("price_raiseNum", price_raiseNum);
                     jumpMap.put("price_raisePrice", price_raisePrice);
                     ActivityUtils.switchTo(getActivity(), ManageActivity.class, jumpMap);
-                    getActivity().finish();
+                    //getActivity().finish();
                 }
             } else {
                 jumpMap.put("studioId", mId);
                 jumpMap.put("studioLogo", studioLogo);
                 jumpMap.put("studioName", name);
                 ActivityUtils.switchTo(getActivity(), ManageActivity.class, jumpMap);
-                getActivity().finish();
+                //getActivity().finish();
             }
         } else {
             //工作室忙dialog提示
@@ -119,19 +115,6 @@ public class Fragment_Default extends BaseFragment implements SwipeRefreshLayout
         }
     }
 
-
-    @Override
-    public void onResponse(String result) {
-        Utils.Log(result);
-        String s = MyJson.getRet(result);
-        if (TextUtils.equals("0", s)) {
-            mCity.clear();
-            Gson gson = new Gson();
-            City city = gson.fromJson(result, City.class);
-            mCity.addAll(city.getBody());
-            mAdapter.notifyDataSetChanged();
-        }
-    }
 
     //工作室忙的dialog
     private void showBusyDialog() {
@@ -142,8 +125,29 @@ public class Fragment_Default extends BaseFragment implements SwipeRefreshLayout
     }
 
     //加载数据
-    public void loadMore() {
-        UtilsInternet.getInstance().post(NetConfig.GET_STUDIO_LIST, valueMap, this);
+    public void loadMore(String city) {
+        valueMap.put("city", city);
+        valueMap.put("type", "0");
+        internet.post(NetConfig.GET_STUDIO_LIST, valueMap, this);
+    }
+
+
+    @Override
+    public void onResponse(String result) {
+        String s = MyJson.getRet(result);
+        mCity.clear();
+        if (TextUtils.equals("0", s)) {
+            Gson gson = new Gson();
+            City city = gson.fromJson(result, City.class);
+            mCity.addAll(city.getBody());
+        }
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void reFreshAddress(String city) {
+        getCity = city;
+        loadMore(getCity);
     }
 }
 

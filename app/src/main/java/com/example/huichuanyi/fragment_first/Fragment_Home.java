@@ -118,7 +118,7 @@ public class Fragment_Home extends BaseFragment implements View.OnClickListener,
 
     @Override
     public void onResponse(String result) {
-        if (CommonUtils.isEmpty(result)) {
+        if (!CommonUtils.isEmpty(result)) {
             Gson gson = new Gson();
             Banner banner = gson.fromJson(result, Banner.class);
             mBanners.addAll(banner.getList());

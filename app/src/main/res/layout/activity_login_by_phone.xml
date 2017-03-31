@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/hm_login_background"
+    tools:context="com.example.huichuanyi.ui.activity.login.LoginByPhoneActivity">
+
+    <include layout="@layout/include_back"></include>
+
+    <LinearLayout
+        android:layout_width="221dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="密码登录"
+            android:textColor="@color/write"
+            android:textSize="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="31dp"
+            android:text="手机号"
+            android:textColor="@color/write"
+            android:textSize="15dp" />
+
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:hint="请输入手机号"
+            android:textColorHint="@color/write"
+            android:textCursorDrawable="@drawable/shape_edittext"
+            android:textSize="14sp"
+            android:theme="@style/MyEditText" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="31dp"
+            android:text="密码"
+            android:textColor="@color/write"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/et_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:digits="0123456789abcdefghigklmnopqrstuvwxyz
+            ABCDEFGHIJKLMNOPQRSTUVWXYZ_+=.!#*"
+            android:hint="请输入密码"
+            android:textColorHint="@color/write"
+            android:textCursorDrawable="@drawable/shape_edittext"
+            android:textSize="14sp"
+            android:theme="@style/MyEditText" />
+
+        <TextView
+            android:id="@+id/tv_forget_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="忘记密码?"
+            android:textColor="@color/write"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/tv_login"
+            android:layout_width="221dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="38dp"
+            android:background="@mipmap/hm_login_unselected"
+            android:gravity="center"
+            android:textColor="@color/main_color_write" />
+    </LinearLayout>
+</RelativeLayout>

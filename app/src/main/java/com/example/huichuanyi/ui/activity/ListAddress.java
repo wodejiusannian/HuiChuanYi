@@ -129,7 +129,7 @@ public class ListAddress extends BaseActivity implements ListAddressAdapter.Info
         intent.putExtra("name", mData.get(tag).getReceive_name());
         intent.putExtra("phone", mData.get(tag).getReceive_phone());
         intent.putExtra("city", mData.get(tag).getReceive_city());
-        intent.putExtra("address", mData.get(tag).getReceive_address());
+        intent.putExtra("selector_address", mData.get(tag).getReceive_address());
         startActivityForResult(intent, 1000);
     }
 
@@ -147,7 +147,7 @@ public class ListAddress extends BaseActivity implements ListAddressAdapter.Info
     private void transmissionInfo() {
         intent.putExtra("name", mName);
         intent.putExtra("phone", mPhone);
-        intent.putExtra("address", mAddress);
+        intent.putExtra("selector_address", mAddress);
         intent.putExtra("city", mCity);
         intent.putExtra("address_id", address_id);
         setResult(1001, intent);

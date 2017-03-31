@@ -145,7 +145,7 @@ public class Fragment_Order extends BaseFragment implements View.OnClickListener
                 if (!TextUtils.isEmpty(mLocation) && !TextUtils.isEmpty(mTime) && !TextUtils.equals("亲，请添加定位权限", mLocation)) {
                     map.put("location", mLocation);
                     map.put("time", mTime);
-                    map.put("order_365", "order");
+                    map.put("order_365", "select_order");
                     ActivityUtils.switchTo(getActivity(), LiJiYuYueActivity.class, map);
                 } else {
                     CommonUtils.Toast(getContext(), "请输入所在城市");

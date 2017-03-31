@@ -16,8 +16,6 @@ import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.utils.User;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -64,23 +62,6 @@ public class AuthCodeActivity extends BaseActivity implements View.OnClickListen
                 } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
                     // 返回支持发送验证码的国家列表
                 }
-            } else if (result == SMSSDK.RESULT_ERROR) {// 错误情况
-                Throwable throwable = (Throwable) data;
-                throwable.printStackTrace();
-                JSONObject object;
-                try {
-                    object = new JSONObject(throwable.getMessage());
-                    Message msg = new Message();
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("status", object.optInt("status"));// 错误代码
-                    bundle.putString("detail", object.optString("detail"));// 错误描述
-                    msg.setData(bundle);
-                    msg.what = RESULT_ERROR;
-                    handler.sendMessage(msg);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
             }
         }
     };

@@ -27,7 +27,7 @@ import com.example.huichuanyi.download.DownloadApk;
 import com.example.huichuanyi.fragment_first.Fragment_365;
 import com.example.huichuanyi.fragment_first.Fragment_Home;
 import com.example.huichuanyi.fragment_first.Fragment_Mine;
-import com.example.huichuanyi.fragment_first.Fragment_Order;
+import com.example.huichuanyi.ui.fragment.OrderFragment;
 import com.example.huichuanyi.utils.CommonUtils;
 
 import org.json.JSONException;
@@ -71,13 +71,13 @@ MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener 
 
     public void initData() {
         Fragment_Home mHome = new Fragment_Home();
-        Fragment_Order mOrder = new Fragment_Order();
+        OrderFragment mOrder = new OrderFragment();
         Fragment_Mine mMine = new Fragment_Mine();
         Fragment_365 m365 = new Fragment_365();
         mFragments = new Fragment[]{mHome, mOrder, m365, mMine};
-        getSupportFragmentManager().beginTransaction().add(R.id.rl_main_show, mHome)
-                .add(R.id.rl_main_show, mOrder).hide(mOrder).show(mHome)
-                .commit();
+        getSupportFragmentManager().beginTransaction().
+                add(R.id.rl_main_show, mHome).hide(mOrder).
+                show(mHome).commit();
         isFresh();
     }
 

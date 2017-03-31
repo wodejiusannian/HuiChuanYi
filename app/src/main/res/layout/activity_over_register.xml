@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@mipmap/hm_login_background"
+    tools:context="com.example.huichuanyi.ui.activity.register.RegisterOverActivity">
+    <include layout="@layout/include_back"></include>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="124dp"
+        android:text="欢迎您成为慧美一员"
+        android:textColor="@color/write"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tv_over_info"
+        android:layout_width="221dp"
+        android:layout_height="51dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="193dp"
+        android:background="@mipmap/hm_perfectinfo_selected"
+        android:gravity="center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="9dp"
+        android:text="为了更好的享受衣橱管理师的服务，请您完善信息"
+        android:textColor="@color/write"
+        android:textSize="10sp" />
+</LinearLayout>

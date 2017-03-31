@@ -88,7 +88,7 @@ public class Write_AddressActivity extends BaseActivity implements View.OnClickL
         name = intent.getStringExtra("name");
         phone = intent.getStringExtra("phone");
         city = intent.getStringExtra("city");
-        address = intent.getStringExtra("address");
+        address = intent.getStringExtra("selector_address");
         userID = new User(this).getUseId() + "";
         addressId = intent.getStringExtra("addressId");
         initProvinceDatas();

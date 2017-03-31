@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_color_write"
+    android:fitsSystemWindows="true"
+    tools:context="com.example.huichuanyi.ui.activity.GoDoorInfoActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/color_ac0000">
+
+        <include layout="@layout/btn_back"></include>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="预约信息"
+            android:textColor="@color/main_color_write"
+            android:textSize="@dimen/text_size_18" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btn_include"
+        android:layout_below="@+id/rl_top">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include layout="@layout/include_address"></include>
+
+            <include layout="@layout/include_time"></include>
+
+            <include layout="@layout/include_write_clothes_count"></include>
+
+            <include layout="@layout/include_pay"></include>
+
+            <include layout="@layout/include_studio_info"></include>
+        </LinearLayout>
+    </ScrollView>
+
+    <include layout="@layout/include_button"></include>
+
+</RelativeLayout>
