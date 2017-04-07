@@ -11,29 +11,32 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="已选衣橱管理师信息" />
+        android:text="已选衣橱管理师信息"
+        android:textSize="@dimen/text_size_15" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_bg_go_door"
+        android:padding="10dp">
 
         <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/sv_address_picture"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:id="@+id/sv_studio_info_logo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            fresco:actualImageScaleType="centerCrop"
             fresco:placeholderImage="@mipmap/stand"
+            fresco:placeholderImageScaleType="centerCrop"
             fresco:roundedCornerRadius="4dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_toRightOf="@+id/sv_address_picture"
+            android:layout_toRightOf="@+id/sv_studio_info_logo"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -43,14 +46,20 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_studio_info_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="旺达工作室" />
+                    android:text="旺达工作室"
+                    android:textSize="@dimen/text_size_15" />
 
                 <TextView
+                    android:id="@+id/tv_studio_into_jianjie"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="简介" />
+                    android:layout_marginTop="5dp"
+                    android:lines="4"
+                    android:text="简介"
+                    android:textSize="@dimen/text_size_13" />
             </LinearLayout>
 
             <LinearLayout
@@ -62,13 +71,16 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_studio_into_city"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="朝阳区" />
+                    android:text="朝阳区"
+                    android:textSize="@dimen/text_size_15" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:src="@mipmap/qualifications" />
             </LinearLayout>
         </LinearLayout>

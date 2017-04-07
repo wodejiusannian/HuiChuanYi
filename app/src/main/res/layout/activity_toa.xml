@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.huichuanyi.ui.activity.ToaActivity">
+    tools:context="com.example.huichuanyi.ui.activity.SLWJianJieActivity">
 
     <RelativeLayout
         android:id="@+id/rl_top"

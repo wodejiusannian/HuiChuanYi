@@ -36,7 +36,7 @@ import cn.jpush.android.api.JPushInterface;
 import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.wechat.friends.Wechat;
 
-public class RegisterActivity extends BaseActivity implements View.OnClickListener, MyThirdData, UtilsInternet.XCallBack {
+public class MineRegisterActivity extends BaseActivity implements View.OnClickListener, MyThirdData, UtilsInternet.XCallBack {
     private UtilsInternet internet = UtilsInternet.getInstance();
     private Map<String, String> map = new HashMap<>();
     private RelativeLayout loginWeChat, loginQQ;
@@ -93,7 +93,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     map.put("phone", number);
                     internet.post(NetConfig.IS_REGISTER, map, this);
                 } else {
-                    Toast.makeText(RegisterActivity.this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MineRegisterActivity.this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.rl_login_wechat:
@@ -147,8 +147,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     JSONObject object = new JSONObject(result);
                     String city = object.getString("city");
                     mUser.writeUserId(user_id);
-                    MySharedPreferences.saveCity(RegisterActivity.this, city);
-                    Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                    MySharedPreferences.saveCity(MineRegisterActivity.this, city);
+                    Toast.makeText(MineRegisterActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                     sendBroad();
                     finish();
                 } catch (JSONException e) {
@@ -164,12 +164,12 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     * */
     private void isRegister(String result) {
         if (TextUtils.equals("1", result)) {
-            Toast.makeText(RegisterActivity.this, "该手机号已注册", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MineRegisterActivity.this, "该手机号已注册", Toast.LENGTH_SHORT).show();
             return;
         }
         Map<String, Object> map = new HashMap<>();
         map.put("phone", number);
-        ActivityUtils.switchTo(RegisterActivity.this, AuthCodeActivity.class, map);
+        ActivityUtils.switchTo(MineRegisterActivity.this, AuthCodeActivity.class, map);
         finish();
     }
 
@@ -190,16 +190,16 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             }
             if (user_id > 0) {
                 if (TextUtils.equals(phone_number, "null")) {
-                    new User(RegisterActivity.this).writeUserId(user_id);
-                    ActivityUtils.switchTo(RegisterActivity.this, BoundActivity.class);
+                    new User(MineRegisterActivity.this).writeUserId(user_id);
+                    ActivityUtils.switchTo(MineRegisterActivity.this, BoundActivity.class);
                     sendBroad();
-                    Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MineRegisterActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                     finish();
                     return;
                 }
                 afterLoginSuccess(user_id);
             } else if (user_id == 0) {
-                Toast.makeText(RegisterActivity.this, "登录失败，请重新登录", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MineRegisterActivity.this, "登录失败，请重新登录", Toast.LENGTH_SHORT).show();
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -230,14 +230,14 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private void isBuy365(String result) {
         String ret = MyJson.getRet(result);
         if (TextUtils.equals("0", ret)) {
-            MySharedPreferences.save365(RegisterActivity.this, "365");
+            MySharedPreferences.save365(MineRegisterActivity.this, "365");
         } else {
             try {
                 JSONObject object = new JSONObject(result);
                 JSONObject body = object.getJSONObject("body");
                 String price = body.getString("activity_price");
                 String activity = body.getString("activity_state");
-                MySharedPreferences.saveActivity(RegisterActivity.this, activity, price);
+                MySharedPreferences.saveActivity(MineRegisterActivity.this, activity, price);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

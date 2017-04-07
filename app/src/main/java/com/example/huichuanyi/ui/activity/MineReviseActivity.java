@@ -17,7 +17,7 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
-public class ReviseActivity extends BaseActivity implements View.OnClickListener {
+public class MineReviseActivity extends BaseActivity implements View.OnClickListener {
     private ImageView mBack;
     private EditText mOldPWD, mNewPWD;
     private Button mRevisePWD;
@@ -80,11 +80,11 @@ public class ReviseActivity extends BaseActivity implements View.OnClickListener
                     @Override
                     public void onSuccess(String result) {
                         if (TextUtils.equals("1", result)) {
-                            Toast.makeText(ReviseActivity.this, "密码修改成功", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MineReviseActivity.this, "密码修改成功", Toast.LENGTH_SHORT).show();
                         } else if (TextUtils.equals("0", result)) {
-                            Toast.makeText(ReviseActivity.this, "密码修改失败，请确认旧密码是否正确", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MineReviseActivity.this, "密码修改失败，请确认旧密码是否正确", Toast.LENGTH_SHORT).show();
                         } else if (TextUtils.equals("-1", result)) {
-                            Toast.makeText(ReviseActivity.this, "请求数据失败", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MineReviseActivity.this, "请求数据失败", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -104,10 +104,10 @@ public class ReviseActivity extends BaseActivity implements View.OnClickListener
                     }
                 });
             } else {
-                Toast.makeText(ReviseActivity.this, "密码长度为6-16位的字符和数字", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MineReviseActivity.this, "密码长度为6-16位的字符和数字", Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(ReviseActivity.this, "旧密码和新密码不能为空", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MineReviseActivity.this, "旧密码和新密码不能为空", Toast.LENGTH_SHORT).show();
         }
     }
 }

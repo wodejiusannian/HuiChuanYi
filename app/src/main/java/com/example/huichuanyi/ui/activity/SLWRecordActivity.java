@@ -15,7 +15,7 @@ import com.example.huichuanyi.fragment_second.RefreshRecord;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecordActivity extends BaseActivity {
+public class SLWRecordActivity extends BaseActivity {
     private TabLayout mTabLayout;
     private ViewPager mShow;
     private ClosetAdapter mAdapter;

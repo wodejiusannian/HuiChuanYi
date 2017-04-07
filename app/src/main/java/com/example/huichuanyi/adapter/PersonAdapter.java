@@ -33,6 +33,8 @@ public class PersonAdapter extends CommonAdapter<City.BodyBean> {
         String service = bodyBean.getService();
         if (!TextUtils.equals("已开通", service)) {
             news.setVisibility(View.GONE);
+        } else {
+            news.setVisibility(View.VISIBLE);
         }
     }
 

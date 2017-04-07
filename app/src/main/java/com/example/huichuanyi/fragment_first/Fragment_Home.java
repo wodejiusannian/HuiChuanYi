@@ -14,8 +14,8 @@ import com.example.huichuanyi.secondui.StatisticsActivity;
 import com.example.huichuanyi.ui.activity.DaPeiRiJiActivity;
 import com.example.huichuanyi.ui.activity.HuiMeiWeiKeActivity;
 import com.example.huichuanyi.ui.activity.MyOrderActivity;
-import com.example.huichuanyi.ui.activity.RegisterActivity;
-import com.example.huichuanyi.ui.activity.WoDeYiChuActivity;
+import com.example.huichuanyi.ui.activity.MineRegisterActivity;
+import com.example.huichuanyi.ui.activity.HomeWoDeYiChuActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
@@ -76,7 +76,7 @@ public class Fragment_Home extends BaseFragment implements View.OnClickListener,
     @Override
     public void onItemClick(int position) {
         if (!getUser()) {
-            ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
+            ActivityUtils.switchTo(getActivity(), MineRegisterActivity.class);
             return;
         }
         switch (position) {
@@ -97,7 +97,7 @@ public class Fragment_Home extends BaseFragment implements View.OnClickListener,
     @OnClick({R.id.iv_home_match, R.id.iv_home_info, R.id.iv_home_partner, R.id.iv_home_closet})
     public void onClick(View v) {
         if (!getUser()) {
-            ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
+            ActivityUtils.switchTo(getActivity(), MineRegisterActivity.class);
             return;
         }
         switch (v.getId()) {
@@ -111,7 +111,7 @@ public class Fragment_Home extends BaseFragment implements View.OnClickListener,
                 ActivityUtils.switchTo(getActivity(), HuiMeiWeiKeActivity.class);
                 break;
             case iv_home_closet:
-                ActivityUtils.switchTo(getActivity(), WoDeYiChuActivity.class);
+                ActivityUtils.switchTo(getActivity(), HomeWoDeYiChuActivity.class);
                 break;
         }
     }

@@ -31,7 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ListAddress extends BaseActivity implements ListAddressAdapter.Info, View.OnClickListener, UtilsInternet.XCallBack, SwipeRefreshLayout.OnRefreshListener, MySelfDialog.OnYesClickListener, AdapterView.OnItemLongClickListener {
+public class AddressListActivity extends BaseActivity implements ListAddressAdapter.Info, View.OnClickListener, UtilsInternet.XCallBack, SwipeRefreshLayout.OnRefreshListener, MySelfDialog.OnYesClickListener, AdapterView.OnItemLongClickListener {
 
     private ListView mShow;
     private ListAddressAdapter adapter;
@@ -122,7 +122,7 @@ public class ListAddress extends BaseActivity implements ListAddressAdapter.Info
     * 修改选择的地址
     * */
     private void upDateAddress(int tag) {
-        Intent intent = new Intent(this, Write_AddressActivity.class);
+        Intent intent = new Intent(this, AddressWriteActivity.class);
         intent.putExtra("tag", tag);
         intent.putExtra("type", "9001");
         intent.putExtra("addressId", mData.get(tag).getId());
@@ -137,7 +137,7 @@ public class ListAddress extends BaseActivity implements ListAddressAdapter.Info
     * 进行地址添加的页面
     * */
     private void addPersonAddress() {
-        Intent intent = new Intent(this, Write_AddressActivity.class);
+        Intent intent = new Intent(this, AddressWriteActivity.class);
         startActivityForResult(intent, 1000);
     }
 

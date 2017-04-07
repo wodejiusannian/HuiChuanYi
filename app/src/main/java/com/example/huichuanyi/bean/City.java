@@ -1,5 +1,6 @@
 package com.example.huichuanyi.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class City {
@@ -32,7 +33,7 @@ public class City {
         this.body = body;
     }
 
-    public static class BodyBean {
+    public static class BodyBean implements Serializable{
 
         private String sex;
         private String phone;

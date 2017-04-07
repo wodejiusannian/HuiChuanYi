@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:layout_margin="@dimen/distance_10"
-    android:orientation="vertical">
+    android:background="@mipmap/hmappointmentinfo_adressback_image"
+    android:orientation="vertical"
+    android:padding="4dp">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/sv_address_picture"
@@ -13,7 +15,9 @@
         android:layout_height="33dp"
         android:layout_centerVertical="true"
         android:layout_margin="5dp"
-        fresco:placeholderImage="@mipmap/stand"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:placeholderImage="@mipmap/hmappointmentinfo_adress_image"
+        fresco:placeholderImageScaleType="centerCrop"
         fresco:roundedCornerRadius="4dp" />
 
     <RelativeLayout
@@ -23,25 +27,28 @@
         android:layout_toRightOf="@+id/sv_address_picture">
 
         <TextView
-            android:id="@+id/tv_address_name"
+            android:id="@+id/tv_godoor_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="name" />
+            android:text="选择地址"
+            android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/tv_address_phone"
+            android:id="@+id/tv_godoor_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/tv_address_name"
-            android:text="phone" />
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/tv_godoor_name"
+            android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/tv_address_info"
+            android:id="@+id/tv_godoor_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_address_name"
-            android:text="address" />
+            android:layout_below="@+id/tv_godoor_name"
+            android:textSize="15sp" />
     </RelativeLayout>
+
 
     <ImageView
         android:layout_width="wrap_content"

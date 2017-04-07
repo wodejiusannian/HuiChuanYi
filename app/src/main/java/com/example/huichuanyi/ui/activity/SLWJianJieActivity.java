@@ -14,7 +14,7 @@ import java.util.Map;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ToaActivity extends BaseActivity {
+public class SLWJianJieActivity extends BaseActivity {
 
 
     @Override

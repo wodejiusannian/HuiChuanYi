@@ -268,7 +268,7 @@ public class MySortActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.iv_item_recycler_3:
                 int position = (int) v.getTag();
-                Intent intent = new Intent(this, PicActivity.class);
+                Intent intent = new Intent(this, WDYCPicActivity.class);
                 intent.putExtra("mList", (Serializable) mData);
                 intent.putExtra("position", position);
                 Log.i("TAG", "----------------" + yichuzhonglei);

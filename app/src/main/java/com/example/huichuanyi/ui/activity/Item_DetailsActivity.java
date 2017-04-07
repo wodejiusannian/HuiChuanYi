@@ -63,7 +63,7 @@ public class Item_DetailsActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl_item_details_select:
-                ActivityUtils.switchTo(this, Write_OrderActivity.class, map);
+                ActivityUtils.switchTo(this, SLWWriteInfoActivity.class, map);
                 break;
             default:
                 break;

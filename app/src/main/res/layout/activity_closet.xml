@@ -47,7 +47,7 @@
         android:layout_marginTop="@dimen/distance"
         app:tabSelectedTextColor="@color/write"
         android:layout_below="@+id/tl_closet_mTool"
-        app:tabBackground="@drawable/tab_background"
+        app:tabBackground="@drawable/shape_tab_background"
         app:tabIndicatorHeight="0dp"
         >
     </android.support.design.widget.TabLayout>

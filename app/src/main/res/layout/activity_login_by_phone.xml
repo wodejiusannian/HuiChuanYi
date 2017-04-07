@@ -36,6 +36,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="26dp"
             android:hint="请输入手机号"
+            android:phoneNumber="true"
+            android:textColor="@color/write"
             android:textColorHint="@color/write"
             android:textCursorDrawable="@drawable/shape_edittext"
             android:textSize="14sp"
@@ -58,6 +60,7 @@
             android:digits="0123456789abcdefghigklmnopqrstuvwxyz
             ABCDEFGHIJKLMNOPQRSTUVWXYZ_+=.!#*"
             android:hint="请输入密码"
+            android:textColor="@color/write"
             android:textColorHint="@color/write"
             android:textCursorDrawable="@drawable/shape_edittext"
             android:textSize="14sp"

@@ -21,9 +21,9 @@ import com.example.huichuanyi.ui.activity.IndentActivity;
 import com.example.huichuanyi.ui.activity.MainActivity;
 import com.example.huichuanyi.ui.activity.MyOrderActivity;
 import com.example.huichuanyi.ui.activity.My_365Activity;
-import com.example.huichuanyi.ui.activity.RegisterActivity;
-import com.example.huichuanyi.ui.activity.ReportActivity;
-import com.example.huichuanyi.ui.activity.SettingActivity;
+import com.example.huichuanyi.ui.activity.MineRegisterActivity;
+import com.example.huichuanyi.ui.activity.MineReportActivity;
+import com.example.huichuanyi.ui.activity.MineSettingActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.ImageUtils;
 import com.example.huichuanyi.utils.MySharedPreferences;
@@ -153,31 +153,31 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
                     upLoadingPhoto();
                 } else {
                     CustomToast.showToast(getContext(),"亲，请先登陆哦");
-                    ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
+                    ActivityUtils.switchTo(getActivity(), MineRegisterActivity.class);
                 }
                 break;
             case R.id.iv_mine_setting:
-                ActivityUtils.switchTo(getActivity(), SettingActivity.class);
+                ActivityUtils.switchTo(getActivity(), MineSettingActivity.class);
                 break;
             case R.id.ll_mine_datum:
                 if (useId > 0) {
                     ActivityUtils.switchTo(getActivity(), DatumActivity.class);
                 } else {
-                    ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
+                    ActivityUtils.switchTo(getActivity(), MineRegisterActivity.class);
                 }
                 break;
             case R.id.ll_mine_report:
                 if (useId > 0) {
-                    ActivityUtils.switchTo(getActivity(), ReportActivity.class);
+                    ActivityUtils.switchTo(getActivity(), MineReportActivity.class);
                 } else {
-                    ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
+                    ActivityUtils.switchTo(getActivity(), MineRegisterActivity.class);
                 }
                 break;
             case R.id.ll_mine_order:
                 if (useId > 0) {
                     ActivityUtils.switchTo(getActivity(), MyOrderActivity.class);
                 } else {
-                    ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
+                    ActivityUtils.switchTo(getActivity(), MineRegisterActivity.class);
                 }
                 break;
             case R.id.ll_mine_365:
@@ -185,21 +185,21 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
                     map.put("userPhoto", userPhoto);
                     ActivityUtils.switchTo(getActivity(), My_365Activity.class, map);
                 } else {
-                    ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
+                    ActivityUtils.switchTo(getActivity(), MineRegisterActivity.class);
                 }
                 break;
             case R.id.ll_mine_indent:
                 if (useId > 0) {
                     ActivityUtils.switchTo(getActivity(), IndentActivity.class);
                 } else {
-                    ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
+                    ActivityUtils.switchTo(getActivity(), MineRegisterActivity.class);
                 }
                 break;
             case R.id.ll_mine_invite:
                 if (useId > 0) {
                     Share.inviteFriend(getContext());
                 } else {
-                    ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
+                    ActivityUtils.switchTo(getActivity(), MineRegisterActivity.class);
                 }
                 break;
             case R.id.ll_mine_exit:
@@ -213,7 +213,7 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
     * 去登陆
     * */
     private void goLogin() {
-        ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
+        ActivityUtils.switchTo(getActivity(), MineRegisterActivity.class);
     }
 
     private void upLoadingPhoto() {
@@ -322,7 +322,7 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
             });
             mDialog.show();
         } else {
-            ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
+            ActivityUtils.switchTo(getActivity(), MineRegisterActivity.class);
         }
     }
 

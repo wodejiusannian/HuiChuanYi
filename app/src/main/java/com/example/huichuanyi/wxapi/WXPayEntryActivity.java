@@ -3,13 +3,12 @@ package com.example.huichuanyi.wxapi;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.example.huichuanyi.secondui.PayOrderActivity;
 import com.example.huichuanyi.ui.activity.Item_DetailsActivity;
 import com.example.huichuanyi.ui.activity.MyOrderActivity;
 import com.example.huichuanyi.ui.activity.My_365Activity;
-import com.example.huichuanyi.ui.activity.Write_OrderActivity;
+import com.example.huichuanyi.ui.activity.SLWWriteInfoActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonStatic;
 import com.example.huichuanyi.utils.CommonUtils;
@@ -89,9 +88,9 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
             PayOrderActivity.payOrderActivity.finish();
             PayOrderActivity.payOrderActivity = null;
         }
-        if (Write_OrderActivity.write_orderActivity != null) {
-            Write_OrderActivity.write_orderActivity.finish();
-            Write_OrderActivity.write_orderActivity = null;
+        if (SLWWriteInfoActivity.write_orderActivity != null) {
+            SLWWriteInfoActivity.write_orderActivity.finish();
+            SLWWriteInfoActivity.write_orderActivity = null;
         }
         if (Item_DetailsActivity.item_detailsActivity != null) {
             Item_DetailsActivity.item_detailsActivity.finish();

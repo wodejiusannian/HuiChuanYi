@@ -45,7 +45,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PicActivity extends BaseActivity implements View.OnClickListener, LabelPopupWindow.GetData, MySelfDialog.OnYesClickListener, AdapterView.OnItemClickListener, CompoundButton.OnCheckedChangeListener, ViewPager.OnPageChangeListener {
+public class WDYCPicActivity extends BaseActivity implements View.OnClickListener, LabelPopupWindow.GetData, MySelfDialog.OnYesClickListener, AdapterView.OnItemClickListener, CompoundButton.OnCheckedChangeListener, ViewPager.OnPageChangeListener {
 
     private ViewPager mPics;
     private List<ImageView> mImages;
@@ -285,9 +285,9 @@ public class PicActivity extends BaseActivity implements View.OnClickListener, L
             public void onSuccess(String result) {
                 String ret = MyJson.getRet(result);
                 if (TextUtils.equals("0",ret)){
-                    Toast.makeText(PicActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WDYCPicActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(PicActivity.this, "修改失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WDYCPicActivity.this, "修改失败", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -319,7 +319,7 @@ public class PicActivity extends BaseActivity implements View.OnClickListener, L
             @Override
             public void onSuccess(String result) {
                 if(!TextUtils.equals("result","1")) {
-                    Toast.makeText(PicActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WDYCPicActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
                     mImages.remove(currentItem);
                     mList.remove(currentItem);
                     mAdapter.notifyDataSetChanged();
@@ -330,7 +330,7 @@ public class PicActivity extends BaseActivity implements View.OnClickListener, L
                     int currentItem1 = mPics.getCurrentItem();
                     contentAddView(currentItem1);
                 }else{
-                    Toast.makeText(PicActivity.this, "删除失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WDYCPicActivity.this, "删除失败", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -373,7 +373,7 @@ public class PicActivity extends BaseActivity implements View.OnClickListener, L
             @Override
             public void onSuccess(String result) {
                 if(TextUtils.equals(result,"1")) {
-                    Toast.makeText(PicActivity.this, "移动成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WDYCPicActivity.this, "移动成功", Toast.LENGTH_SHORT).show();
                     mImages.remove(currentItem);
                     mList.remove(currentItem);
                     mAdapter.notifyDataSetChanged();
@@ -385,7 +385,7 @@ public class PicActivity extends BaseActivity implements View.OnClickListener, L
                     contentAddView(currentItem1);
 
                 }else{
-                    Toast.makeText(PicActivity.this, "移动失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WDYCPicActivity.this, "移动失败", Toast.LENGTH_SHORT).show();
                 }
             }
 

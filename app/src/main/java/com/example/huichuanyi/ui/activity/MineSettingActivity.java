@@ -37,7 +37,7 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
-public class SettingActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class MineSettingActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     private RelativeLayout mRelativeLayoutFankui,
             mRelativeLayoutLianxi, mRelativeLayoutmy, mRelativeLayoutUpDate, mRelativeRevise;
     private ToggleButton mToggleButton;
@@ -117,7 +117,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 isFresh();
                 break;
             case R.id.rl_setting_revise:
-                ActivityUtils.switchTo(this, ReviseActivity.class);
+                ActivityUtils.switchTo(this, MineReviseActivity.class);
                 break;
         }
     }
@@ -194,7 +194,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                                 DownLoadUtils.getInstance(getApplicationContext()).skipToDownloadManager();
                             }
                         } else {
-                            MySelfDialog mDialog = new MySelfDialog(SettingActivity.this);
+                            MySelfDialog mDialog = new MySelfDialog(MineSettingActivity.this);
                             mDialog.setTitle("是否更新");
                             mDialog.setMessage(msg);
                             mDialog.setOnYesListener("确定", new MySelfDialog.OnYesClickListener() {
@@ -216,7 +216,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                             mDialog.show();
                         }
                     } else {
-                        Toast.makeText(SettingActivity.this, "您的版本已经是最新的了，继续保持哦", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MineSettingActivity.this, "您的版本已经是最新的了，继续保持哦", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (JSONException e) {

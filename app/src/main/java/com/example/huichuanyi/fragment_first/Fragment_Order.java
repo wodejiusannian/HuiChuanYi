@@ -17,7 +17,7 @@ import com.example.huichuanyi.secondui.AtMyAcitivty;
 import com.example.huichuanyi.ui.activity.DaPeiRiJiActivity;
 import com.example.huichuanyi.ui.activity.LiJiYuYueActivity;
 import com.example.huichuanyi.ui.activity.MyOrderActivity;
-import com.example.huichuanyi.ui.activity.RegisterActivity;
+import com.example.huichuanyi.ui.activity.MineRegisterActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.MySharedPreferences;
@@ -165,7 +165,7 @@ public class Fragment_Order extends BaseFragment implements View.OnClickListener
     @Override
     public void onItemClick(int position) {
         if (!getUser()) {
-            ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
+            ActivityUtils.switchTo(getActivity(), MineRegisterActivity.class);
             return;
         }
         switch (position) {

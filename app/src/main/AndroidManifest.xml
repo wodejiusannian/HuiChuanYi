@@ -43,17 +43,11 @@
 
         <activity
             android:name=".ui.activity.loading.SplashActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"></activity>
         <activity
             android:name=".ui.activity.MainActivity"
-            android:launchMode="singleTask"></activity>
-        <activity android:name=".ui.activity.LoadingActivity" />
+            android:launchMode="singleTask" />
+        <activity android:name=".ui.activity.loading.LoadingActivity" />
         <activity
             android:name=".ui.activity.HuiMeiWeiKeActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -99,15 +93,15 @@
             android:value="Wandoujia" />
 
         <activity android:name=".ui.activity.MC_TripAndElseActivity" />
-        <activity android:name=".ui.activity.RegisterActivity" />
+        <activity android:name=".ui.activity.MineRegisterActivity" />
         <activity android:name=".secondui.AuthCodeActivity" />
         <activity
             android:name=".secondui.LoginActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".secondui.BoundActivity" />
         <activity android:name=".ui.activity.IndentActivity" />
-        <activity android:name=".ui.activity.ReportActivity" />
-        <activity android:name=".ui.activity.SettingActivity" />
+        <activity android:name=".ui.activity.MineReportActivity" />
+        <activity android:name=".ui.activity.MineSettingActivity" />
         <activity android:name=".secondui.FanKuiActivity" />
         <activity android:name=".secondui.AtMyAcitivty" />
         <activity android:name=".ui.activity.DatumActivity" />
@@ -143,8 +137,8 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.BuChaJiaActivity" />
-        <activity android:name=".ui.activity.WoDeYiChuActivity" />
-        <activity android:name=".ui.activity.PicActivity" />
+        <activity android:name=".ui.activity.HomeWoDeYiChuActivity" />
+        <activity android:name=".ui.activity.WDYCPicActivity" />
         <activity android:name=".bean.PayVideoActivity" />
 
         <receiver android:name=".wxapi.AppRegister">
@@ -161,18 +155,18 @@
         <activity android:name=".ui.activity.LiJiYuYueActivity" />
         <activity android:name=".ui.activity.ComplainActivity" />
         <activity android:name=".ui.activity.MyOrderDetailsActivity" />
-        <activity android:name=".ui.activity.ReviseActivity" />
+        <activity android:name=".ui.activity.MineReviseActivity" />
         <activity android:name=".ui.activity.LabelsActivity" />
         <activity android:name=".ui.activity.Item_DetailsActivity" />
-        <activity android:name=".ui.activity.RecordActivity" />
-        <activity android:name=".ui.activity.Write_OrderActivity" />
-        <activity android:name=".ui.activity.Write_AddressActivity" />
-        <activity android:name=".ui.activity.ListAddress" />
+        <activity android:name=".ui.activity.SLWRecordActivity" />
+        <activity android:name=".ui.activity.SLWWriteInfoActivity" />
+        <activity android:name=".ui.activity.AddressWriteActivity" />
+        <activity android:name=".ui.activity.AddressListActivity" />
         <activity android:name=".ui.activity.My_365Activity" />
         <activity android:name=".ui.activity.Buy_365Activity" />
         <activity android:name=".fragment_second.SeeCarActivity" />
-        <activity android:name=".ui.activity.ShareActivity" />
-        <activity android:name=".ui.activity.ToaActivity" />
+        <activity android:name=".ui.activity.SLWActiveActivity" />
+        <activity android:name=".ui.activity.SLWJianJieActivity" />
         <activity android:name=".ui.activity.GoDoorInfoActivity" />
         <activity android:name=".ui.activity.register.RegisterSelectActivity" />
         <activity android:name=".ui.activity.register.RegisterPhoneActivity" />
@@ -182,8 +176,18 @@
         <activity android:name=".ui.activity.register.RegisterOverCompleteInfoActivity" />
         <activity android:name=".ui.activity.login.LoginSelectActivity" />
         <activity android:name=".ui.activity.login.LoginByPhoneActivity" />
-        <activity android:name=".ui.activity.StudioSelectCityActivity" />
-        <activity android:name=".ui.activity.register.RegisterHMService"></activity>
+        <activity android:name=".ui.activity.LiJiYuYueStudioSelectCityActivity" />
+        <activity android:name=".ui.activity.register.RegisterHMService" />
+        <activity
+            android:name=".ui.activity.loading.MySplashActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.activity.LiJiYuYueWhatActivity"></activity>
     </application>
 
 </manifest>

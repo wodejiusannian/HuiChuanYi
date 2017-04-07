@@ -16,14 +16,14 @@ import com.example.huichuanyi.base.BaseFragment;
 import com.example.huichuanyi.bean.CardItem;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MySelfDialog;
-import com.example.huichuanyi.ui.activity.ToaActivity;
+import com.example.huichuanyi.ui.activity.SLWJianJieActivity;
 import com.example.huichuanyi.ui.activity.MainActivity;
 import com.example.huichuanyi.ui.activity.DatumActivity;
-import com.example.huichuanyi.ui.activity.RegisterActivity;
+import com.example.huichuanyi.ui.activity.MineRegisterActivity;
 import com.example.huichuanyi.ui.activity.Item_DetailsActivity;
-import com.example.huichuanyi.ui.activity.RecordActivity;
-import com.example.huichuanyi.ui.activity.ShareActivity;
-import com.example.huichuanyi.ui.activity.Write_OrderActivity;
+import com.example.huichuanyi.ui.activity.SLWRecordActivity;
+import com.example.huichuanyi.ui.activity.SLWActiveActivity;
+import com.example.huichuanyi.ui.activity.SLWWriteInfoActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.MySharedPreferences;
 import com.example.huichuanyi.utils.User;
@@ -109,7 +109,7 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
         if (userID > 0) {
             switch (v.getId()) {
                 case R.id.tv_365_record:
-                    ActivityUtils.switchTo(getActivity(), RecordActivity.class);
+                    ActivityUtils.switchTo(getActivity(), SLWRecordActivity.class);
                     break;
                 case R.id.btn_will_pay_copy:
                     isHaveBuyCity();
@@ -118,7 +118,7 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
                     if (mData.size() == 0) return;
                     int currentItem = mPics.getCurrentItem();
                     addJumpData(currentItem);
-                    ActivityUtils.switchTo(getActivity(), Write_OrderActivity.class, jumpMap);
+                    ActivityUtils.switchTo(getActivity(), SLWWriteInfoActivity.class, jumpMap);
                     break;
                 case R.id.btn_will_pay:
                     isHaveBuyCity();
@@ -128,7 +128,7 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
                     if (TextUtils.isEmpty(buyCity)) {
                         showDialog();
                     } else {
-                        ActivityUtils.switchTo(getActivity(), ShareActivity.class);
+                        ActivityUtils.switchTo(getActivity(), SLWActiveActivity.class);
                     }
                     break;
                 default:
@@ -138,7 +138,7 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
                     break;
             }
         } else {
-            ActivityUtils.switchTo(getActivity(), RegisterActivity.class);
+            ActivityUtils.switchTo(getActivity(), MineRegisterActivity.class);
         }
     }
 
@@ -180,7 +180,7 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
         map.put("location", city);
         map.put("order_365", "365");
         ActivityUtils.switchTo(getActivity(), LiJiYuYueActivity.class, map);*/
-        ActivityUtils.switchTo(getActivity(), ToaActivity.class);
+        ActivityUtils.switchTo(getActivity(), SLWJianJieActivity.class);
     }
 
     @Override

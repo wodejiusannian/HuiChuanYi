@@ -27,7 +27,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Write_OrderActivity extends BaseActivity implements View.OnClickListener, UtilsInternet.XCallBack {
+public class SLWWriteInfoActivity extends BaseActivity implements View.OnClickListener, UtilsInternet.XCallBack {
     private LinearLayout mAddressInfo;
     private TextView mName, mPhone, mAddress;
     private EditText mRemarks;
@@ -48,7 +48,7 @@ public class Write_OrderActivity extends BaseActivity implements View.OnClickLis
         }
     };
 
-    public static Write_OrderActivity write_orderActivity;
+    public static SLWWriteInfoActivity write_orderActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,7 +161,7 @@ public class Write_OrderActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void jumpListAddress() {
-        Intent intent = new Intent(this, ListAddress.class);
+        Intent intent = new Intent(this, AddressListActivity.class);
         startActivityForResult(intent, 1000);
     }
 

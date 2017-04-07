@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context="com.example.huichuanyi.ui.activity.RecordActivity">
+    tools:context="com.example.huichuanyi.ui.activity.SLWRecordActivity">
 
     <RelativeLayout
         android:id="@+id/rl_partner_clothes_top"
@@ -32,7 +32,7 @@
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/distance"
-        app:tabBackground="@drawable/tab_background"
+        app:tabBackground="@drawable/shape_tab_background"
         app:tabIndicatorHeight="0dp"
         app:tabSelectedTextColor="@color/write"></android.support.design.widget.TabLayout>
 

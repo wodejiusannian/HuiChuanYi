@@ -9,16 +9,15 @@ import org.xutils.x;
 
 import cn.jpush.android.api.JPushInterface;
 
-public class MyApplication extends Application{
+public class MyApplication extends Application {
 
-        @Override
-        public void onCreate() {
-            super.onCreate();
-            JPushInterface.setDebugMode(true);
-            JPushInterface.init(this);
-            x.Ext.init(this);
-            Fresco.initialize(this);
-            SystemParams.init(this);
-        }
-
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
+        x.Ext.init(this);
+        Fresco.initialize(this);
+        SystemParams.init(this);
+    }
 }

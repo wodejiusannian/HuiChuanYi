@@ -1,4 +1,4 @@
-package com.example.huichuanyi.ui.activity;
+package com.example.huichuanyi.ui.activity.loading;
 
 import android.os.Build;
 import android.support.v4.view.ViewPager;
@@ -11,7 +11,9 @@ import android.widget.ImageView;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.LoadingAdapter;
+import com.example.huichuanyi.ui.activity.MainActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
+import com.example.huichuanyi.utils.MySharedPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +71,7 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
+        MySharedPreferences.saveIsFirst(this);
         ActivityUtils.switchTo(this, MainActivity.class);
         finish();
     }

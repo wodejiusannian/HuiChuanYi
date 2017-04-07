@@ -64,4 +64,17 @@ public class MySharedPreferences {
         String m365 = mCity.getString("price", "");
         return m365;
     }
+
+    public static int isFirst(Context context) {
+        SharedPreferences isFirst = context.getSharedPreferences("isFirst", 1);
+        return isFirst.getInt("isFirst", 0);
+    }
+
+    public static void saveIsFirst(Context context) {
+        SharedPreferences isFirsts = context.getSharedPreferences("isFirst", 1);
+        SharedPreferences.Editor edit = isFirsts.edit();
+        edit.putInt("isFirst", 1);
+        edit.commit();
+    }
+
 }

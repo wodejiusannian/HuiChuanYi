@@ -17,9 +17,9 @@ import com.example.huichuanyi.baidumap.GetCity;
 import com.example.huichuanyi.baidumap.Location;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.custom.EditDialog;
-import com.example.huichuanyi.fragment_second.Fragment_Default;
 import com.example.huichuanyi.fragment_second.Fragment_KPS;
 import com.example.huichuanyi.fragment_second.Fragment_Sales;
+import com.example.huichuanyi.ui.fragment.LiJiYuYueDefaultFragment;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonUtils;
 
@@ -52,8 +52,7 @@ public class LiJiYuYueActivity extends BaseActivity implements EditDialog.EditYe
             Bundle data = msg.getData();
             String location = data.getString("location");
             address.setText(location);
-            mOnRefreshAddress.reFreshAddress(location);
-            //Toast.makeText(LiJiYuYueActivity.this, "location" + location, Toast.LENGTH_SHORT).show();
+           // mOnRefreshAddress.reFreshAddress(location);
             if (!CommonUtils.isEmpty(location)) {
                 mGetCity.stopLocation();
             }
@@ -112,7 +111,8 @@ public class LiJiYuYueActivity extends BaseActivity implements EditDialog.EditYe
         mTitles.add("默认排序");
         mTitles.add("评分最高");
         mTitles.add("销量最好");
-        mData.add(new Fragment_Default());
+        //mData.add(new Fragment_Default());
+        mData.add(new LiJiYuYueDefaultFragment());
         mData.add(new Fragment_KPS());
         mData.add(new Fragment_Sales());
         mAdapter = new ClosetAdapter(getSupportFragmentManager(), mData, mTitles);
@@ -153,7 +153,7 @@ public class LiJiYuYueActivity extends BaseActivity implements EditDialog.EditYe
         switch (v.getId()) {
             case R.id.tv_lijiyueyue_address:
                 /*initEditText();*/
-                ActivityUtils.switchTo(this, StudioSelectCityActivity.class);
+                ActivityUtils.switchTo(this, LiJiYuYueStudioSelectCityActivity.class);
                 break;
             default:
                 break;

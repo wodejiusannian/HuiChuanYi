@@ -9,21 +9,26 @@ import android.widget.TextView;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
+import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.seekbar.CenterTipView;
 import com.example.huichuanyi.custom.seekbar.Contact;
 import com.example.huichuanyi.custom.seekbar.ContactAdapter;
-import com.example.huichuanyi.custom.seekbar.Data;
 import com.example.huichuanyi.custom.seekbar.RecyclerViewDivider;
 import com.example.huichuanyi.custom.seekbar.RightIndexView;
 import com.example.huichuanyi.custom.seekbar.T;
 import com.example.huichuanyi.custom.seekbar.TinyPY;
+import com.example.huichuanyi.utils.UtilsInternet;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 
-public class StudioSelectCityActivity extends BaseActivity implements RightIndexView.OnRightTouchMoveListener {
+public class LiJiYuYueStudioSelectCityActivity extends BaseActivity implements RightIndexView.OnRightTouchMoveListener, UtilsInternet.XCallBack {
     private ArrayList<Contact> mData = new ArrayList<>();//列表展示的数据
     private ArrayList<String> firstList = new ArrayList<>();//字母索引集合
     private HashSet<String> set = new HashSet<>();//中间临时集合
@@ -33,6 +38,8 @@ public class StudioSelectCityActivity extends BaseActivity implements RightIndex
     private TextView tvHeader;//固定头view
     private CenterTipView tipView;//中间字母提示view
     private RightIndexView rightContainer;//右侧索引view
+    private UtilsInternet net = UtilsInternet.getInstance();
+    private ArrayList<Contact> incognizanceList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,66 +50,33 @@ public class StudioSelectCityActivity extends BaseActivity implements RightIndex
     @Override
     public void initView() {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        rightContainer = (RightIndexView) findViewById(R.id.vg_right_container);
     }
 
     @Override
     public void initData() {
-        if (mData == null)
-            mData = new ArrayList<>();
-        Contact contact = null;
-
-        //这儿使用的是静态数据
-        int size = Data.data.length;
-
-        //是否有非字母数据(拼音首字符不在26个字母范围当中)
-        boolean hasIncognizance = false;
+        net.post(NetConfig.ALL_STUDIO_CITY, null, this);
+        /*int size = Data.data.length;
         //装载非字母数据的结合
-        ArrayList<Contact> incognizanceList = new ArrayList<>();
         for (int i = 0; i < size; i++) {
-            contact = new Contact();
+            Contact contact = new Contact();
             contact.name = Data.data[i];
             contact.pinYin = TinyPY.toPinYin(contact.name);
             contact.firstPinYin = TinyPY.firstPinYin(contact.pinYin);
             if (!TextUtils.isEmpty(contact.firstPinYin)) {
-                char first = contact.firstPinYin.charAt(0);
-                //A(65), Z(90), a(97), z(122) 根据数据的类型分开装进集合
-                if (first < 'A' || (first > 'Z' && first < 'a') || first > 'z') {
-                    //非字母
-                    contact.firstPinYin = "#";
-                    //标记含有#集合
-                    hasIncognizance = true;
-                    //添加数据到#集合
-                    incognizanceList.add(contact);
-                } else {
-                    //字母索引(set可以去重复)
-                    set.add(contact.firstPinYin);
-                    //添加数据到字母a-z集合
-                    mData.add(contact);
-                }
+                set.add(contact.firstPinYin);
+                mData.add(contact);
             }
         }
-
-        //对contact集合数据排序
         Collections.sort(mData);
-
         //把排序后的字母顺序装进字母索引集合
         Iterator<String> iterator = set.iterator();
         while (iterator.hasNext()) {
             firstList.add(iterator.next());
         }
         Collections.sort(firstList);
-
-        //最后加上#
-        if (hasIncognizance) {
-            //把#装进索引集合
-            firstList.add("#");
-            //把非字母的contact数据装进数据集合
-            mData.addAll(incognizanceList);
-        }
-        //清空中间缓存集合
         incognizanceList.clear();
-        set.clear();
-
+        set.clear();*/
     }
 
     @Override
@@ -118,7 +92,7 @@ public class StudioSelectCityActivity extends BaseActivity implements RightIndex
         adapter.setOnItemClickListener(new ContactAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, Contact contact) {
-                T.show(StudioSelectCityActivity.this, contact.name);
+                T.show(LiJiYuYueStudioSelectCityActivity.this, contact.name);
             }
         });
 
@@ -182,11 +156,7 @@ public class StudioSelectCityActivity extends BaseActivity implements RightIndex
         //center tip view
         tipView = (CenterTipView) findViewById(R.id.tv_center_tip);
 
-        //右侧字母表索引
-        rightContainer = (RightIndexView) findViewById(R.id.vg_right_container);
-        rightContainer.setData(firstList);
-        //右侧字母索引容器注册touch回调
-        rightContainer.setOnRightTouchMoveListener(this);
+
     }
 
     @Override
@@ -194,13 +164,6 @@ public class StudioSelectCityActivity extends BaseActivity implements RightIndex
 
     }
 
-    /**
-     * 右侧字母表touch回调
-     *
-     * @param position 当前touch的位置
-     * @param content  当前位置的内容
-     * @param isShow   显示与隐藏中间的tip view
-     */
     @Override
     public void showTip(int position, final String content, boolean isShow) {
         if (isShow) {
@@ -224,6 +187,41 @@ public class StudioSelectCityActivity extends BaseActivity implements RightIndex
                 }
                 break;
             }
+        }
+    }
+
+    @Override
+    public void onResponse(String result) {
+        try {
+            JSONObject object = new JSONObject(result);
+            JSONArray body = object.getJSONArray("body");
+            for (int i = 0; i < body.length(); i++) {
+                JSONObject o = body.getJSONObject(i);
+                Contact contact = new Contact();
+                contact.name = o.getString("city");
+                contact.pinYin = TinyPY.toPinYin(contact.name);
+                contact.firstPinYin = TinyPY.firstPinYin(contact.pinYin);
+                if (!TextUtils.isEmpty(contact.firstPinYin)) {
+                    set.add(contact.firstPinYin);
+                    mData.add(contact);
+                }
+            }
+            Collections.sort(mData);
+            //把排序后的字母顺序装进字母索引集合
+            Iterator<String> iterator = set.iterator();
+            while (iterator.hasNext()) {
+                firstList.add(iterator.next());
+            }
+            Collections.sort(firstList);
+            incognizanceList.clear();
+            set.clear();
+            //右侧字母表索引
+            rightContainer.setData(firstList);
+            //右侧字母索引容器注册touch回调
+            rightContainer.setOnRightTouchMoveListener(this);
+            adapter.notifyDataSetChanged();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 }

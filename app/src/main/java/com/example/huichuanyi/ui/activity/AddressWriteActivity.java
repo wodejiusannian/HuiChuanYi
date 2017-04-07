@@ -36,7 +36,7 @@ import widget.OnWheelChangedListener;
 import widget.WheelView;
 import widget.adapters.ArrayWheelAdapter;
 
-public class Write_AddressActivity extends BaseActivity implements View.OnClickListener, OnWheelChangedListener, UtilsInternet.XCallBack {
+public class AddressWriteActivity extends BaseActivity implements View.OnClickListener, OnWheelChangedListener, UtilsInternet.XCallBack {
     private Intent intent;
     private TextView mSave, mCity, mCancel, mSure;
     private EditText mName, mPhone, mAdd;

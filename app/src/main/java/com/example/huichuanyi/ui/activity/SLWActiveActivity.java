@@ -18,7 +18,7 @@ import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
-public class ShareActivity extends BaseActivity {
+public class SLWActiveActivity extends BaseActivity {
     private Map<String, Object> map = new HashMap<>();
 
     @Override
@@ -49,20 +49,20 @@ public class ShareActivity extends BaseActivity {
         oks.setCallback(new PlatformActionListener() {
             @Override
             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-                map.put("location", MySharedPreferences.getBuyCity(ShareActivity.this));
+                map.put("location", MySharedPreferences.getBuyCity(SLWActiveActivity.this));
                 map.put("order_365", "365");
                 Location.Location_type = 1;
-                ActivityUtils.switchTo(ShareActivity.this, LiJiYuYueActivity.class, map);
+                ActivityUtils.switchTo(SLWActiveActivity.this, LiJiYuYueActivity.class, map);
             }
 
             @Override
             public void onError(Platform platform, int i, Throwable throwable) {
-                Toast.makeText(ShareActivity.this, "分享出错", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SLWActiveActivity.this, "分享出错", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onCancel(Platform platform, int i) {
-                Toast.makeText(ShareActivity.this, "分享取消", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SLWActiveActivity.this, "分享取消", Toast.LENGTH_SHORT).show();
             }
         });
         oks.show(this);

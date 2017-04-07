@@ -81,24 +81,24 @@ public class Fragment_Default extends BaseFragment implements SwipeRefreshLayout
         String city = listBean.getCity();
         String service = listBean.getService();
         String studioLogo = listBean.getPhoto_get();
-        String price1 = listBean.getBase_price1();
-        String price2 = listBean.getBase_price2();
         String name = listBean.getName();
+       /* String price1 = listBean.getBase_price1();
+        String price2 = listBean.getBase_price2();
         String price_baseNum1 = listBean.getBase_num1();
         String price_baseNum2 = listBean.getBase_num2();
         String price_raiseNum = listBean.getRaise_num();
-        String price_raisePrice = listBean.getRaise_price();
+        String price_raisePrice = listBean.getRaise_price();*/
         if (TextUtils.equals("已开通", service)) {
             if (TextUtils.equals("select_order", Location.mOrder_365)) {
                 if (!TextUtils.isEmpty(mId) && !TextUtils.isEmpty(city)) {
-                    jumpMap.put("studioId", mId);
+                    /*jumpMap.put("studioId", mId);
                     jumpMap.put("city", city);
                     jumpMap.put("price1", price1);
                     jumpMap.put("price2", price2);
                     jumpMap.put("price_baseNum1", price_baseNum1);
                     jumpMap.put("price_baseNum2", price_baseNum2);
                     jumpMap.put("price_raiseNum", price_raiseNum);
-                    jumpMap.put("price_raisePrice", price_raisePrice);
+                    jumpMap.put("price_raisePrice", price_raisePrice);*/
                     ActivityUtils.switchTo(getActivity(), ManageActivity.class, jumpMap);
                     //getActivity().finish();
                 }

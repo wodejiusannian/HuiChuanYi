@@ -13,7 +13,7 @@ import com.example.huichuanyi.base.BaseFragment;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.utils.ItemDecoration;
 import com.example.huichuanyi.bean.MyClothess;
-import com.example.huichuanyi.ui.activity.PicActivity;
+import com.example.huichuanyi.ui.activity.WDYCPicActivity;
 import com.example.huichuanyi.utils.MyJson;
 import com.example.huichuanyi.utils.User;
 import com.example.huichuanyi.utils.UtilsInternet;
@@ -79,7 +79,7 @@ public class Fragment_changhe extends BaseFragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         int position = (int) v.getTag();
-        Intent intent = new Intent(getActivity(), PicActivity.class);
+        Intent intent = new Intent(getActivity(), WDYCPicActivity.class);
         intent.putExtra("mList", (Serializable) mData);
         intent.putExtra("position",position);
         intent.putExtra("yichuzhonglei","11");

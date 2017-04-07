@@ -11,7 +11,7 @@ import com.example.huichuanyi.utils.ActivityUtils;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WoDeYiChuActivity extends BaseActivity implements View.OnClickListener {
+public class HomeWoDeYiChuActivity extends BaseActivity implements View.OnClickListener {
     private ImageView mImageViewBack, JiaTingYiChu, ChuXingYiChu, JiuYiHuiShou, QiTaYiChu;
 
     @Override

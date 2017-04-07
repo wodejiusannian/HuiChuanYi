@@ -19,7 +19,6 @@ import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.utils.ItemDecoration;
 import com.example.huichuanyi.bean.MyClothess;
-import com.example.huichuanyi.ui.activity.PicActivity;
 import com.example.huichuanyi.utils.MyJson;
 import com.example.huichuanyi.utils.User;
 import com.google.gson.Gson;
@@ -132,7 +131,7 @@ public class MC_TripAndElseActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.iv_item_recycler_3:
                 int position = (int) v.getTag();
-                Intent intent = new Intent(this, PicActivity.class);
+                Intent intent = new Intent(this, WDYCPicActivity.class);
                 intent.putExtra("mList", (Serializable) mData);
                 intent.putExtra("position", position);
                 startActivity(intent);

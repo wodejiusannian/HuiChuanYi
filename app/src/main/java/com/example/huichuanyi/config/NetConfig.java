@@ -162,6 +162,7 @@ public interface NetConfig {
     String CONFIRM_RECEIPT_365 = BASE_URL_NEW + "a_04/xg_dd.do";
     //
     String SHOP_DETAILS = BASE_URL_NEW + "a_02/hq_yjxq.do?rec_id=%s";
-
+    //获取全部的已加入城市
+    String ALL_STUDIO_CITY = "http://192.168.1.176:8081/HM/app/c/stu/info/getAllStuCity.do";
 }
 

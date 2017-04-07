@@ -33,6 +33,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setData();
         setListener();
     }
+    public abstract void setListener();
 
     public abstract void initView();
 
@@ -40,7 +41,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public abstract void setData();
 
-    public abstract void setListener();
 
     public void onResume() {
         super.onResume();

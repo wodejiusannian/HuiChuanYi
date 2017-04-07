@@ -44,7 +44,7 @@
             android:id="@+id/tb_order_mTitle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:tabBackground="@drawable/tab_background"
+            app:tabBackground="@drawable/shape_tab_background"
             app:tabIndicatorHeight="0dp"
             app:tabSelectedTextColor="@color/main_color_write">
 
