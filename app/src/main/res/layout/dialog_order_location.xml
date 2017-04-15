@@ -10,8 +10,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="@dimen/distance"
-        android:textColor="#333333"
         android:text="请输入地址"
+        android:textColor="#333333"
         android:textSize="@dimen/text_size_big" />
 
     <TextView
@@ -25,7 +25,8 @@
         android:layout_height="40dp"
         android:layout_margin="@dimen/distance"
         android:background="@drawable/edittext_background"
-        android:hint="请输入您所在的城市"
+        android:gravity="center"
+        android:hint="请输入优惠码"
         android:paddingLeft="@dimen/distance_5"
         android:textColor="#666666" />
 

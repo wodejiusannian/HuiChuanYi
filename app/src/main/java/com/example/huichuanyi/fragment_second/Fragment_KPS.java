@@ -1,5 +1,9 @@
 package com.example.huichuanyi.fragment_second;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
@@ -7,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.PersonAdapter;
@@ -67,6 +72,10 @@ public class Fragment_KPS extends BaseFragment implements SwipeRefreshLayout.OnR
         super.initEvent();
         mRefresh.setOnRefreshListener(this);
         mShow.setOnItemClickListener(this);
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("refreshstudio");
+        getActivity().registerReceiver(mRefreshBroadcastReceiver, intentFilter);
     }
 
 
@@ -139,9 +148,28 @@ public class Fragment_KPS extends BaseFragment implements SwipeRefreshLayout.OnR
                 setPositiveButton("确定", null).create().show();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Toast.makeText(getContext(), "1111", Toast.LENGTH_SHORT).show();
+    }
+
+
+
     //加载数据
     public void loadMore() {
         UtilsInternet.getInstance().post(NetConfig.GET_STUDIO_LIST, valueMap, this);
     }
+
+    private BroadcastReceiver mRefreshBroadcastReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals("refreshstudio")) {
+                Toast.makeText(context, "更新studio1", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
 }
 

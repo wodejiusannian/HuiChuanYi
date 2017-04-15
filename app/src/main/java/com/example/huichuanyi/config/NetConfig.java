@@ -1,12 +1,41 @@
 package com.example.huichuanyi.config;
 
 public interface NetConfig {
-    /*http://hmyc365.net*/
+
+    /*--------------------------------------------基地址-------------------------------------*/
+
     String BASE_URL = "http://hmyc365.net:8080/HuiMei/";
     String BASE_URL_NEW = "http://hmyc365.net:8081/HM/app/";
-    String BASE_BENDI = "http://192.168.0.102:8080/HuiMei/";
-    //获取Bannner轮播图
-    String BANNER_URL = BASE_URL + "picture!getPictures.action";
+    String BASE_LOCAL = "http://192.168.1.183:8081/HM/app/";
+
+    /*--------------------------------------验证码的接口-------------------------------------*/
+
+    String SMS_SEND_URL = BASE_URL_NEW + "g/sms/ope/sendSmsCode.do";
+    String SMS_VERIFY_URL = BASE_URL_NEW + "g/sms/ope/verifySmsCode.do";
+
+    /*---------------------------------------首页的接口-------------------------------------*/
+
+    /*
+    * Banner接口
+    * */
+    String BANNER_URL = BASE_URL_NEW + "a/hm/sys/banner.do";
+
+    /*
+    * 统计的接口H5加载
+    * */
+    String HOME_STAT_URL = "http://hmyc365.net:8081/file/hm/html/count/statistical.html?user_id=";
+
+    /*---------------------------------------预约的接口-------------------------------------*/
+
+    /*
+    * 上门服务支付接口
+    * */
+
+    String GO_DOOR_PAY = BASE_URL_NEW + "h/service/pay/getServicePayInfo.do";
+
+    /*---------------------------------------其他接口-------------------------------------*/
+
+
     //手机号注册的链接
     String SEND_PASSWORD = BASE_URL + "user!addUser.action";
     //手机号和第三方登陆的链接
@@ -63,8 +92,6 @@ public interface NetConfig {
     String THOROUGH_DELETE_CLOTHES = BASE_URL + "appClothesOpe!deleteClothes.action";
     //一键还原的功能
     String RESTORE_ALL = BASE_URL + "appClothesOpe!moveClothesC.action";
-    //获取视频的接口
-    String GET_SHIPIN = BASE_URL + "appVideos!getVideos.action";
     //视频购买的接口
     String PAY_VIDEO = BASE_URL + "appVideos!getNoPayVideos.action";
     //视频支付的接口
@@ -163,6 +190,27 @@ public interface NetConfig {
     //
     String SHOP_DETAILS = BASE_URL_NEW + "a_02/hq_yjxq.do?rec_id=%s";
     //获取全部的已加入城市
-    String ALL_STUDIO_CITY = "http://192.168.1.176:8081/HM/app/c/stu/info/getAllStuCity.do";
+    String ALL_STUDIO_CITY = BASE_URL_NEW + "c/stu/info/getAllStuCity.do";
+
+    //获取视频封面
+    String GET_SHIPIN_FENGMIAN = BASE_URL_NEW + "e/video/info/getVideosCover.do";
+
+
+    //获取视频的接口
+    String GET_SHIPIN_LIST = BASE_URL_NEW + "e/video/info/getVideosListA.do";
+
+    //获取视频列表--优惠码(输入优惠码之后跳转到视频对应界面)
+    String GET_YOUHUIQUAN = BASE_URL_NEW + "e/video/info/getVideosListC.do";
+
+    /*
+    * 是否有活动
+    * */
+    String IS_HAVE_ACTIVITY = BASE_URL_NEW + "a/hm/sys/activity.do";
+    /*
+    * 获取视频的订单号
+    * */
+    String GET_SHIPIN_ORDER_ID = BASE_URL_NEW + "e/video/ord/addVideoOrd.do";
+
+    String PAY_SHIPIN = BASE_URL_NEW + "e/video/pay/getVideoPayInfo.do";
 }
 

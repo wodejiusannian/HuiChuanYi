@@ -1,5 +1,6 @@
 package com.example.huichuanyi.ui.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -63,6 +64,7 @@ public class ManageActivity extends BaseActivity implements UtilsInternet.XCallB
 
     private CommentAdapter mAdapter;
 
+    public static Activity instanceManage;
 
     private Handler mHandler = new Handler() {
         @Override
@@ -93,7 +95,7 @@ public class ManageActivity extends BaseActivity implements UtilsInternet.XCallB
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage);
-
+        instanceManage = this;
     }
 
     @Override

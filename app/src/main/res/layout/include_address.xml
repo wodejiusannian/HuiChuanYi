@@ -3,7 +3,7 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rl_address"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="wrap_content"
     android:layout_margin="@dimen/distance_10"
     android:background="@mipmap/hmappointmentinfo_adressback_image"
     android:orientation="vertical"

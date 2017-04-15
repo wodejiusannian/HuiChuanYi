@@ -1,6 +1,9 @@
 package com.example.huichuanyi.ui.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
@@ -9,6 +12,7 @@ import android.widget.ListView;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.PersonAdapter;
+import com.example.huichuanyi.baidumap.Location;
 import com.example.huichuanyi.bean.City;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MySelfDialog;
@@ -53,9 +57,9 @@ public class LiJiYuYueDefaultFragment extends BaseFragment implements UtilsInter
         if (value == null)
             value = new HashMap<>();
 
-        value.put("city", "北京");
-        value.put("type", "0");
-        net.post(NetConfig.GET_STUDIO_LIST, value, this);
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("refreshstudio");
+        getActivity().registerReceiver(mRefreshBroadcastReceiver, intentFilter);
     }
 
     @Override
@@ -63,7 +67,16 @@ public class LiJiYuYueDefaultFragment extends BaseFragment implements UtilsInter
         super.initData();
         adapter = new PersonAdapter(getContext(), mData, R.layout.order_person);
         studios.setAdapter(adapter);
+        loadData();
     }
+
+    private void loadData() {
+        value.put("city", Location.mAddress);
+        value.put("type", "0");
+        net.post(NetConfig.GET_STUDIO_LIST, value, this);
+    }
+
+    ;
 
     @Override
     protected void initEvent() {
@@ -94,7 +107,6 @@ public class LiJiYuYueDefaultFragment extends BaseFragment implements UtilsInter
         }
     }
 
-
     @Override
     public void onResponse(String result) {
         String s = MyJson.getRet(result);
@@ -103,14 +115,28 @@ public class LiJiYuYueDefaultFragment extends BaseFragment implements UtilsInter
             Gson gson = new Gson();
             City city = gson.fromJson(result, City.class);
             mData.addAll(city.getBody());
+            adapter.notifyDataSetChanged();
         }
-        adapter.notifyDataSetChanged();
     }
+
 
     @Override
     public void onRefresh() {
+        loadData();
         refreshLayout.setRefreshing(false);
     }
+
+
+    private BroadcastReceiver mRefreshBroadcastReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals("refreshstudio")) {
+                loadData();
+            }
+        }
+    };
 
     /*
    * 没有开通的工作室提示
@@ -122,5 +148,11 @@ public class LiJiYuYueDefaultFragment extends BaseFragment implements UtilsInter
         mySelfDialog.setOnYesListener("确定", null);
         mySelfDialog.setOnNoListener("取消", null);
         mySelfDialog.show();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unregisterReceiver(mRefreshBroadcastReceiver);
     }
 }

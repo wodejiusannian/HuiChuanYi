@@ -14,14 +14,13 @@ import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.DateTimePickDialogUtil;
 import com.example.huichuanyi.custom.EditDialog;
 import com.example.huichuanyi.secondui.AtMyAcitivty;
-import com.example.huichuanyi.ui.activity.DaPeiRiJiActivity;
+import com.example.huichuanyi.ui.activity.HomeDaPeiRiJiActivity;
 import com.example.huichuanyi.ui.activity.LiJiYuYueActivity;
-import com.example.huichuanyi.ui.activity.MyOrderActivity;
 import com.example.huichuanyi.ui.activity.MineRegisterActivity;
+import com.example.huichuanyi.ui.activity.MyOrderActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.MySharedPreferences;
-import com.google.gson.Gson;
 import com.jude.rollviewpager.OnItemClickListener;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
@@ -43,9 +42,10 @@ import butterknife.OnClick;
 
 public class Fragment_Order extends BaseFragment implements View.OnClickListener, OnItemClickListener, EditDialog.EditYes {
     private RollPagerView mRollPagerView;
-    private List<Banner.ListBean> mImages;
+    private List<Banner> mImages;
     private HomeAdapter mPageAdapter;
     private static final int JUMP_TIME = 4000;
+
     @BindViews({R.id.btn_fragment_first_location, R.id.btn_fragment_first_time})
     public Button[] buttons;
 
@@ -92,10 +92,10 @@ public class Fragment_Order extends BaseFragment implements View.OnClickListener
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Gson gson = new Gson();
+               /* Gson gson = new Gson();
                 Banner banner = gson.fromJson(result, Banner.class);
                 mImages.addAll(banner.getList());
-                mPageAdapter.notifyDataSetChanged();
+                mPageAdapter.notifyDataSetChanged();*/
             }
 
             @Override
@@ -176,7 +176,7 @@ public class Fragment_Order extends BaseFragment implements View.OnClickListener
                 ActivityUtils.switchTo(getActivity(), MyOrderActivity.class);
                 break;
             case 2:
-                ActivityUtils.switchTo(getActivity(), DaPeiRiJiActivity.class);
+                ActivityUtils.switchTo(getActivity(), HomeDaPeiRiJiActivity.class);
                 break;
             default:
                 break;

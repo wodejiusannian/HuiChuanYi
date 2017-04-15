@@ -1,132 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context="com.example.huichuanyi.bean.PayVideoActivity">
+    android:orientation="vertical"
+    tools:context="com.example.huichuanyi.ui.activity.VideoPayActivity">
+
     <RelativeLayout
-        android:background="@color/top_color"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="40dp"
+        android:background="@color/top_color">
+
         <include layout="@layout/btn_back"></include>
+
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="购买视频"
             android:textColor="#fff"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_centerInParent="true"
-            android:textSize="@dimen/text_size_big"
-            />
+            android:textSize="@dimen/text_size_big" />
     </RelativeLayout>
+
     <ImageView
-        android:src="@mipmap/four20"
-        android:scaleType="fitXY"
         android:layout_width="match_parent"
-        android:layout_height="180dp"/>
+        android:layout_height="180dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/four20" />
+
     <LinearLayout
         android:id="@+id/test_ll"
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/distance"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/distance"
         android:layout_marginRight="@dimen/distance"
-        android:layout_height="wrap_content">
+        android:layout_marginTop="@dimen/distance"
+        android:orientation="vertical">
+
         <TextView
-            android:padding="@dimen/distance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="@drawable/background2"
-            android:text="选择购买"
             android:gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <RelativeLayout
-            android:background="@drawable/background"
             android:padding="@dimen/distance"
+            android:text="选择购买" />
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <com.example.huichuanyi.custom.RoundImageView
+            android:layout_height="wrap_content"
+            android:background="@drawable/background"
+            android:padding="@dimen/distance">
+
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/rv_pay_video_photo"
                 android:layout_width="45dp"
-                android:src="@mipmap/stand"
-                android:scaleType="fitXY"
-                android:layout_height="46dp"/>
+                android:layout_height="46dp" />
+
             <CheckBox
-                android:checked="true"
-                android:clickable="false"
                 android:id="@+id/cb_pay_order_isSelect"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:checked="true"
+                android:clickable="false" />
+
             <TextView
+                android:id="@+id/tv_item_select_speech"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/distance"
                 android:layout_toRightOf="@+id/rv_pay_video_photo"
-                android:id="@+id/tv_item_select_speech"
-                android:layout_centerVertical="true"
-                android:text="于老师的演讲"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:lines="1" />
         </RelativeLayout>
+
         <RelativeLayout
-            android:layout_marginTop="@dimen/distance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_above="@+id/rl_payvideo_shop"
             android:layout_marginBottom="@dimen/distance"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_marginTop="@dimen/distance"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/tv_pay_video_qita"
-                android:padding="@dimen/distance"
-                android:background="@drawable/background2"
-                android:text="购买其他"
-                android:gravity="center_vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <ListView
-                android:layout_below="@+id/tv_pay_video_qita"
-                android:layout_above="@+id/rl_payvideo_shop"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background2"
+                android:gravity="center_vertical"
                 android:padding="@dimen/distance"
-                android:background="@drawable/background"
-                android:id="@+id/ll_payvideo_shop"
+                android:text="购买其他" />
+
+            <ListView
+                android:id="@+id/lv_video_pay"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                >
-            </ListView>
+                android:layout_above="@+id/rl_payvideo_shop"
+                android:layout_below="@+id/tv_pay_video_qita"
+                android:background="@drawable/background"
+                android:padding="@dimen/distance"></ListView>
+
             <RelativeLayout
-                android:layout_marginTop="@dimen/distance"
                 android:id="@+id/rl_payvideo_shop"
-                android:layout_alignParentBottom="true"
-                android:background="@drawable/background2"
                 android:layout_width="match_parent"
-                android:layout_height="40dp">
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="@dimen/distance"
+                android:background="@drawable/background2">
+
                 <TextView
-                    android:paddingLeft="@dimen/distance"
                     android:id="@+id/tv_text"
-                    android:text="总计：￥"
-                    android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="@dimen/distance"
+                    android:text="总计：¥" />
+
                 <TextView
-                    android:id="@+id/tv_payvideo_count"
-                    android:textColor="#000"
-                    android:layout_toRightOf="@+id/tv_text"
+                    android:id="@+id/tv_video_pay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
-                    android:textSize="@dimen/text_size_middle"
-                    android:text="0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_toRightOf="@+id/tv_text"
+                    android:textColor="#000"
+                    android:textSize="@dimen/text_size_middle" />
+
                 <Button
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:textColor="@color/write"
-                    android:id="@+id/bt_payvideo_pay"
-                    android:text="确认付款"
-                    android:background="@drawable/background3"
+                    android:id="@+id/btn_pay"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/background3"
+                    android:text="提交订单"
+                    android:textColor="@color/write" />
             </RelativeLayout>
         </RelativeLayout>
     </LinearLayout>

@@ -1,68 +1,35 @@
 package com.example.huichuanyi.bean;
 
-import java.util.List;
-
 public class Banner {
 
 
+    private String web_url;
+    private String type;
+    private String pic_url;
 
-    private int retcode;
-
-
-    private List<ListBean> list;
-
-    public int getRetcode() {
-        return retcode;
+    public String getWeb_url() {
+        return web_url;
     }
 
-    public void setRetcode(int retcode) {
-        this.retcode = retcode;
+    public void setWeb_url(String web_url) {
+        this.web_url = web_url;
     }
 
-    public List<ListBean> getList() {
-        return list;
+    public String getType() {
+        return type;
     }
 
-    public void setList(List<ListBean> list) {
-        this.list = list;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public static class ListBean {
-        private String explain;
-        private String linkaddress;
-        private String photopath;
-        private String type;
-
-        public String getExplain() {
-            return explain;
-        }
-
-        public void setExplain(String explain) {
-            this.explain = explain;
-        }
-
-        public String getLinkaddress() {
-            return linkaddress;
-        }
-
-        public void setLinkaddress(String linkaddress) {
-            this.linkaddress = linkaddress;
-        }
-
-        public String getPhotopath() {
-            return photopath;
-        }
-
-        public void setPhotopath(String photopath) {
-            this.photopath = photopath;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public void setType(String type) {
-            this.type = type;
-        }
+    public String getPic_url() {
+        return pic_url;
     }
+
+    public void setPic_url(String pic_url) {
+        this.pic_url = pic_url;
+    }
+
+
 }

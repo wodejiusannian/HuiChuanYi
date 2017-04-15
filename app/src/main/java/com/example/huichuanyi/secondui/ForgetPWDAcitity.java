@@ -1,8 +1,8 @@
 package com.example.huichuanyi.secondui;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;

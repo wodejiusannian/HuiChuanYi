@@ -56,5 +56,4 @@
             android:textColor="@color/main_color_write"
             android:visibility="gone" />
     </RelativeLayout>
-
 </LinearLayout>

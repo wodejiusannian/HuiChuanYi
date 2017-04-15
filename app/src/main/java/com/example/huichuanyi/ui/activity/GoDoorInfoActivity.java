@@ -7,7 +7,6 @@ import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,6 +15,7 @@ import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.bean.City;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.DateTimePickDialogUtil;
+import com.example.huichuanyi.secondui.PayOrderActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.ReminderUtils;
@@ -33,6 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 
 public class GoDoorInfoActivity extends BaseActivity implements UtilsInternet.XCallBack {
     private static final String TAG = GoDoorInfoActivity.class.getSimpleName();
@@ -67,7 +68,7 @@ public class GoDoorInfoActivity extends BaseActivity implements UtilsInternet.XC
     @ViewInject(R.id.tv_godoor_time)
     private TextView tvTime;
 
-    private String userID, address_id, managerid, manager_name, manager_number, city;
+    private String userID, address_id, managerid, manager_name, manager_number, city, manager_photo;
     private UtilsInternet net = UtilsInternet.getInstance();
     private Map<String, String> map = new HashMap<>();
 
@@ -100,6 +101,7 @@ public class GoDoorInfoActivity extends BaseActivity implements UtilsInternet.XC
         managerid = bodyBean.getId();
         manager_name = bodyBean.getName();
         manager_number = bodyBean.getPhone();
+        manager_photo = bodyBean.getPhoto_get();
         city = bodyBean.getCity();
         studioLogo.setImageURI(bodyBean.getPhoto_get());
         studioName.setText(bodyBean.getName());
@@ -160,22 +162,24 @@ public class GoDoorInfoActivity extends BaseActivity implements UtilsInternet.XC
         String userCity = tvAdd.getText().toString().trim();
         String userPhone = tvPhone.getText().toString().trim();
         String money = tvMoney.getText().toString().trim();
-        if (!CommonUtils.isEmpty(address_id) && !CommonUtils.isEmpty(time) && !CommonUtils.isEmpty(count)) {
+        if (!CommonUtils.isEmpty(address_id) && !TextUtils.equals("选择时间", time) && !CommonUtils.isEmpty(count)) {
+            showLoading();
             flag = 1;
             map.put("manager_id", managerid);
-            map.put("user_code", userID);
             map.put("user_name", user_name);
-            map.put("service_mode", "上门服务");
             map.put("manager_name", manager_name);
             map.put("manager_number", manager_number);
             map.put("city", city);
-            map.put("selector_address", userCity);
             map.put("contact_number", userPhone);
+            map.put("service_mode", "上门服务");
             map.put("number", count);
             map.put("money", money);
-            map.put("ordername", user_name);
             map.put("ordertime", time);
+            map.put("ordername", user_name);
             map.put("remarks", "");
+            map.put("user_code", userID);
+            map.put("manager_photo", manager_photo);
+            map.put("address", userCity);
             net.post(NetConfig.UPLOADING_COM_DETAILS, map, this);
         } else {
             ReminderUtils.Toast(this, "请完整填写信息");
@@ -296,7 +300,24 @@ public class GoDoorInfoActivity extends BaseActivity implements UtilsInternet.XC
             * case == 1时处理提交支付的数据
             * */
             case 1:
-                Log.e(TAG, "onResponse: " + result);
+                dismissLoading();
+                if (LiJiYuYueActivity.instanceLiji != null) {
+                    LiJiYuYueActivity.instanceLiji.finish();
+                    LiJiYuYueActivity.instanceLiji = null;
+                }
+                if (ManageActivity.instanceManage != null) {
+                    ManageActivity.instanceManage.finish();
+                    ManageActivity.instanceManage = null;
+                }
+                Map<String, Object> jumpMap = new HashMap<>();
+                jumpMap.put("managerPhoto", manager_photo);
+                jumpMap.put("managerName", manager_name);
+                jumpMap.put("nowMoney", tvMoney.getText().toString().trim());
+                jumpMap.put("orderid", result);
+                jumpMap.put("type", "1");
+                jumpMap.put("num", "1");
+                ActivityUtils.switchTo(this, PayOrderActivity.class, jumpMap);
+                finish();
             default:
                 break;
         }

@@ -1,7 +1,6 @@
 package com.example.huichuanyi.ui.fragment;
 
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.huichuanyi.R;
@@ -17,10 +16,9 @@ import org.xutils.view.annotation.ViewInject;
  */
 @ContentView(R.layout.fragment_order_copy)
 public class OrderFragment extends BaseFragment {
+
     @ViewInject(R.id.tv_order_sure)
     private TextView orderSure;
-    @ViewInject(R.id.iv)
-    private ImageView iv;
 
     @Override
     protected void initEvent() {

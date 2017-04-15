@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,7 +10,9 @@
         android:id="@+id/rl_main_show"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/rg_main_navigation"></RelativeLayout>
+        android:layout_above="@+id/rg_main_navigation">
+
+    </RelativeLayout>
 
     <TextView
         android:layout_width="match_parent"
@@ -21,10 +24,10 @@
         android:id="@+id/rg_main_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background"
-        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:background="@drawable/background"
+        android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/rb_main_home"
@@ -35,7 +38,7 @@
             android:checked="true"
             android:drawableTop="@drawable/selector_home"
             android:gravity="center"
-            android:padding="7dp"
+            android:padding="3dp"
             android:text="@string/main_title_home"
             android:textColor="@drawable/selector_ac_88" />
 
@@ -47,7 +50,7 @@
             android:button="@null"
             android:drawableTop="@drawable/selector_order"
             android:gravity="center"
-            android:padding="7dp"
+            android:padding="3dp"
             android:text="@string/main_title_order"
             android:textColor="@drawable/selector_ac_88" />
 
@@ -59,7 +62,7 @@
             android:button="@null"
             android:drawableTop="@drawable/selector_365"
             android:gravity="center"
-            android:padding="7dp"
+            android:padding="3dp"
             android:text="@string/main_title_365"
             android:textColor="@drawable/selector_ac_88" />
 
@@ -71,8 +74,38 @@
             android:button="@null"
             android:drawableTop="@drawable/selector_my"
             android:gravity="center"
-            android:padding="7dp"
+            android:padding="3dp"
             android:text="@string/main_title_me"
             android:textColor="@drawable/selector_ac_88" />
     </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/rl_masking"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="#78000000"
+        android:clickable="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sv_main_show_active"
+            android:layout_width="match_parent"
+            android:layout_height="360dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            fresco:actualImageScaleType="fitXY"
+            fresco:placeholderImage="@mipmap/hm_mask_active"
+            fresco:placeholderImageScaleType="fitXY" />
+
+        <ImageView
+            android:id="@+id/iv_main_mask_delete"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="30dp"
+            android:src="@mipmap/hm_mask_delete" />
+    </LinearLayout>
+
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package com.example.huichuanyi.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +16,6 @@ import com.example.huichuanyi.custom.seekbar.Contact;
 import com.example.huichuanyi.custom.seekbar.ContactAdapter;
 import com.example.huichuanyi.custom.seekbar.RecyclerViewDivider;
 import com.example.huichuanyi.custom.seekbar.RightIndexView;
-import com.example.huichuanyi.custom.seekbar.T;
 import com.example.huichuanyi.custom.seekbar.TinyPY;
 import com.example.huichuanyi.utils.UtilsInternet;
 
@@ -56,27 +56,6 @@ public class LiJiYuYueStudioSelectCityActivity extends BaseActivity implements R
     @Override
     public void initData() {
         net.post(NetConfig.ALL_STUDIO_CITY, null, this);
-        /*int size = Data.data.length;
-        //装载非字母数据的结合
-        for (int i = 0; i < size; i++) {
-            Contact contact = new Contact();
-            contact.name = Data.data[i];
-            contact.pinYin = TinyPY.toPinYin(contact.name);
-            contact.firstPinYin = TinyPY.firstPinYin(contact.pinYin);
-            if (!TextUtils.isEmpty(contact.firstPinYin)) {
-                set.add(contact.firstPinYin);
-                mData.add(contact);
-            }
-        }
-        Collections.sort(mData);
-        //把排序后的字母顺序装进字母索引集合
-        Iterator<String> iterator = set.iterator();
-        while (iterator.hasNext()) {
-            firstList.add(iterator.next());
-        }
-        Collections.sort(firstList);
-        incognizanceList.clear();
-        set.clear();*/
     }
 
     @Override
@@ -92,7 +71,10 @@ public class LiJiYuYueStudioSelectCityActivity extends BaseActivity implements R
         adapter.setOnItemClickListener(new ContactAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, Contact contact) {
-                T.show(LiJiYuYueStudioSelectCityActivity.this, contact.name);
+                Intent intent = new Intent();
+                intent.putExtra("address", contact.name);
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
 
@@ -223,5 +205,9 @@ public class LiJiYuYueStudioSelectCityActivity extends BaseActivity implements R
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public void back(View view) {
+        finish();
     }
 }

@@ -21,34 +21,30 @@
         android:layout_marginLeft="@dimen/distance"
         android:layout_toEndOf="@+id/sv_clothe_item_info_record">
 
-        <!--  <TextView
-              android:id="@+id/tv_clothe_item_info_record_name"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginLeft="@dimen/distance"
-              android:layout_toRightOf="@+id/tv_clothe_item_info_record_style"
-              android:text="名字" />
-  -->
         <TextView
             android:id="@+id/tv_clothe_item_info_record_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true" />
+            android:layout_alignBaseline="@+id/tv_clothe_item_info_record_color"
+            android:layout_alignBottom="@+id/tv_clothe_item_info_record_color"
+            android:layout_alignParentStart="true"
+            android:text="名字" />
 
         <TextView
             android:id="@+id/tv_clothe_item_info_record_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/distance_20"
+            android:layout_marginLeft="70dp"
             android:layout_toRightOf="@+id/tv_clothe_item_info_record_price"
-            />
+            android:text="定制款" />
 
         <TextView
             android:id="@+id/tv_clothe_item_info_record_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:text="价格"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size_16" />
 
@@ -57,9 +53,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="@dimen/distance_20"
+            android:layout_marginLeft="70dp"
             android:layout_toRightOf="@+id/tv_clothe_item_info_record_price"
-            android:text="x1" />
+            android:text="数量:  " />
+
+        <EditText
+            android:id="@+id/et_clothe_item_info_count"
+            android:layout_width="40dp"
+            android:layout_height="17dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/tv_clothe_item_info_record_count"
+            android:background="@drawable/background2"
+            android:digits="0123456789"
+            android:hint="1"
+            android:textColor="@color/color_ac0000"
+            android:textColorHint="@color/color_ac0000"
+            android:textSize="11sp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_clothe_item_info_record_style"
@@ -67,6 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:text="颜色"
             android:textSize="@dimen/text_size_16" />
     </RelativeLayout>
 </RelativeLayout>

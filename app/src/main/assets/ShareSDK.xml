@@ -3,17 +3,18 @@
 
     <ShareSDK 
         AppKey = "131a6d7917f6b"/>
-    
-    <SinaWeibo
-        Id="1"
-        SortId="1"
-        AppKey="568898243"
-        AppSecret="38a4f8204cc784f81f9f0daaf31e02e3"
-        RedirectUrl="http://www.sharesdk.cn"
-        ShareByAppClient="true"
-        Enable="true" />
 
-    <QZone
+	<SinaWeibo
+		Id="1"
+		SortId="1"
+		AppKey="568898243"
+		AppSecret="38a4f8204cc784f81f9f0daaf31e02e3"
+		RedirectUrl="http://www.sharesdk.cn"
+		ShareByAppClient="false"
+		Enable="true" />
+
+
+	<QZone
         Id="3"
         SortId="18"
         AppId="1105837176"

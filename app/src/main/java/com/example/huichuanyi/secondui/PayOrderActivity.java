@@ -28,6 +28,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.view.annotation.ViewInject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,6 +45,8 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
     private UtilsInternet instance = UtilsInternet.getInstance();
     private UtilsPay mPay;
     private String user_id;
+    @ViewInject(R.id.tv_num)
+    private TextView mNum;
     public static PayOrderActivity payOrderActivity;
 
     @Override
@@ -77,6 +80,8 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
         nowMoney = intent.getStringExtra("nowMoney");
         order_id = intent.getStringExtra("orderid");
         type = intent.getStringExtra("type");
+        String num = intent.getStringExtra("num");
+        mNum.setText(num);
         CommonStatic.wechatType = type;
         mPay = new UtilsPay(this);
     }
@@ -117,10 +122,10 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
                 AliPayOrWeChat = 2;
                 break;
             case R.id.bt_payorder_pay:
-                if (TextUtils.equals("1", type) && AliPayOrWeChat == 2) {
+                /*if (TextUtils.equals("1", type) && AliPayOrWeChat == 2) {
                     CommonUtils.Toast(this, "正在开发中，敬请期待");
                     return;
-                }
+                }*/
                 postData();
                 break;
         }
@@ -128,17 +133,24 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
 
     private void postData() {
         Map<String, String> map = new HashMap<>();
+        if ("1".equals(type)) {
+            map.put("service_order_id", order_id);
+            map.put("pay_type", AliPayOrWeChat + "");
+            instance.post(NetConfig.GO_DOOR_PAY, map, this);
+            return;
+        }
         switch (AliPayOrWeChat) {
             case 1:
-                if (TextUtils.equals("1", type)) {
+               /* if (TextUtils.equals("1", type)) {
                     map.put("orderid", order_id);
+                    map.put("service_order_id",order_id);
                     map.put("type", type);
                     map.put("money", nowMoney);
                     map.put("manager_name", managerName);
                     map.put("remarks", "");
                     instance.post(NetConfig.ALI_PAY_OLD, map, this);
                     return;
-                }
+                }*/
                 map.put("order_id", order_id);
                 map.put("type", type);
                 map.put("user_id", user_id);
@@ -160,10 +172,10 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
     public void onResponse(String result) {
         switch (AliPayOrWeChat) {
             case 1:
-                if (TextUtils.equals("1", type)) {
+                /*if (TextUtils.equals("1", type)) {
                     mPay.aliPay(result);
                     return;
-                }
+                }*/
                 try {
                     JSONObject object = new JSONObject(result);
                     JSONObject body = object.getJSONObject("body");

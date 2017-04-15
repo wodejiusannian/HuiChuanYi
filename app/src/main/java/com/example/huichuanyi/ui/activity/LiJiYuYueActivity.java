@@ -1,5 +1,6 @@
 package com.example.huichuanyi.ui.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,11 +17,9 @@ import com.example.huichuanyi.adapter.ClosetAdapter;
 import com.example.huichuanyi.baidumap.GetCity;
 import com.example.huichuanyi.baidumap.Location;
 import com.example.huichuanyi.base.BaseActivity;
-import com.example.huichuanyi.custom.EditDialog;
-import com.example.huichuanyi.fragment_second.Fragment_KPS;
-import com.example.huichuanyi.fragment_second.Fragment_Sales;
 import com.example.huichuanyi.ui.fragment.LiJiYuYueDefaultFragment;
-import com.example.huichuanyi.utils.ActivityUtils;
+import com.example.huichuanyi.ui.fragment.LiJiYuYueKPSFragment;
+import com.example.huichuanyi.ui.fragment.LiJiYuYueMailsFragment;
 import com.example.huichuanyi.utils.CommonUtils;
 
 import org.xutils.view.annotation.Event;
@@ -29,7 +28,9 @@ import org.xutils.view.annotation.ViewInject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LiJiYuYueActivity extends BaseActivity implements EditDialog.EditYes {
+public class LiJiYuYueActivity extends BaseActivity {
+
+
     private List<String> mTitles = new ArrayList<>();
     private List<Fragment> mData = new ArrayList<>();
 
@@ -41,34 +42,30 @@ public class LiJiYuYueActivity extends BaseActivity implements EditDialog.EditYe
     private TabLayout mTabLayout;
     @ViewInject(R.id.vp_order_mPager)
     private ViewPager mViewPager;
-
-    private OnRefreshAddress mOnRefreshAddress;
     private ClosetAdapter mAdapter;
+
     private GetCity mGetCity;
+
+    public static Activity instanceLiji;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             Bundle data = msg.getData();
-            String location = data.getString("location");
-            address.setText(location);
-           // mOnRefreshAddress.reFreshAddress(location);
-            if (!CommonUtils.isEmpty(location)) {
+            Location.mAddress = data.getString("location");
+            if (!CommonUtils.isEmpty(Location.mAddress)) {
+                address.setText(Location.mAddress);
+                sendBroad();
                 mGetCity.stopLocation();
             }
         }
     };
 
-    public void setRefreshAddress(OnRefreshAddress onRefreshAddress) {
-        mOnRefreshAddress = onRefreshAddress;
-    }
-
-    ;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
+        instanceLiji = this;
     }
 
     @Override
@@ -78,7 +75,7 @@ public class LiJiYuYueActivity extends BaseActivity implements EditDialog.EditYe
 
     @Override
     public void initView() {
-        // String city = MySharedPreferences.getCity(this);
+
     }
 
     @Override
@@ -93,11 +90,6 @@ public class LiJiYuYueActivity extends BaseActivity implements EditDialog.EditYe
                 Message message = Message.obtain();
                 message.setData(bundle);
                 mHandler.sendMessage(message);
-              /*  mOnRefreshAddress.reFreshAddress(city);
-                address.setText(city);
-                if (!CommonUtils.isEmpty(city)) {
-                    mGetCity.stopLocation();
-                }*/
             }
         });
         Intent intent = getIntent();
@@ -111,10 +103,9 @@ public class LiJiYuYueActivity extends BaseActivity implements EditDialog.EditYe
         mTitles.add("默认排序");
         mTitles.add("评分最高");
         mTitles.add("销量最好");
-        //mData.add(new Fragment_Default());
         mData.add(new LiJiYuYueDefaultFragment());
-        mData.add(new Fragment_KPS());
-        mData.add(new Fragment_Sales());
+        mData.add(new LiJiYuYueKPSFragment());
+        mData.add(new LiJiYuYueMailsFragment());
         mAdapter = new ClosetAdapter(getSupportFragmentManager(), mData, mTitles);
     }
 
@@ -130,30 +121,14 @@ public class LiJiYuYueActivity extends BaseActivity implements EditDialog.EditYe
         finish();
     }
 
-    private void initEditText() {
-        EditDialog editDialog = new EditDialog(this);
-        editDialog.setOnClickNo("取消");
-        editDialog.setOnClickYes("确定", this);
-        editDialog.show();
-    }
-
-    @Override
-    public void getEdit(String city) {
-        address.setText(city);
-        mOnRefreshAddress.reFreshAddress(city);
-    }
-
-
-    public interface OnRefreshAddress {
-        void reFreshAddress(String city);
-    }
 
     @Event(R.id.tv_lijiyueyue_address)
     private void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_lijiyueyue_address:
-                /*initEditText();*/
-                ActivityUtils.switchTo(this, LiJiYuYueStudioSelectCityActivity.class);
+                Intent intent = new Intent(new Intent(this,
+                        LiJiYuYueStudioSelectCityActivity.class));
+                startActivityForResult(intent, 1);
                 break;
             default:
                 break;
@@ -164,5 +139,25 @@ public class LiJiYuYueActivity extends BaseActivity implements EditDialog.EditYe
     protected void onStop() {
         super.onStop();
         mGetCity.stopLocation();
+    }
+
+
+    public void sendBroad() {
+        Intent intent = new Intent();
+        intent.setAction("refreshstudio");
+        sendBroadcast(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null) {
+            String mAdd = data.getStringExtra("address");
+            if (!CommonUtils.isEmpty(mAdd)) {
+                Location.mAddress = mAdd;
+                address.setText(mAdd);
+                sendBroad();
+            }
+        }
     }
 }

@@ -43,19 +43,15 @@
 
         <activity
             android:name=".ui.activity.loading.SplashActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".ui.activity.MainActivity"
             android:launchMode="singleTask" />
         <activity android:name=".ui.activity.loading.LoadingActivity" />
-        <activity
-            android:name=".ui.activity.HuiMeiWeiKeActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="sensor" />
         <activity android:name=".ui.activity.ManageActivity" />
         <activity android:name=".ui.activity.OrderInfoActivity" />
         <activity android:name=".secondui.PayOrderActivity" />
-        <activity android:name=".ui.activity.DaPeiRiJiActivity" />
+        <activity android:name=".ui.activity.HomeDaPeiRiJiActivity" />
         <activity android:name=".ui.activity.MC_HomeActivity" />
         <activity
             android:name="com.mob.tools.MobUIShell"
@@ -75,7 +71,6 @@
                 <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
 
                 <category android:name="android.intent.category.DEFAULT" />
-                />
             </intent-filter>
         </activity>
         <activity
@@ -113,7 +108,7 @@
         <activity
             android:name="com.foamtrace.photopicker.PhotoPreviewActivity"
             android:theme="@style/PhotoPickerTheme" />
-        <activity android:name=".secondui.StatisticsActivity" />
+        <activity android:name=".ui.activity.HomeStatisticsActivity" />
         <activity android:name=".secondui.AddMatch" />
         <activity android:name=".ui.activity.MySortActivity" />
         <activity android:name=".secondui.ShowPhotoActivity" />
@@ -139,7 +134,7 @@
         <activity android:name=".ui.activity.BuChaJiaActivity" />
         <activity android:name=".ui.activity.HomeWoDeYiChuActivity" />
         <activity android:name=".ui.activity.WDYCPicActivity" />
-        <activity android:name=".bean.PayVideoActivity" />
+        <activity android:name=".ui.activity.VideoPayActivity" />
 
         <receiver android:name=".wxapi.AppRegister">
             <intent-filter>
@@ -178,6 +173,12 @@
         <activity android:name=".ui.activity.login.LoginByPhoneActivity" />
         <activity android:name=".ui.activity.LiJiYuYueStudioSelectCityActivity" />
         <activity android:name=".ui.activity.register.RegisterHMService" />
+        <activity android:name=".ui.activity.video.HomeVideoYouhuiquanActivity" />
+        <activity
+            android:name=".ui.activity.video.FullVideoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.loading.MySplashActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
@@ -187,7 +188,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.LiJiYuYueWhatActivity"></activity>
+        <activity android:name=".ui.activity.LiJiYuYueWhatActivity" />
+        <activity
+            android:name=".ui.activity.HomeVideoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.HomeVideoCoverActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.HMWebActivity"></activity>
+        <activity android:name=".ui.activity.HMStateActivity"></activity>
     </application>
 
 </manifest>

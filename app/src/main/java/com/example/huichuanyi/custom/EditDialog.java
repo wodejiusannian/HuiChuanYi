@@ -34,14 +34,14 @@ public class EditDialog extends Dialog {
     }
 
     public void setOnClickYes(String yes, EditYes mEditYes) {
-        if (CommonUtils.isEmpty(yes)) {
+        if (!CommonUtils.isEmpty(yes)) {
             mYes = yes;
         }
         editYes = mEditYes;
     }
 
     public void setOnClickNo(String no) {
-        if (CommonUtils.isEmpty(no)) {
+        if (!CommonUtils.isEmpty(no)) {
             mNo = no;
         }
     }

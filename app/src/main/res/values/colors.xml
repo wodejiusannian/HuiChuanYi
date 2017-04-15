@@ -23,4 +23,7 @@
     <color name="main_color_write">#ffffff</color>
     <color name="main_color_alpha">#00ffffff</color>
     <color name="province_line_border">#C7C7C7</color>
+    <color name="biz_audio_progress_bg">#00b2ff</color>
+    <color name="biz_audio_progress_first">#ffffff</color>
+    <color name="biz_audio_progress_second">#6b6666</color>
 </resources>

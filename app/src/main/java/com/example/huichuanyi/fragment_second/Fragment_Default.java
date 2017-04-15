@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 @ContentView(R.layout.fragment_reuser_order)
-public class Fragment_Default extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener, UtilsInternet.XCallBack, LiJiYuYueActivity.OnRefreshAddress {
+public class Fragment_Default extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener, UtilsInternet.XCallBack {
 
     private PersonAdapter mAdapter;
     private List<City.BodyBean> mCity = new ArrayList<>();
@@ -56,7 +56,6 @@ public class Fragment_Default extends BaseFragment implements SwipeRefreshLayout
         super.setData();
         mShow.setAdapter(mAdapter);
         LiJiYuYueActivity activity = (LiJiYuYueActivity) getActivity();
-        activity.setRefreshAddress(this);
     }
 
     @Override
@@ -144,10 +143,6 @@ public class Fragment_Default extends BaseFragment implements SwipeRefreshLayout
         mAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void reFreshAddress(String city) {
-        getCity = city;
-        loadMore(getCity);
-    }
+
 }
 

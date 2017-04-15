@@ -3,7 +3,9 @@ package com.example.huichuanyi.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +18,7 @@ import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.secondui.PayOrderActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
+import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.User;
 import com.example.huichuanyi.utils.UtilsInternet;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -23,6 +26,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.view.annotation.ViewInject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +38,14 @@ public class SLWWriteInfoActivity extends BaseActivity implements View.OnClickLi
     private UtilsInternet instance = UtilsInternet.getInstance();
     private Map<String, String> map = new HashMap<>();
     private Button mSubmit;
-    private String clothes_id, address_id, color_name, size_name, clothes_get, name, type, recommend_id;
+    private String clothes_id, address_id, color_name, size_name, clothes_get, name, type, recommend_id, price_dj;
+    private String countcount = "1";
+    private Double intPrice;
+    @ViewInject(R.id.et_clothe_item_info_count)
+    private EditText count;
+    @ViewInject(R.id.tv_write_order_price)
+    private TextView mPriceAll;
+
     private int flag = 0;
     private Map<String, Object> jumpMap = new HashMap<>();
     private android.os.Handler mHandler = new android.os.Handler() {
@@ -66,6 +77,7 @@ public class SLWWriteInfoActivity extends BaseActivity implements View.OnClickLi
         mAddress = (TextView) findViewById(R.id.tv_write_order_address);
         mSubmit = (Button) this.findViewById(R.id.btn_write_order_submit);
         mRemarks = (EditText) this.findViewById(R.id.et_write_order_remark);
+        count.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -84,7 +96,7 @@ public class SLWWriteInfoActivity extends BaseActivity implements View.OnClickLi
         type = intent.getStringExtra("type");
         String introduction = intent.getStringExtra("introduction");
         name = intent.getStringExtra("name");
-        String price_dj = intent.getStringExtra("price_dj");
+        price_dj = intent.getStringExtra("price_dj");
         String reason = intent.getStringExtra("reason");
         size_name = intent.getStringExtra("size_name");
         recommend_id = intent.getStringExtra("recommend_id");
@@ -97,9 +109,9 @@ public class SLWWriteInfoActivity extends BaseActivity implements View.OnClickLi
         TextView mColor = (TextView) this.findViewById(R.id.tv_clothe_item_info_record_color);
         mColor.setText(color_name);
         TextView mPrice = (TextView) this.findViewById(R.id.tv_clothe_item_info_record_price);
-        mPrice.setText("￥" + price_dj);
-        TextView mPriceAll = (TextView) this.findViewById(R.id.tv_write_order_price);
-        mPriceAll.setText("￥" + price_dj);
+        mPrice.setText("¥" + price_dj);
+        mPriceAll.setText("¥" + price_dj);
+        intPrice = Double.valueOf(price_dj);
     }
 
     @Override
@@ -111,6 +123,30 @@ public class SLWWriteInfoActivity extends BaseActivity implements View.OnClickLi
     public void setListener() {
         mAddressInfo.setOnClickListener(this);
         mSubmit.setOnClickListener(this);
+        count.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                countcount = s.toString().trim();
+                if (!CommonUtils.isEmpty(countcount)) {
+                    int i = Integer.parseInt(countcount);
+                    double v = intPrice * i;
+                    mPriceAll.setText(v + "");
+                } else {
+                    countcount = "1";
+                    mPriceAll.setText(price_dj);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
 
@@ -150,7 +186,7 @@ public class SLWWriteInfoActivity extends BaseActivity implements View.OnClickLi
                 map.put("address_id", address_id);
                 map.put("color_name", color_name);
                 map.put("size_name", size_name);
-                map.put("num", "1");
+                map.put("num", countcount);
                 map.put("remarks", remarks);
                 map.put("recommend_id", recommend_id);
                 instance.post(NetConfig.PAY_365_CLO_ORDER, map, this);
@@ -201,9 +237,10 @@ public class SLWWriteInfoActivity extends BaseActivity implements View.OnClickLi
                         String orderid = body.getString("id");
                         jumpMap.put("managerPhoto", clothes_get);
                         jumpMap.put("managerName", name);
-                        jumpMap.put("nowMoney", one_price);
+                        jumpMap.put("nowMoney", mPriceAll.getText().toString().trim());
                         jumpMap.put("orderid", orderid);
                         jumpMap.put("type", type);
+                        jumpMap.put("num", countcount);
                         ActivityUtils.switchTo(this, PayOrderActivity.class, jumpMap);
                     } else {
                         Toast.makeText(this, "网络错误，请重试", Toast.LENGTH_SHORT).show();

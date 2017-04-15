@@ -8,24 +8,26 @@
 
 package cn.sharesdk.onekeyshare.themes.classic;
 
-import java.util.ArrayList;
-
 import android.content.Context;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.ImageView.ScaleType;
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.onekeyshare.CustomerLogo;
 
 import com.mob.tools.gui.ViewPagerAdapter;
 import com.mob.tools.utils.R;
+
+import java.util.ArrayList;
+
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.onekeyshare.CustomerLogo;
 
 /** 九宫格的适配器抽象类 */
 public abstract class PlatformPageAdapter extends ViewPagerAdapter implements OnClickListener {
@@ -211,8 +213,9 @@ public abstract class PlatformPageAdapter extends ViewPagerAdapter implements On
 			CustomerLogo logo = R.forceCast(v.getTag());
 			page.performCustomLogoClick(v, logo);
 		} else {
-			Platform plat = R.forceCast(v.getTag());
+			Platform plat = R.forceCast(v.getTag());//
 			page.showEditPage(plat);
+			Log.i("TAG", "-----"+plat.getName());
 		}
 	}
 

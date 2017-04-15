@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.example.huichuanyi.ui.activity.VideoPayActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/top_color">
+
+        <include layout="@layout/btn_back"></include>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="购买视频"
+            android:textColor="#fff"
+            android:textSize="@dimen/text_size_big" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/hm_2_youhui" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rl_test"
+        android:layout_marginBottom="@dimen/distance"
+        android:layout_marginTop="@dimen/distance"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_pay_video_qita"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background2"
+            android:gravity="center_vertical"
+            android:padding="@dimen/distance"
+            android:text="打包购买" />
+
+        <ListView
+            android:id="@+id/lv_youhuiquan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/rl_payvideo_shop"
+            android:layout_below="@+id/tv_pay_video_qita"
+            android:background="@drawable/background"
+            android:padding="@dimen/distance"></ListView>
+
+        <RelativeLayout
+            android:id="@+id/rl_test"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/distance"
+            android:background="@drawable/background2">
+
+            <TextView
+                android:id="@+id/tv_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="@dimen/distance"
+                android:text="总计：¥" />
+
+            <TextView
+                android:id="@+id/tv_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/tv_text"
+                android:textColor="#000"
+                android:textSize="@dimen/text_size_middle" />
+
+            <Button
+                android:id="@+id/bt_quan_submit_twos"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/background3"
+                android:text="提交订单"
+                android:textColor="@color/write" />
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>
+
+

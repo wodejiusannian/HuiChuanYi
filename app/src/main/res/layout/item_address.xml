@@ -18,8 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/distance_10"
-        android:layout_toRightOf="@+id/tv_item_address_is_select"
-        android:text="张伟" />
+        android:layout_toRightOf="@+id/tv_item_address_is_select" />
 
     <TextView
         android:id="@+id/tv_item_address_phone"
@@ -27,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/distance_10"
         android:layout_toRightOf="@+id/tv_item_address_name"
-        android:text="134554556691" />
+        android:text="点击选择地址" />
 
     <TextView
         android:id="@+id/tv_item_address_address"
@@ -36,8 +35,8 @@
         android:layout_below="@+id/tv_item_address_name"
         android:layout_marginLeft="@dimen/distance_10"
         android:layout_marginTop="@dimen/distance_10"
-        android:layout_toRightOf="@+id/tv_item_address_is_select"
-        android:text="北京市的地方" />
+        android:layout_toLeftOf="@+id/tv_item_update_address"
+        android:layout_toRightOf="@+id/tv_item_address_is_select" />
 
     <ImageView
         android:id="@+id/tv_item_update_address"

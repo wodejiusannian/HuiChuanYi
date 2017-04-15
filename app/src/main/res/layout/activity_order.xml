@@ -27,11 +27,11 @@
         <TextView
             android:id="@+id/tv_lijiyueyue_address"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/distance_5"
-            android:text="地址"
+            android:gravity="center"
+            android:text="地址选择"
             android:textColor="@color/main_color_write" />
     </RelativeLayout>
 

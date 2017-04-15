@@ -1,157 +1,103 @@
 package com.example.huichuanyi.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class Video {
 
 
-    
+    private String ret;
+    private String msg;
+    private List<BodyBean> body;
 
-    private List<ListBean> list;
-
-    public List<ListBean> getList() {
-        return list;
+    public String getRet() {
+        return ret;
     }
 
-    public void setList(List<ListBean> list) {
-        this.list = list;
+    public void setRet(String ret) {
+        this.ret = ret;
     }
 
-    public static class ListBean {
-        private String buynum;
-        private String geticon;
-        private String getpath;
-        private String id;
-        private String introduce;
-        private String length;
-        private String money;
-        private String name;
-        private String playnum;
-        private String praise;
-        private String time;
-        private String userid;
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public List<BodyBean> getBody() {
+        return body;
+    }
+
+    public void setBody(List<BodyBean> body) {
+        this.body = body;
+    }
+
+    public static class BodyBean implements Serializable {
+
+        private String video_pic;
+        private String video_name;
+        private String video_url;
+        private String video_author;
+        private String user_id;
+        private String video_id;
+        private String video_price;
         public boolean isChecked;
-        private String makeuser;
-        private String linkurl;
-
-        public String getLinkurl() {
-            return linkurl;
+        public String getVideo_pic() {
+            return video_pic;
         }
 
-        public void setLinkurl(String linkurl) {
-            this.linkurl = linkurl;
+        public void setVideo_pic(String video_pic) {
+            this.video_pic = video_pic;
         }
 
-        public String getMakeuser() {
-            return makeuser;
+        public String getVideo_name() {
+            return video_name;
         }
 
-        public void setMakeuser(String makeuser) {
-            this.makeuser = makeuser;
+        public void setVideo_name(String video_name) {
+            this.video_name = video_name;
         }
 
-        public boolean isChecked() {
-            return isChecked;
+        public String getVideo_url() {
+            return video_url;
         }
 
-        public void setChecked(boolean checked) {
-            isChecked = checked;
+        public void setVideo_url(String video_url) {
+            this.video_url = video_url;
         }
 
-        public String getBuynum() {
-            return buynum;
+        public String getVideo_author() {
+            return video_author;
         }
 
-        public void setBuynum(String buynum) {
-            this.buynum = buynum;
+        public void setVideo_author(String video_author) {
+            this.video_author = video_author;
         }
 
-        public String getGeticon() {
-            return geticon;
+        public String getUser_id() {
+            return user_id;
         }
 
-        public void setGeticon(String geticon) {
-            this.geticon = geticon;
+        public void setUser_id(String user_id) {
+            this.user_id = user_id;
         }
 
-        public String getGetpath() {
-            return getpath;
+        public String getVideo_id() {
+            return video_id;
         }
 
-        public void setGetpath(String getpath) {
-            this.getpath = getpath;
+        public void setVideo_id(String video_id) {
+            this.video_id = video_id;
         }
 
-        public String getId() {
-            return id;
+        public String getVideo_price() {
+            return video_price;
         }
 
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getIntroduce() {
-            return introduce;
-        }
-
-        public void setIntroduce(String introduce) {
-            this.introduce = introduce;
-        }
-
-        public String getLength() {
-            return length;
-        }
-
-        public void setLength(String length) {
-            this.length = length;
-        }
-
-        public String getMoney() {
-            return money;
-        }
-
-        public void setMoney(String money) {
-            this.money = money;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getPlaynum() {
-            return playnum;
-        }
-
-        public void setPlaynum(String playnum) {
-            this.playnum = playnum;
-        }
-
-        public String getPraise() {
-            return praise;
-        }
-
-        public void setPraise(String praise) {
-            this.praise = praise;
-        }
-
-        public String getTime() {
-            return time;
-        }
-
-        public void setTime(String time) {
-            this.time = time;
-        }
-
-        public String getUserid() {
-            return userid;
-        }
-
-        public void setUserid(String userid) {
-            this.userid = userid;
+        public void setVideo_price(String video_price) {
+            this.video_price = video_price;
         }
     }
 }

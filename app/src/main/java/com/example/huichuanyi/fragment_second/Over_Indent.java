@@ -9,9 +9,9 @@ import android.widget.ListView;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.IndentAdapter;
 import com.example.huichuanyi.base.BaseFragment;
-import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.bean.Indent;
-import com.example.huichuanyi.ui.activity.HuiMeiWeiKeActivity;
+import com.example.huichuanyi.config.NetConfig;
+import com.example.huichuanyi.ui.activity.HomeVideoCoverActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.User;
 
@@ -122,6 +122,6 @@ public class Over_Indent extends BaseFragment implements SwipeRefreshLayout.OnRe
 
     @Override
     public void setClickListener(View view) {
-        ActivityUtils.switchTo(getActivity(), HuiMeiWeiKeActivity.class);
+        ActivityUtils.switchTo(getActivity(), HomeVideoCoverActivity.class);
     }
 }

@@ -7,17 +7,18 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 
 public class Share {
 
-    public static void showShare(final Context context, String title, String titleUrl,
-                                 String text, String imageUrl, String content) {
+
+    public static void showShare(final Context context, String titleUrl,
+                                 String content) {
         ShareSDK.initSDK(context);
         OnekeyShare oks = new OnekeyShare();
         oks.disableSSOWhenAuthorize();
-        oks.setTitle(title);
-        oks.setTitleUrl("http://hmyc365.net:8080/html/share/share.html");
-        oks.setText(text);
-        oks.setUrl("http://hmyc365.net:8080/html/share/share.html");
-        oks.setImageUrl(imageUrl);
+        oks.setTitle(content);
+        oks.setTitleUrl(titleUrl);
+        oks.setText(content);
+        oks.setUrl(titleUrl);
         oks.setComment(content);
+        oks.setImageUrl("http://hmyc365.net:8081/file/logo.png");
         oks.show(context);
     }
 
@@ -30,7 +31,7 @@ public class Share {
         oks.setText("轻松生活来自慧美，让衣橱管理走进千万家");
         oks.setUrl("http://hmyc365.net:8080/html/share/share.html");
         oks.setComment("轻松生活来自慧美，让衣橱管理走进千万家");
-        oks.setImageUrl("http://hmyc365.net:8080/html/share/share.html");
+        oks.setImageUrl("http://hmyc365.net:8081/file/logo.png");
         oks.show(mContext);
     }
 }

@@ -35,7 +35,6 @@
         android:visibility="gone" />
 
     <WebView
-
         android:id="@+id/wb_item_show"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

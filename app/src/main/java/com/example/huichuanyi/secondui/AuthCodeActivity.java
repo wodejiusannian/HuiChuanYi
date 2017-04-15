@@ -14,19 +14,18 @@ import android.widget.Toast;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
+import com.example.huichuanyi.utils.ReminderUtils;
+import com.example.huichuanyi.utils.SMSUtils;
 import com.example.huichuanyi.utils.User;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
-import cn.smssdk.EventHandler;
-import cn.smssdk.SMSSDK;
-
-public class AuthCodeActivity extends BaseActivity implements View.OnClickListener {
+public class AuthCodeActivity extends BaseActivity implements View.OnClickListener, SMSUtils.SMSOnResponse2, SMSUtils.SMSOnResponse {
     private EditText mEditTextAuth, mEditTextPWD;
     private Button mButtonRegister;
-    private String phone;
+    private String phone, type;
     private Callback.Cancelable cancelable;
     private User mUser;
     private TextView mTextView;
@@ -43,44 +42,7 @@ public class AuthCodeActivity extends BaseActivity implements View.OnClickListen
             mHandler.sendEmptyMessageDelayed(1, 1000);
         }
     };
-    private static final int SUBMIT_VERIFICATION_CODE_COMPLETE = 1;
-    private static final int GET_VERIFICATION_CODE_COMPLETE = 2;
-    private static final int RESULT_ERROR = 3;
-    private EventHandler eh = new EventHandler() {
-
-        @Override
-        public void afterEvent(int event, int result, Object data) {
-
-            if (result == SMSSDK.RESULT_COMPLETE) {
-                // 回调完成
-                if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
-                    // 提交验证码正确成功
-                    handler.sendEmptyMessage(GET_VERIFICATION_CODE_COMPLETE);
-                } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
-                    // 获取验证码成功
-                    handler.sendEmptyMessage(SUBMIT_VERIFICATION_CODE_COMPLETE);
-                } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
-                    // 返回支持发送验证码的国家列表
-                }
-            }
-        }
-    };
-    private Handler handler = new Handler() {
-        public void handleMessage(android.os.Message msg) {
-            switch (msg.what) {
-                case SUBMIT_VERIFICATION_CODE_COMPLETE:
-                    Toast.makeText(AuthCodeActivity.this, "验证码获取成功", Toast.LENGTH_SHORT).show();
-                    break;
-                case GET_VERIFICATION_CODE_COMPLETE:
-                    msmSuccess();
-                    finish();
-                    break;
-                case RESULT_ERROR:
-                    Toast.makeText(AuthCodeActivity.this, "验证码错误", Toast.LENGTH_SHORT).show();
-                    break;
-            }
-        }
-    };
+    private SMSUtils smsUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,17 +61,17 @@ public class AuthCodeActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void initData() {
+        smsUtils = new SMSUtils();
+        smsUtils.setSMSCode(this);
+        smsUtils.setSMSSend(this);
         Intent intent = getIntent();
         phone = intent.getStringExtra("phone");
         mUser = new User(this);
-        Toast.makeText(AuthCodeActivity.this, "发送验证码到：" + phone, Toast.LENGTH_SHORT).show();
+        smsUtils.smsSend(phone);
     }
 
     @Override
     public void setData() {
-        SMSSDK.initSDK(this, "19168cd291b14", "ffddabe45b829578796641cdd99d6d76");
-        SMSSDK.registerEventHandler(eh);
-        SMSSDK.getVerificationCode("86", phone);
     }
 
     @Override
@@ -121,13 +83,12 @@ public class AuthCodeActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-
             case R.id.btn_authcode_register:
                 String auth = mEditTextAuth.getText().toString().trim();
                 String pwd = mEditTextPWD.getText().toString().trim();
                 if (!TextUtils.isEmpty(auth) && !TextUtils.isEmpty(pwd)) {
                     if (pwd.length() >= 6 && pwd.length() <= 12) {
-                        SMSSDK.submitVerificationCode("86", phone, auth);
+                        smsUtils.smsSendCode(type, auth, phone);
                     } else {
                         Toast.makeText(AuthCodeActivity.this, "亲，密码是6到12位", Toast.LENGTH_SHORT).show();
                     }
@@ -141,8 +102,6 @@ public class AuthCodeActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // 取消注册回调
-        SMSSDK.unregisterEventHandler(eh);
         if (cancelable != null && !cancelable.isCancelled()) {
             cancelable.cancel();
         }
@@ -164,6 +123,7 @@ public class AuthCodeActivity extends BaseActivity implements View.OnClickListen
                 if (b > 0) {
                     mUser.writeUserId(b);
                     Toast.makeText(AuthCodeActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                    finish();
                 } else {
                     Toast.makeText(AuthCodeActivity.this, "请检查网络", Toast.LENGTH_SHORT).show();
                 }
@@ -189,4 +149,25 @@ public class AuthCodeActivity extends BaseActivity implements View.OnClickListen
     public void back(View view) {
         finish();
     }
+
+    @Override
+    public void onResultCode(String resultCode) {
+        if (TextUtils.equals("200", resultCode)) {
+            msmSuccess();
+        } else {
+            ReminderUtils.Toast(this, "验证码错误");
+        }
+
+    }
+
+    @Override
+    public void onSuccess(String send_type) {
+        if (!TextUtils.equals("349", send_type)) {
+            ReminderUtils.Toast(this, "获取验证码成功");
+            type = send_type;
+        } else {
+            ReminderUtils.Toast(this, "获取验证码失败");
+        }
+    }
+
 }

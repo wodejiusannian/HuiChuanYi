@@ -13,11 +13,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.baidumap.FreshPhoto;
 import com.example.huichuanyi.baidumap.Fresh_365;
+import com.example.huichuanyi.baidumap.Location;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.config.SystemParams;
@@ -28,28 +31,58 @@ import com.example.huichuanyi.fragment_first.Fragment_365;
 import com.example.huichuanyi.fragment_first.Fragment_Home;
 import com.example.huichuanyi.fragment_first.Fragment_Mine;
 import com.example.huichuanyi.ui.fragment.OrderFragment;
+import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonUtils;
+import com.example.huichuanyi.utils.UtilsInternet;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
+import org.xutils.view.annotation.Event;
+import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class
-MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
+MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener, UtilsInternet.XCallBack {
+
+    @ViewInject(R.id.rg_main_navigation)
     private RadioGroup mRadioGroup;
+
+    @ViewInject(R.id.rl_masking)
+    private LinearLayout mask;
+
+    @ViewInject(R.id.sv_main_show_active)
+    private SimpleDraweeView maskActive;
+
     private static boolean isExit = false;
     private FreshPhoto mFreshPhoto;
     private Fresh_365 mFresh_365;
     private Fragment[] mFragments;
     private int index;
     private int currentTabIndex;
+    private UtilsInternet net = UtilsInternet.getInstance();
+    private String hm_adpage_share_url, hm_adpage_webview_url, hm_activity_name;
+
     Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             isExit = false;
+        }
+    };
+
+    Handler mHand = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            Bundle data = msg.getData();
+            String hm_adpage_pic_url = data.getString("hm_adpage_pic_url");
+            maskActive.setImageURI(hm_adpage_pic_url);
         }
     };
 
@@ -60,13 +93,9 @@ MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener 
 
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
 
     public void initView() {
-        mRadioGroup = (RadioGroup) findViewById(R.id.rg_main_navigation);
+        net.get(NetConfig.IS_HAVE_ACTIVITY, null, this);
     }
 
     public void initData() {
@@ -140,6 +169,7 @@ MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener 
     protected void onDestroy() {
         super.onDestroy();
         DownloadApk.unregisterBroadcast(this);
+        unregisterReceiver(mRefreshBroadcastReceiver);
     }
 
     private String getVersionName() {
@@ -229,6 +259,28 @@ MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener 
         });
     }
 
+    @Event({R.id.iv_main_mask_delete, R.id.sv_main_show_active})
+    private void onEvent(View v) {
+        switch (v.getId()) {
+            case R.id.iv_main_mask_delete:
+                mask.setVisibility(View.GONE);
+                break;
+            case R.id.sv_main_show_active:
+                if (CommonUtils.isEmpty(hm_adpage_share_url) || CommonUtils.isEmpty(hm_adpage_webview_url))
+                    return;
+
+                Map<String, Object> map = new HashMap<>();
+                map.put("hm_adpage_share_url", hm_adpage_share_url);
+                map.put("hm_adpage_webview_url", hm_adpage_webview_url);
+                map.put("hm_activity_name", hm_activity_name);
+                ActivityUtils.switchTo(this, HMWebActivity.class, map);
+                mask.setVisibility(View.GONE);
+                break;
+            default:
+                break;
+        }
+    }
+
     //切换替换Fragment
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -258,4 +310,24 @@ MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener 
     }
 
 
+    @Override
+    public void onResponse(String result) {
+        try {
+            JSONObject object = new JSONObject(result);
+            Message msg = Message.obtain();
+            Bundle bundle = new Bundle();
+            bundle.putString("hm_adpage_pic_url", object.getString("hm_adpage_pic_url"));
+            hm_adpage_share_url = object.getString("hm_adpage_share_url");
+            hm_adpage_webview_url = object.getString("hm_adpage_webview_url");
+            hm_activity_name = object.getString("hm_activity_name");
+            String hm_activity_exists = object.getString("hm_activity_exists");
+            if (TextUtils.equals("Y", hm_activity_exists)) {
+                Location.isHaveActive = true;
+            }
+            msg.setData(bundle);
+            mHand.sendMessage(msg);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }

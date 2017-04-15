@@ -39,7 +39,7 @@ public class OnekeyShare {
 
 	/** address是接收人地址，仅在信息和邮件使用，否则可以不提供 */
 	public void setAddress(String address) {
-		params.put("selector_address", address);
+		params.put("address", address);
 	}
 
 	/**

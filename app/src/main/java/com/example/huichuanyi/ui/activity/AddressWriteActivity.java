@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -15,10 +14,10 @@ import android.widget.Toast;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
-import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.bean.CityModel;
 import com.example.huichuanyi.bean.DistrictModel;
 import com.example.huichuanyi.bean.ProvinceModel;
+import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.service.XmlParserHandler;
 import com.example.huichuanyi.utils.MyJson;
 import com.example.huichuanyi.utils.User;
@@ -202,7 +201,6 @@ public class AddressWriteActivity extends BaseActivity implements View.OnClickLi
     * 如果type为9001那么就是修改地址，进行添加地址操作
     * */
     private void updateAddress() {
-        Log.i("TAG", "-----------" + addressId);
         dataMap.put("user_id", userID);
         dataMap.put("id", addressId);
         dataMap.put("receive_name", receive_name);

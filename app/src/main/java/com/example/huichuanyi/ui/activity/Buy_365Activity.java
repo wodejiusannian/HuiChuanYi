@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.baidumap.Location;
 import com.example.huichuanyi.base.BaseActivity;
+import com.example.huichuanyi.bean.City;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.secondui.PayOrderActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
@@ -56,9 +57,13 @@ public class Buy_365Activity extends BaseActivity implements UtilsInternet.XCall
     public void initData() {
         user_id = new User(this).getUseId() + "";
         Intent intent = getIntent();
-        studioId = intent.getStringExtra("studioId");
-        studioLogo = intent.getStringExtra("studioLogo");
-        studioName = intent.getStringExtra("studioName");
+        City.BodyBean bodyBean = (City.BodyBean) intent.getSerializableExtra("bodyBean");
+        studioId = bodyBean.getId();
+        studioLogo = bodyBean.getPhoto_get();
+        studioName = bodyBean.getName();
+        //studioId = intent.getStringExtra("studioId");
+        //studioLogo = intent.getStringExtra("studioLogo");
+        //studioName = intent.getStringExtra("studioName");
         mStudioName.setText(studioName);
         mStudioLogo.setImageURI(studioLogo);
         map.put("id", studioId);
@@ -71,7 +76,7 @@ public class Buy_365Activity extends BaseActivity implements UtilsInternet.XCall
 
         if (Location.Location_type == 1) {
             nowMoney = MySharedPreferences.getActivityPrice(this);
-            mWillPay.setText("￥" + nowMoney);
+            mWillPay.setText("¥" + nowMoney);
             is_share = "Y";
         }
     }
