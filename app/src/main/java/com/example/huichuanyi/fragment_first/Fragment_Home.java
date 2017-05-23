@@ -10,12 +10,11 @@ import com.example.huichuanyi.base.BaseFragment;
 import com.example.huichuanyi.bean.Banner;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.secondui.AtMyAcitivty;
-import com.example.huichuanyi.ui.activity.HMStateActivity;
 import com.example.huichuanyi.ui.activity.HMWebActivity;
 import com.example.huichuanyi.ui.activity.HomeDaPeiRiJiActivity;
+import com.example.huichuanyi.ui.activity.HomeStatisticsActivity;
 import com.example.huichuanyi.ui.activity.HomeVideoCoverActivity;
 import com.example.huichuanyi.ui.activity.HomeWoDeYiChuActivity;
-import com.example.huichuanyi.ui.activity.MineRegisterActivity;
 import com.example.huichuanyi.ui.activity.MyOrderActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonUtils;
@@ -54,6 +53,8 @@ public class Fragment_Home extends BaseFragment implements OnItemClickListener, 
 
     private String hm_adpage_share_url, hm_activity_name;
 
+    private Map<String, String> map = new HashMap<>();
+
     @Override
     protected void initEvent() {
         super.initEvent();
@@ -70,7 +71,10 @@ public class Fragment_Home extends BaseFragment implements OnItemClickListener, 
     protected void initData() {
         super.initData();
         initViewPager();
-        internet.post(NetConfig.BANNER_URL, null, this);
+        if (map == null)
+            map = new HashMap<>();
+        map.put("banner_type", "1");
+        internet.post(NetConfig.BANNER_URL, map, this);
     }
 
     @Override
@@ -81,15 +85,10 @@ public class Fragment_Home extends BaseFragment implements OnItemClickListener, 
     private void initViewPager() {
         mAdapter = new HomeAdapter(mViewPager, mBanners, getActivity());
         mViewPager.setAdapter(mAdapter);
-
     }
 
     @Override
     public void onItemClick(int position) {
-        if (!getUser()) {
-            ActivityUtils.switchTo(getActivity(), MineRegisterActivity.class);
-            return;
-        }
         Banner banner = mBanners.get(position);
         String type = banner.getType();
         switch (type) {
@@ -119,16 +118,14 @@ public class Fragment_Home extends BaseFragment implements OnItemClickListener, 
 
     @OnClick({R.id.iv_home_match, R.id.iv_home_info, R.id.iv_home_partner, R.id.iv_home_closet})
     public void onClick(View v) {
-        if (!getUser()) {
-            ActivityUtils.switchTo(getActivity(), MineRegisterActivity.class);
-            return;
-        }
         switch (v.getId()) {
             case R.id.iv_home_match:
                 ActivityUtils.switchTo(getActivity(), HomeDaPeiRiJiActivity.class);
                 break;
             case R.id.iv_home_info:
-                ActivityUtils.switchTo(getActivity(), HMStateActivity.class);
+                // ActivityUtils.switchTo(getActivity(), HMStateActivity.class);
+                ActivityUtils.switchTo(getActivity(), HomeStatisticsActivity.class);
+                //ActivityUtils.switchTo(getActivity(), BuyPayActivity.class);
                 break;
             case R.id.iv_home_partner:
                 ActivityUtils.switchTo(getActivity(), HomeVideoCoverActivity.class);
@@ -147,7 +144,7 @@ public class Fragment_Home extends BaseFragment implements OnItemClickListener, 
                 JSONObject body = object.getJSONObject("body");
                 JSONArray banners = body.getJSONArray("banners");
                 hm_adpage_share_url = body.getString("activity_share_url");
-                hm_activity_name = body.getString("hm_activity_name");
+                hm_activity_name = body.getString("activity_name");
                 for (int i = 0; i < banners.length(); i++) {
                     JSONObject jsonObject = banners.getJSONObject(i);
                     Banner banner = new Banner();

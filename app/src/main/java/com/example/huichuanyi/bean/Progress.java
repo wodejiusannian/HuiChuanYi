@@ -1,29 +1,10 @@
 package com.example.huichuanyi.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class Progress {
 
-    /**
-     * selector_address : 1
-     * city : 北京
-     * contactnumber : 1
-     * id : 14.0
-     * manager_photo :
-     * managerid : 61
-     * managername : 1
-     * managernumber : 1
-     * money : 1
-     * number : 1
-     * ordername : 1
-     * ordertime : 1
-     * remarks :
-     * servicemode : 1
-     * state : 13
-     * time : 1
-     * usercode : 61
-     * username : 1
-     */
 
     private List<ListBean> list;
 
@@ -35,10 +16,41 @@ public class Progress {
         this.list = list;
     }
 
-    public static class ListBean {
+    public static class ListBean implements Serializable{
+        /**
+         * address : 北京市北京市昌平区 空军建军节
+         * box_price : 15
+         * city : 北京市
+         * contactnumber : 18511600668
+         * eval : 0
+         * id : 942381745614955
+         * manager_photo : http://101.201.36.18:8080/images/photo/manager45/9bccec6d-a1b5-4fe6-8ff7-e4c08b4bd26f.jpg
+         * managerid : 45
+         * managername : 熊宝宝工作室
+         * managernumber : 18500238715
+         * money : 398
+         * number : 99
+         * ordername : 张强
+         * ordertime : 2017-05-30 上午
+         * price_baseNum1 : 200
+         * price_baseNum2 : 500
+         * price_basePrice1 : 398
+         * price_basePrice2 : 698
+         * price_raiseNum : 200
+         * price_raisePrice : 300
+         * remarks :
+         * servicemode : 上门服务
+         * state : 11
+         * time : 2017-05-23 13:30:56
+         * usercode : 423
+         * username :
+         */
+
         private String address;
+        private String box_price;
         private String city;
         private String contactnumber;
+        private String eval;
         private String id;
         private String manager_photo;
         private String managerid;
@@ -48,6 +60,12 @@ public class Progress {
         private String number;
         private String ordername;
         private String ordertime;
+        private String price_baseNum1;
+        private String price_baseNum2;
+        private String price_basePrice1;
+        private String price_basePrice2;
+        private String price_raiseNum;
+        private String price_raisePrice;
         private String remarks;
         private String servicemode;
         private String state;
@@ -61,6 +79,14 @@ public class Progress {
 
         public void setAddress(String address) {
             this.address = address;
+        }
+
+        public String getBox_price() {
+            return box_price;
+        }
+
+        public void setBox_price(String box_price) {
+            this.box_price = box_price;
         }
 
         public String getCity() {
@@ -77,6 +103,14 @@ public class Progress {
 
         public void setContactnumber(String contactnumber) {
             this.contactnumber = contactnumber;
+        }
+
+        public String getEval() {
+            return eval;
+        }
+
+        public void setEval(String eval) {
+            this.eval = eval;
         }
 
         public String getId() {
@@ -149,6 +183,54 @@ public class Progress {
 
         public void setOrdertime(String ordertime) {
             this.ordertime = ordertime;
+        }
+
+        public String getPrice_baseNum1() {
+            return price_baseNum1;
+        }
+
+        public void setPrice_baseNum1(String price_baseNum1) {
+            this.price_baseNum1 = price_baseNum1;
+        }
+
+        public String getPrice_baseNum2() {
+            return price_baseNum2;
+        }
+
+        public void setPrice_baseNum2(String price_baseNum2) {
+            this.price_baseNum2 = price_baseNum2;
+        }
+
+        public String getPrice_basePrice1() {
+            return price_basePrice1;
+        }
+
+        public void setPrice_basePrice1(String price_basePrice1) {
+            this.price_basePrice1 = price_basePrice1;
+        }
+
+        public String getPrice_basePrice2() {
+            return price_basePrice2;
+        }
+
+        public void setPrice_basePrice2(String price_basePrice2) {
+            this.price_basePrice2 = price_basePrice2;
+        }
+
+        public String getPrice_raiseNum() {
+            return price_raiseNum;
+        }
+
+        public void setPrice_raiseNum(String price_raiseNum) {
+            this.price_raiseNum = price_raiseNum;
+        }
+
+        public String getPrice_raisePrice() {
+            return price_raisePrice;
+        }
+
+        public void setPrice_raisePrice(String price_raisePrice) {
+            this.price_raisePrice = price_raisePrice;
         }
 
         public String getRemarks() {

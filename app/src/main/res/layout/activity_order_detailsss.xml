@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/hm_gary"
     android:fitsSystemWindows="true">
 
     <RelativeLayout
@@ -53,7 +54,7 @@
                android:orientation="vertical"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:background="@drawable/background"
+               android:background="@drawable/hm_background"
                >
                <LinearLayout
                    android:orientation="horizontal"
@@ -148,7 +149,7 @@
                 android:layout_below="@+id/ll_order_one"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background"
+                android:background="@drawable/hm_background"
                 android:paddingBottom="@dimen/distance"
                 android:layout_marginTop="@dimen/distance"
                 >
@@ -173,7 +174,7 @@
                     android:layout_margin="@dimen/distance"
                     android:layout_marginRight="10dp"
                     android:textSize="@dimen/body_two_size"
-                    android:background="@drawable/background2"
+                    android:background="@drawable/background"
                     android:layout_alignParentEnd="true"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"/>
@@ -191,7 +192,7 @@
                 android:id="@+id/rl_order_five"
                 android:layout_below="@+id/rl_order_four"
                 android:layout_marginTop="@dimen/distance"
-                android:background="@drawable/background"
+                android:background="@drawable/hm_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/distance"
@@ -367,7 +368,7 @@
             <LinearLayout
                 android:id="@+id/ll_order_my_details"
                 android:layout_marginTop="@dimen/distance"
-                android:background="@drawable/background"
+                android:background="@drawable/hm_background"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

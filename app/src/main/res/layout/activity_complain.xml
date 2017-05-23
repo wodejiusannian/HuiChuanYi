@@ -3,42 +3,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@color/hm_gary"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context="com.example.huichuanyi.ui.activity.ComplainActivity">
+
     <RelativeLayout
         android:id="@+id/tl_order_detailsr_mTool"
-        android:background="@color/top_color"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="40dp"
+        android:background="@color/top_color">
+
         <ImageView
             android:id="@+id/iv_complain_back"
-            android:src="@drawable/back"
-            android:layout_height="match_parent"
             android:layout_width="40dp"
-            />
+            android:layout_height="match_parent"
+            android:src="@drawable/back" />
+
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="投诉"
             android:textColor="#fff"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_centerInParent="true"
-            android:textSize="@dimen/text_size_big"
-            />
+            android:textSize="@dimen/text_size_big" />
+
         <ImageView
             android:id="@+id/iv_complain_phone"
-            android:layout_marginRight="@dimen/distance"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/phone"
-            android:layout_alignParentEnd="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/distance"
+            android:src="@mipmap/phone" />
     </RelativeLayout>
+
     <RadioGroup
         android:id="@+id/rg_complain_select"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     </RadioGroup>
 </LinearLayout>

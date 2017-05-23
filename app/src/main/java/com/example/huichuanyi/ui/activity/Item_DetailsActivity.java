@@ -6,6 +6,7 @@ import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
@@ -103,11 +104,26 @@ public class Item_DetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        item_detailsActivity = null;
+    }
+
     private void loadindUrl(String url) {
         WebSettings webSettings = mShow.getSettings();
-
         webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);
+        webSettings.setJavaScriptEnabled(true);
+        mShow.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                // TODO Auto-generated method stub
+                //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
+                view.loadUrl(url);
+                return true;
+            }
+        });
         WebChromeClient wvcc = new WebChromeClient() {
 
             @Override

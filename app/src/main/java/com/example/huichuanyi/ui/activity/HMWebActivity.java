@@ -44,7 +44,6 @@ public class HMWebActivity extends BaseActivity {
     public void initView() {
         Intent intent = getIntent();
         String hm_adpage_webview_url = intent.getStringExtra("hm_adpage_webview_url");
-
         hm_adpage_share_url = intent.getStringExtra("hm_adpage_share_url");
         hm_activity_name = intent.getStringExtra("hm_activity_name");
         loadindUrl(hm_adpage_webview_url);

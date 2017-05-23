@@ -1,60 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@color/hm_gary"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context="com.example.huichuanyi.secondui.ShowPhotoActivity">
 
     <RelativeLayout
-        android:background="@color/top_color"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="40dp"
+        android:background="@color/top_color">
+
         <ImageView
             android:id="@+id/iv_show_photo_back"
-            android:src="@drawable/back"
-            android:layout_height="match_parent"
             android:layout_width="40dp"
-            />
+            android:layout_height="match_parent"
+            android:src="@drawable/back" />
+
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="搭配日记"
             android:textColor="#fff"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_centerInParent="true"
-            android:textSize="@dimen/text_size_big"
-            />
+            android:textSize="@dimen/text_size_big" />
     </RelativeLayout>
+
     <LinearLayout
-        android:layout_marginTop="@dimen/distance"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/distance"
         android:layout_marginRight="@dimen/distance"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_marginTop="@dimen/distance"
+        android:orientation="vertical">
+
         <TextView
             android:id="@+id/tv_time"
-            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+
         <TextView
             android:id="@+id/tv_main_xinde"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <com.example.huichuanyi.custom.RoundImageView
+            android:layout_height="wrap_content" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/rv_show_photo_first"
-            android:layout_weight="1"
-            android:scaleType="fitXY"
             android:layout_width="match_parent"
-            android:layout_height="0dp"/>
-        <com.example.huichuanyi.custom.RoundImageView
-            android:id="@+id/rv_show_photo_second"
-            android:layout_weight="1"
-            android:scaleType="fitXY"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"/>
+            android:layout_height="match_parent"
+            fresco:actualImageScaleType="fitCenter"
+            fresco:roundedCornerRadius="4dp" />
 
     </LinearLayout>
 </LinearLayout>

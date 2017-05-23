@@ -14,8 +14,8 @@ import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.utils.ItemDecoration;
 import com.example.huichuanyi.bean.MyClothess;
 import com.example.huichuanyi.ui.activity.WDYCPicActivity;
-import com.example.huichuanyi.utils.MyJson;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.JsonUtils;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
 import com.google.gson.Gson;
 
@@ -40,7 +40,7 @@ public class Fragment_shejiao extends BaseFragment implements View.OnClickListen
     @Override
     protected void initData() {
         super.initData();
-        user_id = new User(getContext()).getUseId()+"";
+        user_id = SharedPreferenceUtils.getUserData(getContext(),1);
         mData = new ArrayList<>();
         mAdapter = new MC_MyClothesAdapter(getActivity(),mData);
         getData();
@@ -89,7 +89,7 @@ public class Fragment_shejiao extends BaseFragment implements View.OnClickListen
 
     @Override
     public void onResponse(String result) {
-        String ret = MyJson.getRet(result);
+        String ret = JsonUtils.getRet(result);
         mData.clear();
         if (TextUtils.equals("0",ret)){
             Gson gson = new Gson();

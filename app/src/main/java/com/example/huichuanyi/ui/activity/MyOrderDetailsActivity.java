@@ -14,7 +14,7 @@ import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.RoundImageView;
 import com.example.huichuanyi.utils.ActivityUtils;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -91,7 +91,7 @@ public class MyOrderDetailsActivity extends BaseActivity implements View.OnClick
     @Override
     public void initData() {
         String orderid = getIntent().getStringExtra("orderid");
-        String userid = new User(this).getUseId() + "";
+        String userid = SharedPreferenceUtils.getUserData(this,1);
         RequestParams params = new RequestParams(NetConfig.GET_DETAILS_SHOPPING);
         params.addBodyParameter("userid", userid);
         params.addBodyParameter("orderid", orderid);

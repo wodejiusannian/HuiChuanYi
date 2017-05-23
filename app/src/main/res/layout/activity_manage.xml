@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/hm_gary"
     android:fitsSystemWindows="true"
     tools:context=".ui.activity.ManageActivity">
 
@@ -53,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/distance"
-                android:background="@drawable/background"
+                android:background="@drawable/hm_background"
                 android:paddingBottom="@dimen/distance"
                 android:paddingLeft="@dimen/distance"
                 android:paddingTop="@dimen/distance">
@@ -76,12 +77,16 @@
                     android:textColor="#333333"
                     android:textSize="@dimen/text_size_middle" />
 
-                <ImageView
+                <TextView
+                    android:id="@+id/tv_person_news"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_marginRight="@dimen/distance"
-                    android:src="@mipmap/qualifications" />
+                    android:background="@drawable/btn_select"
+                    android:padding="@dimen/distance_5"
+                    android:text="资格认证"
+                    android:textColor="@color/main_color_write" />
 
                 <TextView
                     android:id="@+id/tv_datata_one"
@@ -90,7 +95,7 @@
                     android:layout_below="@+id/tv_manage_name"
                     android:layout_marginLeft="@dimen/distance"
                     android:layout_marginRight="@dimen/distance"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:layout_toRightOf="@+id/iv_manage_photo"
                     android:lines="4"
                     android:textColor="#666666" />
@@ -106,7 +111,7 @@
                     android:id="@+id/tv_manage_evaluate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/background"
+                    android:background="@drawable/hm_background"
                     android:paddingBottom="5dp"
                     android:paddingLeft="@dimen/distance"
                     android:paddingTop="5dp"

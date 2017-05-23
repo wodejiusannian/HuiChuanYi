@@ -47,7 +47,7 @@ public class BuyRecordAdapter extends CommonAdapter<RecordBuy> {
         style.setText(record.getClothes_name());
         color.setText(record.getColor_name());
         size.setText("尺码:" + record.getSize_name());
-        price.setText("￥:" + record.getTotal_price());
+        price.setText("¥:" + record.getTotal_price());
         count.setText("X" + record.getNum());
         String state = record.getState();
         Button connection_our = viewHolder.getView(R.id.btn_connection_our);

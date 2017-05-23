@@ -11,7 +11,7 @@ import android.widget.ProgressBar;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 
 import org.xutils.view.annotation.ViewInject;
 
@@ -38,7 +38,7 @@ public class HMStateActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        String s = new User(this).getUseId() + "";
+        String s = SharedPreferenceUtils.getUserData(this,1);
         String url = NetConfig.HOME_STAT_URL + s;
         loadindUrl(url);
     }

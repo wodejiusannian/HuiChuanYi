@@ -13,7 +13,7 @@ import com.example.huichuanyi.bean.Indent;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.ui.activity.HomeVideoCoverActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,7 +53,7 @@ public class Over_Indent extends BaseFragment implements SwipeRefreshLayout.OnRe
 
     private void getData() {
         RequestParams params = new RequestParams(NetConfig.INDENT_URL);
-        String userid = new User(getActivity()).getUseId() + "";
+        String userid = SharedPreferenceUtils.getUserData(getContext(), 1);
         params.addBodyParameter("userid", userid);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override

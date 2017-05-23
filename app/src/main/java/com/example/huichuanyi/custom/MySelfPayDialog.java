@@ -3,10 +3,10 @@ package com.example.huichuanyi.custom;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.huichuanyi.R;
@@ -21,11 +21,8 @@ public class MySelfPayDialog extends Dialog {
     private OnNoClickListener mNoListener;
     private OnYesClickListener mYesListener;
     private TextView mTextViewTitle;
-    private RelativeLayout mAliPay, mWeChat;
-    private boolean mFlag = false;
     private int isALiOrWeChat = 1;
-
-    private ImageView aliNormal, aLiSelect, weChatNormal, weChatSelect;
+    private RadioGroup mRg;
 
     public void setOnNoListener(String no, OnNoClickListener noListener) {
         if (no != null) {
@@ -67,12 +64,7 @@ public class MySelfPayDialog extends Dialog {
         mButtonNo = (Button) findViewById(R.id.my_self_no);
         mButtonYes = (Button) findViewById(R.id.my_self_yes);
         mTextViewTitle = (TextView) findViewById(R.id.my_self_title);
-        aliNormal = (ImageView) findViewById(R.id.iv_alipay_normal);
-        mWeChat = (RelativeLayout) findViewById(R.id.rl_we_chat);
-        aLiSelect = (ImageView) findViewById(R.id.iv_alipay_select);
-        weChatNormal = (ImageView) findViewById(R.id.iv_wechat_normal);
-        weChatSelect = (ImageView) findViewById(R.id.iv_wechat_select);
-        mAliPay = (RelativeLayout) findViewById(R.id.rl_ali_pay);
+        mRg = (RadioGroup) findViewById(R.id.rg_pay);
     }
 
     private void initData() {
@@ -109,24 +101,22 @@ public class MySelfPayDialog extends Dialog {
             }
         });
 
-        mAliPay.setOnClickListener(new View.OnClickListener() {
+        mRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                aLiSelect.setVisibility(View.VISIBLE);
-                aliNormal.setVisibility(View.GONE);
-                weChatNormal.setVisibility(View.VISIBLE);
-                weChatSelect.setVisibility(View.GONE);
-                isALiOrWeChat = 1;
-            }
-        });
-        mWeChat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                aLiSelect.setVisibility(View.GONE);
-                aliNormal.setVisibility(View.VISIBLE);
-                weChatNormal.setVisibility(View.GONE);
-                weChatSelect.setVisibility(View.VISIBLE);
-                isALiOrWeChat = 2;
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                switch (checkedId) {
+                    case R.id.rb_ali_pay:
+                        isALiOrWeChat = 1;
+                        break;
+                    case R.id.rb_wechat_pay:
+                        isALiOrWeChat = 2;
+                        break;
+                    case R.id.rb_cmb_pay:
+                        isALiOrWeChat = 3;
+                        break;
+                    default:
+                        break;
+                }
             }
         });
     }

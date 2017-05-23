@@ -10,9 +10,8 @@ import android.widget.TextView;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.utils.MyJson;
-import com.example.huichuanyi.utils.MySharedPreferences;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.JsonUtils;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -33,7 +32,7 @@ public class My_365Activity extends BaseActivity implements UtilsInternet.XCallB
     private SimpleDraweeView userPhoto, studioLogo;
 
     private TextView userName, useDate, studioName, isOpen, studioInfo;
-    private String user_id, m365;
+    private String m365;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -46,7 +45,6 @@ public class My_365Activity extends BaseActivity implements UtilsInternet.XCallB
             String studio_introduction = data.getString("studio_introduction");
             String studio_photo = data.getString("studio_photo");
             studioLogo.setImageURI(studio_photo);
-            userName.setText(user_name);
             useDate.setText(end_time + "到期");
             studioName.setText(studio_name);
             if (TextUtils.equals("365", m365)) {
@@ -76,16 +74,15 @@ public class My_365Activity extends BaseActivity implements UtilsInternet.XCallB
 
     @Override
     public void initData() {
-        user_id = new User(this).getUseId() + "";
-        String user_photo = getIntent().getStringExtra("userPhoto");
-        userPhoto.setImageURI(user_photo);
-        map.put("user_id", user_id);
+        userPhoto.setImageURI(SharedPreferenceUtils.getUserData(this, 3));
+        userName.setText(SharedPreferenceUtils.getUserData(this, 2));
+        map.put("user_id", SharedPreferenceUtils.getUserData(this, 1));
         internet.post(NetConfig.IS_BUY_365, map, this);
     }
 
     @Override
     public void setData() {
-        m365 = MySharedPreferences.get365(this);
+        m365 = SharedPreferenceUtils.get365(this);
     }
 
     @Override
@@ -99,7 +96,7 @@ public class My_365Activity extends BaseActivity implements UtilsInternet.XCallB
 
     @Override
     public void onResponse(String result) {
-        String ret = MyJson.getRet(result);
+        String ret = JsonUtils.getRet(result);
         if (!TextUtils.equals("0", ret)) return;
         try {
             JSONObject object = new JSONObject(result);

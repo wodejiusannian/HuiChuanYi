@@ -46,9 +46,9 @@
             android:digits="0123456789"
             android:gravity="center"
             android:hint="衣服量"
+            android:inputType="number"
             android:lines="1"
             android:maxLength="4"
-            android:phoneNumber="true"
             android:textColor="@color/color_ac0000"
             android:textColorHint="@color/color_ac0000"
             android:textSize="15sp" />

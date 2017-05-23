@@ -40,11 +40,7 @@ public class ActivityUtils {
         activity.requestWindowFeature(Window.FEATURE_NO_TITLE);
     }
 
-    /**
-     * </br><b>title : </b>       设置Activity的显示方向为垂直方向
-     * </br><b>description :</b>强制设置Actiity的显示方向为垂直方向。
-     * @param activity Activity对象
-     */
+
     public static void setScreenVertical(Activity activity){
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }

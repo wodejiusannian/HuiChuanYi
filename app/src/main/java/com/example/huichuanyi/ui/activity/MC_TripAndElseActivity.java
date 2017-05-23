@@ -19,8 +19,8 @@ import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.utils.ItemDecoration;
 import com.example.huichuanyi.bean.MyClothess;
-import com.example.huichuanyi.utils.MyJson;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.JsonUtils;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.google.gson.Gson;
 
 import org.xutils.common.Callback;
@@ -67,7 +67,7 @@ public class MC_TripAndElseActivity extends BaseActivity implements View.OnClick
 
     public void getData() {
         RequestParams params = new RequestParams(NetConfig.CHA_KAN_YI_FU);
-        params.addBodyParameter("user_id", new User(this).getUseId() + "");
+        params.addBodyParameter("user_id", SharedPreferenceUtils.getUserData(this,1));
         params.addBodyParameter("clothes_wardrobeId", word_id);
         params.addBodyParameter("clothes_typeId", "%");
         params.addBodyParameter("clothes_situation", "%");
@@ -78,7 +78,7 @@ public class MC_TripAndElseActivity extends BaseActivity implements View.OnClick
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                String ret = MyJson.getRet(result);
+                String ret = JsonUtils.getRet(result);
                 mData.clear();
                 if (TextUtils.equals("0", ret)) {
                     Gson gson = new Gson();

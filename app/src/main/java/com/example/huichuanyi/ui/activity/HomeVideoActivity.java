@@ -31,7 +31,7 @@ import com.example.huichuanyi.ui.activity.video.widget.MediaHelp;
 import com.example.huichuanyi.ui.activity.video.widget.VideoSuperPlayer;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.ReminderUtils;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
@@ -64,6 +64,7 @@ public class HomeVideoActivity extends BaseActivity implements UtilsInternet.XCa
     private boolean is;
     private int isFlag = 1;
 
+    private int f = 0;
 
     private Handler mHander = new Handler() {
         @Override
@@ -101,7 +102,7 @@ public class HomeVideoActivity extends BaseActivity implements UtilsInternet.XCa
     @Override
     public void initView() {
         cover_id = getIntent().getStringExtra("id");
-        user_id = new User(this).getUseId() + "";
+        user_id = SharedPreferenceUtils.getUserData(this,1);
         loadData();
     }
 
@@ -142,6 +143,14 @@ public class HomeVideoActivity extends BaseActivity implements UtilsInternet.XCa
         }
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if (f == 1) {
+            isFlag = 1;
+            loadData();
+        }
+    }
 
     @Override
     protected void onDestroy() {
@@ -189,6 +198,7 @@ public class HomeVideoActivity extends BaseActivity implements UtilsInternet.XCa
                     switch (ret) {
                         case "0":
                             if (mData != null && mData.size() > 0) {
+                                f = 1;
                                 JSONObject body = object.getJSONObject("body");
                                 String video_price = body.getString("video_price");
                                 Intent intent = new Intent(HomeVideoActivity.this, HomeVideoYouhuiquanActivity.class);
@@ -333,6 +343,7 @@ public class HomeVideoActivity extends BaseActivity implements UtilsInternet.XCa
                     Intent intent = new Intent(HomeVideoActivity.this, VideoPayActivity.class);
                     intent.putExtra("list", mData);
                     intent.putExtra("pos", position);
+                    f = 1;
                     startActivity(intent);
                     return;
                 }

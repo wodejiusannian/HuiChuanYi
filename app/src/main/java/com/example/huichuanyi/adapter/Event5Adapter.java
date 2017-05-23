@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.huichuanyi.R;
 
@@ -18,14 +17,7 @@ public class Event5Adapter extends RecyclerView.Adapter<Event5Adapter.MyViewHold
     private Context mContext;
     private View.OnClickListener mListener;
     private View.OnLongClickListener mLongClickListener;
-    // 第一种实现 ，在创建adapter的时候就会强制让使用者实现点击事件，如果使用不需要也得实现，不是那么合理
-   /* public EventAdapter(Context context, List<String> data, View.OnClickListener listener){
-        mListener = listener;
-        mContext = context;
-        mData = data;
 
-    }*/
-    // 第二种实现，动态的设置点击事件，如果使用者需要就设置事件，如果不需要就不设置
     public void setOnItemClickListener(View.OnClickListener listener){
         mListener = listener;
     }

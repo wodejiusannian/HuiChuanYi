@@ -17,8 +17,8 @@ import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.secondui.PayOrderActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
-import com.example.huichuanyi.utils.MyJson;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.JsonUtils;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.Utils;
 import com.example.huichuanyi.utils.UtilsInternet;
 
@@ -66,7 +66,7 @@ public class BuyRecord extends BaseFragment implements UtilsInternet.XCallBack, 
         super.initData();
         mAdapter = new BuyRecordAdapter(getContext(), mData, R.layout.item_fragment_buy_record);
         mShow.setAdapter(mAdapter);
-        user_id = new User(getContext()).getUseId() + "";
+        user_id = SharedPreferenceUtils.getUserData(getContext(),1);
         map.put("user_id", user_id);
         loadData();
     }
@@ -215,7 +215,7 @@ public class BuyRecord extends BaseFragment implements UtilsInternet.XCallBack, 
                 break;
             case 3:
                 internetTag = 0;
-                String ret = MyJson.getRet(result);
+                String ret = JsonUtils.getRet(result);
                 if (TextUtils.equals("0", ret)) {
                     mData.remove(pos);
                     mAdapter.notifyDataSetChanged();

@@ -12,7 +12,7 @@ import com.example.huichuanyi.adapter.InfoATClothesAdapter;
 import com.example.huichuanyi.base.BaseFragment;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.bean.Statistics;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.google.gson.Gson;
 
 import org.xutils.common.Callback;
@@ -46,7 +46,7 @@ public class Statistics_fragment_clothes extends BaseFragment {
         mClothesName = new ArrayList<>();
         mAdapter = new InfoATClothesAdapter(mClothesName, getActivity());
         RequestParams params = new RequestParams(NetConfig.STATISTIC_CLOTHES);
-        params.addBodyParameter("userid", new User(getActivity()).getUseId() + "");
+        params.addBodyParameter("userid", SharedPreferenceUtils.getUserData(getContext(),1));
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

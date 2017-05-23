@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.huichuanyi.utils.User;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -69,10 +67,5 @@ public abstract class BaseFragment extends Fragment {
         unbind.unbind();
     }
 
-    protected boolean getUser() {
-        if (new User(getContext()).getUseId() > 0) {
-            return true;
-        }
-        return false;
-    }
+
 }

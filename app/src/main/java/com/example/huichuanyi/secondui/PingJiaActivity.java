@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -76,7 +76,7 @@ public class PingJiaActivity extends BaseActivity implements View.OnClickListene
         params.addBodyParameter("manager_id",manager_id);
         params.addBodyParameter("user_name",user_name);
         params.addBodyParameter("manager_name",manager_name);
-        params.addBodyParameter("user_code",new User(this).getUseId()+"");
+        params.addBodyParameter("user_code", SharedPreferenceUtils.getUserData(this,1));
         params.addBodyParameter("stars1",zhilaing+"");
         params.addBodyParameter("stars2",taidu+"");
         params.addBodyParameter("stars3",shijian+"");

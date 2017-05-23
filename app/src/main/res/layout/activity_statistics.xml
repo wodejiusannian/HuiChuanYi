@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/hm_gary"
     android:fitsSystemWindows="true"
     tools:context=".ui.activity.MC_HomeActivity">
 
@@ -26,6 +27,16 @@
             android:text="统计"
             android:textColor="#fff"
             android:textSize="@dimen/text_size_big" />
+
+        <TextView
+            android:id="@+id/tv_statistics_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:text="统计详情"
+            android:textColor="@color/write" />
     </RelativeLayout>
 
     <android.support.design.widget.TabLayout

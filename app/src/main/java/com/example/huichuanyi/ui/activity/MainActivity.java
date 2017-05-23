@@ -4,8 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,26 +21,20 @@ import com.example.huichuanyi.baidumap.Fresh_365;
 import com.example.huichuanyi.baidumap.Location;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.config.SystemParams;
-import com.example.huichuanyi.custom.MySelfDialog;
-import com.example.huichuanyi.download.DownLoadUtils;
-import com.example.huichuanyi.download.DownloadApk;
 import com.example.huichuanyi.fragment_first.Fragment_365;
 import com.example.huichuanyi.fragment_first.Fragment_Home;
 import com.example.huichuanyi.fragment_first.Fragment_Mine;
 import com.example.huichuanyi.ui.fragment.OrderFragment;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonUtils;
+import com.example.huichuanyi.utils.UpdateUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -82,7 +74,10 @@ MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener,
             super.handleMessage(msg);
             Bundle data = msg.getData();
             String hm_adpage_pic_url = data.getString("hm_adpage_pic_url");
-            maskActive.setImageURI(hm_adpage_pic_url);
+            if (!CommonUtils.isEmpty(hm_adpage_pic_url)) {
+                mask.setVisibility(View.VISIBLE);
+                maskActive.setImageURI(hm_adpage_pic_url);
+            }
         }
     };
 
@@ -107,13 +102,13 @@ MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener,
         getSupportFragmentManager().beginTransaction().
                 add(R.id.rl_main_show, mHome).hide(mOrder).
                 show(mHome).commit();
-        isFresh();
     }
 
     public void setData() {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("action.refreshFriend");
         registerReceiver(mRefreshBroadcastReceiver, intentFilter);
+        UpdateUtils.getInstance(getApplicationContext()).update(true);
     }
 
     public void setListener() {
@@ -157,9 +152,7 @@ MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener,
         }
     };
 
-    public void setCallBack(FreshPhoto callBack) {
-        this.mFreshPhoto = callBack;
-    }
+
 
     public void setFresh365(Fresh_365 fresh365) {
         mFresh_365 = fresh365;
@@ -168,96 +161,12 @@ MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener,
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        DownloadApk.unregisterBroadcast(this);
         unregisterReceiver(mRefreshBroadcastReceiver);
     }
 
-    private String getVersionName() {
-        PackageManager packageManager = getPackageManager();
-        PackageInfo packInfo = null;
-        try {
-            packInfo = packageManager.getPackageInfo(getPackageName(), 0);
-            String version = packInfo.versionName;
-            return version;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
 
-    private void isFresh() {
-        //1.注册下载广播接收器.
-        DownloadApk.registerBroadcast(this);
-        //2.删除已存在的Apk
-        DownloadApk.removeFile(this);
-        final SystemParams instance = SystemParams.getInstance();
-        final boolean isFresh = instance.getBoolean("isFresh");
-        RequestParams params = new RequestParams(NetConfig.IS_FRESH_PATH);
-        x.http().get(params, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                try {
-                    JSONObject obj = new JSONObject(result);
-                    String serverVersion = obj.getString("serverVersion");
-                    final String url = obj.getString("url");
-                    String msg = obj.getString("msg");
-                    String lastForce = obj.getString("lastForce");
-                    if (!TextUtils.equals(serverVersion, getVersionName())) {
-                        if (TextUtils.equals("Y", lastForce) || TextUtils.equals("y", lastForce)) {
-                            if (DownLoadUtils.getInstance(getApplicationContext()).canDownload()) {
-                                DownloadApk.downloadApk(getApplicationContext(), url, "慧美衣橱正在更新...", "hobbees");
-                            } else {
-                                DownLoadUtils.getInstance(getApplicationContext()).skipToDownloadManager();
-                            }
-                        } else {
-                            if (!isFresh) {
-                                MySelfDialog mDialog = new MySelfDialog(MainActivity.this);
-                                mDialog.setTitle("是否更新");
-                                mDialog.setMessage(msg);
-                                mDialog.setOnYesListener("确定", new MySelfDialog.OnYesClickListener() {
-                                    @Override
-                                    public void onClick() {
-                                        if (DownLoadUtils.getInstance(getApplicationContext()).canDownload()) {
-                                            DownloadApk.downloadApk(getApplicationContext(), url, "慧美衣橱正在更新...", "huimeiApk");
-                                        } else {
-                                            DownLoadUtils.getInstance(getApplicationContext()).skipToDownloadManager();
-                                        }
-                                    }
-                                });
-                                mDialog.setOnNoListener("取消", new MySelfDialog.OnNoClickListener() {
-                                    @Override
-                                    public void onClick() {
-                                        instance.setBoolean("isFresh", true);
-                                    }
-                                });
-                                mDialog.show();
-                            }
-                        }
-                    }
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
-    }
 
     @Event({R.id.iv_main_mask_delete, R.id.sv_main_show_active})
     private void onEvent(View v) {

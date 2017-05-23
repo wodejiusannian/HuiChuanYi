@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/hm_gary"
     android:fitsSystemWindows="true"
     tools:context=".secondui.PayOrderActivity">
 
@@ -25,14 +26,13 @@
     </RelativeLayout>
 
     <RelativeLayout
-
         android:id="@+id/rl_payorder_five"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tl_payorder_mTool"
         android:layout_margin="@dimen/distance"
         android:layout_marginTop="@dimen/distance"
-        android:background="@drawable/background">
+        android:background="@drawable/hm_background">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/iv_payorder_photo"
@@ -185,104 +185,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rl_payorder_five"
-        android:layout_margin="@dimen/distance_10"
         android:background="@drawable/background"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/rl_payorder_alipay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/iv_payorder_wechatphoto"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_centerVertical="true"
-                android:padding="@dimen/distance"
-                android:src="@mipmap/alipay" />
-
-            <TextView
-                android:id="@+id/iv_payorder_wechatname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/distance"
-                android:layout_toRightOf="@+id/iv_payorder_wechatphoto"
-                android:text="支付宝支付" />
-
-            <ImageView
-                android:id="@+id/iv_payorder_alipayNomal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/distance"
-                android:gravity="end"
-                android:src="@mipmap/pay_nomal" />
-
-            <ImageView
-                android:id="@+id/iv_payorder_alipaySelect"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/distance"
-                android:gravity="end"
-                android:src="@mipmap/pay_select" />
-        </RelativeLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="@dimen/distance"
-            android:layout_marginRight="@dimen/distance"
-            android:background="@color/back_ground" />-->
-
-        <RelativeLayout
-            android:id="@+id/rl_payorder_wechat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/iv_payorder_alipayphoto"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:padding="@dimen/distance"
-                android:src="@mipmap/wechat_pay" />
-
-            <TextView
-                android:id="@+id/iv_payorder_alipayname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/distance"
-                android:layout_toRightOf="@+id/iv_payorder_alipayphoto"
-                android:text="微信支付" />
-
-            <ImageView
-                android:id="@+id/iv_payorder_wechatNomal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/distance"
-                android:gravity="end"
-                android:src="@mipmap/pay_nomal" />
-
-            <ImageView
-                android:id="@+id/iv_payorder_wechatSelect"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/distance"
-                android:gravity="end"
-                android:src="@mipmap/pay_select"
-                android:visibility="gone" />
-        </RelativeLayout>
-
+        <include layout="@layout/include_pay_type"></include>
     </LinearLayout>
+
 
     <Button
         android:id="@+id/bt_payorder_pay"

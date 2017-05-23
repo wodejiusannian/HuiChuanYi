@@ -19,7 +19,7 @@ import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.secondui.PayOrderActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonUtils;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -83,7 +83,7 @@ public class SLWWriteInfoActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void initData() {
         getUpActivityData();
-        map.put("user_id", new User(this).getUseId() + "");
+        map.put("user_id", SharedPreferenceUtils.getUserData(this, 1));
         instance.post(NetConfig.GET_PERSON_ADDRESS, map, this);
     }
 
@@ -177,11 +177,15 @@ public class SLWWriteInfoActivity extends BaseActivity implements View.OnClickLi
                 jumpListAddress();
                 break;
             case R.id.btn_write_order_submit:
+                if (CommonUtils.isEmpty(address_id)) {
+                    Toast.makeText(write_orderActivity, "请填写地址", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 showLoading();
                 String remarks = mRemarks.getText().toString().trim();
                 flag = 1;
                 map.clear();
-                map.put("user_id", new User(this).getUseId() + "");
+                map.put("user_id", SharedPreferenceUtils.getUserData(this, 1));
                 map.put("clothes_id", clothes_id);
                 map.put("address_id", address_id);
                 map.put("color_name", color_name);
@@ -253,5 +257,11 @@ public class SLWWriteInfoActivity extends BaseActivity implements View.OnClickLi
                 break;
         }
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        write_orderActivity = null;
     }
 }

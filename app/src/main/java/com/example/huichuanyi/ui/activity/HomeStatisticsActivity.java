@@ -12,6 +12,9 @@ import com.example.huichuanyi.adapter.ClosetAdapter;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.fragment.Statistics_fragment_clothes;
 import com.example.huichuanyi.fragment.Statistics_fragment_oca;
+import com.example.huichuanyi.utils.ActivityUtils;
+
+import org.xutils.view.annotation.Event;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +61,17 @@ public class HomeStatisticsActivity extends BaseActivity implements View.OnClick
     @Override
     public void setListener() {
         mImageViewBack.setOnClickListener(this);
+    }
+
+    @Event({R.id.tv_statistics_info})
+    private void onEvent(View v) {
+        switch (v.getId()) {
+            case R.id.tv_statistics_info:
+                ActivityUtils.switchTo(this, HMStateActivity.class);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override

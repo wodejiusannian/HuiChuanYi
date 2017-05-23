@@ -14,12 +14,11 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.bean.City;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.custom.DateTimePickDialogUtil;
 import com.example.huichuanyi.secondui.PayOrderActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.ReminderUtils;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -29,8 +28,6 @@ import org.json.JSONObject;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -96,7 +93,7 @@ public class GoDoorInfoActivity extends BaseActivity implements UtilsInternet.XC
     public void initView() {
         if (map == null)
             map = new HashMap<>();
-        userID = new User(this).getUseId() + "";
+        userID = SharedPreferenceUtils.getUserData(this, 1);
         City.BodyBean bodyBean = (City.BodyBean) getIntent().getSerializableExtra("bodyBean");
         managerid = bodyBean.getId();
         manager_name = bodyBean.getName();
@@ -161,25 +158,30 @@ public class GoDoorInfoActivity extends BaseActivity implements UtilsInternet.XC
         String user_name = tvName.getText().toString().trim();
         String userCity = tvAdd.getText().toString().trim();
         String userPhone = tvPhone.getText().toString().trim();
-        String money = tvMoney.getText().toString().trim();
         if (!CommonUtils.isEmpty(address_id) && !TextUtils.equals("选择时间", time) && !CommonUtils.isEmpty(count)) {
             showLoading();
             flag = 1;
-            map.put("manager_id", managerid);
-            map.put("user_name", user_name);
+            map.put("user_id", userID);
+            map.put("studio_id", managerid);
+            map.put("address_id", address_id);
+            map.put("clothes_num", count);
+            map.put("order_date", time.substring(0, 10));
+            String substring = time.substring(10, time.length());
+            if (TextUtils.equals("上午", substring)) {
+                map.put("order_date_tag", "AM_BUSY");
+            } else {
+                map.put("order_date_tag", "PM_BUSY");
+            }
+            map.put("user_name", SharedPreferenceUtils.getUserData(this, 2));
             map.put("manager_name", manager_name);
             map.put("manager_number", manager_number);
             map.put("city", city);
-            map.put("contact_number", userPhone);
-            map.put("service_mode", "上门服务");
-            map.put("number", count);
-            map.put("money", money);
-            map.put("ordertime", time);
-            map.put("ordername", user_name);
-            map.put("remarks", "");
-            map.put("user_code", userID);
-            map.put("manager_photo", manager_photo);
             map.put("address", userCity);
+            map.put("contact_number", userPhone);
+            map.put("ordername", user_name);
+            map.put("address_id", address_id);
+            map.put("manager_photo", manager_photo);
+
             net.post(NetConfig.UPLOADING_COM_DETAILS, map, this);
         } else {
             ReminderUtils.Toast(this, "请完整填写信息");
@@ -190,11 +192,9 @@ public class GoDoorInfoActivity extends BaseActivity implements UtilsInternet.XC
     * 选择时间
     * */
     private void selectTime() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
-        String str = sdf.format(new Date());
-        DateTimePickDialogUtil dateTimePicKDialog = new DateTimePickDialogUtil(
-                this, str);
-        dateTimePicKDialog.dateTimePicKDialog2(tvTime);
+        Intent in = new Intent(this, SelectStudioTimeActivity.class);
+        in.putExtra("studio_id", managerid);
+        startActivityForResult(in, 2000);
     }
 
     /*
@@ -222,7 +222,11 @@ public class GoDoorInfoActivity extends BaseActivity implements UtilsInternet.XC
                     return;
                 } else {
                     int a = (nowCount - intPrice_baseNum2) / intPrice_raiseNum;
-                    a = a + 1;
+
+                    if ((nowCount - intPrice_baseNum2) % intPrice_raiseNum != 0) {
+                        a = a + 1;
+                    }
+
                     tvMoney.setText((a * intPrice_raisePrice + intPrice2) + "");
                     return;
                 }
@@ -262,7 +266,15 @@ public class GoDoorInfoActivity extends BaseActivity implements UtilsInternet.XC
             tvName.setText(name);
             tvPhone.setText(phone);
             tvAdd.setText(city + address);
+        } else if (requestCode == 2000) {
+            try {
+                String time = data.getStringExtra("time");
+                tvTime.setText(time);
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     /*
@@ -300,24 +312,32 @@ public class GoDoorInfoActivity extends BaseActivity implements UtilsInternet.XC
             * case == 1时处理提交支付的数据
             * */
             case 1:
-                dismissLoading();
-                if (LiJiYuYueActivity.instanceLiji != null) {
-                    LiJiYuYueActivity.instanceLiji.finish();
-                    LiJiYuYueActivity.instanceLiji = null;
+                try {
+                    JSONObject object = new JSONObject(result);
+                    JSONObject body = object.getJSONObject("body");
+                    String order_id = body.getString("order_id");
+                    dismissLoading();
+                    if (LiJiYuYueActivity.instanceLiji != null) {
+                        LiJiYuYueActivity.instanceLiji.finish();
+                        LiJiYuYueActivity.instanceLiji = null;
+                    }
+                    if (ManageActivity.instanceManage != null) {
+                        ManageActivity.instanceManage.finish();
+                        ManageActivity.instanceManage = null;
+                    }
+                    Map<String, Object> jumpMap = new HashMap<>();
+                    jumpMap.put("managerPhoto", manager_photo);
+                    jumpMap.put("managerName", manager_name);
+                    jumpMap.put("nowMoney", tvMoney.getText().toString().trim());
+                    jumpMap.put("orderid", order_id);
+                    jumpMap.put("type", "1");
+                    jumpMap.put("num", "1");
+                    ActivityUtils.switchTo(this, PayOrderActivity.class, jumpMap);
+                    finish();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                if (ManageActivity.instanceManage != null) {
-                    ManageActivity.instanceManage.finish();
-                    ManageActivity.instanceManage = null;
-                }
-                Map<String, Object> jumpMap = new HashMap<>();
-                jumpMap.put("managerPhoto", manager_photo);
-                jumpMap.put("managerName", manager_name);
-                jumpMap.put("nowMoney", tvMoney.getText().toString().trim());
-                jumpMap.put("orderid", result);
-                jumpMap.put("type", "1");
-                jumpMap.put("num", "1");
-                ActivityUtils.switchTo(this, PayOrderActivity.class, jumpMap);
-                finish();
+
             default:
                 break;
         }

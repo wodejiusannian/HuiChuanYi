@@ -126,7 +126,7 @@ public class ProgressAdapter extends BaseAdapter {
                 mHolder.mImageViewPhoto.setImageResource(R.mipmap.stand);
             }
             mHolder.mTextViewName.setText(mPosition.getManagername());
-            mHolder.mTextViewAllMoney.setText(mPosition.getMoney());
+            mHolder.mTextViewAllMoney.setText("¥" + mPosition.getMoney());
             mHolder.mTextViewDingDanHao.setText(mPosition.getId());
             //为每个空间添加TAG,添加回调接口
             mHolder.ShenQingTuiKuan.setTag(position);

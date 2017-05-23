@@ -11,8 +11,10 @@ import com.github.promeg.pinyinhelper.Pinyin;
  * @Description:
  */
 public class TinyPY {
+
     /**
      * 字符串转拼音
+     *
      * @param name 原始字符串
      * @return 字符串对应的拼音
      */
@@ -21,7 +23,23 @@ public class TinyPY {
             return null;
         }
         name = name.trim();
+        if (name.contains("长")) {
+            return "chang";
+        }
+        if (name.contains("沈")) {
+            return "shen";
+        }
+        if (name.contains("厦")) {
+            return "xia";
+        }
+        if (name.contains("地")) {
+            return "di";
+        }
+        if (name.contains("重")) {
+            return "chong";
+        }
         StringBuilder stringBuilder = new StringBuilder();
+
         for (int i = 0; i < name.length(); i++) {
             stringBuilder.append(Pinyin.toPinyin(name.charAt(i)));
         }
@@ -30,6 +48,7 @@ public class TinyPY {
 
     /**
      * 截取首字符
+     *
      * @param name 原始字符串
      * @return 首字符
      */

@@ -2,42 +2,36 @@ package com.example.huichuanyi.fragment_first;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.huichuanyi.R;
-import com.example.huichuanyi.baidumap.FreshPhoto;
-import com.example.huichuanyi.base.BaseFragment;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.CustomToast;
 import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.share.Share;
 import com.example.huichuanyi.ui.activity.DatumActivity;
 import com.example.huichuanyi.ui.activity.IndentActivity;
-import com.example.huichuanyi.ui.activity.MainActivity;
+import com.example.huichuanyi.ui.activity.MineSettingActivity;
+import com.example.huichuanyi.ui.activity.MineStyleActivity;
 import com.example.huichuanyi.ui.activity.MyOrderActivity;
 import com.example.huichuanyi.ui.activity.My_365Activity;
-import com.example.huichuanyi.ui.activity.MineRegisterActivity;
-import com.example.huichuanyi.ui.activity.MineReportActivity;
-import com.example.huichuanyi.ui.activity.MineSettingActivity;
+import com.example.huichuanyi.ui.activity.login.LoginByAuthCodeActivity;
+import com.example.huichuanyi.ui.base.BaseFragment;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.ImageUtils;
-import com.example.huichuanyi.utils.MySharedPreferences;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.foamtrace.photopicker.PhotoPickerActivity;
 import com.foamtrace.photopicker.SelectModel;
 import com.foamtrace.photopicker.intent.PhotoPickerIntent;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.Event;
+import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.io.File;
@@ -45,176 +39,75 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+@ContentView(R.layout.fragment_mine)
+public class Fragment_Mine extends BaseFragment {
 
-public class Fragment_Mine extends BaseFragment implements View.OnClickListener, FreshPhoto {
-    private View view;
-    private TextView mTextViewRegisterAndLogin, mTextViewDaiTi, mImageViewSetting;
-    private SimpleDraweeView mPhoto,mVip;
-    private LinearLayout mLinearLayoutDatum, mLinearLayoutReport,
-            mLinearLayoutOrder, mLinearLayoutIndent,
-            mLinearLayoutInvite, mLinearLayoutExit, m365;
-    private User mUser;
+    @ViewInject(R.id.iv_mine_photo)
+    private SimpleDraweeView mPhoto;
+
+    @ViewInject(R.id.sv_mine_vip)
+    private SimpleDraweeView mVip;
+
+    @ViewInject(R.id.tv_mine_name)
+    private TextView mName;
+
     private static final int REQUEST_CAMERA_CODE = 11;
     private Map<String, Object> map = new HashMap<>();
-    private int useId = -1;
-    private String userPhoto;
 
-    @Override
-    protected View initView() {
-        view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_mine, null);
-        initChildView(view);
-        return view;
-    }
-
-    @Override
-    protected void initData() {
-        super.initData();
-        mUser = new User(getActivity());
-        useId = mUser.getUseId();
-        getUserPhoto();
-    }
-
-    private void getUserPhoto() {
-        String m365 = MySharedPreferences.get365(getContext());
-        if (!TextUtils.equals("365",m365)){
-            mVip.setVisibility(View.GONE);
-        }else{
-            mVip.setVisibility(View.VISIBLE);
-        }
-        if (useId == 0) {
-            return;
-        }
-        RequestParams params = new RequestParams(NetConfig.GET_USER_PHOTO);
-        params.addBodyParameter("userid", useId + "");
-        x.http().post(params, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                try {
-                    JSONObject object = new JSONObject(result);
-                    JSONArray list = object.getJSONArray("list");
-                    JSONObject jsonObject = list.getJSONObject(0);
-                    String name = jsonObject.getString("name");
-                    if (!TextUtils.isEmpty(name)) {
-                        mTextViewRegisterAndLogin.setVisibility(View.GONE);
-                        mTextViewDaiTi.setVisibility(View.VISIBLE);
-                        mTextViewDaiTi.setText(name);
-                    }
-                    userPhoto = jsonObject.getString("photopath");
-                    if (!TextUtils.isEmpty(userPhoto)) {
-                        mPhoto.setImageURI(userPhoto);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
-    }
-
-    @Override
-    protected void initEvent() {
-        super.initEvent();
-        mTextViewRegisterAndLogin.setOnClickListener(this);
-        mLinearLayoutExit.setOnClickListener(this);
-        mPhoto.setOnClickListener(this);
-        mImageViewSetting.setOnClickListener(this);
-        mLinearLayoutDatum.setOnClickListener(this);
-        mLinearLayoutReport.setOnClickListener(this);
-        mLinearLayoutOrder.setOnClickListener(this);
-        mLinearLayoutIndent.setOnClickListener(this);
-        mLinearLayoutInvite.setOnClickListener(this);
-        m365.setOnClickListener(this);
-        MainActivity mainActivity = (MainActivity) getActivity();
-        mainActivity.setCallBack(this);
-    }
-
-    @Override
-    public void onClick(View v) {
-        useId = mUser.getUseId();
+    @Event({R.id.iv_mine_photo, R.id.iv_mine_setting,
+            R.id.ll_mine_datum, R.id.ll_mine_report, R.id.ll_mine_order, R.id.ll_mine_365,
+            R.id.ll_mine_indent, R.id.ll_mine_invite, R.id.ll_mine_exit})
+    private void onEvent(View v) {
         switch (v.getId()) {
-            case R.id.tv_mine_registerandlogin:
-                goLogin();
-                break;
             case R.id.iv_mine_photo:
-                if (useId > 0) {
-                    upLoadingPhoto();
-                } else {
-                    CustomToast.showToast(getContext(),"亲，请先登陆哦");
-                    ActivityUtils.switchTo(getActivity(), MineRegisterActivity.class);
-                }
+                upLoadingPhoto();
                 break;
             case R.id.iv_mine_setting:
                 ActivityUtils.switchTo(getActivity(), MineSettingActivity.class);
                 break;
             case R.id.ll_mine_datum:
-                if (useId > 0) {
-                    ActivityUtils.switchTo(getActivity(), DatumActivity.class);
-                } else {
-                    ActivityUtils.switchTo(getActivity(), MineRegisterActivity.class);
-                }
+                ActivityUtils.switchTo(getActivity(), DatumActivity.class);
                 break;
             case R.id.ll_mine_report:
-                if (useId > 0) {
-                    ActivityUtils.switchTo(getActivity(), MineReportActivity.class);
-                } else {
-                    ActivityUtils.switchTo(getActivity(), MineRegisterActivity.class);
-                }
+                ActivityUtils.switchTo(getActivity(), MineStyleActivity.class);
                 break;
             case R.id.ll_mine_order:
-                if (useId > 0) {
-                    ActivityUtils.switchTo(getActivity(), MyOrderActivity.class);
-                } else {
-                    ActivityUtils.switchTo(getActivity(), MineRegisterActivity.class);
-                }
+                ActivityUtils.switchTo(getActivity(), MyOrderActivity.class);
                 break;
             case R.id.ll_mine_365:
-                if (useId > 0) {
-                    map.put("userPhoto", userPhoto);
-                    ActivityUtils.switchTo(getActivity(), My_365Activity.class, map);
-                } else {
-                    ActivityUtils.switchTo(getActivity(), MineRegisterActivity.class);
-                }
+                ActivityUtils.switchTo(getActivity(), My_365Activity.class, map);
                 break;
             case R.id.ll_mine_indent:
-                if (useId > 0) {
-                    ActivityUtils.switchTo(getActivity(), IndentActivity.class);
-                } else {
-                    ActivityUtils.switchTo(getActivity(), MineRegisterActivity.class);
-                }
+                ActivityUtils.switchTo(getActivity(), IndentActivity.class);
                 break;
             case R.id.ll_mine_invite:
-                if (useId > 0) {
-                    Share.inviteFriend(getContext());
-                } else {
-                    ActivityUtils.switchTo(getActivity(), MineRegisterActivity.class);
-                }
+                Share.inviteFriend(getContext());
                 break;
             case R.id.ll_mine_exit:
-                goExit(useId);
+                goExit();
                 break;
         }
     }
 
-
-    /*
-    * 去登陆
-    * */
-    private void goLogin() {
-        ActivityUtils.switchTo(getActivity(), MineRegisterActivity.class);
+    @Override
+    protected void initData() {
+        super.initData();
     }
+
+    private void getUserPhoto() {
+        String m365 = SharedPreferenceUtils.get365(getContext());
+        if (!TextUtils.equals("365", m365)) {
+            mVip.setVisibility(View.GONE);
+        } else {
+            mVip.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    protected void initEvent() {
+        super.initEvent();
+    }
+
 
     private void upLoadingPhoto() {
         PhotoPickerIntent intent = new PhotoPickerIntent(getActivity());
@@ -224,21 +117,6 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
         startActivityForResult(intent, REQUEST_CAMERA_CODE);
     }
 
-
-    private void initChildView(View view) {
-        mTextViewRegisterAndLogin = (TextView) view.findViewById(R.id.tv_mine_registerandlogin);
-        mLinearLayoutExit = (LinearLayout) view.findViewById(R.id.ll_mine_exit);
-        mPhoto = (SimpleDraweeView) view.findViewById(R.id.iv_mine_photo);
-        mImageViewSetting = (TextView) view.findViewById(R.id.iv_mine_setting);
-        mLinearLayoutDatum = (LinearLayout) view.findViewById(R.id.ll_mine_datum);
-        mLinearLayoutReport = (LinearLayout) view.findViewById(R.id.ll_mine_report);
-        mLinearLayoutOrder = (LinearLayout) view.findViewById(R.id.ll_mine_order);
-        mLinearLayoutIndent = (LinearLayout) view.findViewById(R.id.ll_mine_indent);
-        mLinearLayoutInvite = (LinearLayout) view.findViewById(R.id.ll_mine_invite);
-        mTextViewDaiTi = (TextView) view.findViewById(R.id.tv_mine_daiti);
-        m365 = (LinearLayout) view.findViewById(R.id.ll_mine_365);
-        mVip = (SimpleDraweeView) view.findViewById(R.id.sv_mine_vip);
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -251,17 +129,18 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
                     Bitmap bitmap = ImageUtils.ratio(s, 240f, 240f);
                     String photo = ImageUtils.saveBitMapToFile(getActivity(), "myPhoto", bitmap, true);
                     RequestParams params = new RequestParams(NetConfig.USER_PHOTO);
-                    params.addBodyParameter("userid", new User(getActivity()).getUseId() + "");
+                    params.addBodyParameter("userid", SharedPreferenceUtils.getUserData(getContext(), 1));
                     params.addBodyParameter("img", new File(photo));
                     x.http().post(params, new Callback.CommonCallback<String>() {
                         @Override
                         public void onSuccess(String result) {
                             if ("0".equals(result)) {
-                                CustomToast.showToast(getContext(),"修改失败");
+                                CustomToast.showToast(getContext(), "修改失败");
                                 return;
                             } else {
                                 mPhoto.setImageURI(result);
-                                CustomToast.showToast(getContext(),"修改成功");
+                                SharedPreferenceUtils.writeUserPhoto(getContext(), result);
+                                CustomToast.showToast(getContext(), "修改成功");
                             }
 
                         }
@@ -293,43 +172,32 @@ public class Fragment_Mine extends BaseFragment implements View.OnClickListener,
     }
 
 
-    @Override
-    public void getPhoto() {
-        useId = new User(getActivity()).getUseId();
-        getUserPhoto();
-    }
-
     /*
     * 去退出
     * */
-    private void goExit(int useId) {
-        if (useId > 0) {
-            MySelfDialog mDialog = new MySelfDialog(getActivity());
-            mDialog.setMessage("退出后看不到具体数据");
-            mDialog.setOnNoListener("取消", null);
-            mDialog.setOnYesListener("确定", new MySelfDialog.OnYesClickListener() {
-                @Override
-                public void onClick() {
-                    User mUser = new User(getActivity());
-                    mUser.writeUserId(0);
-                    mPhoto.setImageURI(Uri.parse("res://com.example.huichuanyi/" + R.mipmap.managephoto));
-                    mTextViewDaiTi.setVisibility(View.GONE);
-                    mTextViewRegisterAndLogin.setVisibility(View.VISIBLE);
-                    MySharedPreferences.save365(getContext(), null);
-                    sendBroad();
-                    CustomToast.showToast(getContext(),"退出登录成功");
-                }
-            });
-            mDialog.show();
-        } else {
-            ActivityUtils.switchTo(getActivity(), MineRegisterActivity.class);
-        }
+    private void goExit() {
+        MySelfDialog mDialog = new MySelfDialog(getActivity());
+        mDialog.setMessage("退出后看不到具体数据");
+        mDialog.setOnNoListener("取消", null);
+        mDialog.setOnYesListener("确定", new MySelfDialog.OnYesClickListener() {
+            @Override
+            public void onClick() {
+                CustomToast.showToast(getContext(), "退出登录成功");
+                SharedPreferenceUtils.writeUserId(getContext(), null);
+                SharedPreferenceUtils.save365(getContext(), null);
+                ActivityUtils.switchTo(getActivity(), LoginByAuthCodeActivity.class);
+                getActivity().finish();
+            }
+        });
+        mDialog.show();
     }
 
-
-    public void sendBroad() {
-        Intent intent = new Intent();
-        intent.setAction("action.refreshFriend");
-        getActivity().sendBroadcast(intent);
+    @Override
+    public void onResume() {
+        super.onResume();
+        mName.setText(SharedPreferenceUtils.getUserData(getContext(), 2));
+        mPhoto.setImageURI(SharedPreferenceUtils.getUserData(getContext(), 3));
+        getUserPhoto();
     }
+
 }

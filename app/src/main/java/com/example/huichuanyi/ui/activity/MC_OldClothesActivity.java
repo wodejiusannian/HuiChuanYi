@@ -17,8 +17,8 @@ import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.utils.ItemDecoration;
 import com.example.huichuanyi.bean.MyClothess;
-import com.example.huichuanyi.utils.MyJson;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.JsonUtils;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
 import com.google.gson.Gson;
 
@@ -58,7 +58,7 @@ public class MC_OldClothesActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void initData() {
-        user_id = new User(this).getUseId() + "";
+        user_id = SharedPreferenceUtils.getUserData(this,1);
         mData = new ArrayList<>();
         mAdapter = new MC_OldAdapter(this, mData);
         mTextView.setText("旧衣回收");
@@ -154,7 +154,7 @@ public class MC_OldClothesActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onResponse(String result) {
-        String ret = MyJson.getRet(result);
+        String ret = JsonUtils.getRet(result);
         if (TextUtils.equals("0", ret)) {
             mData.clear();
             Gson gson = new Gson();

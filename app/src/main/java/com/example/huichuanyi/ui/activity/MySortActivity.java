@@ -12,7 +12,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -29,12 +28,12 @@ import com.example.huichuanyi.adapter.BtnChangeAdapter_4_1;
 import com.example.huichuanyi.adapter.BtnChangeAdapter_5_1;
 import com.example.huichuanyi.adapter.MC_MyClothesAdapter2;
 import com.example.huichuanyi.base.BaseActivity;
-import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.utils.ItemDecoration;
 import com.example.huichuanyi.bean.Label;
 import com.example.huichuanyi.bean.MyClothess;
-import com.example.huichuanyi.utils.MyJson;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.config.NetConfig;
+import com.example.huichuanyi.utils.ItemDecoration;
+import com.example.huichuanyi.utils.JsonUtils;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -106,7 +105,7 @@ public class MySortActivity extends BaseActivity implements View.OnClickListener
         zhonglei = intent.getStringExtra("zhonglei");
         tag = intent.getStringExtra("tag");
         yichuzhonglei = intent.getStringExtra("yichuzhonglei");
-        user_id = new User(this).getUseId() + "";
+        user_id = SharedPreferenceUtils.getUserData(this,1);
         SharedPreferences hqSysCloTag = getSharedPreferences("hqSysCloTag", 0);
         jsons = hqSysCloTag.getString("hqSysCloTag", "");
         mStyles = new ArrayList<>();
@@ -271,7 +270,6 @@ public class MySortActivity extends BaseActivity implements View.OnClickListener
                 Intent intent = new Intent(this, WDYCPicActivity.class);
                 intent.putExtra("mList", (Serializable) mData);
                 intent.putExtra("position", position);
-                Log.i("TAG", "----------------" + yichuzhonglei);
                 intent.putExtra("yichuzhonglei", yichuzhonglei);
                 startActivity(intent);
                 break;
@@ -367,7 +365,7 @@ public class MySortActivity extends BaseActivity implements View.OnClickListener
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                String ret = MyJson.getRet(result);
+                String ret = JsonUtils.getRet(result);
                 mData.clear();
                 if (TextUtils.equals("0", ret)) {
                     Gson gson = new Gson();

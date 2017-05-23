@@ -5,6 +5,7 @@
     android:id="@+id/activity_write__address"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/hm_gary"
     android:fitsSystemWindows="true"
     tools:context="com.example.huichuanyi.ui.activity.SLWWriteInfoActivity">
 
@@ -25,7 +26,7 @@
                 android:id="@+id/ll_write_order_address_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background"
+                android:background="@drawable/hm_background"
                 android:orientation="vertical">
 
                 <TextView
@@ -83,7 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/distance_10"
-                android:background="@drawable/background"
+                android:background="@drawable/hm_background"
                 android:orientation="vertical">
 
                 <TextView
@@ -106,7 +107,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     android:layout_margin="@dimen/distance_10"
-                    android:background="@drawable/background2"
+                    android:background="@drawable/background"
                     android:orientation="horizontal"
                     android:padding="@dimen/distance_5">
 
@@ -124,7 +125,7 @@
                         android:hint="您的要求我们尽量满足"
                         android:maxLength="50"
                         android:textCursorDrawable="@null"
-                        android:textSize="@dimen/text_size_13" />
+                        android:textSize="@dimen/text_size_12" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -133,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="50dp"
                 android:layout_marginTop="@dimen/distance_10"
-                android:background="@drawable/background"
+                android:background="@drawable/hm_background"
                 android:orientation="vertical">
 
                 <TextView
@@ -203,7 +204,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="@dimen/distance_10"
         android:layout_marginRight="@dimen/distance_10"
-        android:background="@drawable/background"
+        android:background="@drawable/hm_background"
         android:orientation="horizontal">
 
         <TextView

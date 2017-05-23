@@ -17,10 +17,9 @@ import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MySelfPayDialog;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.IsSuccess;
-import com.example.huichuanyi.utils.MyJson;
-import com.example.huichuanyi.utils.MySharedPreferences;
+import com.example.huichuanyi.utils.JsonUtils;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.ReminderUtils;
-import com.example.huichuanyi.utils.User;
 import com.example.huichuanyi.utils.UtilsInternet;
 import com.example.huichuanyi.utils.UtilsPay;
 
@@ -81,10 +80,10 @@ public class HomeVideoYouhuiquanActivity extends BaseActivity implements IsSucce
     @Override
     public void setData() {
         mListView.setAdapter(adapter);
-        user_id = new User(this).getUseId() + "";
+        user_id = SharedPreferenceUtils.getUserData(this,1);
         pay = new UtilsPay(this);
         pay.isSuccess(this);
-        String citys = MySharedPreferences.getCity(this);
+        String citys = SharedPreferenceUtils.getCity(this);
         if (CommonUtils.isEmpty(citys)) {
             city = "北京市";
         } else {
@@ -135,7 +134,7 @@ public class HomeVideoYouhuiquanActivity extends BaseActivity implements IsSucce
         switch (isFlag) {
             case 1:
                 try {
-                    String ret = MyJson.getRet(result);
+                    String ret = JsonUtils.getRet(result);
                     if (TextUtils.equals("1015", ret)) {
                         ReminderUtils.Toast(this, "视频成功兑换");
                         finish();
@@ -157,7 +156,7 @@ public class HomeVideoYouhuiquanActivity extends BaseActivity implements IsSucce
                 break;
             case 2:
                 isFlag = 1;
-                String ret = MyJson.getRet(result);
+                String ret = JsonUtils.getRet(result);
                 switch (aliOrWeChat) {
 
                     case 1:

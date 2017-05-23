@@ -16,10 +16,10 @@ import com.example.huichuanyi.adapter.IndentAdapter;
 import com.example.huichuanyi.alipay.AuthResult;
 import com.example.huichuanyi.alipay.PayResult;
 import com.example.huichuanyi.base.BaseFragment;
+import com.example.huichuanyi.bean.Indent;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MySelfDialog;
-import com.example.huichuanyi.bean.Indent;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -105,7 +105,7 @@ public class Progress_Indent extends BaseFragment implements SwipeRefreshLayout.
 
     private void getData() {
         RequestParams params = new RequestParams(NetConfig.INDENT_URL);
-        String userid = new User(getActivity()).getUseId() + "";
+        String userid = SharedPreferenceUtils.getUserData(getContext(), 1);
         params.addBodyParameter("userid", userid);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
@@ -189,7 +189,7 @@ public class Progress_Indent extends BaseFragment implements SwipeRefreshLayout.
     @Override
     public void onClick() {
         RequestParams params = new RequestParams(NetConfig.INDENT_PAY_VIDEO);
-        params.addBodyParameter("userid", new User(getContext()).getUseId() + "");
+        params.addBodyParameter("userid", SharedPreferenceUtils.getUserData(getContext(), 1));
         params.addBodyParameter("id", id);
         params.addBodyParameter("type", "1");
         x.http().post(params, new Callback.CommonCallback<String>() {

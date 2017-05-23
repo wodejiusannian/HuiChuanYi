@@ -14,7 +14,7 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.RoundImageView;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.squareup.picasso.Picasso;
 
 import org.xutils.common.Callback;
@@ -84,7 +84,7 @@ public class ShenQingTuiKuanActivity extends BaseActivity implements View.OnClic
     private void upTuiKuanData() {
         reason = mEditText.getText().toString().trim();
         RequestParams params = new RequestParams(NetConfig.TUI_KUAN);
-        String userid = new User(this).getUseId() + "";
+        String userid = SharedPreferenceUtils.getUserData(this,1);
         params.addBodyParameter("orderid",orderid);
         params.addBodyParameter("state",state);
         params.addBodyParameter("userid",userid);

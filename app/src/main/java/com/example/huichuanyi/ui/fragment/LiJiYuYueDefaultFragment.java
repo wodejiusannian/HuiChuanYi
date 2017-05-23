@@ -18,7 +18,7 @@ import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.ui.activity.ManageActivity;
 import com.example.huichuanyi.ui.base.BaseFragment;
-import com.example.huichuanyi.utils.MyJson;
+import com.example.huichuanyi.utils.JsonUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
 import com.google.gson.Gson;
 
@@ -109,7 +109,7 @@ public class LiJiYuYueDefaultFragment extends BaseFragment implements UtilsInter
 
     @Override
     public void onResponse(String result) {
-        String s = MyJson.getRet(result);
+        String s = JsonUtils.getRet(result);
         mData.clear();
         if (TextUtils.equals("0", s)) {
             Gson gson = new Gson();

@@ -1,84 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/hm_gary"
     android:fitsSystemWindows="true"
     tools:context=".ui.activity.HomeWoDeYiChuActivity">
+
     <RelativeLayout
         android:id="@+id/tl_clothess_mTool"
-        android:background="@color/top_color"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="40dp"
+        android:background="@color/top_color">
+
         <ImageView
             android:id="@+id/iv_my_clothes_back"
-            android:src="@drawable/back"
-            android:layout_height="match_parent"
             android:layout_width="40dp"
-            />
+            android:layout_height="match_parent"
+            android:src="@drawable/back" />
+
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="我的衣橱"
             android:textColor="#fff"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_centerInParent="true"
-            android:textSize="@dimen/text_size_big"
-            />
+            android:textSize="@dimen/text_size_big" />
     </RelativeLayout>
+
     <LinearLayout
-        android:layout_below="@+id/tl_clothess_mTool"
-        android:orientation="vertical"
-        android:weightSum="32"
-        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tl_clothess_mTool"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical"
+        android:weightSum="32">
+
         <LinearLayout
-            android:gravity="center"
-            android:weightSum="12"
-            android:layout_weight="12"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="0dp"
+            android:layout_weight="12"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="12">
+
             <ImageView
                 android:id="@+id/iv_my_clothes_jiatingyichu"
-                android:scaleType="fitXY"
-                android:src="@mipmap/jiatingyichu"
-                android:layout_weight="5"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:scaleType="fitXY"
+                android:src="@mipmap/jiatingyichu" />
+
             <ImageView
                 android:id="@+id/iv_my_clothes_chuxingyichu"
-                android:layout_marginLeft="20dp"
-                android:scaleType="fitXY"
-                android:src="@mipmap/chuxingyichu"
-                android:layout_weight="5"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="5"
+                android:scaleType="fitXY"
+                android:src="@mipmap/chuxingyichu" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:weightSum="12"
-            android:layout_weight="12"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="0dp"
+            android:layout_marginTop="30dp"
+            android:layout_weight="12"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="12">
+
             <ImageView
                 android:id="@+id/iv_my_clothes_jiuyihuishou"
-                android:scaleType="fitXY"
-                android:src="@mipmap/jiuyihuishou"
-                android:layout_weight="5"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:scaleType="fitXY"
+                android:src="@mipmap/jiuyihuishou" />
+
             <ImageView
                 android:id="@+id/iv_my_clothes_qitayichu"
-                android:scaleType="fitXY"
-                android:layout_marginLeft="20dp"
-                android:src="@mipmap/qitayichu"
-                android:layout_weight="5"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="5"
+                android:scaleType="fitXY"
+                android:src="@mipmap/qitayichu" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

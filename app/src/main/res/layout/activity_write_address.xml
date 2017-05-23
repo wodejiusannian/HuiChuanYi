@@ -4,6 +4,7 @@
     android:id="@+id/activity_write__address2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/hm_gary"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context="com.example.huichuanyi.ui.activity.AddressWriteActivity">
@@ -44,7 +45,7 @@
         android:layout_marginLeft="@dimen/distance_10"
         android:layout_marginRight="@dimen/distance_10"
         android:layout_marginTop="@dimen/distance_10"
-        android:background="@drawable/background"
+        android:background="@drawable/hm_background"
         android:orientation="vertical"
         android:padding="@dimen/distance_10">
 

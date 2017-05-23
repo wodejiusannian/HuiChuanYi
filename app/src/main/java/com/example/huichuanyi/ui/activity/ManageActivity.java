@@ -132,6 +132,12 @@ public class ManageActivity extends BaseActivity implements UtilsInternet.XCallB
 
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        instanceManage = null;
+    }
+
+    @Override
     public void onResponse(String result) {
         try {
             if ("0".equals(result) || "-1".equals(result)) {

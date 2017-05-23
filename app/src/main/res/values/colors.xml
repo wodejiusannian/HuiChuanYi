@@ -26,4 +26,6 @@
     <color name="biz_audio_progress_bg">#00b2ff</color>
     <color name="biz_audio_progress_first">#ffffff</color>
     <color name="biz_audio_progress_second">#6b6666</color>
+    <color name="hm_gary">#f7f4f4</color>
+    <color name="hm_write">#ffffff</color>
 </resources>

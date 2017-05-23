@@ -1,0 +1,87 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.huichuanyi.ui.fragment.AuthCodeGetFragment">
+
+
+    <ImageView
+        android:id="@+id/iv_login_welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="92dp"
+        android:src="@mipmap/login_image_welcome" />
+
+    <EditText
+        android:id="@+id/et_login_phone"
+        android:layout_width="240dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/iv_login_welcome"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="84dp"
+        android:background="@drawable/hm_background"
+        android:gravity="center"
+        android:hint="输入手机号登录或注册"
+        android:inputType="number"
+        android:textColorHint="#000"
+        android:textCursorDrawable="@drawable/shape_edittext"
+        android:textSize="17sp" />
+
+    <ImageView
+        android:id="@+id/iv_login_next"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_login_phone"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="42dp"
+        android:src="@mipmap/login_image_next" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp">
+
+        <ImageView
+            android:id="@+id/iv_login_wechat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/login_image_wechat" />
+
+        <ImageView
+            android:id="@+id/iv_login_qq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="67dp"
+            android:layout_toRightOf="@+id/iv_login_wechat"
+            android:src="@mipmap/login_image_qq" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/cb_login_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/selector_checkbox"
+            android:checked="true" />
+
+        <TextView
+            android:id="@+id/go_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已阅读服务条款"
+            android:textColor="@color/text_color_low"
+            android:textSize="10sp" />
+    </LinearLayout>
+</RelativeLayout>

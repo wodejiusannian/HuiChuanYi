@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="@drawable/shape_dialog_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_centerInParent="true"
     android:layout_gravity="center_horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:background="@drawable/shape_dialog_bg"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="100dp"
@@ -16,7 +16,7 @@
             android:id="@+id/pb_load"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true" />
 
     </RelativeLayout>
 
@@ -27,5 +27,5 @@
         android:layout_gravity="center_horizontal"
         android:text="加载中...."
         android:textColor="#9a9b98"
-        android:textSize="12sp"/>
+        android:textSize="12sp" />
 </LinearLayout>

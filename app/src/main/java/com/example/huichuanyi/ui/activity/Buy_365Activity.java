@@ -13,8 +13,7 @@ import com.example.huichuanyi.bean.City;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.secondui.PayOrderActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
-import com.example.huichuanyi.utils.MySharedPreferences;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.Utils;
 import com.example.huichuanyi.utils.UtilsInternet;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -55,7 +54,7 @@ public class Buy_365Activity extends BaseActivity implements UtilsInternet.XCall
 
     @Override
     public void initData() {
-        user_id = new User(this).getUseId() + "";
+        user_id = SharedPreferenceUtils.getUserData(this,1);
         Intent intent = getIntent();
         City.BodyBean bodyBean = (City.BodyBean) intent.getSerializableExtra("bodyBean");
         studioId = bodyBean.getId();
@@ -75,7 +74,7 @@ public class Buy_365Activity extends BaseActivity implements UtilsInternet.XCall
     public void setData() {
 
         if (Location.Location_type == 1) {
-            nowMoney = MySharedPreferences.getActivityPrice(this);
+            nowMoney = SharedPreferenceUtils.getActivityPrice(this);
             mWillPay.setText("¥" + nowMoney);
             is_share = "Y";
         }

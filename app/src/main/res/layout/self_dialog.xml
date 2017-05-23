@@ -12,7 +12,6 @@
         android:orientation="vertical">
 
         <TextView
-
             android:id="@+id/my_self_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,7 +42,7 @@
                 android:layout_marginLeft="@dimen/distance"
                 android:paddingBottom="@dimen/distance"
                 android:paddingTop="@dimen/distance"
-                android:src="@mipmap/alipay" />
+                android:src="@mipmap/image_pay_ali" />
 
             <TextView
                 android:id="@+id/iv_payorder_wechatname"
@@ -62,7 +61,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/distance"
                 android:gravity="end"
-                android:src="@mipmap/pay_nomal" />
+                android:src="@mipmap/pay_normal" />
 
             <ImageView
                 android:id="@+id/iv_iswechatalipay_alipaySelect"

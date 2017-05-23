@@ -11,7 +11,7 @@ import com.example.huichuanyi.adapter.RefreshRecordAdapter;
 import com.example.huichuanyi.base.BaseFragment;
 import com.example.huichuanyi.bean.RecordRefresh;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.Utils;
 import com.example.huichuanyi.utils.UtilsInternet;
 
@@ -52,7 +52,7 @@ public class RefreshRecord extends BaseFragment implements UtilsInternet.XCallBa
     @Override
     protected void initData() {
         super.initData();
-        user_id = new User(getContext()).getUseId() + "";
+        user_id = SharedPreferenceUtils.getUserData(getContext(),1);
         mData = new ArrayList<>();
         adapter = new RefreshRecordAdapter(mData, getActivity());
         mShow.setAdapter(adapter);

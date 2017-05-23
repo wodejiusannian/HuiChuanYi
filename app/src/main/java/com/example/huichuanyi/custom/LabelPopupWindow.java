@@ -138,8 +138,6 @@ public class LabelPopupWindow extends PopupWindow implements View.OnClickListene
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.tv_pop_season:
-                break;
             case R.id.iv_pop_up_sure:
                 String time = mTime.getText().toString().trim();
                 String price = mPrice.getText().toString().trim();

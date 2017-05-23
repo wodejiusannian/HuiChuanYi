@@ -6,4 +6,6 @@ package com.example.huichuanyi.utils;
 
 public class CommonStatic {
     public static String wechatType;
+
+    public static String LOGIN_PHONE;
 }

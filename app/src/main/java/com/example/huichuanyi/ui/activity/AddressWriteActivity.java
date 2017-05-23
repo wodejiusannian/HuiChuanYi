@@ -19,8 +19,8 @@ import com.example.huichuanyi.bean.DistrictModel;
 import com.example.huichuanyi.bean.ProvinceModel;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.service.XmlParserHandler;
-import com.example.huichuanyi.utils.MyJson;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.JsonUtils;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
 
 import java.io.InputStream;
@@ -88,7 +88,7 @@ public class AddressWriteActivity extends BaseActivity implements View.OnClickLi
         phone = intent.getStringExtra("phone");
         city = intent.getStringExtra("city");
         address = intent.getStringExtra("selector_address");
-        userID = new User(this).getUseId() + "";
+        userID = SharedPreferenceUtils.getUserData(this,1);
         addressId = intent.getStringExtra("addressId");
         initProvinceDatas();
     }
@@ -225,7 +225,7 @@ public class AddressWriteActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onResponse(String result) {
-        String ret = MyJson.getRet(result);
+        String ret = JsonUtils.getRet(result);
         if (TextUtils.equals("0", ret)) {
             if (TextUtils.equals("9001", type)) {
                 Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();

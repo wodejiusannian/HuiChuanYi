@@ -7,7 +7,6 @@ import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.os.Environment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.example.huichuanyi.config.NetConfig;
@@ -21,19 +20,18 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
 
 
 /**
  * Created by Administrator on 2016/10/29 0029.
  */
 public class ImageUtils {
-    
+
     public static String saveBitMapToFile(Context context, String fileName, Bitmap bitmap, boolean isCover) {
-        if(null == context || null == bitmap) {
+        if (null == context || null == bitmap) {
             return null;
         }
-        if(TextUtils.isEmpty(fileName)) {
+        if (TextUtils.isEmpty(fileName)) {
             return null;
         }
         FileOutputStream fOut = null;
@@ -78,30 +76,88 @@ public class ImageUtils {
                 bitmap.recycle();
             }
 
-            Log.i("FileSave", "saveDrawableToFile " + fileName
-                    + " success, save path is " + fileDstPath);
             return fileDstPath;
         } catch (Exception e) {
-            Log.e("FileSave", "saveDrawableToFile: " + fileName + " , error", e);
             return null;
         } finally {
-            if(null != fOut) {
+            if (null != fOut) {
                 try {
                     fOut.close();
                 } catch (Exception e) {
-                    Log.e("FileSave", "saveDrawableToFile, close error", e);
                 }
             }
         }
     }
-    
+
+    public static String saveBitMapToFileJPG(Context context, String fileName, Bitmap bitmap, boolean isCover) {
+        if (null == context || null == bitmap) {
+            return null;
+        }
+        if (TextUtils.isEmpty(fileName)) {
+            return null;
+        }
+        FileOutputStream fOut = null;
+        try {
+            File file = null;
+            String fileDstPath = "";
+            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+                // 保存到sd卡
+                fileDstPath = Environment.getExternalStorageDirectory().getAbsolutePath()
+                        + File.separator + "MyFile" + File.separator + fileName + ".jpg";
+
+                File homeDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
+                        + File.separator + "MyFile" + File.separator);
+                if (!homeDir.exists()) {
+                    homeDir.mkdirs();
+                }
+            } else {
+                // 保存到file目录
+                fileDstPath = context.getFilesDir().getAbsolutePath()
+                        + File.separator + "MyFile" + File.separator + fileName + ".jpg";
+
+                File homeDir = new File(context.getFilesDir().getAbsolutePath()
+                        + File.separator + "MyFile" + File.separator);
+                if (!homeDir.exists()) {
+                    homeDir.mkdir();
+                }
+            }
+
+            file = new File(fileDstPath);
+
+            if (!file.exists() || isCover) {
+                // 简单起见，先删除老文件，不管它是否存在。
+                file.delete();
+
+                fOut = new FileOutputStream(file);
+                if (fileName.endsWith(".png")) {
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 75, fOut);
+                } else {
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+                }
+                fOut.flush();
+                bitmap.recycle();
+            }
+
+            return fileDstPath;
+        } catch (Exception e) {
+            return null;
+        } finally {
+            if (null != fOut) {
+                try {
+                    fOut.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+    }
+
     public static Bitmap ratio(String imgPath, float pixelW, float pixelH) {
         BitmapFactory.Options newOpts = new BitmapFactory.Options();
         // 开始读入图片，此时把options.inJustDecodeBounds 设回true，即只读边不读内容
         newOpts.inJustDecodeBounds = true;
         newOpts.inPreferredConfig = Bitmap.Config.RGB_565;
         // Get bitmap info, but notice that bitmap is null now
-        Bitmap bitmap = BitmapFactory.decodeFile(imgPath,newOpts);
+        Bitmap bitmap = BitmapFactory.decodeFile(imgPath, newOpts);
 
         newOpts.inJustDecodeBounds = false;
         int w = newOpts.outWidth;
@@ -123,11 +179,11 @@ public class ImageUtils {
         return bitmap;
     }
 
- 
+
     public Bitmap ratio(Bitmap image, float pixelW, float pixelH) {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 100, os);
-        if( os.toByteArray().length / 1024>1024) {//判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出
+        if (os.toByteArray().length / 1024 > 1024) {//判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出
             os.reset();//重置baos即清空baos
             image.compress(Bitmap.CompressFormat.JPEG, 50, os);//这里压缩50%，把压缩后的数据存放到baos中
         }
@@ -159,8 +215,6 @@ public class ImageUtils {
         return bitmap;
     }
 
-   
-
 
     public static Bitmap getSmallBitmap(String filePath) {
 
@@ -171,25 +225,25 @@ public class ImageUtils {
         options.inPreferredConfig = Bitmap.Config.RGB_565;
         options.inJustDecodeBounds = false;
         Bitmap bm = BitmapFactory.decodeFile(filePath, options);
-         if(bm == null){
-             return null;
-         }
+        if (bm == null) {
+            return null;
+        }
         int degree = readPictureDegree(filePath);
-        bm = rotateBitmap(bm,degree) ;
-        ByteArrayOutputStream baos = null ;
-        try{
-             baos = new ByteArrayOutputStream();
-             bm.compress(Bitmap.CompressFormat.JPEG, 30, baos);
+        bm = rotateBitmap(bm, degree);
+        ByteArrayOutputStream baos = null;
+        try {
+            baos = new ByteArrayOutputStream();
+            bm.compress(Bitmap.CompressFormat.JPEG, 30, baos);
 
-             }finally{
-             try {
-                 if(baos != null)
-                     baos.close() ;
-                 } catch (IOException e) {
-                 e.printStackTrace();
-             }
+        } finally {
+            try {
+                if (baos != null)
+                    baos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-     return bm ;
+        }
+        return bm;
     }
 
     private static int calculateInSampleSize(BitmapFactory.Options options,
@@ -214,7 +268,7 @@ public class ImageUtils {
     }
 
     private static int readPictureDegree(String path) {
-        int degree  = 0;
+        int degree = 0;
         try {
             ExifInterface exifInterface = new ExifInterface(path);
             int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
@@ -235,9 +289,9 @@ public class ImageUtils {
         return degree;
     }
 
-    private static Bitmap rotateBitmap(Bitmap bitmap, int rotate){
-        if(bitmap == null)
-            return null ;
+    private static Bitmap rotateBitmap(Bitmap bitmap, int rotate) {
+        if (bitmap == null)
+            return null;
 
         int w = bitmap.getWidth();
         int h = bitmap.getHeight();
@@ -249,33 +303,28 @@ public class ImageUtils {
     }
 
 
-    public static void   upPicture(final Context context, String userid,String wardrobe_id,
-                                 String wardrobe_type,String wardrobe_name,String experience,
-                                 String environment,List<String> arr,String picone,String pictwo,String picthree,String picfour){
+    public static void upPicture(final Context context, String userid, String wardrobe_id,
+                                 String wardrobe_type, String wardrobe_name, String experience,
+                                 String environment, String sdPath) {
         RequestParams params = new RequestParams(NetConfig.ADD_MATCH);
-        params.addBodyParameter("userid",userid);
-        params.addBodyParameter("wardrobe_id",wardrobe_id);
-        params.addBodyParameter("wardrobe_type",wardrobe_type);
-        params.addBodyParameter("wardrobe_name",wardrobe_name);
-        params.addBodyParameter("experience",experience);
-        params.addBodyParameter("environment",environment);
-        params.addBodyParameter("onepic","");
-        params.addBodyParameter("twopic","");
-        params.addBodyParameter("threepic","");
-        params.addBodyParameter("fourpic",picfour);
-        for(int i = 0; i <arr.size() ; i++) {
-            /*Bitmap ratio = ImageUtils.ratio(arr.get(i), 960, 960);*/
-            //Bitmap ratio = ImageUtils.getSmallBitmap(arr.get(i));
-           // String s = ImageUtils.saveBitMapToFile(context, "myphoto" + i, ratio, true);
-            params.addBodyParameter("img", new File(arr.get(i)));
-        }
+        params.addBodyParameter("userid", userid);
+        params.addBodyParameter("wardrobe_id", wardrobe_id);
+        params.addBodyParameter("wardrobe_type", wardrobe_type);
+        params.addBodyParameter("wardrobe_name", wardrobe_name);
+        params.addBodyParameter("experience", experience);
+        params.addBodyParameter("environment", environment);
+        params.addBodyParameter("onepic", "");
+        params.addBodyParameter("twopic", "");
+        params.addBodyParameter("threepic", "");
+        params.addBodyParameter("fourpic", "");
+        params.addBodyParameter("img", new File(sdPath));
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                if("0".equals(result)) {
+                if ("0".equals(result)) {
                     Toast.makeText(context, "上传失败", Toast.LENGTH_SHORT).show();
                     return;
-                }else {
+                } else {
                     Toast.makeText(context, "上传成功", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -296,8 +345,6 @@ public class ImageUtils {
             }
         });
     }
-
-
 
 
 }

@@ -19,9 +19,8 @@ import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.custom.MySelfPayDialog;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.IsSuccess;
-import com.example.huichuanyi.utils.MyJson;
-import com.example.huichuanyi.utils.MySharedPreferences;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.JsonUtils;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
 import com.example.huichuanyi.utils.UtilsPay;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -98,10 +97,10 @@ public class VideoPayActivity extends BaseActivity implements CompoundButton.OnC
 
     @Override
     public void initData() {
-        user_id = new User(this).getUseId() + "";
+        user_id = SharedPreferenceUtils.getUserData(this, 1);
         pay = new UtilsPay(this);
         pay.isSuccess(this);
-        String citys = MySharedPreferences.getCity(this);
+        String citys = SharedPreferenceUtils.getCity(this);
         if (CommonUtils.isEmpty(citys)) {
             city = "北京市";
         } else {
@@ -190,6 +189,15 @@ public class VideoPayActivity extends BaseActivity implements CompoundButton.OnC
 
     @Override
     public void onClick(int tag) {
+        if (tag == 3) {
+            Toast.makeText(this, "暂未开通", Toast.LENGTH_SHORT).show();
+            return;
+           /* Intent intent = new Intent(this, YWTPayActivity.class);
+            intent.putExtra("type", "4");
+            intent.putExtra("order_id", order_id);
+            startActivity(intent);
+            return;*/
+        }
         aliOrWeChat = tag;
         map.put("pay_type", tag + "");
         map.put("video_order_id", order_id);
@@ -201,7 +209,7 @@ public class VideoPayActivity extends BaseActivity implements CompoundButton.OnC
         switch (isFlag) {
             case 1:
                 try {
-                    String ret = MyJson.getRet(result);
+                    String ret = JsonUtils.getRet(result);
                     if (TextUtils.equals("0", ret)) {
                         isFlag = 2;
                         JSONObject object = new JSONObject(result);
@@ -243,16 +251,18 @@ public class VideoPayActivity extends BaseActivity implements CompoundButton.OnC
 
     @Override
     public void isSuccess(int success) {
-        switch (success) {
-            case 9000:
-                CommonUtils.Toast(this, "支付成功");
-                finish();
-                break;
-            case 9001:
-                CommonUtils.Toast(this, "支付失败");
-                break;
-            default:
-                break;
+        if (aliOrWeChat == 1) {
+            switch (success) {
+                case 9000:
+                    CommonUtils.Toast(this, "支付成功");
+                    finish();
+                    break;
+                case 9001:
+                    CommonUtils.Toast(this, "支付失败");
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

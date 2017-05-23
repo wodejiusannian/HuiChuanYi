@@ -1,57 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/hm_gary"
     android:fitsSystemWindows="true"
     tools:context=".ui.activity.MineSettingActivity">
 
     <RelativeLayout
         android:id="@+id/tl_setting_mTool"
-        android:background="@color/top_color"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="40dp"
+        android:background="@color/top_color">
+
         <ImageView
             android:id="@+id/iv_setting_back"
-            android:src="@drawable/back"
-            android:layout_height="match_parent"
             android:layout_width="40dp"
-            />
+            android:layout_height="match_parent"
+            android:src="@drawable/back" />
+
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="设置"
             android:textColor="#fff"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_centerInParent="true"
-            android:textSize="@dimen/text_size_big"
-            />
+            android:textSize="@dimen/text_size_big" />
 
     </RelativeLayout>
+
     <LinearLayout
-        android:layout_below="@+id/tl_setting_mTool"
-        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/distance"
         android:layout_marginRight="@dimen/distance"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:orientation="vertical"
+        android:layout_below="@+id/tl_setting_mTool"
+        android:layout_centerHorizontal="true">
+
         <RelativeLayout
             android:id="@+id/rl_setting_tuisong"
-            android:layout_marginTop="@dimen/distance"
-            android:background="@drawable/background"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:layout_marginTop="@dimen/distance"
+            android:background="@drawable/hm_background">
+
             <TextView
-                android:text="消息推送"
-                android:layout_marginLeft="@dimen/distance"
-                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/distance"
+                android:text="消息推送" />
+
             <ToggleButton
                 android:id="@+id/tb_setting_jpush"
-                android:layout_alignParentEnd="true"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
                 android:background="@android:color/transparent"
                 android:button="@drawable/toggle_btn"
                 android:checked="true"
@@ -59,75 +64,71 @@
                 android:textOff=""
                 android:textOn="" />
         </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/rl_setting_revise"
-            android:layout_marginTop="3dp"
-            android:background="@drawable/background"
-            android:layout_width="match_parent"
-            android:layout_height="50dp">
-            <TextView
-                android:text="修改密码"
-                android:layout_marginLeft="@dimen/distance"
-                android:layout_centerVertical="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/rl_setting_update"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:layout_marginTop="3dp"
-            android:background="@drawable/background"
-            android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:background="@drawable/hm_background">
+
             <TextView
-                android:text="检测更新"
-                android:layout_marginLeft="@dimen/distance"
-                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/distance"
+                android:text="检测更新" />
         </RelativeLayout>
+
         <LinearLayout
-            android:layout_marginTop="@dimen/distance"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/distance"
+            android:orientation="vertical">
+
             <RelativeLayout
                 android:id="@+id/rl_setting_fankui"
-                android:layout_marginTop="3dp"
-                android:background="@drawable/background"
                 android:layout_width="match_parent"
-                android:layout_height="50dp">
+                android:layout_height="50dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/hm_background">
+
                 <TextView
-                    android:text="反馈建议"
-                    android:layout_marginLeft="@dimen/distance"
-                    android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/distance"
+                    android:text="反馈建议" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/rl_setting_lianxi"
-                android:layout_marginTop="3dp"
-                android:background="@drawable/background"
                 android:layout_width="match_parent"
-                android:layout_height="50dp">
+                android:layout_height="50dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/hm_background">
+
                 <TextView
-                    android:text="联系客服"
-                    android:layout_marginLeft="@dimen/distance"
-                    android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/distance"
+                    android:text="联系客服" />
             </RelativeLayout>
+
             <RelativeLayout
-                android:layout_marginTop="3dp"
                 android:id="@+id/rl_setting_my"
-                android:background="@drawable/background"
                 android:layout_width="match_parent"
-                android:layout_height="50dp">
+                android:layout_height="50dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/hm_background">
+
                 <TextView
-                    android:text="关于我们"
-                    android:layout_marginLeft="@dimen/distance"
-                    android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/distance"
+                    android:text="关于我们" />
             </RelativeLayout>
         </LinearLayout>
 

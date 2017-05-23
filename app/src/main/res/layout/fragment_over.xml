@@ -2,18 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/hm_gary"
     android:orientation="vertical">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/sf_fragment_over_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/distance_10"
+        android:layout_marginRight="10dp">
 
         <ListView
             android:id="@+id/lv_fragment_over_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="#00000000">
+            android:background="@color/hm_gary"
+            android:divider="@color/hm_gary"
+            android:dividerHeight="10dp">
 
         </ListView>
     </android.support.v4.widget.SwipeRefreshLayout>

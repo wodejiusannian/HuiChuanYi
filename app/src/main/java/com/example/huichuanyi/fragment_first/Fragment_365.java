@@ -16,18 +16,15 @@ import com.example.huichuanyi.base.BaseFragment;
 import com.example.huichuanyi.bean.CardItem;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MySelfDialog;
-import com.example.huichuanyi.ui.activity.SLWJianJieActivity;
-import com.example.huichuanyi.ui.activity.MainActivity;
 import com.example.huichuanyi.ui.activity.DatumActivity;
-import com.example.huichuanyi.ui.activity.MineRegisterActivity;
 import com.example.huichuanyi.ui.activity.Item_DetailsActivity;
-import com.example.huichuanyi.ui.activity.SLWRecordActivity;
+import com.example.huichuanyi.ui.activity.MainActivity;
 import com.example.huichuanyi.ui.activity.SLWActiveActivity;
+import com.example.huichuanyi.ui.activity.SLWJianJieActivity;
+import com.example.huichuanyi.ui.activity.SLWRecordActivity;
 import com.example.huichuanyi.ui.activity.SLWWriteInfoActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
-import com.example.huichuanyi.utils.MySharedPreferences;
-import com.example.huichuanyi.utils.User;
-import com.example.huichuanyi.utils.Utils;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
 
 import org.json.JSONArray;
@@ -52,7 +49,6 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
     private Button mAdd, mWill, mInvite, mCopy;
 
     private MyPartnerAdapter mAdapter;
-    private int userID;
     private String buyCity;
 
     @Override
@@ -106,39 +102,35 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void onClick(View v) {
-        if (userID > 0) {
-            switch (v.getId()) {
-                case R.id.tv_365_record:
-                    ActivityUtils.switchTo(getActivity(), SLWRecordActivity.class);
-                    break;
-                case R.id.btn_will_pay_copy:
-                    isHaveBuyCity();
-                    break;
-                case R.id.btn_365_add:
-                    if (mData.size() == 0) return;
-                    int currentItem = mPics.getCurrentItem();
-                    addJumpData(currentItem);
-                    ActivityUtils.switchTo(getActivity(), SLWWriteInfoActivity.class, jumpMap);
-                    break;
-                case R.id.btn_will_pay:
-                    isHaveBuyCity();
-                    break;
-                case R.id.btn_will_invite:
-                    buyCity = MySharedPreferences.getBuyCity(getActivity());
-                    if (TextUtils.isEmpty(buyCity)) {
-                        showDialog();
-                    } else {
-                        ActivityUtils.switchTo(getActivity(), SLWActiveActivity.class);
-                    }
-                    break;
-                default:
-                    int tag = (int) v.getTag();
-                    addJumpData(tag);
-                    ActivityUtils.switchTo(getActivity(), Item_DetailsActivity.class, jumpMap);
-                    break;
-            }
-        } else {
-            ActivityUtils.switchTo(getActivity(), MineRegisterActivity.class);
+        switch (v.getId()) {
+            case R.id.tv_365_record:
+                ActivityUtils.switchTo(getActivity(), SLWRecordActivity.class);
+                break;
+            case R.id.btn_will_pay_copy:
+                isHaveBuyCity();
+                break;
+            case R.id.btn_365_add:
+                if (mData.size() == 0) return;
+                int currentItem = mPics.getCurrentItem();
+                addJumpData(currentItem);
+                ActivityUtils.switchTo(getActivity(), SLWWriteInfoActivity.class, jumpMap);
+                break;
+            case R.id.btn_will_pay:
+                isHaveBuyCity();
+                break;
+            case R.id.btn_will_invite:
+                buyCity = SharedPreferenceUtils.getBuyCity(getActivity());
+                if (TextUtils.isEmpty(buyCity)) {
+                    showDialog();
+                } else {
+                    ActivityUtils.switchTo(getActivity(), SLWActiveActivity.class);
+                }
+                break;
+            default:
+                int tag = (int) v.getTag();
+                addJumpData(tag);
+                ActivityUtils.switchTo(getActivity(), Item_DetailsActivity.class, jumpMap);
+                break;
         }
     }
 
@@ -175,7 +167,7 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
     * 点击去开通
     * */
     private void goDredge() {
-        /*String city = MySharedPreferences.getBuyCity(getContext());
+        /*String city = SharedPreferenceUtils.getBuyCity(getContext());
         Map<String, Object> map = new HashMap<>();
         map.put("location", city);
         map.put("order_365", "365");
@@ -185,7 +177,6 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void onResponse(String result) {
-        Utils.Log(result);
         try {
             JSONObject object = new JSONObject(result);
             JSONArray body = object.getJSONArray("body");
@@ -220,20 +211,14 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
     * 是否已经购买365服务,购买成功or购买失败
     * */
     private void isYetPay() {
-        userID = new User(getContext()).getUseId();
-        String activity = MySharedPreferences.getActivity(getActivity());
-        if (userID > 0) {
-            if (TextUtils.equals("Y", activity)) {
-                mCopy.setVisibility(View.GONE);
-                mActivity.setVisibility(View.VISIBLE);
-            }
-            map.put("user_id", userID + "");
-            instance.post(NetConfig.GET_RECOMMEND_NEW, map, this);
-        } else {
-            mCopy.setVisibility(View.VISIBLE);
-            mActivity.setVisibility(View.GONE);
+        String activity = SharedPreferenceUtils.getActivity(getActivity());
+        if (TextUtils.equals("Y", activity)) {
+            mCopy.setVisibility(View.GONE);
+            mActivity.setVisibility(View.VISIBLE);
         }
-        String m365 = MySharedPreferences.get365(getContext());
+        map.put("user_id", SharedPreferenceUtils.getUserData(getContext(), 1));
+        instance.post(NetConfig.GET_RECOMMEND_NEW, map, this);
+        String m365 = SharedPreferenceUtils.get365(getContext());
         if (TextUtils.equals("365", m365)) {
             mPay.setVisibility(View.VISIBLE);
             mRecord.setVisibility(View.VISIBLE);
@@ -252,7 +237,7 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
     }
 
     private void isHaveBuyCity() {
-        buyCity = MySharedPreferences.getBuyCity(getActivity());
+        buyCity = SharedPreferenceUtils.getBuyCity(getActivity());
         if (TextUtils.isEmpty(this.buyCity)) {
             showDialog();
         } else {

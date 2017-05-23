@@ -12,7 +12,7 @@ import com.example.huichuanyi.ui.activity.SLWWriteInfoActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonStatic;
 import com.example.huichuanyi.utils.CommonUtils;
-import com.example.huichuanyi.utils.MySharedPreferences;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
@@ -49,21 +49,23 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
             int code = resp.errCode;
             switch (code) {
                 case 0:
-                    switch (CommonStatic.wechatType) {
-                        case "1":
-                            closeActivity();
-                            ActivityUtils.switchTo(this, MyOrderActivity.class);
-                            break;
-                        case "2":
-                            MySharedPreferences.save365(this, "365");
-                            sendBroad();
-                            ActivityUtils.switchTo(this, My_365Activity.class);
-                            break;
-                        case "3":
-                            closeActivity();
-                            break;
-                        default:
-                            break;
+                    if (!CommonUtils.isEmpty(CommonStatic.wechatType)) {
+                        switch (CommonStatic.wechatType) {
+                            case "1":
+                                closeActivity();
+                                ActivityUtils.switchTo(this, MyOrderActivity.class);
+                                break;
+                            case "2":
+                                SharedPreferenceUtils.save365(this, "365");
+                                sendBroad();
+                                ActivityUtils.switchTo(this, My_365Activity.class);
+                                break;
+                            case "3":
+                                closeActivity();
+                                break;
+                            default:
+                                break;
+                        }
                     }
                     CommonUtils.Toast(this, "支付成功");
                 case -1:

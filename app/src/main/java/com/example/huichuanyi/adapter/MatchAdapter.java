@@ -8,22 +8,23 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.huichuanyi.R;
-import com.example.huichuanyi.custom.RoundImageView;
 import com.example.huichuanyi.bean.Match;
-import com.squareup.picasso.Picasso;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
 
-public class MatchAdapter extends BaseAdapter{
+public class MatchAdapter extends BaseAdapter {
     private List<Match.EvaluatesBean> mData;
     private Context mContext;
-    public MatchAdapter(List<Match.EvaluatesBean> data, Context context){
+
+    public MatchAdapter(List<Match.EvaluatesBean> data, Context context) {
         mData = data;
         mContext = context;
     }
+
     @Override
     public int getCount() {
-        return mData==null?0:mData.size();
+        return mData == null ? 0 : mData.size();
     }
 
     @Override
@@ -39,25 +40,29 @@ public class MatchAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final ViewHolder mHolder;
-        if(convertView==null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.match_item,null);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.match_item, null);
             mHolder = new ViewHolder(convertView);
             convertView.setTag(mHolder);
-        }else{
+        } else {
             mHolder = (ViewHolder) convertView.getTag();
         }
-        Picasso.with(mContext).load(mData.get(position).getGetlogopic()).into(mHolder.mImageViewPhoto);
-        mHolder.mTextViewDay.setText("18");
-        mHolder.mTextViewTime.setText(mData.get(position).getTime());
+        Match.EvaluatesBean evaluatesBean = mData.get(position);
+        mHolder.mImageViewPhoto.setImageURI(evaluatesBean.getGetlogopic());
+        String time = evaluatesBean.getTime();
+        mHolder.mDate.setText(time.substring(8, 11));
+        mHolder.mTextViewTime.setText(time.substring(0, 11));
         return convertView;
     }
-    public static class ViewHolder{
-        private RoundImageView mImageViewPhoto;
-        private TextView mTextViewDay,mTextViewTime;
-        public ViewHolder(View view){
-            mImageViewPhoto = (RoundImageView) view.findViewById(R.id.rv_match_item_photo);
-            mTextViewDay = (TextView) view.findViewById(R.id.tv_match_item_day);
+
+    public static class ViewHolder {
+        private SimpleDraweeView mImageViewPhoto;
+        private TextView mTextViewTime, mDate;
+
+        public ViewHolder(View view) {
+            mImageViewPhoto = (SimpleDraweeView) view.findViewById(R.id.rv_match_item_photo);
             mTextViewTime = (TextView) view.findViewById(R.id.tv_match_item_time);
+            mDate = (TextView) view.findViewById(R.id.tv_diary_date);
         }
     }
 }

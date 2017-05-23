@@ -5,6 +5,7 @@
     android:id="@+id/activity_see_car"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/hm_gary"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context="com.example.huichuanyi.fragment_second.SeeCarActivity">
@@ -37,6 +38,7 @@
             android:padding="@dimen/distance_5">
 
             <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -44,7 +46,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/background"
+                    android:background="@drawable/hm_background"
                     android:padding="@dimen/distance_5">
 
                     <TextView
@@ -115,7 +117,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/distance_10"
-                    android:background="@drawable/background"
+                    android:background="@drawable/hm_background"
                     android:padding="@dimen/distance_5">
 
                 </com.example.huichuanyi.custom.MyListView>

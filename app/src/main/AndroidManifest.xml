@@ -5,7 +5,6 @@
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
@@ -42,14 +41,10 @@
             android:process=":remote" />
 
         <activity
-            android:name=".ui.activity.loading.SplashActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
-        <activity
             android:name=".ui.activity.MainActivity"
             android:launchMode="singleTask" />
         <activity android:name=".ui.activity.loading.LoadingActivity" />
         <activity android:name=".ui.activity.ManageActivity" />
-        <activity android:name=".ui.activity.OrderInfoActivity" />
         <activity android:name=".secondui.PayOrderActivity" />
         <activity android:name=".ui.activity.HomeDaPeiRiJiActivity" />
         <activity android:name=".ui.activity.MC_HomeActivity" />
@@ -88,14 +83,10 @@
             android:value="Wandoujia" />
 
         <activity android:name=".ui.activity.MC_TripAndElseActivity" />
-        <activity android:name=".ui.activity.MineRegisterActivity" />
-        <activity android:name=".secondui.AuthCodeActivity" />
-        <activity
-            android:name=".secondui.LoginActivity"
-            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".secondui.BoundActivity" />
-        <activity android:name=".ui.activity.IndentActivity" />
-        <activity android:name=".ui.activity.MineReportActivity" />
+        <activity
+            android:name=".ui.activity.IndentActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".ui.activity.MineSettingActivity" />
         <activity android:name=".secondui.FanKuiActivity" />
         <activity android:name=".secondui.AtMyAcitivty" />
@@ -109,7 +100,6 @@
             android:name="com.foamtrace.photopicker.PhotoPreviewActivity"
             android:theme="@style/PhotoPickerTheme" />
         <activity android:name=".ui.activity.HomeStatisticsActivity" />
-        <activity android:name=".secondui.AddMatch" />
         <activity android:name=".ui.activity.MySortActivity" />
         <activity android:name=".secondui.ShowPhotoActivity" />
         <activity
@@ -123,7 +113,9 @@
             android:exported="false"
             android:screenOrientation="behind" />
         <activity android:name=".secondui.ForgetPWDAcitity" />
-        <activity android:name=".ui.activity.MyOrderActivity" />
+        <activity
+            android:name=".ui.activity.MyOrderActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".secondui.ShenQingTuiKuanActivity" />
         <activity android:name=".secondui.PingJiaActivity" />
         <activity
@@ -131,29 +123,26 @@
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.BuChaJiaActivity" />
+        <activity android:name=".ui.activity.ClosingPriceActivity" />
         <activity android:name=".ui.activity.HomeWoDeYiChuActivity" />
         <activity android:name=".ui.activity.WDYCPicActivity" />
         <activity android:name=".ui.activity.VideoPayActivity" />
+        <activity android:name=".ui.activity.MineStyleActivity" />
 
         <receiver android:name=".wxapi.AppRegister">
             <intent-filter>
                 <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".download.ApkInstallReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
-            </intent-filter>
-        </receiver>
 
         <activity android:name=".ui.activity.LiJiYuYueActivity" />
         <activity android:name=".ui.activity.ComplainActivity" />
         <activity android:name=".ui.activity.MyOrderDetailsActivity" />
-        <activity android:name=".ui.activity.MineReviseActivity" />
         <activity android:name=".ui.activity.LabelsActivity" />
         <activity android:name=".ui.activity.Item_DetailsActivity" />
-        <activity android:name=".ui.activity.SLWRecordActivity" />
+        <activity
+            android:name=".ui.activity.SLWRecordActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".ui.activity.SLWWriteInfoActivity" />
         <activity android:name=".ui.activity.AddressWriteActivity" />
         <activity android:name=".ui.activity.AddressListActivity" />
@@ -163,6 +152,7 @@
         <activity android:name=".ui.activity.SLWActiveActivity" />
         <activity android:name=".ui.activity.SLWJianJieActivity" />
         <activity android:name=".ui.activity.GoDoorInfoActivity" />
+        <activity android:name=".ui.activity.login.LoginHMService" />
         <activity android:name=".ui.activity.register.RegisterSelectActivity" />
         <activity android:name=".ui.activity.register.RegisterPhoneActivity" />
         <activity android:name=".ui.activity.register.RegisterGetPhoneCodeActivity" />
@@ -172,7 +162,6 @@
         <activity android:name=".ui.activity.login.LoginSelectActivity" />
         <activity android:name=".ui.activity.login.LoginByPhoneActivity" />
         <activity android:name=".ui.activity.LiJiYuYueStudioSelectCityActivity" />
-        <activity android:name=".ui.activity.register.RegisterHMService" />
         <activity android:name=".ui.activity.video.HomeVideoYouhuiquanActivity" />
         <activity
             android:name=".ui.activity.video.FullVideoActivity"
@@ -180,7 +169,7 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.loading.MySplashActivity"
+            android:name=".ui.activity.loading.SplashActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -197,8 +186,35 @@
             android:name=".ui.activity.HomeVideoCoverActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.HMWebActivity"></activity>
-        <activity android:name=".ui.activity.HMStateActivity"></activity>
+        <activity android:name=".ui.activity.HMWebActivity" />
+        <activity android:name=".ui.activity.HMStateActivity" />
+        <activity android:name=".ui.activity.home.CollocationDiaryActivity" />
+        <activity android:name=".ui.activity.pay.BuyPayActivity" />
+        <activity android:name=".ui.activity.login.LoginByAuthCodeActivity" />
+        <activity android:name=".ui.activity.pay.YWTPayActivity" />
+
+        <meta-data
+            android:name="IFLYTEK_CHANNEL"
+            android:value="" />
+        <meta-data
+            android:name="IFLYTEK_APPKEY"
+            android:value="&apos;590c0bd9&apos;" />
+
+        <activity
+            android:name="com.iflytek.autoupdate.IFlytekUpdateDialog"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <!-- 下载基础服务 -->
+        <service
+            android:name="com.iflytek.autoupdate.IFlytekDownloadService"
+            android:enabled="true"
+            android:process=":IFlytekDownloadService" />
+
+        <activity android:name=".ui.activity.SelectStudioTimeActivity"></activity>
     </application>
 
 </manifest>

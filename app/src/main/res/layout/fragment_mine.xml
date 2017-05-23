@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/write"
-    android:clickable="true"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/hm_gary"
+    android:clickable="true">
 
     <RelativeLayout
         android:id="@+id/tl_mine_show"
@@ -71,41 +71,22 @@
                 fresco:placeholderImageScaleType="fitCenter" />
         </RelativeLayout>
 
-        <LinearLayout
-            android:id="@+id/ll_mine_perch"
+        <TextView
+            android:id="@+id/tv_mine_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rl_ttttt"
             android:layout_centerHorizontal="true"
-            android:layout_margin="13dp"
-            android:layout_marginTop="10dp">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tv_mine_registerandlogin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="注册/登录" />
-
-                <TextView
-                    android:id="@+id/tv_mine_daiti"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:visibility="gone" />
-            </RelativeLayout>
-
-        </LinearLayout>
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:lines="1"
+            android:text="name" />
 
         <ScrollView
             android:id="@+id/ll_mine_daiti"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/ll_mine_perch">
+            android:layout_below="@+id/tv_mine_name">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -119,7 +100,7 @@
                     android:layout_height="40dp"
                     android:layout_marginLeft="@dimen/main_margin_left"
                     android:layout_marginRight="@dimen/main_margin_right"
-                    android:background="@drawable/background"
+                    android:background="@drawable/hm_background"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -144,7 +125,7 @@
                     android:layout_marginLeft="@dimen/main_margin_left"
                     android:layout_marginRight="@dimen/main_margin_right"
                     android:layout_marginTop="3dp"
-                    android:background="@drawable/background"
+                    android:background="@drawable/hm_background"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -169,7 +150,7 @@
                     android:layout_marginLeft="@dimen/main_margin_left"
                     android:layout_marginRight="@dimen/main_margin_right"
                     android:layout_marginTop="3dp"
-                    android:background="@drawable/background"
+                    android:background="@drawable/hm_background"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -194,7 +175,7 @@
                     android:layout_marginLeft="@dimen/main_margin_left"
                     android:layout_marginRight="@dimen/main_margin_right"
                     android:layout_marginTop="15dp"
-                    android:background="@drawable/background"
+                    android:background="@drawable/hm_background"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -219,7 +200,7 @@
                     android:layout_marginLeft="@dimen/main_margin_left"
                     android:layout_marginRight="@dimen/main_margin_right"
                     android:layout_marginTop="3dp"
-                    android:background="@drawable/background"
+                    android:background="@drawable/hm_background"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -244,7 +225,7 @@
                     android:layout_marginLeft="@dimen/main_margin_left"
                     android:layout_marginRight="@dimen/main_margin_right"
                     android:layout_marginTop="15dp"
-                    android:background="@drawable/background"
+                    android:background="@drawable/hm_background"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -269,7 +250,7 @@
                     android:layout_marginLeft="@dimen/main_margin_left"
                     android:layout_marginRight="@dimen/main_margin_right"
                     android:layout_marginTop="3dp"
-                    android:background="@drawable/background"
+                    android:background="@drawable/hm_background"
                     android:orientation="horizontal">
 
                     <ImageView

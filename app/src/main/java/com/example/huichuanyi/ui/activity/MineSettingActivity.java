@@ -3,11 +3,8 @@ package com.example.huichuanyi.ui.activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,29 +14,18 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
-import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.config.SystemParams;
-import com.example.huichuanyi.custom.MySelfDialog;
-import com.example.huichuanyi.download.DownLoadUtils;
-import com.example.huichuanyi.download.DownloadApk;
 import com.example.huichuanyi.secondui.AtMyAcitivty;
 import com.example.huichuanyi.secondui.FanKuiActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
+import com.example.huichuanyi.utils.UpdateUtils;
 
 public class MineSettingActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     private RelativeLayout mRelativeLayoutFankui,
-            mRelativeLayoutLianxi, mRelativeLayoutmy, mRelativeLayoutUpDate, mRelativeRevise;
+            mRelativeLayoutLianxi, mRelativeLayoutmy, mRelativeLayoutUpDate;
     private ToggleButton mToggleButton;
     private SharedPreferences mShare;
     private int check;
@@ -61,7 +47,6 @@ public class MineSettingActivity extends BaseActivity implements View.OnClickLis
         mRelativeLayoutmy = (RelativeLayout) findViewById(R.id.rl_setting_my);
         mImageViewBack = (ImageView) findViewById(R.id.iv_setting_back);
         mRelativeLayoutUpDate = (RelativeLayout) findViewById(R.id.rl_setting_update);
-        mRelativeRevise = (RelativeLayout) findViewById(R.id.rl_setting_revise);
     }
 
     @Override
@@ -88,7 +73,6 @@ public class MineSettingActivity extends BaseActivity implements View.OnClickLis
         mToggleButton.setOnCheckedChangeListener(this);
         mImageViewBack.setOnClickListener(this);
         mRelativeLayoutUpDate.setOnClickListener(this);
-        mRelativeRevise.setOnClickListener(this);
     }
 
     @Override
@@ -114,10 +98,7 @@ public class MineSettingActivity extends BaseActivity implements View.OnClickLis
                 finish();
                 break;
             case R.id.rl_setting_update:
-                isFresh();
-                break;
-            case R.id.rl_setting_revise:
-                ActivityUtils.switchTo(this, MineReviseActivity.class);
+                UpdateUtils.getInstance(getApplicationContext()).update(true);
                 break;
         }
     }
@@ -155,90 +136,4 @@ public class MineSettingActivity extends BaseActivity implements View.OnClickLis
         mLiXiDialog.show();
     }
 
-    private String getVersionName() {
-        // 获取packagemanager的实例
-        PackageManager packageManager = getPackageManager();
-        // getPackageName()是你当前类的包名，0代表是获取版本信息
-        PackageInfo packInfo = null;
-        try {
-            packInfo = packageManager.getPackageInfo(getPackageName(), 0);
-            String version = packInfo.versionName;
-            return version;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private void isFresh() {
-        //1.注册下载广播接收器.
-        DownloadApk.registerBroadcast(this);
-        //2.删除已存在的Apk
-        DownloadApk.removeFile(this);
-        final SystemParams instance = SystemParams.getInstance();
-        RequestParams params = new RequestParams(NetConfig.IS_FRESH_PATH);
-        x.http().get(params, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                try {
-                    JSONObject obj = new JSONObject(result);
-                    String serverVersion = obj.getString("serverVersion");
-                    final String url = obj.getString("url");
-                    String msg = obj.getString("msg");
-                    String lastForce = obj.getString("lastForce");
-                    if (!TextUtils.equals(serverVersion, getVersionName())) {
-                        if (TextUtils.equals("Y", lastForce) || TextUtils.equals("y", lastForce)) {
-                            if (DownLoadUtils.getInstance(getApplicationContext()).canDownload()) {
-                                DownloadApk.downloadApk(getApplicationContext(), url, "慧美衣橱正在更新...", "hobbees");
-                            } else {
-                                DownLoadUtils.getInstance(getApplicationContext()).skipToDownloadManager();
-                            }
-                        } else {
-                            MySelfDialog mDialog = new MySelfDialog(MineSettingActivity.this);
-                            mDialog.setTitle("是否更新");
-                            mDialog.setMessage(msg);
-                            mDialog.setOnYesListener("确定", new MySelfDialog.OnYesClickListener() {
-                                @Override
-                                public void onClick() {
-                                    if (DownLoadUtils.getInstance(getApplicationContext()).canDownload()) {
-                                        DownloadApk.downloadApk(getApplicationContext(), url, "慧美衣橱正在更新...", "huimeiApk");
-                                    } else {
-                                        DownLoadUtils.getInstance(getApplicationContext()).skipToDownloadManager();
-                                    }
-                                }
-                            });
-                            mDialog.setOnNoListener("取消", new MySelfDialog.OnNoClickListener() {
-                                @Override
-                                public void onClick() {
-                                    instance.setBoolean("isFresh", true);
-                                }
-                            });
-                            mDialog.show();
-                        }
-                    } else {
-                        Toast.makeText(MineSettingActivity.this, "您的版本已经是最新的了，继续保持哦", Toast.LENGTH_SHORT).show();
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
-    }
 }

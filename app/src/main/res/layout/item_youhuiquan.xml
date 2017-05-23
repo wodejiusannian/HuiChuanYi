@@ -13,8 +13,8 @@
             android:id="@+id/sv_item_youhuiquan"
             android:layout_width="45dp"
             android:layout_height="46dp"
-            fresco:placeholderImage="@mipmap/stand"
             fresco:actualImageScaleType="fitCenter"
+            fresco:placeholderImage="@mipmap/stand"
             fresco:placeholderImageScaleType="centerCrop"
             fresco:roundedCornerRadius="5dp" />
 
@@ -25,7 +25,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:checked="true"
-            android:clickable="false"/>
+            android:clickable="false" />
 
         <TextView
             android:id="@+id/tv_youhuiquan_video_name"
@@ -33,7 +33,6 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/distance"
-            android:layout_toRightOf="@+id/sv_item_youhuiquan"
-            android:text="于老师的演讲" />
+            android:layout_toRightOf="@+id/sv_item_youhuiquan" />
     </RelativeLayout>
 </LinearLayout>

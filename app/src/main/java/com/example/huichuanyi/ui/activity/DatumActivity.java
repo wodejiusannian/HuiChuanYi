@@ -23,8 +23,7 @@ import com.example.huichuanyi.adapter.EventSelfAdapter;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.utils.CommonUtils;
-import com.example.huichuanyi.utils.MySharedPreferences;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatumActivity extends BaseActivity implements View.OnClickListener {
+    private static final String TAG = "DatumActivity";
     private EditText mEditTextName, mEditTextSex, mEditTextAge,
             mEditTextCity, mEditTextWork, mEditTextBusiness,
             mEditTextContact, mEditTextRelax, mEditTextHeight, mEditTextWeight, mEditTextNeck, mEditTextBear, mEditTextBosom, mEditTextNates, mEditTextWaist;
@@ -47,12 +47,11 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
     private EventSelfAdapter mSelfAdapter;
     private EventExpectAdapter mExpectAdapter;
     private Button mButtonSubject;
-    private String pos11, pos21, pos31;
+    private String pos11, pos21, pos31, colors, styles, xingxiangs;
     private String[] arr = {"棕色", "橙色", "灰色", "白色", "米色", "粉色", "紫色", "红色", "绿色", "蓝色", "透明", "黄色", "黑色"};
     private String[] arrSelf = {"可爱", "精致", "飘逸", "温婉", "朴实", "干练", "独特", "华丽", "典雅", "大气", "威严", "摩登", "中性"};
     private String[] arrExpect = {"年轻", "成熟", "内敛", "热情", "时尚", "传统", "随意", "端庄", "干练", "沉稳", "权威", "亲和", "知性", "艺术", "洒脱"};
     private List<Integer> isContains, mIntegersSelf, mIntegersExpect;
-    private int isEdit = 1;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -72,6 +71,9 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
             pos11 = data.getString("pos1");
             pos21 = data.getString("pos2");
             pos31 = data.getString("pos3");
+            colors = data.getString("colour_tag");
+            styles = data.getString("character");
+            xingxiangs = data.getString("desired_image");
             String waistline = data.getString("waistline");
             String hipline = data.getString("hipline");
             String orientate = data.getString("orientate");
@@ -83,10 +85,10 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
             }
             if (!TextUtils.equals("null", pos11) && !TextUtils.isEmpty(pos11) && !TextUtils.equals(" ", pos11)) {
                 String[] split = pos11.split("\\|");
-                Log.i("TAG", "-----"+pos11);
+                Log.i("TAG", "-----" + pos11);
                 for (int i = 0; i < split.length; i++) {
                     int i1 = Integer.parseInt(split[i]);
-                    if (i1<arr.length){
+                    if (i1 < arr.length) {
                         mRecyclerView.getChildAt(i1).setSelected(true);
                     }
                 }
@@ -96,7 +98,7 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
                 String[] split = pos21.split("\\|");
                 for (int i = 0; i < split.length; i++) {
                     int i1 = Integer.parseInt(split[i]);
-                    if (i1<arr.length){
+                    if (i1 < arr.length) {
                         mRecyclerViewselfdom.getChildAt(i1).setSelected(true);
                     }
                 }
@@ -105,7 +107,7 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
                 String[] split = pos31.split("\\|");
                 for (int i = 0; i < split.length; i++) {
                     int i1 = Integer.parseInt(split[i]);
-                    if (i1<arr.length){
+                    if (i1 < arr.length) {
                         mRecyclerViewExpect.getChildAt(i1).setSelected(true);
                     }
 
@@ -198,7 +200,7 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
         mExpectAdapter = new EventExpectAdapter(this, arrExpect);
         mVerticalAdapter = new EventAdapter(this, arr);
         RequestParams params = new RequestParams(NetConfig.GET_INFORMATION);
-        params.addBodyParameter("userid", new User(this).getUseId() + "");
+        params.addBodyParameter("userid", SharedPreferenceUtils.getUserData(this, 1));
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -221,15 +223,21 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
                     String pos1 = object.getString("pos1");
                     String pos2 = object.getString("pos2");
                     String pos3 = object.getString("pos3");
+                    String character = object.getString("character");
+                    String colour_tag = object.getString("colour_tag");
                     String neck_circumference = object.getString("neck_circumference");
                     String shoulder_circumference = object.getString("shoulder_circumference");
                     String bust = object.getString("bust");
                     String waistline = object.getString("waistline");
                     String hipline = object.getString("hipline");
+                    String desired_image = object.getString("desired_image");
                     bundle.putString("orientate", orientate);
                     bundle.putString("name", name);
+                    bundle.putString("desired_image", desired_image);
+                    bundle.putString("colour_tag", colour_tag);
                     bundle.putString("sex", sex);
                     bundle.putString("pos2", pos2);
+                    bundle.putString("character", character);
                     bundle.putString("pos3", pos3);
                     bundle.putString("age", age);
                     bundle.putString("city", city);
@@ -358,7 +366,7 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void upDataTo() {
-        String name = mEditTextName.getText().toString().trim();
+        final String name = mEditTextName.getText().toString().trim();
         String sex = mEditTextSex.getText().toString().trim();
         String age = mEditTextAge.getText().toString().trim();
         final String city = mEditTextCity.getText().toString().trim();
@@ -394,13 +402,14 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
             Integer integer = isContains.get(q);
             pos1.append(integer);
             colour_tag.append(arr[integer]);
-            if (q != isContains.size()) {
+            if (q != isContains.size() && q != isContains.size() - 1) {
                 colour_tag.append("|");
                 pos1.append("|");
             }
         }
         if (TextUtils.isEmpty(pos1)) {
             pos1.append(pos11);
+            colour_tag.append(colors);
         }
         StringBuffer character = new StringBuffer();
         StringBuffer pos2 = new StringBuffer();
@@ -408,7 +417,7 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
             Integer integer = mIntegersSelf.get(w);
             pos2.append(integer);
             character.append(arrSelf[integer]);
-            if (w != mIntegersSelf.size()) {
+            if (w != mIntegersSelf.size() && w != mIntegersSelf.size() - 1) {
                 character.append("|");
                 pos2.append("|");
             }
@@ -416,23 +425,26 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
         }
         if (TextUtils.isEmpty(pos2)) {
             pos2.append(pos21);
+            character.append(styles);
         }
         StringBuffer desired_image = new StringBuffer();
         StringBuffer pos3 = new StringBuffer();
         for (int w = 0; w < mIntegersExpect.size(); w++) {
             Integer integer = mIntegersExpect.get(w);
+            Log.e(TAG, "upDataTo: " + arrExpect[integer]);
             pos3.append(integer);
             desired_image.append(arrExpect[integer]);
-            if (w != mIntegersExpect.size()) {
+            if (w != mIntegersExpect.size() && w != mIntegersExpect.size() - 1) {
                 desired_image.append("|");
                 pos3.append("|");
             }
         }
         if (TextUtils.isEmpty(pos3)) {
             pos3.append(pos31);
+            desired_image.append(xingxiangs);
         }
         RequestParams params = new RequestParams(NetConfig.ME_INFORMATION);
-        params.addBodyParameter("id", new User(this).getUseId() + "");
+        params.addBodyParameter("id", SharedPreferenceUtils.getUserData(this, 1));
         params.addBodyParameter("name", name);
         params.addBodyParameter("sex", sex);
         params.addBodyParameter("age", age);
@@ -458,7 +470,8 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
             public void onSuccess(String result) {
                 if (TextUtils.equals("1", result)) {
                     CommonUtils.Toast(DatumActivity.this, "修改成功");
-                    MySharedPreferences.saveBuyCity(DatumActivity.this, city);
+                    SharedPreferenceUtils.saveBuyCity(DatumActivity.this, city);
+                    SharedPreferenceUtils.writeUserName(DatumActivity.this,name);
                     finish();
                 } else {
                     CommonUtils.Toast(DatumActivity.this, "修改失败");
@@ -494,7 +507,6 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
                 return;
             }
             mRecycle.getChildAt(position).setSelected(true);
-
             isContains.add(position);
         }
     }

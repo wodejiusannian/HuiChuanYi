@@ -8,7 +8,7 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.baidumap.Location;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
-import com.example.huichuanyi.utils.MySharedPreferences;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -49,7 +49,7 @@ public class SLWActiveActivity extends BaseActivity {
         oks.setCallback(new PlatformActionListener() {
             @Override
             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-                map.put("location", MySharedPreferences.getBuyCity(SLWActiveActivity.this));
+                map.put("location", SharedPreferenceUtils.getBuyCity(SLWActiveActivity.this));
                 map.put("order_365", "365");
                 Location.Location_type = 1;
                 ActivityUtils.switchTo(SLWActiveActivity.this, LiJiYuYueActivity.class, map);

@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/hm_gary"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
+    android:weightSum="1"
     tools:context="com.example.huichuanyi.ui.activity.LiJiYuYueWhatActivity">
 
     <RelativeLayout
@@ -28,7 +30,10 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:scaleType="centerCrop"
+        android:layout_weight="0.05"
+        android:scaleType="fitXY"
         android:src="@mipmap/lijiyuyue_price" />
 </LinearLayout>

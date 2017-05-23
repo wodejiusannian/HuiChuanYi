@@ -17,8 +17,8 @@ import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.bean.MyAddress;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MySelfDialog;
-import com.example.huichuanyi.utils.MyJson;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.JsonUtils;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.Utils;
 import com.example.huichuanyi.utils.UtilsInternet;
 
@@ -63,7 +63,7 @@ public class AddressListActivity extends BaseActivity implements ListAddressAdap
     @Override
     public void initData() {
         intent = getIntent();
-        user_Id = new User(this).getUseId() + "";
+        user_Id = SharedPreferenceUtils.getUserData(this,1);
         map.put("user_id", user_Id);
         instance = UtilsInternet.getInstance();
         adapter = new ListAddressAdapter(this, mData);
@@ -165,17 +165,6 @@ public class AddressListActivity extends BaseActivity implements ListAddressAdap
             map.clear();
             map.put("user_id", user_Id);
             instance.post(NetConfig.GET_PERSON_ADDRESS, map, this);
-            /*int tag = data.getIntExtra("tag", 0);
-            String name = data.getStringExtra("name");
-            String phone = data.getStringExtra("phone");
-            String street = data.getStringExtra("street");
-            String city = data.getStringExtra("city");
-            String type = data.getStringExtra("type");
-            if (TextUtils.equals("9001", type)) {
-                update(tag, city, street, name, phone);
-            } else {
-                addDate(city, street, name, phone);
-            }*/
         }
     }
 
@@ -255,7 +244,7 @@ public class AddressListActivity extends BaseActivity implements ListAddressAdap
                 break;
             case 1:
                 flag = 0;
-                String ret = MyJson.getRet(result);
+                String ret = JsonUtils.getRet(result);
                 if (TextUtils.equals("0", ret)) {
                     Toast.makeText(this, "删除成功", Toast.LENGTH_SHORT).show();
                 } else {

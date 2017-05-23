@@ -27,14 +27,16 @@
     </style>
 
     <style name="MyEditText" parent="Theme.AppCompat.Light">
-       <!-- <item name="colorControlActivated">@color/write</item>-->
+        <!-- <item name="colorControlActivated">@color/write</item>-->
         <item name="colorAccent">@color/write</item>
         <item name="colorControlNormal">@color/write</item>
     </style>
+
     <style name="my_dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:backgroundDimEnabled">true</item>
     </style>
+
     <style name="ClubToolbar" parent="Widget.AppCompat.Toolbar">
         <item name="contentInsetStart">0dp</item><!-- 设置该属性解决空白部分-->
     </style>
@@ -70,4 +72,39 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="colorAccent">#f00</item>
     </style>
+
+    <style name="text_editStyle">
+        <item name="android:layout_height">20dp</item>
+        <item name="android:layout_width">20dp</item>
+        <item name="android:background">@mipmap/login_image_dian</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/write</item>
+        <item name="android:textSize">18sp</item>
+
+    </style>
+
+    <style name="ActionSheetDialogStyle" parent="@android:style/Theme.Dialog">
+
+        <!-- 背景透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- 浮于Activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- Dialog以外的区域模糊效果 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- Dialog进入及退出动画 -->
+        <item name="android:windowAnimationStyle">@style/ActionSheetDialogAnimation</item>
+    </style>
+    <!-- ActionSheet进出动画 -->
+    <style name="ActionSheetDialogAnimation" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/actionsheet_dialog_in</item>
+        <item name="android:windowExitAnimation">@anim/actionsheet_dialog_out</item>
+    </style>
+
 </resources>

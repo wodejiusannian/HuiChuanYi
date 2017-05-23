@@ -21,7 +21,7 @@ import com.example.huichuanyi.bean.City;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.ui.activity.ManageActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
-import com.example.huichuanyi.utils.MyJson;
+import com.example.huichuanyi.utils.JsonUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
 import com.google.gson.Gson;
 
@@ -130,7 +130,7 @@ public class Fragment_KPS extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onResponse(String result) {
-        String s = MyJson.getRet(result);
+        String s = JsonUtils.getRet(result);
         if (TextUtils.equals("0", s)) {
             mCity.clear();
             Gson gson = new Gson();

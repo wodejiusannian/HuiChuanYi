@@ -2,12 +2,12 @@ package com.example.huichuanyi.secondui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
@@ -20,33 +20,49 @@ import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonStatic;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.IsSuccess;
-import com.example.huichuanyi.utils.MySharedPreferences;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
 import com.example.huichuanyi.utils.UtilsPay;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class PayOrderActivity extends BaseActivity implements View.OnClickListener, UtilsInternet.XCallBack, IsSuccess {
+public class PayOrderActivity extends BaseActivity implements UtilsInternet.XCallBack, IsSuccess {
+    @ViewInject(R.id.iv_payorder_photo)
     private SimpleDraweeView studioLogo;
-    private ImageView mImageViewAliPayNormal, mImageViewAliPaySelect,
-            mImageViewWeChatNormal, mImageViewWeChatSelect;
-    private String managerPhoto, managerName, nowMoney, order_id, type;
-    private TextView mTextViewName, mTextViewMoney, mTextViewNowMoney;
-    private int AliPayOrWeChat = 1;
-    private RelativeLayout mRelativeLayoutAliPay, mRelativeLayoutWeChat;
-    private Button mButtonPay;
-    private UtilsInternet instance = UtilsInternet.getInstance();
-    private UtilsPay mPay;
-    private String user_id;
+
+    @ViewInject(R.id.tv_payorder_name)
+    private TextView mTextViewName;
+
+    @ViewInject(R.id.tv_payorder_allmoney)
+    private TextView mTextViewMoney;
+
+    @ViewInject(R.id.tv_payorder_nowMoney)
+    private TextView mTextViewNowMoney;
+
     @ViewInject(R.id.tv_num)
     private TextView mNum;
+
+    @ViewInject(R.id.rg_pay)
+    private RadioGroup mRg;
+
+    private int AliPayOrWeChat = 1;
+
+    private String managerPhoto, managerName, nowMoney, order_id, type;
+
+    private UtilsInternet instance = UtilsInternet.getInstance();
+
+    private UtilsPay mPay;
+
+    private String user_id;
+
+
     public static PayOrderActivity payOrderActivity;
 
     @Override
@@ -56,24 +72,10 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
         payOrderActivity = this;
     }
 
-    @Override
-    public void initView() {
-        studioLogo = (SimpleDraweeView) findViewById(R.id.iv_payorder_photo);
-        mTextViewName = (TextView) findViewById(R.id.tv_payorder_name);
-        mTextViewMoney = (TextView) findViewById(R.id.tv_payorder_allmoney);
-        mTextViewNowMoney = (TextView) findViewById(R.id.tv_payorder_nowMoney);
-        mImageViewAliPayNormal = (ImageView) findViewById(R.id.iv_payorder_alipayNomal);
-        mImageViewAliPaySelect = (ImageView) findViewById(R.id.iv_payorder_alipaySelect);
-        mImageViewWeChatNormal = (ImageView) findViewById(R.id.iv_payorder_wechatNomal);
-        mImageViewWeChatSelect = (ImageView) findViewById(R.id.iv_payorder_wechatSelect);
-        mRelativeLayoutAliPay = (RelativeLayout) findViewById(R.id.rl_payorder_alipay);
-        mRelativeLayoutWeChat = (RelativeLayout) findViewById(R.id.rl_payorder_wechat);
-        mButtonPay = (Button) findViewById(R.id.bt_payorder_pay);
-    }
 
     @Override
     public void initData() {
-        user_id = new User(this).getUseId() + "";
+        user_id = SharedPreferenceUtils.getUserData(this, 1);
         Intent intent = getIntent();
         managerPhoto = intent.getStringExtra("managerPhoto");
         managerName = intent.getStringExtra("managerName");
@@ -99,34 +101,41 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void setListener() {
-        mRelativeLayoutAliPay.setOnClickListener(this);
-        mRelativeLayoutWeChat.setOnClickListener(this);
-        mButtonPay.setOnClickListener(this);
+        mRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                switch (checkedId) {
+                    case R.id.rb_ali_pay:
+                        AliPayOrWeChat = 1;
+                        break;
+                    case R.id.rb_wechat_pay:
+                        AliPayOrWeChat = 2;
+                        break;
+                    case R.id.rb_cmb_pay:
+                        AliPayOrWeChat = 3;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        });
     }
 
-    @Override
-    public void onClick(View v) {
+    @Event(R.id.bt_payorder_pay)
+    private void onEvent(View v) {
         switch (v.getId()) {
-            case R.id.rl_payorder_alipay:
-                mImageViewAliPaySelect.setVisibility(View.VISIBLE);
-                mImageViewAliPayNormal.setVisibility(View.GONE);
-                mImageViewWeChatNormal.setVisibility(View.VISIBLE);
-                mImageViewWeChatSelect.setVisibility(View.GONE);
-                AliPayOrWeChat = 1;
-                break;
-            case R.id.rl_payorder_wechat:
-                mImageViewAliPaySelect.setVisibility(View.GONE);
-                mImageViewAliPayNormal.setVisibility(View.VISIBLE);
-                mImageViewWeChatNormal.setVisibility(View.GONE);
-                mImageViewWeChatSelect.setVisibility(View.VISIBLE);
-                AliPayOrWeChat = 2;
-                break;
             case R.id.bt_payorder_pay:
-                /*if (TextUtils.equals("1", type) && AliPayOrWeChat == 2) {
-                    CommonUtils.Toast(this, "正在开发中，敬请期待");
+                if (AliPayOrWeChat == 3) {
+                    Toast.makeText(payOrderActivity, "暂未开通", Toast.LENGTH_SHORT).show();
                     return;
-                }*/
-                postData();
+                   /* Intent it = new Intent(this, YWTPayActivity.class);
+                    it.putExtra("type", type);
+                    it.putExtra("order_id", order_id);
+                    startActivity(it);*/
+                } else {
+                    postData();
+                }
                 break;
         }
     }
@@ -141,16 +150,6 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
         }
         switch (AliPayOrWeChat) {
             case 1:
-               /* if (TextUtils.equals("1", type)) {
-                    map.put("orderid", order_id);
-                    map.put("service_order_id",order_id);
-                    map.put("type", type);
-                    map.put("money", nowMoney);
-                    map.put("manager_name", managerName);
-                    map.put("remarks", "");
-                    instance.post(NetConfig.ALI_PAY_OLD, map, this);
-                    return;
-                }*/
                 map.put("order_id", order_id);
                 map.put("type", type);
                 map.put("user_id", user_id);
@@ -172,10 +171,6 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
     public void onResponse(String result) {
         switch (AliPayOrWeChat) {
             case 1:
-                /*if (TextUtils.equals("1", type)) {
-                    mPay.aliPay(result);
-                    return;
-                }*/
                 try {
                     JSONObject object = new JSONObject(result);
                     JSONObject body = object.getJSONObject("body");
@@ -194,6 +189,12 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        payOrderActivity = null;
+    }
+
+    @Override
     public void isSuccess(int success) {
         switch (success) {
             case 9000:
@@ -205,7 +206,7 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
                         ActivityUtils.switchTo(this, MyOrderActivity.class);
                         break;
                     case "2":
-                        MySharedPreferences.save365(this, "365");
+                        SharedPreferenceUtils.save365(this, "365");
                         sendBroad();
                         ActivityUtils.switchTo(this, My_365Activity.class);
                         break;
@@ -249,4 +250,9 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
         intent.setAction("action.refreshFriend");
         sendBroadcast(intent);
     }
+
+    @Override
+    public void initView() {
+    }
+
 }

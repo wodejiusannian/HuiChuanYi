@@ -1,5 +1,6 @@
 package com.example.huichuanyi.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
@@ -16,12 +17,12 @@ import android.widget.Toast;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.MatchAdapter;
 import com.example.huichuanyi.base.BaseActivity;
-import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.bean.Match;
-import com.example.huichuanyi.secondui.AddMatch;
+import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.secondui.ShowPhotoActivity;
+import com.example.huichuanyi.ui.activity.home.CollocationDiaryActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.google.gson.Gson;
 
 import org.xutils.common.Callback;
@@ -86,8 +87,7 @@ public class HomeDaPeiRiJiActivity extends BaseActivity implements View.OnClickL
                 finish();
                 break;
             case R.id.btn_match_add:
-                map.put("type", type);
-                ActivityUtils.switchTo(this, AddMatch.class, map);
+                startActivity(new Intent(this, CollocationDiaryActivity.class));
                 break;
         }
     }
@@ -95,7 +95,7 @@ public class HomeDaPeiRiJiActivity extends BaseActivity implements View.OnClickL
     public void getData(String wardrobe_id) {
 
         RequestParams params = new RequestParams(NetConfig.MATCH_DIARY);
-        params.addBodyParameter("userid", new User(this).getUseId() + "");
+        params.addBodyParameter("userid", SharedPreferenceUtils.getUserData(this,1));
         params.addBodyParameter("wardrobe_id", wardrobe_id);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
@@ -166,7 +166,7 @@ public class HomeDaPeiRiJiActivity extends BaseActivity implements View.OnClickL
         int itemId = item.getItemId();
         if (itemId == 1) {
             RequestParams params = new RequestParams(NetConfig.DELETE_MATCH);
-            params.addBodyParameter("userid", new User(HomeDaPeiRiJiActivity.this).getUseId() + "");
+            params.addBodyParameter("userid", SharedPreferenceUtils.getUserData(this,1));
             params.addBodyParameter("id", mData.get(i).getId());
             x.http().post(params, new Callback.CommonCallback<String>() {
                 @Override

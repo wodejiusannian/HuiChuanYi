@@ -20,8 +20,8 @@ import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.LabelPopupWindow;
 import com.example.huichuanyi.bean.Pic;
 import com.example.huichuanyi.utils.ImageUtils;
-import com.example.huichuanyi.utils.MyJson;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.JsonUtils;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.foamtrace.photopicker.PhotoPickerActivity;
 import com.foamtrace.photopicker.SelectModel;
 import com.foamtrace.photopicker.intent.PhotoPickerIntent;
@@ -75,7 +75,7 @@ public class LabelsActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void initData() {
-        user_id = new User(this).getUseId() + "";
+        user_id = SharedPreferenceUtils.getUserData(this,1);
         photoTime = new Date().getTime() + "";
         mData = new ArrayList<>();
         mAdapter = new MyPicAdapter(this, mData, jsons);
@@ -306,7 +306,7 @@ public class LabelsActivity extends BaseActivity implements View.OnClickListener
         post = x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                String condition = MyJson.parseJson(result);
+                String condition = JsonUtils.parseJson(result);
 
                 Toast.makeText(LabelsActivity.this, condition, Toast.LENGTH_SHORT).show();
 

@@ -8,11 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.huichuanyi.custom.MyProgressDialog;
 
 import org.xutils.x;
 
 
 public abstract class BaseFragment extends Fragment {
+    private MyProgressDialog progressDialog;
 
     public BaseFragment() {
 
@@ -61,5 +63,15 @@ public abstract class BaseFragment extends Fragment {
         initEvent();
     }
 
+    protected void showLoading() {
+        progressDialog = new MyProgressDialog(getContext());
+        progressDialog.show();
+    }
+
+    protected void dismissLoading() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
+    }
 
 }

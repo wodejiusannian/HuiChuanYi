@@ -1,60 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/hm_gary"
     android:fitsSystemWindows="true"
     tools:context=".ui.activity.HomeDaPeiRiJiActivity">
 
     <RelativeLayout
         android:id="@+id/tl_match_mTool_show"
-        android:background="@color/top_color"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="40dp"
+        android:background="@color/top_color">
+
         <ImageView
             android:id="@+id/iv_match_back"
-            android:src="@drawable/back"
-            android:layout_height="match_parent"
             android:layout_width="40dp"
-            />
+            android:layout_height="match_parent"
+            android:src="@drawable/back" />
+
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="搭配日记"
             android:textColor="#fff"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_centerInParent="true"
-            android:textSize="@dimen/text_size_big"
-            />
+            android:textSize="@dimen/text_size_big" />
     </RelativeLayout>
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/sf_match_refresh"
-        android:layout_below="@+id/tl_match_mTool_show"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_above="@+id/btn_match_add"
-        android:layout_height="match_parent">
-            <ListView
-                android:id="@+id/lv_match_show"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:divider="#00000000"
-                android:dividerHeight="2dp"
-                android:layout_marginLeft="@dimen/distance"
-                android:layout_marginRight="@dimen/distance"
-                >
-            </ListView>
+        android:layout_marginLeft="@dimen/distance"
+        android:layout_marginRight="@dimen/distance"
+        android:layout_below="@+id/tl_match_mTool_show"
+        android:layout_marginTop="10dp">
+
+        <ListView
+            android:id="@+id/lv_match_show"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#00000000"
+            android:dividerHeight="10dp"></ListView>
 
     </android.support.v4.widget.SwipeRefreshLayout>
+
     <Button
         android:id="@+id/btn_match_add"
-        android:text="新增搭配"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/button_red"
-        android:textColor="@color/write"
-        android:layout_marginBottom="@dimen/distance"
-        android:layout_marginRight="@dimen/distance"
-        android:layout_marginLeft="@dimen/distance"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/distance"
+        android:layout_marginLeft="@dimen/distance"
+        android:layout_marginRight="@dimen/distance"
+        android:background="@drawable/button_red"
+        android:text="新增搭配"
+        android:textColor="@color/write" />
 
 </RelativeLayout>

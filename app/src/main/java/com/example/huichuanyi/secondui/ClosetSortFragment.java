@@ -17,10 +17,11 @@ import java.util.Map;
 
 public class ClosetSortFragment extends BaseFragment implements View.OnClickListener {
     private RecyclerView mRecycleView;
-    private int[] arr = {R.mipmap.shangyi,R.mipmap.kuzi,
-            R.mipmap.qunzi,R.mipmap.xiezi,R.mipmap.bao,R.mipmap.peishi,R.mipmap.jiajufu};
-    private String[] arrZhongLei = {"","上衣","裤子","裙子","鞋子","包","配饰","家居服"};
+    private int[] arr = {R.mipmap.shangyi, R.mipmap.kuzi,
+            R.mipmap.qunzi, R.mipmap.xiezi, R.mipmap.bao, R.mipmap.peishi, R.mipmap.jiajufu};
+    private String[] arrZhongLei = {"", "上衣", "裤子", "裙子", "鞋子", "包", "配饰", "家居服"};
     private Event5Adapter mAdapter;
+
     @Override
     protected View initView() {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.activity_closet_sort, null);
@@ -35,17 +36,17 @@ public class ClosetSortFragment extends BaseFragment implements View.OnClickList
     @Override
     protected void initData() {
         super.initData();
-        mAdapter = new Event5Adapter(getActivity(),arr);
+        mAdapter = new Event5Adapter(getActivity(), arr);
 
     }
 
     @Override
     protected void setData() {
         super.setData();
-        GridLayoutManager manager = new GridLayoutManager(getActivity(),3);
+        GridLayoutManager manager = new GridLayoutManager(getActivity(), 3);
         mRecycleView.setLayoutManager(manager);
         mRecycleView.setAdapter(mAdapter);
-        mRecycleView.addItemDecoration(new ItemDecoration(20));
+        mRecycleView.addItemDecoration(new ItemDecoration(10));
     }
 
     @Override
@@ -57,12 +58,12 @@ public class ClosetSortFragment extends BaseFragment implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        int tag = (int)v.getTag();
-        tag = tag+1;
-        Map<String,Object> map = new HashMap();
-        map.put("tag",tag+"");
-        map.put("zhonglei",arrZhongLei[tag]);
-        map.put("yichuzhonglei","11");
-        ActivityUtils.switchTo(getActivity(),MySortActivity.class,map);
+        int tag = (int) v.getTag();
+        tag = tag + 1;
+        Map<String, Object> map = new HashMap();
+        map.put("tag", tag + "");
+        map.put("zhonglei", arrZhongLei[tag]);
+        map.put("yichuzhonglei", "11");
+        ActivityUtils.switchTo(getActivity(), MySortActivity.class, map);
     }
 }

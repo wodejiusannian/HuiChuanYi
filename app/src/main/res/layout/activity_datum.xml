@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/hm_gary"
     android:fitsSystemWindows="true"
     tools:context=".ui.activity.DatumActivity">
 
@@ -46,7 +47,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/background"
+                android:background="@drawable/hm_background"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -67,7 +68,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/distance"
                         android:layout_toRightOf="@+id/tv_datum_name1"
-                        android:background="@drawable/background"
+                        android:background="@drawable/hm_background"
                         android:hint="中英文皆可"
                         android:textSize="14sp" />
 
@@ -97,7 +98,7 @@
                         android:layout_alignBaseline="@+id/tv_datum_sex1"
                         android:layout_margin="@dimen/distance"
                         android:layout_toRightOf="@+id/tv_datum_sex1"
-                        android:background="@drawable/background"
+                        android:background="@drawable/hm_background"
                         android:digits="男女"
                         android:hint="请输入性别"
                         android:textSize="14sp" />
@@ -127,7 +128,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/distance"
                         android:layout_toRightOf="@+id/tv_datum_age0"
-                        android:background="@drawable/background"
+                        android:background="@drawable/hm_background"
                         android:digits="0123456789"
                         android:hint="请输入年龄"
                         android:maxLength="3"
@@ -159,17 +160,18 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/distance"
                         android:layout_toRightOf="@+id/tv_datum_city0"
-                        android:background="@drawable/background"
+                        android:background="@drawable/hm_background"
                         android:hint="请输入城市"
                         android:textSize="14sp" />
                 </RelativeLayout>
             </LinearLayout>
 
             <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/distance"
-                android:background="@drawable/background"
+                android:background="@drawable/hm_background"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -190,7 +192,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/distance"
                         android:layout_toRightOf="@+id/tv_datum_height1"
-                        android:background="@drawable/background"
+                        android:background="@drawable/hm_background"
                         android:digits="0123456789"
                         android:hint="请输入身高"
                         android:textSize="14sp" />
@@ -228,7 +230,7 @@
                         android:layout_alignBaseline="@+id/tv_datum_weight1"
                         android:layout_margin="@dimen/distance"
                         android:layout_toRightOf="@+id/tv_datum_weight1"
-                        android:background="@drawable/background"
+                        android:background="@drawable/hm_background"
                         android:hint="请输入体重"
                         android:maxLength="3"
                         android:textSize="14sp" />
@@ -266,7 +268,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/distance"
                         android:layout_toRightOf="@+id/tv_datum_work0"
-                        android:background="@drawable/background"
+                        android:background="@drawable/hm_background"
                         android:hint="请输入职业"
                         android:textSize="14sp" />
                 </RelativeLayout>
@@ -277,7 +279,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/distance"
-                android:background="@drawable/background"
+                android:background="@drawable/hm_background"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -318,7 +320,7 @@
                         android:layout_alignBaseline="@+id/tv_datum_business1"
                         android:layout_margin="@dimen/distance"
                         android:layout_toRightOf="@+id/tv_datum_business1"
-                        android:background="@drawable/background"
+                        android:background="@drawable/hm_background"
                         android:digits="0123456789"
                         android:hint="请输入百分比"
                         android:maxLength="3"
@@ -357,7 +359,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/distance"
                         android:layout_toRightOf="@+id/tv_datum_contact0"
-                        android:background="@drawable/background"
+                        android:background="@drawable/hm_background"
                         android:digits="0123456789"
                         android:hint="请输入百分比"
                         android:maxLength="3"
@@ -397,7 +399,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/distance"
                         android:layout_toRightOf="@+id/tv_datum_relax0"
-                        android:background="@drawable/background"
+                        android:background="@drawable/hm_background"
                         android:digits="0123456789"
                         android:hint="请输入百分比"
                         android:maxLength="3"
@@ -417,7 +419,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/distance"
-                android:background="@drawable/background"
+                android:background="@drawable/hm_background"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -485,7 +487,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/distance"
-                android:background="@drawable/background"
+                android:background="@drawable/hm_background"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -506,7 +508,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/distance"
                         android:layout_toRightOf="@+id/tv_datum_neck1"
-                        android:background="@drawable/background"
+                        android:background="@drawable/hm_background"
                         android:hint="请输入颈围"
                         android:textSize="14sp" />
 
@@ -536,7 +538,7 @@
                         android:layout_alignBaseline="@+id/tv_datum_bear1"
                         android:layout_margin="@dimen/distance"
                         android:layout_toRightOf="@+id/tv_datum_bear1"
-                        android:background="@drawable/background"
+                        android:background="@drawable/hm_background"
                         android:hint="请输入肩围"
                         android:textSize="14sp" />
 
@@ -565,7 +567,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/distance"
                         android:layout_toRightOf="@+id/tv_datum_bosom0"
-                        android:background="@drawable/background"
+                        android:background="@drawable/hm_background"
                         android:hint="请输入胸围"
                         android:textSize="14sp" />
 
@@ -594,7 +596,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/distance"
                         android:layout_toRightOf="@+id/tv_datum_waist0"
-                        android:background="@drawable/background"
+                        android:background="@drawable/hm_background"
                         android:hint="请输入腰围"
                         android:textSize="14sp" />
 
@@ -623,7 +625,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/distance"
                         android:layout_toRightOf="@+id/tv_datum_nates0"
-                        android:background="@drawable/background"
+                        android:background="@drawable/hm_background"
                         android:hint="请输入臀围"
                         android:textSize="14sp" />
                 </RelativeLayout>
@@ -633,7 +635,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/distance"
-                android:background="@drawable/background">
+                android:background="@drawable/hm_background">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -670,7 +672,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/distance"
-                android:background="@drawable/background">
+                android:background="@drawable/hm_background">
 
                 <LinearLayout
                     android:layout_width="match_parent"

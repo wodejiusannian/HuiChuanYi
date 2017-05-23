@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="5">
+    android:orientation="vertical">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/sv_item_clothes"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="4"
         fresco:placeholderImage="@mipmap/nonepic"
         fresco:placeholderImageScaleType="fitXY"
@@ -19,42 +18,55 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_weight="1"
         android:background="@drawable/shape_item_clothes_info"
         android:padding="@dimen/distance_10">
 
-        <TextView
-            android:id="@+id/item_clothes_style"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/ll_top"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_size_17" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/item_clothes_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/text_size_17"
-            android:layout_toRightOf="@+id/item_clothes_style"
-            android:textSize="@dimen/text_size_15" />
+            <TextView
+                android:id="@+id/item_clothes_style"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/write"
+                android:textSize="@dimen/text_size_17" />
+
+            <TextView
+                android:id="@+id/item_clothes_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/item_clothes_style"
+                android:layout_marginLeft="@dimen/text_size_17"
+                android:layout_toRightOf="@+id/item_clothes_style"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/write"
+                android:textSize="@dimen/text_size_15" />
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/item_clothes_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/item_clothes_style"
+            android:layout_below="@+id/ll_top"
             android:layout_marginRight="@dimen/distance_5"
             android:layout_marginTop="@dimen/distance_10"
-            android:layout_toLeftOf="@+id/iv_edit"
-            android:textSize="@dimen/text_size_12"
-            android:lines="3" />
+            android:ellipsize="end"
+            android:lines="2"
+            android:textColor="#eeeeee"
+            android:textSize="@dimen/text_size_12" />
 
-        <ImageView
-            android:id="@+id/iv_edit"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/edit" />
+
     </RelativeLayout>
-</LinearLayout>
+</RelativeLayout>

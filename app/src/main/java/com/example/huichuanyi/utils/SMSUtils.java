@@ -1,7 +1,5 @@
 package com.example.huichuanyi.utils;
 
-import android.util.Log;
-
 import com.example.huichuanyi.config.NetConfig;
 
 import org.json.JSONException;
@@ -15,6 +13,7 @@ import java.util.Map;
  */
 
 public class SMSUtils implements UtilsInternet.XCallBack {
+    private static final String TAG = "SMSUtils";
     private UtilsInternet net;
     private Map<String, String> map;
     private int isME = 1;
@@ -23,13 +22,6 @@ public class SMSUtils implements UtilsInternet.XCallBack {
 
     public SMSOnResponse2 smsOnResponse2;
 
-    public void setSMSSend(SMSOnResponse onResponse) {
-        smsOnResponse = onResponse;
-    }
-
-    public void setSMSCode(SMSOnResponse2 smsCode) {
-        smsOnResponse2 = smsCode;
-    }
 
     public SMSUtils() {
         net = UtilsInternet.getInstance();
@@ -37,23 +29,16 @@ public class SMSUtils implements UtilsInternet.XCallBack {
     }
 
 
-    public void smsSend(String phone) {
-        isME = 1;
+    public void smsSend(String phone, SMSOnResponse onResponse) {
+        smsOnResponse = onResponse;
         map.put("phone", phone);
         net.post(NetConfig.SMS_SEND_URL, map, this);
     }
 
-    public void smsSendCode(String send_type, String code, String phone) {
-        isME = 2;
-        map.put("phone", phone);
-        map.put("send_type", send_type);
-        map.put("code", code);
-        net.post(NetConfig.SMS_VERIFY_URL, map, this);
-    }
+
 
     @Override
     public void onResponse(String result) {
-        Log.i("TAG", "------" + result);
         switch (isME) {
             case 1:
                 try {
@@ -64,15 +49,7 @@ public class SMSUtils implements UtilsInternet.XCallBack {
                     e.printStackTrace();
                 }
                 break;
-            case 2:
-                try {
-                    JSONObject object = new JSONObject(result);
-                    String resultCode = object.getString("result");
-                    smsOnResponse2.onResultCode(resultCode);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                break;
+
             default:
                 break;
         }

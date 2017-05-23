@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:state_checkable="true"
-        android:drawable="@drawable/back_red_write"/>
-    <item
-        android:state_checkable="false"
-        android:drawable="@drawable/back_black_writes"/>
+    <item android:drawable="@drawable/back_red_write" android:state_checkable="true" />
+    <item android:drawable="@drawable/back_black_writes" android:state_checkable="false" />
 </selector>

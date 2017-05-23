@@ -5,6 +5,7 @@
     android:id="@+id/activity_buy_365"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/hm_gary"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context="com.example.huichuanyi.ui.activity.Buy_365Activity">
@@ -35,7 +36,7 @@
             android:id="@+id/rl_buy_365_studio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/background"
+            android:background="@drawable/hm_background"
             android:padding="@dimen/distance_10">
 
             <com.facebook.drawee.view.SimpleDraweeView
@@ -44,8 +45,8 @@
                 android:layout_height="60dp"
                 fresco:actualImageScaleType="fitCenter"
                 fresco:failureImage="@mipmap/stand"
-                fresco:placeholderImageScaleType="fitXY"
                 fresco:placeholderImage="@mipmap/managephoto"
+                fresco:placeholderImageScaleType="fitXY"
                 fresco:roundAsCircle="true" />
 
             <TextView
@@ -53,8 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/distance_10"
-                android:layout_toRightOf="@+id/sv_buy_365_photo"
-                android:text="name" />
+                android:layout_toRightOf="@+id/sv_buy_365_photo" />
 
             <TextView
                 android:id="@+id/tv_buy_365_count"
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/rl_buy_365_studio"
             android:layout_marginTop="@dimen/distance_10"
-            android:background="@drawable/background"
+            android:background="@drawable/hm_background"
             android:orientation="vertical">
 
             <TextView
@@ -152,7 +152,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/ll_buy_365_open"
             android:layout_marginTop="@dimen/distance_10"
-            android:background="@drawable/background"
+            android:background="@drawable/hm_background"
             android:orientation="vertical">
 
             <TextView

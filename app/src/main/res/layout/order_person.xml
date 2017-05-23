@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="@dimen/distance_5"
-    android:background="@drawable/background"
+    android:background="@drawable/hm_background"
     android:orientation="horizontal">
 
     <com.facebook.drawee.view.SimpleDraweeView

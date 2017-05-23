@@ -10,7 +10,8 @@ import android.widget.Toast;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
+
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -60,22 +61,17 @@ public class FanKuiActivity extends BaseActivity implements View.OnClickListener
             case R.id.btn_fankui_tijiao:
                 String fankui = mEditTextJianyi.getText().toString().trim();
                 String phone = mEditTextPhone.getText().toString().trim();
-                int useId = new User(this).getUseId();
-                if(useId==0) {
-                    Toast.makeText(FanKuiActivity.this, "请先登陆哦，亲", Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 if(!TextUtils.isEmpty(fankui)) {
-                    sendJianYi(fankui,phone,useId);
+                    sendJianYi(fankui,phone);
                 }else{
                     Toast.makeText(FanKuiActivity.this, "反馈不能为空", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
     }
-    public void sendJianYi(String fankui,String phone,int userid){
+    public void sendJianYi(String fankui,String phone){
         RequestParams params = new RequestParams(NetConfig.SEND_FANKUI);
-        params.addBodyParameter("userid",userid+"");
+        params.addBodyParameter("userid", SharedPreferenceUtils.getUserData(this,1));
         params.addBodyParameter("content",fankui);
         params.addBodyParameter("phone",phone);
         x.http().post(params, new Callback.CommonCallback<String>() {

@@ -7,8 +7,8 @@ android {
         applicationId "com.example.huichuanyi"
         minSdkVersion 18
         targetSdkVersion 22
-        versionCode 9
-        versionName "2.0"
+        versionCode 11
+        versionName "2.0.4"
         ndk {
             //选择要添加的对应cpu类型的.so库。
             abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a'
@@ -47,10 +47,9 @@ dependencies {
     compile project(':rollviewpager')
     compile name: 'SMSSDK-2.1.2', ext: 'aar'
     compile name: 'SMSSDKGUI-2.1.2', ext: 'aar'
-    compile project(':ijkplayerlibrary')
-    compile project(':superplayerlibrary')
     compile project(':wheelview')
     compile files('libs/BaiduLBS_Android.jar')
+
     compile 'com.android.support:appcompat-v7:24.0.0'
     compile 'cn.jiguang:jpush:2.1.8'
     compile 'org.xutils:xutils:3.3.36'
@@ -64,6 +63,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.0.1'
     compile 'com.github.promeg:tinypinyin:1.0.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.1'
+    compile 'com.android.support:support-v4:24.2.1'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.0.1'
 }

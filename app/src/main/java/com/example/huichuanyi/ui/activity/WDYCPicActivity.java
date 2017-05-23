@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,16 +24,15 @@ import android.widget.ToggleButton;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.MyViewPagerPicsAdapter;
 import com.example.huichuanyi.base.BaseActivity;
+import com.example.huichuanyi.bean.MyClothess;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.LabelPopupWindow;
 import com.example.huichuanyi.custom.MyRelativeLayout;
 import com.example.huichuanyi.custom.MySelfDialog;
-import com.example.huichuanyi.bean.MyClothess;
-import com.example.huichuanyi.utils.MyJson;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.JsonUtils;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.Utils_Data;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
-import com.squareup.picasso.Picasso;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -50,8 +48,8 @@ public class WDYCPicActivity extends BaseActivity implements View.OnClickListene
     private ViewPager mPics;
     private List<ImageView> mImages;
     private MyViewPagerPicsAdapter mAdapter;
-    private ImageView mBack,mDelete;
-    private TextView mMove,mEdit;
+    private ImageView mBack, mDelete;
+    private TextView mMove, mEdit;
     private LabelPopupWindow mPop;
     private AlertDialog dialog;
     private ToggleButton mPicInfo;
@@ -59,6 +57,7 @@ public class WDYCPicActivity extends BaseActivity implements View.OnClickListene
     private List<MyClothess.BodyBean.ClothesInfoBean> mList;
     private MyRelativeLayout mContent;
     private String yichuzhonglei;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,15 +86,14 @@ public class WDYCPicActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void initData() {
         Intent intent = getIntent();
-        mList = (List<MyClothess.BodyBean.ClothesInfoBean>)intent.getSerializableExtra("mList");
+        mList = (List<MyClothess.BodyBean.ClothesInfoBean>) intent.getSerializableExtra("mList");
         int position = intent.getIntExtra("position", 0);
         yichuzhonglei = intent.getStringExtra("yichuzhonglei");
         mImages = new ArrayList<>();
-        mAdapter = new MyViewPagerPicsAdapter(mImages);
+        mAdapter = new MyViewPagerPicsAdapter(this, mImages, mList);
         mPics.setAdapter(mAdapter);
-        for (int i = 0;i < mList.size();i++){
+        for (int i = 0; i < mList.size(); i++) {
             ImageView view = new ImageView(this);
-            Picasso.with(this).load(mList.get(i).getClothes_pic()).into(view);
             mImages.add(view);
         }
         mAdapter.notifyDataSetChanged();
@@ -119,9 +117,9 @@ public class WDYCPicActivity extends BaseActivity implements View.OnClickListene
         String location = mList.get(pos).getClothes_location();
         String size = mList.get(pos).getClothes_size();
         String price = mList.get(pos).getClothes_price();
-        if (!TextUtils.isEmpty(typeId)){
-            TextView textViewType= new TextView(this);
-            switch(typeId){
+        if (!TextUtils.isEmpty(typeId)) {
+            TextView textViewType = new TextView(this);
+            switch (typeId) {
                 case "1":
                     textViewType.setText("上衣");
                     break;
@@ -145,22 +143,22 @@ public class WDYCPicActivity extends BaseActivity implements View.OnClickListene
                     break;
                 default:
 
-                break;
+                    break;
             }
             textViewType.setTextColor(Color.WHITE);
             textViewType.setGravity(Gravity.CENTER);
             textViewType.setBackgroundResource(R.drawable.backgroundsss);
             mContent.addView(textViewType);
         }
-        if (!TextUtils.isEmpty(caizhi)){
-            TextView textViewCaiZhi= new TextView(this);
+        if (!TextUtils.isEmpty(caizhi)) {
+            TextView textViewCaiZhi = new TextView(this);
             textViewCaiZhi.setText(caizhi);
             textViewCaiZhi.setGravity(Gravity.CENTER);
             textViewCaiZhi.setBackgroundResource(R.drawable.backgroundsss);
             textViewCaiZhi.setTextColor(Color.WHITE);
             mContent.addView(textViewCaiZhi);
         }
-        if (!TextUtils.isEmpty(season)){
+        if (!TextUtils.isEmpty(season)) {
             TextView textViewSeason = new TextView(this);
             textViewSeason.setText(season);
             textViewSeason.setGravity(Gravity.CENTER);
@@ -168,7 +166,7 @@ public class WDYCPicActivity extends BaseActivity implements View.OnClickListene
             textViewSeason.setTextColor(Color.WHITE);
             mContent.addView(textViewSeason);
         }
-        if (!TextUtils.isEmpty(buyTime)){
+        if (!TextUtils.isEmpty(buyTime)) {
             TextView textViewBuyTime = new TextView(this);
             textViewBuyTime.setTextColor(Color.WHITE);
             textViewBuyTime.setGravity(Gravity.CENTER);
@@ -177,7 +175,7 @@ public class WDYCPicActivity extends BaseActivity implements View.OnClickListene
             mContent.addView(textViewBuyTime);
 
         }
-        if (!TextUtils.isEmpty(brand)){
+        if (!TextUtils.isEmpty(brand)) {
             TextView textViewBrand = new TextView(this);
             textViewBrand.setTextColor(Color.WHITE);
             textViewBrand.setGravity(Gravity.CENTER);
@@ -186,7 +184,7 @@ public class WDYCPicActivity extends BaseActivity implements View.OnClickListene
             mContent.addView(textViewBrand);
 
         }
-        if (!TextUtils.isEmpty(location)){
+        if (!TextUtils.isEmpty(location)) {
             TextView textViewLocation = new TextView(this);
             textViewLocation.setTextColor(Color.WHITE);
             textViewLocation.setGravity(Gravity.CENTER);
@@ -195,7 +193,7 @@ public class WDYCPicActivity extends BaseActivity implements View.OnClickListene
             mContent.addView(textViewLocation);
 
         }
-        if (!TextUtils.isEmpty(size)){
+        if (!TextUtils.isEmpty(size)) {
             TextView textViewSize = new TextView(this);
             textViewSize.setTextColor(Color.WHITE);
             textViewSize.setGravity(Gravity.CENTER);
@@ -204,7 +202,7 @@ public class WDYCPicActivity extends BaseActivity implements View.OnClickListene
             mContent.addView(textViewSize);
 
         }
-        if (!TextUtils.isEmpty(price)){
+        if (!TextUtils.isEmpty(price)) {
             TextView textViewPrice = new TextView(this);
             textViewPrice.setTextColor(Color.WHITE);
             textViewPrice.setGravity(Gravity.CENTER);
@@ -238,14 +236,13 @@ public class WDYCPicActivity extends BaseActivity implements View.OnClickListene
 
     //初始化移动的dialog
     private void initMoveData(ListView mMove) {
-        Log.i("TAG", "----------------"+yichuzhonglei);
         if (TextUtils.equals("11", yichuzhonglei)) {
-            String[] move = {"出行衣橱","其他衣橱"};
-            ArrayAdapter<String> moveAdapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item,move);
+            String[] move = {"出行衣橱", "其他衣橱"};
+            ArrayAdapter<String> moveAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, move);
             mMove.setAdapter(moveAdapter);
-        }else{
-            String[] move = {"出行衣橱","其他衣橱","家庭衣橱"};
-            ArrayAdapter<String> moveAdapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item,move);
+        } else {
+            String[] move = {"出行衣橱", "其他衣橱", "家庭衣橱"};
+            ArrayAdapter<String> moveAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, move);
             mMove.setAdapter(moveAdapter);
         }
         mMove.setOnItemClickListener(this);
@@ -254,8 +251,8 @@ public class WDYCPicActivity extends BaseActivity implements View.OnClickListene
     //显示删除的dialog
     private void showDeleteDialog() {
         MySelfDialog mySelfDialog = new MySelfDialog(this);
-        mySelfDialog.setOnYesListener("确定",this);
-        mySelfDialog.setOnNoListener("取消",null);
+        mySelfDialog.setOnYesListener("确定", this);
+        mySelfDialog.setOnNoListener("取消", null);
         mySelfDialog.setMessage("亲，确认删除吗？");
         mySelfDialog.show();
     }
@@ -263,30 +260,32 @@ public class WDYCPicActivity extends BaseActivity implements View.OnClickListene
     //编辑后确定所做的事情
     @Override
     public void getData(String occ, String sort, String style, String season, String material, int tagSeason, int tagSort, int tagStyle, String time, String price, String size, String brand, String location, String styleId) {
-        int currentItem = mPics.getCurrentItem();
-        Map<String,String> map = new HashMap<>();
-        map.put("user_id",new User(this).getUseId()+"");
-        map.put("clothes_id",mList.get(currentItem).getClothes_id());
-        map.put("clothes_situation",occ);
-        map.put("clothes_typeId",tagSort+"");
-        map.put("clothes_styleId",tagStyle+"");
-        map.put("clothes_season",season);
-        map.put("clothes_caizhi",material);
-        map.put("clothes_buyTime",time);
-        map.put("clothes_price",price);
-        map.put("clothes_size",size);
-        map.put("clothes_brand",brand);
-        map.put("clothes_location",location);
+        final int currentItem = mPics.getCurrentItem();
+        String clothes_id = mList.get(currentItem).getClothes_id();
+        Map<String, String> map = new HashMap<>();
+        map.put("user_id", SharedPreferenceUtils.getUserData(this,1));
+        map.put("clothes_id", clothes_id);
+        map.put("clothes_situation", occ);
+        map.put("clothes_typeId", (tagSort + 1) + "");
+        map.put("clothes_styleId", tagStyle + "");
+        map.put("clothes_season", season);
+        map.put("clothes_caizhi", material);
+        map.put("clothes_buyTime", time);
+        map.put("clothes_price", price);
+        map.put("clothes_size", size);
+        map.put("clothes_brand", brand);
+        map.put("clothes_location", location);
         String dataObject = Utils_Data.getDataObject(map);
         RequestParams params = new RequestParams(NetConfig.UPDATE_CLO);
-        params.addBodyParameter("data",dataObject);
+        params.addBodyParameter("data", dataObject);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                String ret = MyJson.getRet(result);
-                if (TextUtils.equals("0",ret)){
+                String ret = JsonUtils.getRet(result);
+                if (TextUtils.equals("0", ret)) {
                     Toast.makeText(WDYCPicActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
-                }else{
+                    sendBroad();
+                } else {
                     Toast.makeText(WDYCPicActivity.this, "修改失败", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -313,23 +312,23 @@ public class WDYCPicActivity extends BaseActivity implements View.OnClickListene
     public void onClick() {
         final int currentItem = mPics.getCurrentItem();
         RequestParams params = new RequestParams(NetConfig.DELETE_PIC);
-        params.addBodyParameter("cloid",mList.get(currentItem).getClothes_id());
-        params.addBodyParameter("move","0");
+        params.addBodyParameter("cloid", mList.get(currentItem).getClothes_id());
+        params.addBodyParameter("move", "0");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                if(!TextUtils.equals("result","1")) {
+                if (!TextUtils.equals("result", "1")) {
                     Toast.makeText(WDYCPicActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
                     mImages.remove(currentItem);
                     mList.remove(currentItem);
                     mAdapter.notifyDataSetChanged();
                     sendBroad();
-                    if (mImages.size()==0){
+                    if (mImages.size() == 0) {
                         finish();
                     }
                     int currentItem1 = mPics.getCurrentItem();
                     contentAddView(currentItem1);
-                }else{
+                } else {
                     Toast.makeText(WDYCPicActivity.this, "删除失败", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -356,35 +355,35 @@ public class WDYCPicActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         int pos = -1;
-        if (position==0){
+        if (position == 0) {
             pos = 2;
         }
-        if (position == 1){
+        if (position == 1) {
             pos = 4;
         }
-        if (position == 2){
+        if (position == 2) {
             pos = 1;
         }
         final int currentItem = mPics.getCurrentItem();
         RequestParams params = new RequestParams(NetConfig.MOVE_PIC);
-        params.addBodyParameter("cloid",mList.get(currentItem).getClothes_id());
-        params.addBodyParameter("wardrobe_id",pos+"");
+        params.addBodyParameter("cloid", mList.get(currentItem).getClothes_id());
+        params.addBodyParameter("wardrobe_id", pos + "");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                if(TextUtils.equals(result,"1")) {
+                if (TextUtils.equals(result, "1")) {
                     Toast.makeText(WDYCPicActivity.this, "移动成功", Toast.LENGTH_SHORT).show();
                     mImages.remove(currentItem);
                     mList.remove(currentItem);
                     mAdapter.notifyDataSetChanged();
                     sendBroad();
-                    if (mImages.size()==0){
+                    if (mImages.size() == 0) {
                         finish();
                     }
                     int currentItem1 = mPics.getCurrentItem();
                     contentAddView(currentItem1);
 
-                }else{
+                } else {
                     Toast.makeText(WDYCPicActivity.this, "移动失败", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -410,7 +409,7 @@ public class WDYCPicActivity extends BaseActivity implements View.OnClickListene
     //其它按钮做所得事情
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.iv_pic_back:
                 finish();
                 break;
@@ -433,12 +432,12 @@ public class WDYCPicActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked){
+        if (isChecked) {
             ObjectAnimator animator = ObjectAnimator.ofFloat(mShow, "translationY", 0, -400);
             animator.setDuration(200);
             animator.start();
-        }else{
-            ObjectAnimator animator = ObjectAnimator.ofFloat(mShow, "translationY",0,0);
+        } else {
+            ObjectAnimator animator = ObjectAnimator.ofFloat(mShow, "translationY", 0, 0);
             animator.setDuration(200);
             animator.start();
         }
@@ -462,7 +461,7 @@ public class WDYCPicActivity extends BaseActivity implements View.OnClickListene
     }
 
 
-    public void sendBroad(){
+    public void sendBroad() {
         Intent intent = new Intent();
         intent.setAction("action.refreshFriend");
         sendBroadcast(intent);

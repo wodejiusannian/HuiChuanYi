@@ -13,7 +13,7 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.bean.MyClothess;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.squareup.picasso.Picasso;
 
 import org.xutils.common.Callback;
@@ -111,7 +111,7 @@ public class MC_OldAdapter extends RecyclerView.Adapter<MC_OldAdapter.MyViewHold
                     public void onClick() {
                         RequestParams params = new RequestParams(NetConfig.THOROUGH_DELETE_CLOTHES);
                         params.addBodyParameter("cloid",mData.get(position).getClothes_id());
-                        params.addBodyParameter("userid",new User(mContext).getUseId()+"");
+                        params.addBodyParameter("userid", SharedPreferenceUtils.getUserData(mContext,1));
                         x.http().post(params, new Callback.CommonCallback<String>() {
                             @Override
                             public void onSuccess(String result) {

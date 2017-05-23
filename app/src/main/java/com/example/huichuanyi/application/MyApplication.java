@@ -2,12 +2,12 @@ package com.example.huichuanyi.application;
 
 import android.app.Application;
 
-import com.example.huichuanyi.config.SystemParams;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 import org.xutils.x;
 
 import cn.jpush.android.api.JPushInterface;
+import cn.sharesdk.framework.ShareSDK;
 
 public class MyApplication extends Application {
 
@@ -18,6 +18,6 @@ public class MyApplication extends Application {
         JPushInterface.init(this);
         x.Ext.init(this);
         Fresco.initialize(this);
-        SystemParams.init(this);
+        ShareSDK.initSDK(this);
     }
 }

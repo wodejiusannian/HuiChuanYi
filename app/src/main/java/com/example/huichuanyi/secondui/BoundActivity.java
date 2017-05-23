@@ -13,7 +13,9 @@ import android.widget.Toast;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.utils.User;
+import com.example.huichuanyi.ui.activity.MainActivity;
+import com.example.huichuanyi.utils.ActivityUtils;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -134,9 +136,11 @@ public class BoundActivity extends BaseActivity implements View.OnClickListener 
                 SMSSDK.submitVerificationCode("86", phone, auth);
                 break;
             case R.id.iv_bound_back:
+                ActivityUtils.switchTo(this, MainActivity.class);
                 finish();
                 break;
             case R.id.tv_bound_jump:
+                ActivityUtils.switchTo(this, MainActivity.class);
                 finish();
                 break;
         }
@@ -144,7 +148,7 @@ public class BoundActivity extends BaseActivity implements View.OnClickListener 
     public void sendPhone(){
         RequestParams params = new RequestParams(NetConfig.THIRD_BOUND);
 
-        params.addBodyParameter("id",new User(this).getUseId()+"");
+        params.addBodyParameter("id", SharedPreferenceUtils.getUserData(this,1));
 
         params.addBodyParameter("phone",phone);
 

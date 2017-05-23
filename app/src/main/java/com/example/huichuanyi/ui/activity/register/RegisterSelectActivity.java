@@ -68,7 +68,7 @@ public class RegisterSelectActivity extends AppCompatActivity implements MyThird
                     finish();
                     break;
                 case R.id.go_service:
-                    ActivityUtils.switchTo(this,RegisterHMService.class);
+                    //ActivityUtils.switchTo(this,LoginHMService.class);
                     break;
                 default:
                     break;

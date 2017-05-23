@@ -1,8 +1,8 @@
 package com.example.huichuanyi.ui.activity.loading;
 
 import android.os.Build;
-import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
@@ -11,9 +11,9 @@ import android.widget.ImageView;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.LoadingAdapter;
-import com.example.huichuanyi.ui.activity.MainActivity;
+import com.example.huichuanyi.ui.activity.login.LoginByAuthCodeActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
-import com.example.huichuanyi.utils.MySharedPreferences;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,8 +71,8 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        MySharedPreferences.saveIsFirst(this);
-        ActivityUtils.switchTo(this, MainActivity.class);
+        SharedPreferenceUtils.saveIsFirst(this);
+        ActivityUtils.switchTo(this, LoginByAuthCodeActivity.class);
         finish();
     }
 }
