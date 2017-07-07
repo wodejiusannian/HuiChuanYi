@@ -84,7 +84,11 @@ public class LiJiYuYueActivity extends BaseActivity {
         mGetCity.startLocation();
         mGetCity.setGetCity(new GetCity.WillGetCity() {
             @Override
-            public void getWillGetCity(String city) {
+            public void getWillGetCity(String city, String lat, String lng) {
+                if (city != null) {
+                    Location.lat = lat;
+                    Location.lng = lng;
+                }
                 Bundle bundle = new Bundle();
                 bundle.putString("location", city);
                 Message message = Message.obtain();

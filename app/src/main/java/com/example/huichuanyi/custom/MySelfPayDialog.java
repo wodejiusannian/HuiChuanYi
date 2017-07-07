@@ -21,7 +21,7 @@ public class MySelfPayDialog extends Dialog {
     private OnNoClickListener mNoListener;
     private OnYesClickListener mYesListener;
     private TextView mTextViewTitle;
-    private int isALiOrWeChat = 1;
+    private int isALiOrWeChat = 3;
     private RadioGroup mRg;
 
     public void setOnNoListener(String no, OnNoClickListener noListener) {

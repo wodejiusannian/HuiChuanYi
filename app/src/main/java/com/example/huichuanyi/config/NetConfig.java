@@ -116,7 +116,8 @@ public interface NetConfig {
     * 365工作室的数据接口
     * */
     //获取工作室的列表
-    String GET_STUDIO_LIST = BASE_URL_NEW + "b_01/hq_gzx.do";
+    String GET_STUDIO_LIST = "http://hmyc365.net:8081/HM/app/studio/userinfo/getStudioList.do";
+    String CLO_ZHENDUAN = "http://hmyc365.net:8082/file/hm/html/wardrobe_yczd/index.html?user_id=%s&type=1";
     //获取工作室的365购买者数量
     String GET_STUDIO_BUY_COUNT = BASE_URL_NEW + "a_03/hq_gzs_hy.do";
     //提交365购买订单
@@ -142,7 +143,7 @@ public interface NetConfig {
     //支付宝支付的接口
     String ALI_PAY = BASE_URL_NEW + "h_02/hq_qm.do";
     //
-    String YWT_PAY = BASE_URL_NEW + "pay/cmb/getSign.do";
+    String YWT_PAY = "http://hmyc365.net:80/HM/cmb/pay/cmb/getSign.do";
     //微信支付的接口
     String WE_CHAT_PAY = BASE_URL_NEW + "h_01/hq_yzf_id.do";
     /*

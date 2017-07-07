@@ -8,6 +8,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.example.huichuanyi.R;
@@ -48,6 +50,10 @@ public class LiJiYuYueMailsFragment extends BaseFragment implements UtilsInterne
 
     private UtilsInternet net = UtilsInternet.getInstance();
     private PersonAdapter adapter;
+    @ViewInject(R.id.iv_nobody)
+    private ImageView noBody;
+    @ViewInject(R.id.ll_no_body)
+    private LinearLayout mllnoBody;
 
     @Override
     protected void initView() {
@@ -72,7 +78,9 @@ public class LiJiYuYueMailsFragment extends BaseFragment implements UtilsInterne
 
     private void loadData() {
         value.put("city", Location.mAddress);
-        value.put("type", "2");
+        value.put("type", "32");
+        value.put("lng", Location.lng);
+        value.put("lat", Location.lat);
         net.post(NetConfig.GET_STUDIO_LIST, value, this);
     }
 
@@ -114,6 +122,12 @@ public class LiJiYuYueMailsFragment extends BaseFragment implements UtilsInterne
         if (TextUtils.equals("0", s)) {
             Gson gson = new Gson();
             City city = gson.fromJson(result, City.class);
+            if (city.getBody().size() == 0) {
+                mllnoBody.setVisibility(View.VISIBLE);
+                noBody.setImageResource(R.mipmap.include_busy);
+            } else {
+                mllnoBody.setVisibility(View.GONE);
+            }
             mData.addAll(city.getBody());
             adapter.notifyDataSetChanged();
         }

@@ -221,13 +221,15 @@ public class GoDoorInfoActivity extends BaseActivity implements UtilsInternet.XC
                     tvMoney.setText(intPrice2 + "");
                     return;
                 } else {
-                    int a = (nowCount - intPrice_baseNum2) / intPrice_raiseNum;
-
-                    if ((nowCount - intPrice_baseNum2) % intPrice_raiseNum != 0) {
-                        a = a + 1;
+                    try {
+                        int a = (nowCount - intPrice_baseNum2) / intPrice_raiseNum;
+                        if ((nowCount - intPrice_baseNum2) % intPrice_raiseNum != 0) {
+                            a = a + 1;
+                        }
+                        tvMoney.setText((a * intPrice_raisePrice + intPrice2) + "");
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-
-                    tvMoney.setText((a * intPrice_raisePrice + intPrice2) + "");
                     return;
                 }
             }
@@ -243,7 +245,12 @@ public class GoDoorInfoActivity extends BaseActivity implements UtilsInternet.XC
     * String 转 int
     * */
     private int stringToInt(String str) {
-        return Integer.parseInt(str);
+        try {
+            return Integer.parseInt(str);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     private void jumpListAddress() {

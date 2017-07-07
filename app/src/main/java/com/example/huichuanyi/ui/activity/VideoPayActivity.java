@@ -17,6 +17,7 @@ import com.example.huichuanyi.bean.Video;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.custom.MySelfPayDialog;
+import com.example.huichuanyi.ui.activity.pay.YWTPayActivity;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.IsSuccess;
 import com.example.huichuanyi.utils.JsonUtils;
@@ -190,13 +191,11 @@ public class VideoPayActivity extends BaseActivity implements CompoundButton.OnC
     @Override
     public void onClick(int tag) {
         if (tag == 3) {
-            Toast.makeText(this, "暂未开通", Toast.LENGTH_SHORT).show();
-            return;
-           /* Intent intent = new Intent(this, YWTPayActivity.class);
+            Intent intent = new Intent(this, YWTPayActivity.class);
             intent.putExtra("type", "4");
             intent.putExtra("order_id", order_id);
             startActivity(intent);
-            return;*/
+            return;
         }
         aliOrWeChat = tag;
         map.put("pay_type", tag + "");

@@ -39,7 +39,7 @@ public class YWTWebViewClient extends WebViewClient {
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
         // 使用当前的WebView加载页面
         CMBKeyboardFunc kbFunc = new CMBKeyboardFunc((Activity) view.getContext());
-        if (url.contains("www.baidu.com")) {
+        if (url.contains("http://www.hmyc365.cn/")) {
             Activity context = (Activity) view.getContext();
             switch (CommonStatic.wechatType) {
                 case "1":

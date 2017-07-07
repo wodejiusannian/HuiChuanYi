@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
@@ -16,6 +15,7 @@ import com.example.huichuanyi.ui.activity.Item_DetailsActivity;
 import com.example.huichuanyi.ui.activity.MyOrderActivity;
 import com.example.huichuanyi.ui.activity.My_365Activity;
 import com.example.huichuanyi.ui.activity.SLWWriteInfoActivity;
+import com.example.huichuanyi.ui.activity.pay.YWTPayActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonStatic;
 import com.example.huichuanyi.utils.CommonUtils;
@@ -52,7 +52,7 @@ public class PayOrderActivity extends BaseActivity implements UtilsInternet.XCal
     @ViewInject(R.id.rg_pay)
     private RadioGroup mRg;
 
-    private int AliPayOrWeChat = 1;
+    private int AliPayOrWeChat = 3;
 
     private String managerPhoto, managerName, nowMoney, order_id, type;
 
@@ -127,12 +127,12 @@ public class PayOrderActivity extends BaseActivity implements UtilsInternet.XCal
         switch (v.getId()) {
             case R.id.bt_payorder_pay:
                 if (AliPayOrWeChat == 3) {
-                    Toast.makeText(payOrderActivity, "暂未开通", Toast.LENGTH_SHORT).show();
-                    return;
-                   /* Intent it = new Intent(this, YWTPayActivity.class);
+                    /*Toast.makeText(payOrderActivity, "暂未开通", Toast.LENGTH_SHORT).show();
+                    return;*/
+                    Intent it = new Intent(this, YWTPayActivity.class);
                     it.putExtra("type", type);
                     it.putExtra("order_id", order_id);
-                    startActivity(it);*/
+                    startActivity(it);
                 } else {
                     postData();
                 }

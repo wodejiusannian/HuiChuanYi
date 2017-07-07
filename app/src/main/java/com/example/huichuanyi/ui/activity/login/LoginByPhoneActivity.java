@@ -11,7 +11,6 @@ import android.widget.Toast;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.ui.activity.MainActivity;
-import com.example.huichuanyi.ui.activity.register.RegisterPhoneActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.ReminderUtils;
@@ -52,7 +51,7 @@ public class LoginByPhoneActivity extends AppCompatActivity implements UtilsInte
                 break;
             case R.id.tv_forget_pwd:
                 mapValue.put("RorF", 1);
-                ActivityUtils.switchTo(this, RegisterPhoneActivity.class, mapValue);
+               // ActivityUtils.switchTo(this, RegisterPhoneActivity.class, mapValue);
                 break;
             default:
                 break;

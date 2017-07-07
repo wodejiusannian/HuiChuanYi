@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.bean.Progress;
+import com.example.huichuanyi.ui.activity.pay.YWTPayActivity;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.IsSuccess;
 import com.example.huichuanyi.utils.PayUtils;
@@ -45,7 +46,7 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtils.Sign,
     /*
     * 0 代表使用支付宝，1 代表使用微信，2 代表使用一网通
     * */
-    private int a_w_c = 0;
+    private int a_w_c = 2;
 
     private PayUtils pay = PayUtils.getInstance();
 
@@ -75,6 +76,7 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtils.Sign,
             cpKind.setText("上门服务补差价");
         } else if (TextUtils.equals("6", kind)) {
             cpKind.setText("小蓝盒补差价");
+            cpCount.setHint("请输入小蓝盒数量");
         }
     }
 
@@ -134,7 +136,10 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtils.Sign,
                             pay.weChatSign(kind, order_id, countss, countss, this);
                             break;
                         case 2:
-                            Toast.makeText(this, "暂未开通", Toast.LENGTH_SHORT).show();
+                            Intent it = new Intent(this, YWTPayActivity.class);
+                            it.putExtra("type", kind);
+                            it.putExtra("order_id", order_id);
+                            startActivity(it);
                             break;
                         default:
                             break;

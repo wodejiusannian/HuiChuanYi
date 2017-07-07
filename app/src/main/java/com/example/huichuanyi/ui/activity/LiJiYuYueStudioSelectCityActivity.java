@@ -29,6 +29,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 public class LiJiYuYueStudioSelectCityActivity extends BaseActivity implements RightIndexView.OnRightTouchMoveListener, UtilsInternet.XCallBack {
+
     private ArrayList<Contact> mData = new ArrayList<>();//列表展示的数据
     private ArrayList<String> firstList = new ArrayList<>();//字母索引集合
     private HashSet<String> set = new HashSet<>();//中间临时集合

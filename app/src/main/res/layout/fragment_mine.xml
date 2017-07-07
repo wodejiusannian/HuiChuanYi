@@ -67,6 +67,7 @@
                 android:layout_height="30dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
+                android:visibility="gone"
                 fresco:placeholderImage="@mipmap/vip_two"
                 fresco:placeholderImageScaleType="fitCenter" />
         </RelativeLayout>
@@ -79,8 +80,7 @@
             android:layout_centerHorizontal="true"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:lines="1"
-            android:text="name" />
+            android:lines="1" />
 
         <ScrollView
             android:id="@+id/ll_mine_daiti"
@@ -141,6 +141,31 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
                         android:text="我的365" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_clo_zhenduan"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="@dimen/main_margin_left"
+                    android:layout_marginRight="@dimen/main_margin_right"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/hm_background"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="26dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/distance"
+                        android:src="@mipmap/hm_clo_mine_zhenduan" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:text="衣橱诊断" />
                 </LinearLayout>
 
                 <LinearLayout

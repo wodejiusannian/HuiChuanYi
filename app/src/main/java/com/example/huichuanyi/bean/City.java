@@ -33,7 +33,7 @@ public class City {
         this.body = body;
     }
 
-    public static class BodyBean implements Serializable{
+    public static class BodyBean implements Serializable {
 
         private String sex;
         private String phone;
@@ -56,6 +56,15 @@ public class City {
         private String raise_num;//增加数量
         private String raise_price;//增加价格
         private String price_365;//365购买价格
+        private String jl;
+
+        public String getJl() {
+            return jl;
+        }
+
+        public void setJl(String jl) {
+            this.jl = jl;
+        }
 
         public String getSex() {
             return sex;

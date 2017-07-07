@@ -13,8 +13,6 @@ import android.widget.Toast;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.baidumap.MyThirdData;
 import com.example.huichuanyi.share.Login;
-import com.example.huichuanyi.ui.activity.register.RegisterSelectActivity;
-import com.example.huichuanyi.utils.ActivityUtils;
 
 import org.xutils.view.annotation.Event;
 import org.xutils.x;
@@ -56,7 +54,7 @@ public class LoginSelectActivity extends AppCompatActivity implements MyThirdDat
                 new Login(this).whileLogin(this, QQ.NAME);
                 break;
             case R.id.go_register:
-                ActivityUtils.switchTo(this, RegisterSelectActivity.class);
+                //ActivityUtils.switchTo(this, RegisterSelectActivity.class);
                 finish();
                 break;
             default:

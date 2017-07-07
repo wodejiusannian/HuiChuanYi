@@ -15,6 +15,8 @@ import com.example.huichuanyi.utils.SharedPreferenceUtils;
 
 import org.xutils.view.annotation.ViewInject;
 
+import static android.webkit.WebSettings.LOAD_NO_CACHE;
+
 public class MineStyleActivity extends BaseActivity {
 
     @ViewInject(R.id.wb_style_loading_html)
@@ -62,6 +64,7 @@ public class MineStyleActivity extends BaseActivity {
         WebSettings webSettings = mWeb.getSettings();
         webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);
+        webSettings.setCacheMode(LOAD_NO_CACHE);
         webSettings.setJavaScriptEnabled(true);
         mWeb.setWebViewClient(new WebViewClient() {
             @Override

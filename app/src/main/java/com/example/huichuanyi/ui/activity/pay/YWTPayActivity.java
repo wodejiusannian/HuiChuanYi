@@ -15,11 +15,10 @@ import org.json.JSONObject;
 import org.xutils.view.annotation.ViewInject;
 
 public class YWTPayActivity extends BaseActivity implements PayUtils.Sign {
-    private static final String TAG = "YWTPayActivity";
     @ViewInject(R.id.ywt_pay)
     private YWTWebView ywtWebView;
     private PayUtils payUtils = PayUtils.getInstance();
-    private static final String payUrl = "http://121.15.180.66:801/NetPayment/BaseHttp.dll?MB_EUserPay";
+    private static final String payUrl = "https://netpay.cmbchina.com/netpayment/BaseHttp.dll?MB_EUserPay";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +72,8 @@ public class YWTPayActivity extends BaseActivity implements PayUtils.Sign {
     }
 
     /*
-  * 监听返回键
-  * */
+     * 监听返回键
+     * */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {

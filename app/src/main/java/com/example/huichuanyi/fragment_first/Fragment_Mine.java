@@ -17,6 +17,7 @@ import com.example.huichuanyi.ui.activity.MineSettingActivity;
 import com.example.huichuanyi.ui.activity.MineStyleActivity;
 import com.example.huichuanyi.ui.activity.MyOrderActivity;
 import com.example.huichuanyi.ui.activity.My_365Activity;
+import com.example.huichuanyi.ui.activity.ZhenDuanActivity;
 import com.example.huichuanyi.ui.activity.login.LoginByAuthCodeActivity;
 import com.example.huichuanyi.ui.base.BaseFragment;
 import com.example.huichuanyi.utils.ActivityUtils;
@@ -56,7 +57,7 @@ public class Fragment_Mine extends BaseFragment {
 
     @Event({R.id.iv_mine_photo, R.id.iv_mine_setting,
             R.id.ll_mine_datum, R.id.ll_mine_report, R.id.ll_mine_order, R.id.ll_mine_365,
-            R.id.ll_mine_indent, R.id.ll_mine_invite, R.id.ll_mine_exit})
+            R.id.ll_mine_indent, R.id.ll_mine_invite, R.id.ll_mine_exit,R.id.ll_clo_zhenduan})
     private void onEvent(View v) {
         switch (v.getId()) {
             case R.id.iv_mine_photo:
@@ -70,6 +71,9 @@ public class Fragment_Mine extends BaseFragment {
                 break;
             case R.id.ll_mine_report:
                 ActivityUtils.switchTo(getActivity(), MineStyleActivity.class);
+                break;
+            case R.id.ll_clo_zhenduan:
+                ActivityUtils.switchTo(getActivity(), ZhenDuanActivity.class);
                 break;
             case R.id.ll_mine_order:
                 ActivityUtils.switchTo(getActivity(), MyOrderActivity.class);

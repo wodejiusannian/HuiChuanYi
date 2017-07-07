@@ -38,7 +38,10 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
     private static final String TAG = "DatumActivity";
     private EditText mEditTextName, mEditTextSex, mEditTextAge,
             mEditTextCity, mEditTextWork, mEditTextBusiness,
-            mEditTextContact, mEditTextRelax, mEditTextHeight, mEditTextWeight, mEditTextNeck, mEditTextBear, mEditTextBosom, mEditTextNates, mEditTextWaist;
+            mEditTextContact, mEditTextRelax, mEditTextHeight, mEditTextWeight,
+            mEditTextNeck, mEditTextBear, mEditTextBosom, mEditTextNates,
+            mEditTextWaist, editPhone;
+
     private TextView mTextViewBirthDay;
     private ImageView mImageViewBack;
     private RecyclerView mRecyclerView, mRecyclerViewselfdom,
@@ -67,6 +70,7 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
             String birthday = data.getString("birthday");
             String neck_circumference = data.getString("neck_circumference");
             String shoulder_circumference = data.getString("shoulder_circumference");
+            String phone_data = data.getString("phone_data");
             String bust = data.getString("bust");
             pos11 = data.getString("pos1");
             pos21 = data.getString("pos2");
@@ -132,6 +136,10 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
             if (!TextUtils.equals("null", height) && !TextUtils.isEmpty(height) && !TextUtils.equals(" ", height)) {
                 mEditTextHeight.setText(height);
             }
+
+            if (!TextUtils.equals("null", phone_data) && !TextUtils.isEmpty(phone_data) && !TextUtils.equals(" ", phone_data)) {
+                editPhone.setText(phone_data);
+            }
             if (!TextUtils.equals("null", weight) && !TextUtils.isEmpty(weight) && !TextUtils.equals(" ", weight)) {
                 mEditTextWeight.setText(weight);
             }
@@ -189,6 +197,7 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
         mEditTextWaist = (EditText) findViewById(R.id.et_datum_waist);
         mTextViewBirthDay = (TextView) findViewById(R.id.tv_datum_nian_yue_ri);
         mButtonSubject = (Button) findViewById(R.id.btn_datum_subject);
+        editPhone = (EditText) findViewById(R.id.et_datum_phone);
     }
 
     @Override
@@ -204,6 +213,7 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+
                 if (TextUtils.equals("0", result)) {
                     return;
                 }
@@ -221,6 +231,7 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
                     String orientate = object.getString("orientate");
                     String birthday = object.getString("birthday");
                     String pos1 = object.getString("pos1");
+                    String phone_data = object.getString("phone_data");
                     String pos2 = object.getString("pos2");
                     String pos3 = object.getString("pos3");
                     String character = object.getString("character");
@@ -241,6 +252,7 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
                     bundle.putString("pos3", pos3);
                     bundle.putString("age", age);
                     bundle.putString("city", city);
+                    bundle.putString("phone_data", phone_data);
                     bundle.putString("pos1", pos1);
                     bundle.putString("height", height);
                     bundle.putString("weight", weight);
@@ -375,6 +387,11 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
         String trim1 = mEditTextBusiness.getText().toString().trim();
         String trim2 = mEditTextContact.getText().toString().trim();
         String trim3 = mEditTextRelax.getText().toString().trim();
+        String phone = editPhone.getText().toString().trim();
+        if (TextUtils.isEmpty(phone)) {
+            CommonUtils.Toast(DatumActivity.this, "手机号不能为空");
+            return;
+        }
         String orientate = null;
         if (!TextUtils.isEmpty(trim1) && !TextUtils.isEmpty(trim2) && !TextUtils.isEmpty(trim3)) {
             if (Integer.parseInt(trim1) + Integer.parseInt(trim2) + Integer.parseInt(trim3) != 100) {
@@ -459,6 +476,7 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
         params.addBodyParameter("shoulder_circumference", shoulder_circumference);
         params.addBodyParameter("bust", bust);
         params.addBodyParameter("waistline", waistline);
+        params.addBodyParameter("phone_data", phone);
         params.addBodyParameter("hipline", hipline);
         params.addBodyParameter("character", character.toString());
         params.addBodyParameter("desired_image", desired_image.toString());
@@ -471,7 +489,7 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
                 if (TextUtils.equals("1", result)) {
                     CommonUtils.Toast(DatumActivity.this, "修改成功");
                     SharedPreferenceUtils.saveBuyCity(DatumActivity.this, city);
-                    SharedPreferenceUtils.writeUserName(DatumActivity.this,name);
+                    SharedPreferenceUtils.writeUserName(DatumActivity.this, name);
                     finish();
                 } else {
                     CommonUtils.Toast(DatumActivity.this, "修改失败");

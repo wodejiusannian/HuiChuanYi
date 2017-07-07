@@ -19,7 +19,7 @@ public class BuyPayActivity extends BaseActivity {
     @ViewInject(R.id.rg_pay)
     private RadioGroup rgPay;
 
-    private int pay_type = 1;
+    private int pay_type = 3;
 
     private PayUtils payUtils = PayUtils.getInstance();
 
