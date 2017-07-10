@@ -2,31 +2,38 @@ package com.example.huichuanyi.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
+import com.example.huichuanyi.bean.PayState;
 import com.example.huichuanyi.bean.Progress;
+import com.example.huichuanyi.custom.PayListView;
 import com.example.huichuanyi.ui.activity.pay.YWTPayActivity;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.IsSuccess;
 import com.example.huichuanyi.utils.PayUtils;
 import com.example.huichuanyi.utils.UtilsPay;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
 
-public class ClosingPriceActivity extends BaseActivity implements PayUtils.Sign, IsSuccess {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ClosingPriceActivity extends BaseActivity implements PayUtils.Sign, IsSuccess, PayListView.PayState {
 
     @ViewInject(R.id.et_cp_count)
     private EditText cpCount;
@@ -38,15 +45,16 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtils.Sign,
     private TextView cpMoney;
 
 
-    @ViewInject(R.id.rg_pay)
-    private RadioGroup cpRg;
+    @ViewInject(R.id.include_pay_list)
+    private PayListView payListView;
+
 
     private UtilsPay mPay;
     private double box_price, intPrice_baseNum1, intPrice_baseNum2, intPrice2, intPrice11, intPrice_raiseNum, intPrice_raisePrice;
     /*
-    * 0 代表使用支付宝，1 代表使用微信，2 代表使用一网通
+    * 1 代表使用支付宝，2 代表使用微信，3 代表使用一网通
     * */
-    private int a_w_c = 2;
+    private String a_w_c ;
 
     private PayUtils pay = PayUtils.getInstance();
 
@@ -93,24 +101,7 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtils.Sign,
 
     @Override
     public void setListener() {
-        cpRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                switch (checkedId) {
-                    case R.id.rb_ali_pay:
-                        a_w_c = 0;
-                        break;
-                    case R.id.rb_wechat_pay:
-                        a_w_c = 1;
-                        break;
-                    case R.id.rb_cmb_pay:
-                        a_w_c = 2;
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
+        initPayListView();
     }
 
 
@@ -127,15 +118,15 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtils.Sign,
             switch (v.getId()) {
                 case R.id.btn_cp_pay:
                     switch (a_w_c) {
-                        case 0:
+                        case "1":
                             String counts = cpCount.getText().toString().trim();
                             pay.aLiSign(kind, order_id, counts, counts, this);
                             break;
-                        case 1:
+                        case "2":
                             String countss = cpCount.getText().toString().trim();
                             pay.weChatSign(kind, order_id, countss, countss, this);
                             break;
-                        case 2:
+                        case "3":
                             Intent it = new Intent(this, YWTPayActivity.class);
                             it.putExtra("type", kind);
                             it.putExtra("order_id", order_id);
@@ -200,7 +191,7 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtils.Sign,
     @Override
     public void getSign(String sign) {
         switch (a_w_c) {
-            case 0:
+            case "1":
                 try {
                     JSONObject object = new JSONObject(sign);
                     JSONObject body = object.getJSONObject("body");
@@ -210,7 +201,7 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtils.Sign,
                     e.printStackTrace();
                 }
                 break;
-            case 1:
+            case "2":
                 mPay.weChatPay(sign);
                 break;
             default:
@@ -229,5 +220,55 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtils.Sign,
             default:
                 break;
         }
+    }
+
+    private void initPayListView() {
+        RequestParams params = new RequestParams("http://hmyc365.net:8081/HM/app/system/pay/getPaySort.do");
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                List<PayState> data = new ArrayList<>();
+                try {
+                    JSONObject object = new JSONObject(result);
+                    JSONArray arr = object.getJSONArray("body");
+                    for (int i = 0; i < arr.length(); i++) {
+
+                        PayState pa = new PayState();
+                        JSONObject o1 = arr.getJSONObject(i);
+                        if (i == 0) {
+                            a_w_c = o1.getString("pay_type");
+                        }
+                        pa.type = o1.getString("pay_type");
+                        pa.pic = o1.getString("pic_url");
+                        data.add(pa);
+                    }
+                    payListView.setData(data);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+        payListView.getPos(this);
+    }
+
+    @Override
+    public void state(String p) {
+        a_w_c = p;
     }
 }

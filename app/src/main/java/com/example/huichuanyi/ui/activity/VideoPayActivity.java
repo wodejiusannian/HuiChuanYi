@@ -63,7 +63,7 @@ public class VideoPayActivity extends BaseActivity implements CompoundButton.OnC
 
     private String city, order_id;
 
-    private int aliOrWeChat;
+    private String aliOrWeChat;
 
     private UtilsPay pay;
 
@@ -189,8 +189,8 @@ public class VideoPayActivity extends BaseActivity implements CompoundButton.OnC
     }
 
     @Override
-    public void onClick(int tag) {
-        if (tag == 3) {
+    public void onClick(String tag) {
+        if (TextUtils.equals("3", tag)) {
             Intent intent = new Intent(this, YWTPayActivity.class);
             intent.putExtra("type", "4");
             intent.putExtra("order_id", order_id);
@@ -226,7 +226,7 @@ public class VideoPayActivity extends BaseActivity implements CompoundButton.OnC
             case 2:
                 isFlag = 1;
                 switch (aliOrWeChat) {
-                    case 1:
+                    case "1":
                         try {
                             JSONObject object = new JSONObject(result);
                             JSONObject body = object.getJSONObject("body");
@@ -236,7 +236,7 @@ public class VideoPayActivity extends BaseActivity implements CompoundButton.OnC
                             e.printStackTrace();
                         }
                         break;
-                    case 2:
+                    case "2":
                         pay.weChatPay(result);
                         break;
                     default:
@@ -250,7 +250,7 @@ public class VideoPayActivity extends BaseActivity implements CompoundButton.OnC
 
     @Override
     public void isSuccess(int success) {
-        if (aliOrWeChat == 1) {
+        if (TextUtils.equals("1", aliOrWeChat)) {
             switch (success) {
                 case 9000:
                     CommonUtils.Toast(this, "支付成功");

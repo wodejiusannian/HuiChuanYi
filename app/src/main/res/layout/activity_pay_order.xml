@@ -183,12 +183,12 @@
     <LinearLayout
         android:id="@+id/ll_payorder_pay"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bt_payorder_pay"
         android:layout_below="@+id/rl_payorder_five"
-        android:background="@drawable/background"
         android:orientation="vertical">
 
-        <include layout="@layout/include_pay_type"></include>
+        <include layout="@layout/include_pay_list_type"></include>
     </LinearLayout>
 
 

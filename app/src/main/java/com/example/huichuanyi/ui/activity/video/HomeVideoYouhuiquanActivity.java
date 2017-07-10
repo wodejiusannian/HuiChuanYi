@@ -49,7 +49,7 @@ public class HomeVideoYouhuiquanActivity extends BaseActivity implements IsSucce
 
     private String city, order_id, promo_code;
 
-    private int aliOrWeChat;
+    private String aliOrWeChat;
 
     private UtilsPay pay;
     private String user_id;
@@ -80,7 +80,7 @@ public class HomeVideoYouhuiquanActivity extends BaseActivity implements IsSucce
     @Override
     public void setData() {
         mListView.setAdapter(adapter);
-        user_id = SharedPreferenceUtils.getUserData(this,1);
+        user_id = SharedPreferenceUtils.getUserData(this, 1);
         pay = new UtilsPay(this);
         pay.isSuccess(this);
         String citys = SharedPreferenceUtils.getCity(this);
@@ -159,7 +159,7 @@ public class HomeVideoYouhuiquanActivity extends BaseActivity implements IsSucce
                 String ret = JsonUtils.getRet(result);
                 switch (aliOrWeChat) {
 
-                    case 1:
+                    case "1":
                         try {
                             JSONObject object = new JSONObject(result);
                             JSONObject body = object.getJSONObject("body");
@@ -169,7 +169,7 @@ public class HomeVideoYouhuiquanActivity extends BaseActivity implements IsSucce
                             e.printStackTrace();
                         }
                         break;
-                    case 2:
+                    case "2":
                         pay.weChatPay(result);
                         break;
                     default:
@@ -195,7 +195,7 @@ public class HomeVideoYouhuiquanActivity extends BaseActivity implements IsSucce
     }
 
     @Override
-    public void onClick(int tag) {
+    public void onClick(String tag) {
         aliOrWeChat = tag;
         map.put("pay_type", tag + "");
         map.put("video_order_id", order_id);

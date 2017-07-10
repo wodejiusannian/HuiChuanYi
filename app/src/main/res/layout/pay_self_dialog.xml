@@ -28,7 +28,7 @@
             android:layout_height="1dp"
             android:background="#eeeeee" />
 
-        <include layout="@layout/include_pay_type"></include>
+        <include layout="@layout/include_pay_list_type"></include>
 
         <LinearLayout
             android:layout_width="match_parent"

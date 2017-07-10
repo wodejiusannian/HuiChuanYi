@@ -2,15 +2,15 @@ package com.example.huichuanyi.secondui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
+import com.example.huichuanyi.bean.PayState;
 import com.example.huichuanyi.config.NetConfig;
+import com.example.huichuanyi.custom.PayListView;
 import com.example.huichuanyi.ui.activity.Item_DetailsActivity;
 import com.example.huichuanyi.ui.activity.MyOrderActivity;
 import com.example.huichuanyi.ui.activity.My_365Activity;
@@ -25,15 +25,21 @@ import com.example.huichuanyi.utils.UtilsInternet;
 import com.example.huichuanyi.utils.UtilsPay;
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class PayOrderActivity extends BaseActivity implements UtilsInternet.XCallBack, IsSuccess {
+public class PayOrderActivity extends BaseActivity implements UtilsInternet.XCallBack, IsSuccess, PayListView.PayState {
     @ViewInject(R.id.iv_payorder_photo)
     private SimpleDraweeView studioLogo;
 
@@ -49,10 +55,13 @@ public class PayOrderActivity extends BaseActivity implements UtilsInternet.XCal
     @ViewInject(R.id.tv_num)
     private TextView mNum;
 
+    @ViewInject(R.id.include_pay_list)
+    private PayListView payListView;
+/*
     @ViewInject(R.id.rg_pay)
-    private RadioGroup mRg;
+    private RadioGroup mRg;*/
 
-    private int AliPayOrWeChat = 3;
+    private String AliPayOrWeChat;
 
     private String managerPhoto, managerName, nowMoney, order_id, type;
 
@@ -101,7 +110,9 @@ public class PayOrderActivity extends BaseActivity implements UtilsInternet.XCal
 
     @Override
     public void setListener() {
-        mRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+
+       /* mRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 switch (checkedId) {
@@ -119,14 +130,14 @@ public class PayOrderActivity extends BaseActivity implements UtilsInternet.XCal
                         break;
                 }
             }
-        });
+        });*/
     }
 
     @Event(R.id.bt_payorder_pay)
     private void onEvent(View v) {
         switch (v.getId()) {
             case R.id.bt_payorder_pay:
-                if (AliPayOrWeChat == 3) {
+                if (TextUtils.equals("3", AliPayOrWeChat)) {
                     /*Toast.makeText(payOrderActivity, "暂未开通", Toast.LENGTH_SHORT).show();
                     return;*/
                     Intent it = new Intent(this, YWTPayActivity.class);
@@ -149,13 +160,13 @@ public class PayOrderActivity extends BaseActivity implements UtilsInternet.XCal
             return;
         }
         switch (AliPayOrWeChat) {
-            case 1:
+            case "1":
                 map.put("order_id", order_id);
                 map.put("type", type);
                 map.put("user_id", user_id);
                 instance.post(NetConfig.ALI_PAY, map, this);
                 break;
-            case 2:
+            case "2":
                 map.put("order_id", order_id);
                 map.put("user_id", user_id);
                 map.put("type", type);
@@ -170,7 +181,7 @@ public class PayOrderActivity extends BaseActivity implements UtilsInternet.XCal
     @Override
     public void onResponse(String result) {
         switch (AliPayOrWeChat) {
-            case 1:
+            case "1":
                 try {
                     JSONObject object = new JSONObject(result);
                     JSONObject body = object.getJSONObject("body");
@@ -180,7 +191,7 @@ public class PayOrderActivity extends BaseActivity implements UtilsInternet.XCal
                     e.printStackTrace();
                 }
                 break;
-            case 2:
+            case "2":
                 mPay.weChatPay(result);
                 break;
             default:
@@ -253,6 +264,56 @@ public class PayOrderActivity extends BaseActivity implements UtilsInternet.XCal
 
     @Override
     public void initView() {
+        initPayListView();
     }
 
+    private void initPayListView() {
+        RequestParams params = new RequestParams("http://hmyc365.net:8081/HM/app/system/pay/getPaySort.do");
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                List<PayState> data = new ArrayList<>();
+                try {
+                    JSONObject object = new JSONObject(result);
+                    JSONArray arr = object.getJSONArray("body");
+                    for (int i = 0; i < arr.length(); i++) {
+
+                        PayState pa = new PayState();
+                        JSONObject o1 = arr.getJSONObject(i);
+                        if (i == 0) {
+                            AliPayOrWeChat = o1.getString("pay_type");
+                        }
+                        pa.type = o1.getString("pay_type");
+                        pa.pic = o1.getString("pic_url");
+                        data.add(pa);
+                    }
+                    payListView.setData(data);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+        payListView.getPos(this);
+    }
+
+    @Override
+    public void state(String p) {
+        AliPayOrWeChat = p;
+    }
 }
