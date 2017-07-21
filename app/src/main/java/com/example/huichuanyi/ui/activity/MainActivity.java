@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -14,9 +15,10 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.huichuanyi.R;
-import com.example.huichuanyi.baidumap.FreshPhoto;
 import com.example.huichuanyi.baidumap.Fresh_365;
 import com.example.huichuanyi.baidumap.Location;
 import com.example.huichuanyi.base.BaseActivity;
@@ -24,9 +26,11 @@ import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.fragment_first.Fragment_365;
 import com.example.huichuanyi.fragment_first.Fragment_Home;
 import com.example.huichuanyi.fragment_first.Fragment_Mine;
+import com.example.huichuanyi.ui.activity.login.LoginByAuthCodeActivity;
 import com.example.huichuanyi.ui.fragment.OrderFragment;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonUtils;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UpdateUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -39,8 +43,14 @@ import org.xutils.view.annotation.ViewInject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class
-MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener, UtilsInternet.XCallBack {
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
+
+public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener, UtilsInternet.XCallBack {
+    private static final String TAG = "MainActivity";
+
+    @ViewInject(R.id.tv_messager_is_have)
+    private TextView tDian;
 
     @ViewInject(R.id.rg_main_navigation)
     private RadioGroup mRadioGroup;
@@ -52,13 +62,15 @@ MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener,
     private SimpleDraweeView maskActive;
 
     private static boolean isExit = false;
-    private FreshPhoto mFreshPhoto;
+    private boolean have = false;
+    //private FreshPhoto mFreshPhoto;
     private Fresh_365 mFresh_365;
     private Fragment[] mFragments;
     private int index;
     private int currentTabIndex;
     private UtilsInternet net = UtilsInternet.getInstance();
     private String hm_adpage_share_url, hm_adpage_webview_url, hm_activity_name;
+
 
     Handler mHandler = new Handler() {
         @Override
@@ -113,6 +125,7 @@ MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener,
 
     public void setListener() {
         mRadioGroup.setOnCheckedChangeListener(this);
+        connect(SharedPreferenceUtils.getToken(MainActivity.this));
     }
 
 
@@ -142,16 +155,15 @@ MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener,
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (action.equals("action.refreshFriend")) {
-                if (mFreshPhoto != null) {
+              /*  if (mFreshPhoto != null) {
                     mFreshPhoto.getPhoto();
-                }
+                }*/
                 if (mFresh_365 != null) {
                     mFresh_365.reFresh365();
                 }
             }
         }
     };
-
 
 
     public void setFresh365(Fresh_365 fresh365) {
@@ -163,9 +175,6 @@ MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener,
         super.onDestroy();
         unregisterReceiver(mRefreshBroadcastReceiver);
     }
-
-
-
 
 
     @Event({R.id.iv_main_mask_delete, R.id.sv_main_show_active})
@@ -238,5 +247,100 @@ MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener,
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * <p>如果调用此接口遇到连接失败，SDK 会自动启动重连机制进行最多10次重连，分别是1, 2, 4, 8, 16, 32, 64, 128, 256, 512秒后。
+     * 在这之后如果仍没有连接成功，还会在当检测到设备网络状态变化时再次进行重连。</p>
+     *
+     * @param token 从服务端获取的用户身份令牌（Token）。
+     * @return RongIM  客户端核心类的实例。
+     */
+    private void connect(String token) {
+        RongIM.setOnReceiveMessageListener(new MyOnReceiveMessage());
+
+        RongIM.connect(token, new RongIMClient.ConnectCallback() {
+
+            /**
+             * Token 错误。可以从下面两点检查
+             * 1.  Token 是否过期，如果过期您需要向 App Server 重新请求一个新的 Token
+             * 2.  token 对应的 appKey 和工程里设置的 appKey 是否一致
+             */
+            @Override
+            public void onTokenIncorrect() {
+
+            }
+
+            /**
+             * 连接融云成功
+             * @param userid 当前 token 对应的用户 id
+             */
+            @Override
+            public void onSuccess(String userid) {
+
+                RongIM.setConnectionStatusListener(new RongIMClient.ConnectionStatusListener() {
+                    @Override
+                    public void onChanged(ConnectionStatus connectionStatus) {
+                        switch (connectionStatus) {
+                            case KICKED_OFFLINE_BY_OTHER_CLIENT://用户账户在其他设备登录，本机会被踢掉线
+                                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(MainActivity.this, "您的账号在其他手机登录，请确认后重新登录", Toast.LENGTH_SHORT).show();
+                                        SharedPreferenceUtils.writeUserId(MainActivity.this, null);
+                                        SharedPreferenceUtils.save365(MainActivity.this, null);
+                                        startActivity(new Intent(MainActivity.this, LoginByAuthCodeActivity.class));
+                                        finish();
+                                    }
+                                });
+                                break;
+                            default:
+                                break;
+                        }
+
+                    }
+                });
+            }
+
+            /**
+             * 连接融云失败
+             * @param errorCode 错误码，可到官网 查看错误码对应的注释
+             */
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+
+            }
+        });
+    }
+
+    public class MyOnReceiveMessage implements RongIMClient.OnReceiveMessageListener {
+
+
+        @Override
+        public boolean onReceived(final io.rong.imlib.model.Message message, int i) {
+            handler.sendEmptyMessage(0);
+            Intent broadcast = new Intent("action.have.msg");
+            broadcast.putExtra("isRead", "no");
+            sendOrderedBroadcast(broadcast, null);
+            return false;
+        }
+    }
+
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            tDian.setVisibility(View.VISIBLE);
+            have = true;
+        }
+    };
+
+    public void hideDian() {
+        tDian.setVisibility(View.GONE);
+    }
+
+    public boolean isHave() {
+        return have;
     }
 }

@@ -80,6 +80,7 @@ public class LoginControl implements PlatformActionListener, UtilsInternet.XCall
         String userName = db.getUserName();
         SharedPreferenceUtils.writeUserName(mContext, userName);
         SharedPreferenceUtils.writeUserPhoto(mContext, userIcon);
+        map.put("user_pic", userIcon);
         map.put("photopath", userIcon);
         map.put("account", userId);
         map.put("username", userName);
@@ -117,11 +118,22 @@ public class LoginControl implements PlatformActionListener, UtilsInternet.XCall
                     String city = object.getString("city");
                     SharedPreferenceUtils.writeUserId(mContext, user_id + "");
                     SharedPreferenceUtils.saveCity(mContext, city);
+                    getIMToken();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case 5:
+                try {
+                    JSONObject j = new JSONObject(result);
+                    JSONObject b = j.getJSONObject("body");
+                    SharedPreferenceUtils.saveToken(mContext, b.getString("token"));
                     ActivityUtils.switchTo(mContext, MainActivity.class);
                     mContext.finish();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                break;
             default:
                 break;
         }
@@ -165,7 +177,6 @@ public class LoginControl implements PlatformActionListener, UtilsInternet.XCall
    * */
     private void afterLoginSuccess(int userID) {
         internetFlag = 2;
-        map.clear();
         map.put("user_id", userID + "");
         internet.post(NetConfig.IS_BUY_365, map, this);
     }
@@ -201,8 +212,13 @@ public class LoginControl implements PlatformActionListener, UtilsInternet.XCall
 
     private void getAddress() {
         internetFlag = 4;
-        map.clear();
         map.put("userid", user_id + "");
         internet.post(NetConfig.GET_INFORMATION, map, this);
+    }
+
+    private void getIMToken() {
+        internetFlag = 5;
+        map.put("type", "1");
+        internet.post("http://hmyc365.net:8084/HM/stu/im/rong/getTokenIM.do", map, this);
     }
 }

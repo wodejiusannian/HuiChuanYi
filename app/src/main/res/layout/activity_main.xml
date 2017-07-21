@@ -10,78 +10,90 @@
         android:id="@+id/rl_main_show"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/rg_main_navigation">
+        android:layout_above="@+id/rl_main_navigation">
 
     </RelativeLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignTop="@+id/rg_main_navigation"
-        android:background="#e7dada" />
 
-    <RadioGroup
-        android:id="@+id/rg_main_navigation"
+    <RelativeLayout
+        android:id="@+id/rl_main_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentBottom="true">
 
-        <RadioButton
-            android:id="@+id/rb_main_home"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:button="@null"
-            android:checked="true"
-            android:drawableTop="@drawable/selector_home"
-            android:gravity="center"
-            android:padding="3dp"
-            android:text="@string/main_title_home"
-            android:textColor="@drawable/selector_ac_88" />
+        <RadioGroup
+            android:id="@+id/rg_main_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background"
+            android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/rb_main_order"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableTop="@drawable/selector_order"
-            android:gravity="center"
-            android:padding="3dp"
-            android:text="@string/main_title_order"
-            android:textColor="@drawable/selector_ac_88" />
+            <RadioButton
+                android:id="@+id/rb_main_home"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="true"
+                android:drawableTop="@drawable/selector_home"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="@string/main_title_home"
+                android:textColor="@drawable/selector_ac_88" />
 
-        <RadioButton
-            android:id="@+id/rb_main_365"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableTop="@drawable/selector_365"
-            android:gravity="center"
-            android:padding="3dp"
-            android:text="@string/main_title_365"
-            android:textColor="@drawable/selector_ac_88" />
+            <RadioButton
+                android:id="@+id/rb_main_order"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_order"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="@string/main_title_order"
+                android:textColor="@drawable/selector_ac_88" />
 
-        <RadioButton
-            android:id="@+id/rb_main_me"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableTop="@drawable/selector_my"
-            android:gravity="center"
-            android:padding="3dp"
-            android:text="@string/main_title_me"
-            android:textColor="@drawable/selector_ac_88" />
-    </RadioGroup>
+            <RadioButton
+                android:id="@+id/rb_main_365"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_365"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="@string/main_title_365"
+                android:textColor="@drawable/selector_ac_88" />
+
+            <RadioButton
+                android:id="@+id/rb_main_me"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_my"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="@string/main_title_me"
+                android:textColor="@drawable/selector_ac_88" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/tv_messager_is_have"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:visibility="gone"
+            android:background="@drawable/shape_cicle"
+            android:gravity="end" />
+
+    </RelativeLayout>
+
 
     <LinearLayout
         android:id="@+id/rl_masking"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
@@ -89,7 +101,8 @@
         android:background="#78000000"
         android:clickable="true"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/sv_main_show_active"
@@ -107,6 +120,7 @@
             android:layout_height="40dp"
             android:layout_marginTop="30dp"
             android:src="@mipmap/hm_mask_delete" />
+
     </LinearLayout>
 
 </RelativeLayout>

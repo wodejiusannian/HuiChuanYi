@@ -1,1 +1,1 @@
-include ':app', ':rollviewpager', ':wheelview'
+include ':app', ':rollviewpager', ':IMLib', ':IMKit'

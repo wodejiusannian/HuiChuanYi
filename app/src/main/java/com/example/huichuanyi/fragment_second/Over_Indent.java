@@ -55,6 +55,7 @@ public class Over_Indent extends BaseFragment implements SwipeRefreshLayout.OnRe
         RequestParams params = new RequestParams(NetConfig.INDENT_URL);
         String userid = SharedPreferenceUtils.getUserData(getContext(), 1);
         params.addBodyParameter("userid", userid);
+        params.addBodyParameter("state", "1");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

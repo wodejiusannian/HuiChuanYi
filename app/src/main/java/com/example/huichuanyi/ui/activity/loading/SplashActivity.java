@@ -35,7 +35,7 @@ public class SplashActivity extends AppCompatActivity {
             super.handleMessage(msg);
             switch (isFirst) {
                 case 1:
-                    if (!CommonUtils.isEmpty(SharedPreferenceUtils.getUserData(SplashActivity.this, 1))) {
+                    if (!CommonUtils.isEmpty(SharedPreferenceUtils.getUserData(SplashActivity.this, 1)) && !CommonUtils.isEmpty(SharedPreferenceUtils.getToken(SplashActivity.this))) {
                         startActivity(new Intent(SplashActivity.this, MainActivity.class));
                     } else {
                         startActivity(new Intent(SplashActivity.this, LoginByAuthCodeActivity.class));

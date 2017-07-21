@@ -118,19 +118,20 @@
                         android:text="我的资料" />
                 </LinearLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:id="@+id/ll_mine_365"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginLeft="@dimen/main_margin_left"
                     android:layout_marginRight="@dimen/main_margin_right"
                     android:layout_marginTop="3dp"
-                    android:background="@drawable/hm_background"
-                    android:orientation="horizontal">
+                    android:background="@drawable/hm_background">
 
                     <ImageView
+                        android:id="@+id/test_iv"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/distance"
                         android:src="@mipmap/mine_365" />
@@ -138,10 +139,23 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@+id/test_iv"
                         android:text="我的365" />
-                </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_messager_is_have"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/shape_cicle"
+                        android:gravity="end"
+                        android:visibility="gone" />
+                </RelativeLayout>
 
                 <LinearLayout
                     android:id="@+id/ll_clo_zhenduan"

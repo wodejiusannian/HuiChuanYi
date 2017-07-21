@@ -2,6 +2,7 @@ package com.example.huichuanyi.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +19,16 @@ import java.util.List;
 /**
  * Created by 小五 on 2016/12/27.
  */
-public class IndentAdapter extends BaseAdapter{
+public class IndentAdapter extends BaseAdapter {
+    private static final String TAG = "IndentAdapter";
     private List<Indent> mData;
     private Context mContext;
     private OnMyClickInterFace myClickInterFace;
-    public void setCallBack(OnMyClickInterFace onMyClickInterFace){
+
+    public void setCallBack(OnMyClickInterFace onMyClickInterFace) {
         myClickInterFace = onMyClickInterFace;
     }
+
     public IndentAdapter(List<Indent> mData, Context mContext) {
         this.mData = mData;
         this.mContext = mContext;
@@ -32,7 +36,7 @@ public class IndentAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return mData.size()==0?0:mData.size();
+        return mData.size() == 0 ? 0 : mData.size();
     }
 
     @Override
@@ -48,34 +52,35 @@ public class IndentAdapter extends BaseAdapter{
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
-        if (convertView==null){
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.fragment_indent_item_progress,null);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.fragment_indent_item_progress, null);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
-        }else {
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        if (mData!=null&&mData.size()>0){
+        if (mData != null && mData.size() > 0) {
             Indent listBean = mData.get(position);
             String state = listBean.getState();
             //当state为0的时候是未完成状态，要去支付
             //当state为1的时候是支付成功状态，要去观看
-            if (TextUtils.equals("0",state)){
+            if (TextUtils.equals("0", state)) {
                 holder.mGoPay.setVisibility(View.VISIBLE);
-            } else if (TextUtils.equals("1",state)) {
+            } else if (TextUtils.equals("1", state)) {
                 holder.mGoLook.setVisibility(View.VISIBLE);
             }
             String photoUrl = listBean.getPhotoUrl();
-            if (photoUrl!=null){
+            Log.e(TAG, "getView: " + photoUrl);
+            if (photoUrl != null) {
                 holder.mMovie.setImageURI(photoUrl);
             }
             String money = listBean.getMoney();
-            holder.mPrice.setText("¥"+money);
-            holder.mTotal.setText("总计¥"+money);
+            holder.mPrice.setText("¥" + money);
+            holder.mTotal.setText("总计¥" + money);
             String vidsSize = listBean.getVidsSize();
-            if (vidsSize!=null){
+            if (vidsSize != null) {
                 String[] split = vidsSize.split(",");
-                holder.mCount.setText(split.length+"");
+                holder.mCount.setText(split.length + "");
             }
             holder.mTitle.setText(listBean.getVideosid());
             holder.mGoPay.setOnClickListener(new View.OnClickListener() {
@@ -96,10 +101,11 @@ public class IndentAdapter extends BaseAdapter{
         return convertView;
     }
 
-    public static class ViewHolder{
-        private TextView mTitle,mCount,mPrice,mTotal;
-        private ImageView mGoPay,mGoLook;
+    public static class ViewHolder {
+        private TextView mTitle, mCount, mPrice, mTotal;
+        private ImageView mGoPay, mGoLook;
         private SimpleDraweeView mMovie;
+
         public ViewHolder(View view) {
             mTitle = (TextView) view.findViewById(R.id.tv_item_fragment_indent_title);
             mCount = (TextView) view.findViewById(R.id.tv_item_fragment_indent_count);
@@ -111,7 +117,7 @@ public class IndentAdapter extends BaseAdapter{
         }
     }
 
-    public interface OnMyClickInterFace{
+    public interface OnMyClickInterFace {
         void setClickListener(View view);
     }
 }

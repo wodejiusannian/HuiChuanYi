@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
@@ -165,7 +164,6 @@ public class AuthCodeWriteFragment extends BaseFragment implements SecurityCodeV
     * */
     @Override
     public void onResponse(String result) {
-        Log.e(TAG, "onResponse: " + result);
         switch (netType) {
             case 1:
                 try {
@@ -175,6 +173,10 @@ public class AuthCodeWriteFragment extends BaseFragment implements SecurityCodeV
                     String user_headpic_url = body.getString("user_headpic_url");
                     String user_id = body.getString("user_id");
                     String user_vip_end_date = body.getString("user_vip_end_date");
+                    map.put("type", "1");
+                    map.put("user_id", user_id);
+                    map.put("user_name", user_name);
+                    map.put("user_pic", user_headpic_url);
                     if (!CommonUtils.isEmpty(user_vip_end_date)) {
                         SharedPreferenceUtils.save365(getContext(), "365");
                     } else {
@@ -195,12 +197,29 @@ public class AuthCodeWriteFragment extends BaseFragment implements SecurityCodeV
                 break;
             case 2:
                 dismissLoading();
-                startActivity(new Intent(getContext(), MainActivity.class));
-                getActivity().finish();
+                getIMToken();
+                break;
+            case 5:
+                try {
+                    JSONObject j = new JSONObject(result);
+                    JSONObject b = j.getJSONObject("body");
+                    SharedPreferenceUtils.saveToken(getContext(), b.getString("token"));
+                    startActivity(new Intent(getContext(), MainActivity.class));
+                    getActivity().finish();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 break;
             default:
                 break;
         }
 
+    }
+
+
+    private void getIMToken() {
+        netType = 5;
+        map.put("type", "1");
+        net.post("http://hmyc365.net:8084/HM/stu/im/rong/getTokenIM.do", map, this);
     }
 }

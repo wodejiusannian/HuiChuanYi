@@ -11,6 +11,19 @@ public class SharedPreferenceUtils {
         return city;
     }
 
+
+    public static String getToken(Context context) {
+        SharedPreferences mCity = context.getSharedPreferences("mCity", 1);
+        String imtoken = mCity.getString("imtoken", "");
+        return imtoken;
+    }
+    public static void saveToken(Context mContext, String token) {
+        SharedPreferences mCity = mContext.getSharedPreferences("mCity", 1);
+        SharedPreferences.Editor edit = mCity.edit();
+        edit.putString("imtoken", token);
+        edit.commit();
+    }
+
     public static void saveCity(Context mContext, String city) {
         SharedPreferences mCity = mContext.getSharedPreferences("mCity", 1);
         SharedPreferences.Editor edit = mCity.edit();

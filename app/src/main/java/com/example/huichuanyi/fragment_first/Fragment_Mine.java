@@ -1,8 +1,12 @@
 package com.example.huichuanyi.fragment_first;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,6 +17,7 @@ import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.share.Share;
 import com.example.huichuanyi.ui.activity.DatumActivity;
 import com.example.huichuanyi.ui.activity.IndentActivity;
+import com.example.huichuanyi.ui.activity.MainActivity;
 import com.example.huichuanyi.ui.activity.MineSettingActivity;
 import com.example.huichuanyi.ui.activity.MineStyleActivity;
 import com.example.huichuanyi.ui.activity.MyOrderActivity;
@@ -52,12 +57,18 @@ public class Fragment_Mine extends BaseFragment {
     @ViewInject(R.id.tv_mine_name)
     private TextView mName;
 
+    @ViewInject(R.id.tv_messager_is_have)
+    private TextView tDian;
+
     private static final int REQUEST_CAMERA_CODE = 11;
+
     private Map<String, Object> map = new HashMap<>();
+
+    private MainActivity activity;
 
     @Event({R.id.iv_mine_photo, R.id.iv_mine_setting,
             R.id.ll_mine_datum, R.id.ll_mine_report, R.id.ll_mine_order, R.id.ll_mine_365,
-            R.id.ll_mine_indent, R.id.ll_mine_invite, R.id.ll_mine_exit,R.id.ll_clo_zhenduan})
+            R.id.ll_mine_indent, R.id.ll_mine_invite, R.id.ll_mine_exit, R.id.ll_clo_zhenduan})
     private void onEvent(View v) {
         switch (v.getId()) {
             case R.id.iv_mine_photo:
@@ -96,6 +107,11 @@ public class Fragment_Mine extends BaseFragment {
     @Override
     protected void initData() {
         super.initData();
+        activity = (MainActivity) getActivity();
+        if (activity.isHave()) {
+            tDian.setVisibility(View.VISIBLE);
+        }
+        activity.registerReceiver(new HaveMsg(), new IntentFilter("action.have.msg"));
     }
 
     private void getUserPhoto() {
@@ -110,6 +126,8 @@ public class Fragment_Mine extends BaseFragment {
     @Override
     protected void initEvent() {
         super.initEvent();
+
+
     }
 
 
@@ -204,4 +222,18 @@ public class Fragment_Mine extends BaseFragment {
         getUserPhoto();
     }
 
+    private class HaveMsg extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String read = intent.getStringExtra("isRead");
+            Log.e("TAG", "onReceive: " + read);
+            if (TextUtils.equals("no", read)) {
+                tDian.setVisibility(View.VISIBLE);
+            } else {
+                tDian.setVisibility(View.GONE);
+                activity.hideDian();
+            }
+        }
+    }
 }
