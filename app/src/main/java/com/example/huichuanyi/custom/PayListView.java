@@ -144,7 +144,7 @@ public class PayListView extends ListView {
                     break;
                 case "3":
                     h.picState.setImageResource(R.mipmap.image_pay_cmb);
-                    h.te.setText("一网通支付");
+                    h.te.setText("一网通银行卡支付");
                     break;
                 default:
                     break;

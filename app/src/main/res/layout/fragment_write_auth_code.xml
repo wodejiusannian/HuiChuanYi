@@ -6,65 +6,127 @@
     tools:context="com.example.huichuanyi.ui.fragment.AuthCodeWriteFragment">
 
     <ImageView
-        android:id="@+id/iv_login_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="29dp"
-        android:layout_marginTop="29dp"
-        android:src="@mipmap/login_image_back" />
-
-    <TextView
+        android:id="@+id/iv_login_welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="71dp"
-        android:text="输入验证码"
-        android:textColor="@color/write"
-        android:textSize="29sp" />
+        android:layout_marginTop="62dp"
+        android:src="@mipmap/login_image_welcome" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <EditText
+        android:id="@+id/et_write_auth_code_phone"
+        style="@style/PhoneET"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="60dp"
-        android:orientation="horizontal">
+        android:layout_marginTop="30dp" />
+
+    <RelativeLayout
+        android:layout_width="240dp"
+        android:layout_height="54dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp">
+
+        <EditText
+            android:id="@+id/et_write_auth_code_auth_code"
+            style="@style/AuthCodeET"
+            android:layout_toLeftOf="@+id/tv_write_auth_code_time" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="验证码已发送到"
-            android:textColor="@color/write"
-            android:textSize="13sp" />
+            android:id="@+id/tv_write_auth_code_time"
+            style="@style/SendSMSTV"
+            android:layout_alignParentEnd="true" />
 
-        <TextView
-            android:id="@+id/tv_login_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textColor="@color/write"
-            android:textSize="13sp" />
+    </RelativeLayout>
 
-
-    </LinearLayout>
-
-    <com.example.huichuanyi.ui.activity.custom.SecurityCodeView
-        android:id="@+id/scv_login_auth_code"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
+    <EditText
+        android:id="@+id/et_write_auth_code_pwd"
+        style="@style/PwdET"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="46dp">
+        android:layout_marginTop="10dp" />
 
-    </com.example.huichuanyi.ui.activity.custom.SecurityCodeView>
 
-    <TextView
-        android:id="@+id/tv_login_auth_second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="77dp"
-        android:background="@mipmap/login_image_background"
-        android:gravity="center"
-        android:text="60s"
-        android:textColor="@color/color_ac0000" />
+    <RelativeLayout
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:gravity="bottom"
+        android:paddingBottom="50dp">
+
+        <ImageView
+            android:id="@+id/iv_login_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/login_back"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_login_back_copy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/login_back" />
+
+        <ImageView
+            android:id="@+id/iv_login_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:src="@mipmap/login_sure"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+    <!-- <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center_horizontal"
+         android:layout_marginTop="71dp"
+         android:text="输入验证码"
+         android:textColor="@color/write"
+         android:textSize="29sp" />-->
+
+    <!-- <LinearLayout
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center_horizontal"
+         android:layout_marginTop="60dp"
+         android:orientation="horizontal">
+
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center_horizontal"
+             android:text="验证码已发送到"
+             android:textColor="@color/write"
+             android:textSize="13sp" />
+
+         <TextView
+             android:id="@+id/tv_login_phone"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center_horizontal"
+             android:textColor="@color/write"
+             android:textSize="13sp" />
+
+
+     </LinearLayout>-->
+
+    <!-- <com.example.huichuanyi.ui.activity.custom.SecurityCodeView
+         android:id="@+id/scv_login_auth_code"
+         android:layout_width="160dp"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center_horizontal"
+         android:layout_marginTop="46dp">
+
+     </com.example.huichuanyi.ui.activity.custom.SecurityCodeView>-->
+
+    <!-- <TextView
+         android:id="@+id/tv_login_auth_second"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center"
+         android:layout_marginTop="77dp"
+         android:background="@mipmap/login_image_background"
+         android:gravity="center"
+         android:text="60s"
+         android:textColor="@color/color_ac0000" />-->
 </LinearLayout>

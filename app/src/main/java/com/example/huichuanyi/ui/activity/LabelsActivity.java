@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -16,9 +15,9 @@ import android.widget.Toast;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.MyPicAdapter;
 import com.example.huichuanyi.base.BaseActivity;
+import com.example.huichuanyi.bean.Pic;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.LabelPopupWindow;
-import com.example.huichuanyi.bean.Pic;
 import com.example.huichuanyi.utils.ImageUtils;
 import com.example.huichuanyi.utils.JsonUtils;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
@@ -244,7 +243,6 @@ public class LabelsActivity extends BaseActivity implements View.OnClickListener
         try {
             String s = jsonArray.toString();
             objects.put("body", jsonArray);
-            Log.i("TAG", "-------------" + objects.toString());
             mProgress.show();
             upPhoto(objects.toString());
         } catch (JSONException e) {

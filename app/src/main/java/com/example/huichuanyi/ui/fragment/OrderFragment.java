@@ -1,11 +1,15 @@
 package com.example.huichuanyi.ui.fragment;
 
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.HomeAdapter;
+import com.example.huichuanyi.baidumap.GetCity;
 import com.example.huichuanyi.bean.Banner;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.secondui.AtMyAcitivty;
@@ -36,7 +40,7 @@ import java.util.Map;
  * Created by 小五 on 2017/3/23.
  */
 @ContentView(R.layout.fragment_order_copy)
-public class OrderFragment extends BaseFragment implements UtilsInternet.XCallBack, OnItemClickListener {
+public class OrderFragment extends BaseFragment implements UtilsInternet.XCallBack, OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
     @ViewInject(R.id.tv_order_sure)
     private TextView orderSure;
 
@@ -45,6 +49,9 @@ public class OrderFragment extends BaseFragment implements UtilsInternet.XCallBa
     @ViewInject(R.id.vp_order_banner)
     public RollPagerView mViewPager;
 
+    @ViewInject(R.id.swipe)
+    private SwipeRefreshLayout swipe;
+
 
     private HomeAdapter mAdapter;
 
@@ -52,13 +59,14 @@ public class OrderFragment extends BaseFragment implements UtilsInternet.XCallBa
 
     private UtilsInternet internet = UtilsInternet.getInstance();
 
-    private String hm_adpage_share_url, hm_activity_name;
 
     private Map<String, String> map = new HashMap<>();
 
+    private GetCity mGetCity;
     @Override
     protected void initEvent() {
         super.initEvent();
+        swipe.setOnRefreshListener(this);
         orderSure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,8 +83,24 @@ public class OrderFragment extends BaseFragment implements UtilsInternet.XCallBa
             map = new HashMap<>();
 
         map.put("banner_type", "2");
+        goNet();
+
+        mGetCity = new GetCity(getContext());
+        mGetCity.startLocation();
+        mGetCity.setGetCity(new GetCity.WillGetCity() {
+            @Override
+            public void getWillGetCity(String city, String lat, String lng) {
+                if (!CommonUtils.isEmpty(city)) {
+                    map.put("city", city);
+                    goNet();
+                    mGetCity.stopLocation();
+                }
+            }
+        });
+    }
+
+    private void goNet() {
         internet.post(NetConfig.BANNER_URL, map, this);
-        internet.post(NetConfig.BANNER_URL, null, this);
     }
 
     private void initViewPager() {
@@ -98,14 +122,16 @@ public class OrderFragment extends BaseFragment implements UtilsInternet.XCallBa
     public void onResponse(String result) {
         if (!CommonUtils.isEmpty(result)) {
             try {
+                mBanners.clear();
+                swipe.setRefreshing(false);
                 JSONObject object = new JSONObject(result);
                 JSONObject body = object.getJSONObject("body");
                 JSONArray banners = body.getJSONArray("banners");
-                hm_adpage_share_url = body.getString("activity_share_url");
-                hm_activity_name = body.getString("activity_name");
                 for (int i = 0; i < banners.length(); i++) {
                     JSONObject jsonObject = banners.getJSONObject(i);
                     Banner banner = new Banner();
+                    banner.setShare_name(jsonObject.getString("share_name"));
+                    banner.setShare_url(jsonObject.getString("share_url"));
                     banner.setWeb_url(jsonObject.getString("web_url"));
                     banner.setType(jsonObject.getString("type"));
                     banner.setPic_url(jsonObject.getString("pic_url"));
@@ -133,9 +159,11 @@ public class OrderFragment extends BaseFragment implements UtilsInternet.XCallBa
             case "2":
                 Map<String, Object> map = new HashMap<>();
                 String web_url = banner.getWeb_url();
+                String share_name = banner.getShare_name();
+                String share_url = banner.getShare_url();
                 map.put("hm_adpage_webview_url", web_url);
-                map.put("hm_activity_name", hm_activity_name);
-                map.put("hm_adpage_share_url", hm_adpage_share_url);
+                map.put("hm_activity_name", share_name);
+                map.put("hm_adpage_share_url", share_url);
                 ActivityUtils.switchTo(getActivity(), HMWebActivity.class, map);
                 break;
             case "5":
@@ -153,4 +181,25 @@ public class OrderFragment extends BaseFragment implements UtilsInternet.XCallBa
                 break;
         }
     }
+
+    @Override
+    public void onRefresh() {
+        goNet();
+        handler.sendEmptyMessageDelayed(0, 5000);
+    }
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0:
+                    if (swipe.isRefreshing())
+                        swipe.setRefreshing(false);
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 }

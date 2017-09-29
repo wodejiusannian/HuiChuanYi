@@ -16,6 +16,7 @@ import com.example.huichuanyi.R;
  */
 
 public class BottomDialog extends Dialog {
+
     private TextView tvOne, tvTwo, tvCancel;
 
     private String mTop, mCenter;

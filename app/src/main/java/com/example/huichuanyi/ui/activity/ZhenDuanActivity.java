@@ -7,6 +7,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
@@ -25,10 +26,13 @@ public class ZhenDuanActivity extends BaseActivity {
     @ViewInject(R.id.pr_style_loading_hint)
     private ProgressBar mLoading;
 
+    @ViewInject(R.id.tv)
+    private TextView tv;
+
     @Override
     protected void onCreate(Bundle savedInstancestylee) {
         super.onCreate(savedInstancestylee);
-        setContentView(R.layout.activity_web_style);
+        setContentView(R.layout.activity_web_zhenduan);
 
     }
 
@@ -40,6 +44,8 @@ public class ZhenDuanActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        tv.setText("衣橱诊断");
+
         String s = SharedPreferenceUtils.getUserData(this, 1);
         String url = String.format(NetConfig.CLO_ZHENDUAN, s);
         loadindUrl(url);

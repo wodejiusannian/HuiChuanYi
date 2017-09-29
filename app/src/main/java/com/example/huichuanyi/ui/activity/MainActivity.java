@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -111,9 +112,21 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         Fragment_Mine mMine = new Fragment_Mine();
         Fragment_365 m365 = new Fragment_365();
         mFragments = new Fragment[]{mHome, mOrder, m365, mMine};
-        getSupportFragmentManager().beginTransaction().
-                add(R.id.rl_main_show, mHome).hide(mOrder).
-                show(mHome).commit();
+        int page = getIntent().getIntExtra("page", 0);
+
+        if (page == 0) {
+            getSupportFragmentManager().beginTransaction().
+                    add(R.id.rl_main_show, mHome).hide(mOrder).
+                    show(mHome).commit();
+        } else if (page == 1) {
+            getSupportFragmentManager().beginTransaction().
+                    add(R.id.rl_main_show, mHome).hide(mMine).
+                    show(mOrder).commit();
+        } else if (page == 2) {
+            getSupportFragmentManager().beginTransaction().
+                    add(R.id.rl_main_show, mHome).hide(mMine).
+                    show(m365).commit();
+        }
     }
 
     public void setData() {
@@ -342,5 +355,13 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
     public boolean isHave() {
         return have;
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        int page = intent.getIntExtra("page",0);
+        RadioButton but = (RadioButton) mRadioGroup.getChildAt(page);
+        but.setChecked(true);
     }
 }

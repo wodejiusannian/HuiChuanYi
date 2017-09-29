@@ -24,8 +24,8 @@ public class RoundImageView extends ImageView{
      *
      * 这两个都是画圆的半径
      */
-    private int roundWidth = 20;
-    private int roundHeight = 20;
+    private int roundWidth = 10;
+    private int roundHeight = 10;
     private Paint paint2;
 
     public RoundImageView(Context context, AttributeSet attrs, int defStyle) {

@@ -216,5 +216,36 @@ public interface NetConfig {
     String REVISE_PATH = BASE_URL + "appUserInfo!updateUserPwd.action";
     //更新的接口
     String IS_FRESH_PATH = BASE_URL + "appVersion!getAndVersion.action";
+
+
+    String LOGIN_IS_HAVE_PWD = BASE_URL_NEW + "login/login/getPwdInfo.do";
+
+    String LOGIN_THROUGH_PHONE = BASE_URL_NEW + "login/login/loginPhonePwd.do";
+
+
+    String LOGIN_THROUGH_PHONE_AUTH_CODE = BASE_URL_NEW + "login/login/updatePwdLogin.do";
+
+
+    String LY_MAIN_DATA = BASE_URL_NEW + "mall/home/info/getHomePage.do";
+
+    String LY_GOODS = BASE_URL_NEW + "mall/goods/info/getGoods.do";
+
+    String LY_GOOD_DETAILS = BASE_URL_NEW + "mall/goods/info/getGoodsInfo.do";
+
+    String LY_SHOP_CAR_INIT_SHOP = BASE_URL_NEW + "mall/order/shopcart/getShopCart.do";
+
+    String LY_SHOP_DETAILS_ADD_CAR = BASE_URL_NEW + "mall/order/shopcart/addShopCart.do";
+
+    String LY_SHOP_STUDIO_NAME = BASE_URL_NEW + "mall/studio/studio/getStudios.do";
+
+    String LY_SHOP_UPDATE_COUNT = BASE_URL_NEW + "mall/order/shopcart/updateShopCart_.do";
+
+    String LY_SHOP_DELETE_SHOP = BASE_URL_NEW + "mall/order/shopcart/deleteShopCart.do";
+
+    String LY_SHOP_ADD_ORDER = BASE_URL_NEW + "mall/order/order/addOrder.do";
+
+    String LY_SHOP_GET_SIGN = BASE_URL_NEW + "mall/pay/pay/getSign.do";
+
+    String LY_SHOP_LIST = BASE_URL_NEW + "mall/order/order/getOrder.do";
 }
 

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context="com.example.huichuanyi.ui.activity.lanyang.LyShopCarActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_ly_shopcar_title"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/color_ac0000">
+
+        <TextView
+            android:id="@+id/tv_ly_shopcar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="购物车"
+            android:textColor="#fff"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_ly_shopcar_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:text="编辑"
+            android:textColor="#fff"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/sf_ly_shopcar_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/tv_ly_shocar_line"
+        android:layout_below="@+id/rl_ly_shopcar_title">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_ly_shopcar_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <TextView
+        android:id="@+id/tv_ly_shocar_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/rl_ly_shocar_all"
+        android:background="@color/line_color" />
+
+    <RelativeLayout
+        android:id="@+id/rl_ly_shocar_all"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical">
+
+        <CheckBox
+            android:id="@+id/cb_ly_shopcar_allselct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:button="@drawable/selector_item_shopcar" />
+
+        <TextView
+            android:id="@+id/tv_ly_shopcar_tipall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/cb_ly_shopcar_allselct"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="全选"
+            android:textColor="#000" />
+
+        <LinearLayout
+            android:id="@+id/ll_shopcar_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/tv_ly_shopcar_gopay"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+
+            <TextView
+                android:id="@+id/tv_ly_shopcar_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/checkBox"
+                android:layout_marginRight="3dp"
+                android:text="合计:¥"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/tv_ly_shopcar_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/checkBox"
+                android:text="298.00"
+                android:textColor="#000" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_ly_shopcar_gopay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/shape_fill_noline"
+            android:paddingBottom="5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="5dp"
+            android:text="下单"
+            android:textColor="#fff" />
+    </RelativeLayout>
+</RelativeLayout>

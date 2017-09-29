@@ -13,7 +13,10 @@ import com.example.huichuanyi.R;
  * Created by 小五 on 2017/4/24.
  */
 
-public class HomeCollocationRvAdapter extends RecyclerView.Adapter<HomeCollocationRvAdapter.MyViewHolder> {
+public class
+
+
+HomeCollocationRvAdapter extends RecyclerView.Adapter<HomeCollocationRvAdapter.MyViewHolder> {
 
     private int[] mData;
     private Context mContext;

@@ -9,12 +9,22 @@
     <RelativeLayout
         android:id="@+id/tv_365_top"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="40dp"
+        android:background="@color/text_color">
+
+        <TextView
+            android:id="@+id/tv_365_chat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/distance_10"
+            android:text="聊一聊"
+            android:textColor="@color/main_color_write"
+            android:visibility="gone" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/text_color"
             android:gravity="center"
             android:text="365"
             android:textColor="@color/main_color_write"

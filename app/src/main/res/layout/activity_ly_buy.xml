@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f7f4f4"
+    android:fitsSystemWindows="true"
+    tools:context="com.example.huichuanyi.ui.activity.lanyang.LyBuyActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#ac0000">
+
+        <include layout="@layout/btn_back"></include>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="订单详情"
+            android:textColor="#fff"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rl_above_tip"
+        android:layout_below="@+id/rl_top"
+        android:layout_marginTop="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/test"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="-5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/shape_write_8dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/iv_lybuy_shop_logo"
+                        android:layout_width="80dp"
+                        android:layout_height="40dp"
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="收货信息" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_ly_buy_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="@mipmap/hm_bg_red"
+                        android:padding="10dp">
+
+                        <RelativeLayout
+                            android:id="@+id/rl_lybuy_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:visibility="gone">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/distance_15">
+
+                                <TextView
+                                    android:id="@+id/tv_write_order_name"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="点击添加地址"
+                                    android:textColor="#fff"
+                                    android:textSize="@dimen/text_size_15" />
+
+                                <TextView
+                                    android:id="@+id/tv_write_order_phone"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/distance_10"
+                                    android:layout_toRightOf="@+id/tv_write_order_name"
+                                    android:textColor="#fff"
+                                    android:textSize="@dimen/text_size_15" />
+
+                                <TextView
+                                    android:id="@+id/tv_write_order_address"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tv_write_order_name"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_marginTop="@dimen/distance_10"
+                                    android:textColor="#fff"
+                                    android:textSize="@dimen/text_size_15" />
+
+                                <ImageView
+                                    android:id="@+id/iv_deit"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:src="@mipmap/edit" />
+                            </RelativeLayout>
+                        </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/rv_lyshopdetails_zhanwei"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="17dp"
+                            android:text="点击添加地址"
+                            android:textColor="#fff"
+                            android:textSize="15sp" />
+                    </RelativeLayout>
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:text="推荐人" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_ly_buy_commendpeople"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:background="@mipmap/hm_bg_star"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp">
+
+                        <RelativeLayout
+                            android:id="@+id/rl_lybuy_commendpeople"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:id="@+id/iv_lybuy_photo"
+                                android:layout_width="54dp"
+                                android:layout_height="54dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginBottom="15dp"
+                                android:scaleType="centerCrop" />
+
+                            <TextView
+                                android:id="@+id/tv_lybuy_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="15dp"
+                                android:layout_toRightOf="@+id/iv_lybuy_photo"
+                                android:text="--"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/tv_lybuy_introduce"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginBottom="15dp"
+                                android:layout_toRightOf="@+id/iv_lybuy_photo"
+                                android:text="--"
+                                android:textSize="11sp" />
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/tv_ly_buy_commendpeople"
+                            android:layout_width="match_parent"
+                            android:layout_height="54dp"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center"
+                            android:text="点击选择推荐人"
+                            android:textColor="#ac0000" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/test"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/shape_write_8dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:text="订单详情"
+                            android:textSize="13sp" />
+
+                        <ToggleButton
+                            android:id="@+id/tg_ly_buy_open"
+                            android:layout_width="25dp"
+                            android:layout_height="20dp"
+                            android:layout_below="@+id/rv_drawer_style"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/selector_section_toggle"
+                            android:padding="5dp"
+                            android:textOff=""
+                            android:textOn="" />
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_lybuy_money"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="合计：" />
+
+                        <TextView
+                            android:id="@+id/tv_lybuy_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentEnd="true"
+                            android:text="--" />
+                    </RelativeLayout>
+
+                    <com.example.huichuanyi.custom.MyListView
+                        android:id="@+id/mlw_ly_buy_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp">
+
+                    </com.example.huichuanyi.custom.MyListView>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/test"
+                    android:layout_marginBottom="-5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/left_right_cicle" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/rl_above_tip"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_color" />
+
+        <TextView
+            android:id="@+id/tv_lybuy_go_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/shape_fill_noline"
+            android:paddingBottom="5dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="5dp"
+            android:text="付款"
+            android:textColor="#fff"
+            android:textSize="20sp" />
+    </RelativeLayout>
+</RelativeLayout>

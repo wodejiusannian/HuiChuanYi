@@ -114,4 +114,66 @@
         <item name="android:textColor">#fff</item>
         <item name="android:layout_margin">10dp</item>
     </style>
+
+
+
+
+
+
+    <style name="PhoneET">
+        <item name="android:maxLength">11</item>
+        <item name="android:layout_width">240dp</item>
+        <item name="android:layout_height">58dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:inputType">number</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:background">@mipmap/login_long</item>
+        <item name="android:textColorHint">#000</item>
+        <item name="android:paddingBottom">7dp</item>
+        <item name="android:textCursorDrawable">@drawable/shape_edittext</item>
+    </style>
+
+
+
+    <style name="AuthCodeET">
+        <item name="android:maxLength">4</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">58dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:inputType">number</item>
+        <item name="android:hint">输入验证码</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:paddingBottom">7dp</item>
+        <item name="android:background">@mipmap/login_long</item>
+        <item name="android:textColorHint">#000</item>
+        <item name="android:textCursorDrawable">@drawable/shape_edittext</item>
+    </style>
+
+
+    <style name="PwdET">
+        <item name="android:maxLength">16</item>
+        <item name="android:layout_width">240dp</item>
+        <item name="android:layout_height">58dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:inputType">textPassword</item>
+        <item name="android:hint">输入密码</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:paddingBottom">7dp</item>
+        <item name="android:background">@mipmap/login_long</item>
+        <item name="android:textColorHint">#000</item>
+        <item name="android:textCursorDrawable">@drawable/shape_edittext</item>
+    </style>
+
+    <style name="SendSMSTV">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">58dp</item>
+        <item name="android:background">@mipmap/login_long</item>
+        <item name="android:text">获取验证码</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingBottom">7dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:textColor">@color/write</item>
+    </style>
 </resources>

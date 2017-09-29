@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.alipay.sdk.app.PayTask;
 import com.example.huichuanyi.R;
@@ -127,6 +128,7 @@ public class UtilsPay {
         notify3.flags |= Notification.FLAG_AUTO_CANCEL;
         manager.notify(1, notify3);
     }
+
 
 
 }

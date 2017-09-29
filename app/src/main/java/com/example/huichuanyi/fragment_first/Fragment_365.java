@@ -24,17 +24,23 @@ import com.example.huichuanyi.ui.activity.SLWJianJieActivity;
 import com.example.huichuanyi.ui.activity.SLWRecordActivity;
 import com.example.huichuanyi.ui.activity.SLWWriteInfoActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
+import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import io.rong.imkit.RongIM;
 
 
 public class Fragment_365 extends BaseFragment implements View.OnClickListener, UtilsInternet.XCallBack, Fresh_365, MySelfDialog.OnYesClickListener {
@@ -50,6 +56,8 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
 
     private MyPartnerAdapter mAdapter;
     private String buyCity;
+
+    private TextView chat;
 
     @Override
     protected View initView() {
@@ -68,6 +76,7 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
         mInvite = (Button) view.findViewById(R.id.btn_will_invite);
         mCopy = (Button) view.findViewById(R.id.btn_will_pay_copy);
         mActivity = (LinearLayout) view.findViewById(R.id.ll_is_activity);
+        chat = (TextView) view.findViewById(R.id.tv_365_chat);
     }
 
 
@@ -98,6 +107,7 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
         mWill.setOnClickListener(this);
         mInvite.setOnClickListener(this);
         mCopy.setOnClickListener(this);
+        chat.setOnClickListener(this);
     }
 
     @Override
@@ -125,6 +135,47 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
                 } else {
                     ActivityUtils.switchTo(getActivity(), SLWActiveActivity.class);
                 }
+                break;
+            case R.id.tv_365_chat:
+                RequestParams params = new RequestParams(NetConfig.IS_BUY_365);
+                params.addBodyParameter("user_id", SharedPreferenceUtils.getUserData(getContext(), 1));
+                x.http().post(params, new Callback.CacheCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        try {
+                            JSONObject object = new JSONObject(result);
+                            JSONObject body = object.getJSONObject("body");
+                            String studio_name = body.getString("studio_name");
+                            String studio_id = body.getString("studio_id");
+                            RongIM im = RongIM.getInstance();
+                            if (im != null && studio_id != null) {
+                                im.startPrivateChat(getContext(), "hmgls_" + studio_id, studio_name);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+
+                    @Override
+                    public boolean onCache(String result) {
+                        return false;
+                    }
+                });
                 break;
             default:
                 int tag = (int) v.getTag();
@@ -222,11 +273,13 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
         if (TextUtils.equals("365", m365)) {
             mPay.setVisibility(View.VISIBLE);
             mRecord.setVisibility(View.VISIBLE);
+            chat.setVisibility(View.VISIBLE);
             mNoPay.setVisibility(View.GONE);
         } else {
             mRecord.setVisibility(View.GONE);
             mNoPay.setVisibility(View.VISIBLE);
             mPay.setVisibility(View.GONE);
+            chat.setVisibility(View.GONE);
         }
     }
 
@@ -238,19 +291,74 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
 
     private void isHaveBuyCity() {
         buyCity = SharedPreferenceUtils.getBuyCity(getActivity());
-        if (TextUtils.isEmpty(this.buyCity)) {
-            showDialog();
-        } else {
-            goDredge();
-        }
+        RequestParams params = new RequestParams(NetConfig.GET_INFORMATION);
+        params.addBodyParameter("userid", SharedPreferenceUtils.getUserData(getContext(), 1));
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                if (TextUtils.equals("0", result)) {
+                    return;
+                }
+                try {
+                    JSONObject object = new JSONObject(result);
+                    String name = object.getString("name");
+                    String sex = object.getString("sex");
+                    String age = object.getString("age");
+                    String city = object.getString("city");
+                    String height = object.getString("height");
+                    String weight = object.getString("weight");
+                    String occupation = object.getString("occupation");
+                    String orientate = object.getString("orientate");
+                    String birthday = object.getString("birthday");
+                    String pos1 = object.getString("pos1");
+                    String phone_data = object.getString("phone_data");
+                    String pos2 = object.getString("pos2");
+                    String pos3 = object.getString("pos3");
+                    String character = object.getString("character");
+                    String colour_tag = object.getString("colour_tag");
+                    String neck_circumference = object.getString("neck_circumference");
+                    String shoulder_circumference = object.getString("shoulder_circumference");
+                    String bust = object.getString("bust");
+                    String waistline = object.getString("waistline");
+                    String hipline = object.getString("hipline");
+                    String desired_image = object.getString("desired_image");
+                    if (CommonUtils.isEmpty(name) || CommonUtils.isEmpty(age) || CommonUtils.isEmpty(city) || CommonUtils.isEmpty(height)
+                            || CommonUtils.isEmpty(weight) || CommonUtils.isEmpty(occupation) || CommonUtils.isEmpty(orientate) || CommonUtils.isEmpty(birthday)
+                            || CommonUtils.isEmpty(pos1) || CommonUtils.isEmpty(phone_data) || CommonUtils.isEmpty(pos2) || CommonUtils.isEmpty(pos3) || CommonUtils.isEmpty(character)
+                            || CommonUtils.isEmpty(colour_tag) || CommonUtils.isEmpty(neck_circumference) || CommonUtils.isEmpty(shoulder_circumference) || CommonUtils.isEmpty(bust) || CommonUtils.isEmpty(waistline)
+                            || CommonUtils.isEmpty(hipline) || CommonUtils.isEmpty(desired_image)) {
+                        showDialog();
+                    } else {
+                        goDredge();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 
     private void showDialog() {
         MySelfDialog mySelfDialog = new MySelfDialog(getContext());
         mySelfDialog.setTitle("温馨提示");
-        mySelfDialog.setMessage("未读取到您资料的城市名称，请完善个人资料！");
+        mySelfDialog.setMessage("请完善您资料中全部信息！");
         mySelfDialog.setOnNoListener("取消", null);
-        mySelfDialog.setOnYesListener("去填写地址", this);
+        mySelfDialog.setOnYesListener("去完善资料", this);
         mySelfDialog.show();
     }
 

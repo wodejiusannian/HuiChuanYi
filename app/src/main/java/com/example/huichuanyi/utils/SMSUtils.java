@@ -13,7 +13,7 @@ import java.util.Map;
  */
 
 public class SMSUtils implements UtilsInternet.XCallBack {
-    private static final String TAG = "SMSUtils";
+    private static final String TAG = "SMSTimeUtils";
     private UtilsInternet net;
     private Map<String, String> map;
     private int isME = 1;

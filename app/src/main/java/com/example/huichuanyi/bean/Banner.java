@@ -6,6 +6,24 @@ public class Banner {
     private String web_url;
     private String type;
     private String pic_url;
+    private String share_name;
+    private String share_url;
+
+    public String getShare_name() {
+        return share_name;
+    }
+
+    public void setShare_name(String share_name) {
+        this.share_name = share_name;
+    }
+
+    public String getShare_url() {
+        return share_url;
+    }
+
+    public void setShare_url(String share_url) {
+        this.share_url = share_url;
+    }
 
     public String getWeb_url() {
         return web_url;

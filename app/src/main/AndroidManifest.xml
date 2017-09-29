@@ -75,7 +75,6 @@
         <activity
             android:name=".ui.activity.MainActivity"
             android:launchMode="singleTask" />
-
         <activity android:name=".ui.activity.loading.LoadingActivity" />
         <activity android:name=".ui.activity.ManageActivity" />
         <activity android:name=".secondui.PayOrderActivity" />
@@ -161,7 +160,7 @@
         <activity android:name=".ui.activity.WDYCPicActivity" />
         <activity android:name=".ui.activity.VideoPayActivity" />
         <activity android:name=".ui.activity.MineStyleActivity" />
-        <activity android:name=".ui.activity.ZhenDuanActivity"></activity>
+        <activity android:name=".ui.activity.ZhenDuanActivity" />
 
         <receiver android:name=".wxapi.AppRegister">
             <intent-filter>
@@ -169,7 +168,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".ui.activity.SelectStudioTimeActivity"></activity>
+        <activity android:name=".ui.activity.SelectStudioTimeActivity" />
         <activity android:name=".ui.activity.LiJiYuYueActivity" />
         <activity android:name=".ui.activity.ComplainActivity" />
         <activity android:name=".ui.activity.MyOrderDetailsActivity" />
@@ -188,6 +187,7 @@
         <activity android:name=".ui.activity.SLWJianJieActivity" />
         <activity android:name=".ui.activity.GoDoorInfoActivity" />
         <activity android:name=".ui.activity.login.LoginHMService" />
+        <activity android:name=".ui.activity.lanyang.LyShopListActivity" />
         <activity android:name=".ui.activity.register.RegisterGetPhoneCodeActivity" />
         <activity android:name=".ui.activity.register.RegisterUpPhotoActivity" />
         <activity android:name=".ui.activity.register.RegisterOverActivity" />
@@ -241,18 +241,15 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
-
         <!-- 下载基础服务 -->
         <service
             android:name="com.iflytek.autoupdate.IFlytekDownloadService"
             android:enabled="true"
             android:process=":IFlytekDownloadService" />
-
         ///融云从这里开始
         <meta-data
             android:name="RONG_CLOUD_APP_KEY"
             android:value="tdrvipksthks5" />
-
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="高德地图的 AppKey" />
@@ -336,7 +333,7 @@
             android:name="com.huawei.hms.update.provider.UpdateProvider"
             android:authorities="com.example.huichuanyi.hms.update.provider"
             android:exported="false"
-            android:grantUriPermissions="true"></provider>
+            android:grantUriPermissions="true" />
 
         <!-- 第三方相关 :接收Push消息（注册、Push消息、Push连接状态）广播 -->
         <receiver android:name="io.rong.push.platform.HMSReceiver">
@@ -359,13 +356,26 @@
                 <action android:name="com.huawei.intent.action.PUSH" />
             </intent-filter>
         </receiver>
+        <receiver
+            android:name=".service.MyPushService"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_CLICK_ACTION" />
+                <action android:name="cn.jpush.android.intent.CONNECTION" />
+
+                <category android:name="com.example.huichuanyi" />
+            </intent-filter>
+        </receiver>
 
         <activity
             android:name=".im.ConversationActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -377,6 +387,13 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.activity.lanyang.LyMainActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".ui.activity.lanyang.LyShopDetailsActivity" />
+        <activity android:name=".ui.activity.lanyang.LyBuyActivity" />
+        <activity android:name=".ui.activity.lanyang.LyShopCarActivity" />
+        <activity android:name=".ui.activity.lanyang.LyCommendPeopleActivity"></activity>
     </application>
 
 </manifest>

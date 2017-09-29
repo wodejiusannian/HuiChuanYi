@@ -80,24 +80,27 @@ public class LiJiYuYueActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        mGetCity = new GetCity(getApplicationContext());
-        mGetCity.startLocation();
-        mGetCity.setGetCity(new GetCity.WillGetCity() {
-            @Override
-            public void getWillGetCity(String city, String lat, String lng) {
-                if (city != null) {
-                    Location.lat = lat;
-                    Location.lng = lng;
-                }
-                Bundle bundle = new Bundle();
-                bundle.putString("location", city);
-                Message message = Message.obtain();
-                message.setData(bundle);
-                mHandler.sendMessage(message);
-            }
-        });
         Intent intent = getIntent();
         Location.mAddress = intent.getStringExtra("location");
+
+        if (CommonUtils.isEmpty(Location.mAddress)) {
+            mGetCity = new GetCity(getApplicationContext());
+            mGetCity.startLocation();
+            mGetCity.setGetCity(new GetCity.WillGetCity() {
+                @Override
+                public void getWillGetCity(String city, String lat, String lng) {
+                    if (city != null) {
+                        Location.lat = lat;
+                        Location.lng = lng;
+                    }
+                    Bundle bundle = new Bundle();
+                    bundle.putString("location", city);
+                    Message message = Message.obtain();
+                    message.setData(bundle);
+                    mHandler.sendMessage(message);
+                }
+            });
+        }
         Location.mTime = intent.getStringExtra("time");
         Location.mOrder_365 = intent.getStringExtra("order_365");
         if (TextUtils.equals("365", Location.mOrder_365)) {
@@ -142,7 +145,8 @@ public class LiJiYuYueActivity extends BaseActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        mGetCity.stopLocation();
+        if (mGetCity != null)
+            mGetCity.stopLocation();
     }
 
 

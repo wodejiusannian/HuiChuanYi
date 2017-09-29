@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.WindowManager;
 
 import com.example.huichuanyi.R;
@@ -22,6 +23,8 @@ import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
+
+import cn.jpush.android.api.JPushInterface;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -62,6 +65,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public void initView() {
+        Log.e("TAG", "initView: "+ JPushInterface.getRegistrationID(this));
         RequestParams params = new RequestParams(NetConfig.IS_BUY_365);
         params.addBodyParameter("user_id", SharedPreferenceUtils.getUserData(this, 1));
         x.http().post(params, new Callback.CommonCallback<String>() {

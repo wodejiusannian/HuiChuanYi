@@ -6,6 +6,8 @@
         android:fillAfter="false"
         android:fromYDelta="0"
         android:toYDelta="100%" />
+
+
     <alpha
         android:duration="300"
         android:fillAfter="true"

@@ -17,10 +17,11 @@
         <include layout="@layout/btn_back"></include>
 
         <TextView
+            android:id="@+id/tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="衣橱诊断"
+            android:text="我的报告"
             android:textColor="@color/write"
             android:textSize="18sp" />
 

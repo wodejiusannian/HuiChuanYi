@@ -191,6 +191,7 @@ public class Fragment_Mine extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        activity.unregisterReceiver(new HaveMsg());
     }
 
 

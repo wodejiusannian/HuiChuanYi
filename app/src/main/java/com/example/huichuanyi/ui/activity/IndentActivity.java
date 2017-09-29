@@ -44,8 +44,8 @@ public class IndentActivity extends BaseActivity implements View.OnClickListener
         mTitles = new ArrayList<>();
         mData.add(new Progress_Indent());
         mData.add(new Over_Indent());
-        mTitles.add("未完成");
-        mTitles.add("已完成");
+        mTitles.add("视频订单");
+        mTitles.add("黑科技订单");
         mAdapter = new ClosetAdapter(getSupportFragmentManager(), mData, mTitles);
     }
 

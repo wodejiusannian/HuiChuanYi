@@ -17,40 +17,47 @@
         android:textColor="@color/main_color_write"
         android:textSize="@dimen/text_size_18" />
 
-    <ScrollView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/rl"
-        android:layout_below="@+id/order_top"
-        android:scrollbars="none">
+        android:layout_below="@+id/order_top">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:scrollbars="none">
 
-            <com.jude.rollviewpager.RollPagerView
-                android:id="@+id/vp_order_banner"
-                android:layout_width="match_parent"
-                android:layout_height="225dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:background="@mipmap/nonepic">
-
-            </com.jude.rollviewpager.RollPagerView>
-
-            <ImageView
-                android:id="@+id/iv"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/distance_10"
-                android:layout_marginRight="@dimen/distance_10"
-                android:layout_marginTop="5dp"
-                android:scaleType="fitXY"
-                android:src="@mipmap/appointment_home_image" />
+                android:orientation="vertical">
 
-        </LinearLayout>
-    </ScrollView>
+                <com.jude.rollviewpager.RollPagerView
+                    android:id="@+id/vp_order_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="225dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@mipmap/nonepic">
+
+                </com.jude.rollviewpager.RollPagerView>
+
+                <ImageView
+                    android:id="@+id/iv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/distance_10"
+                    android:layout_marginRight="@dimen/distance_10"
+                    android:layout_marginTop="5dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/appointment_home_image" />
+
+            </LinearLayout>
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 
     <RelativeLayout
         android:id="@+id/rl"
