@@ -79,7 +79,35 @@
                             android:text="--.--"
                             android:textColor="#000"
                             android:textSize="27dp" />
+
+
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="原价¥"
+                            android:textColor="#999999"
+                            android:textSize="10sp" />
+
+                        <com.example.huichuanyi.custom.LineTextView
+                            android:id="@+id/lv_ly_shopdetails_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="--.--"
+                            android:textSize="10sp">
+
+                        </com.example.huichuanyi.custom.LineTextView>
+
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <TextView

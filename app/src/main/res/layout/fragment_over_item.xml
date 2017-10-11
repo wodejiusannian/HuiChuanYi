@@ -66,8 +66,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="@dimen/distance"
         android:layout_below="@+id/ll_line_over"
-        android:padding="@dimen/distance">
+        android:layout_alignParentStart="true">
 
         <TextView
             android:id="@+id/tv_over_item_shangmen"

@@ -36,6 +36,7 @@
             android:paddingTop="10dp">
 
             <LinearLayout
+                android:layout_toLeftOf="@+id/tv_item_ly_shopcar_count"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -44,7 +45,8 @@
                     android:id="@+id/tv_item_lyshopcar_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="每日氢元素"
+                    android:lines="1"
+                    android:text="--"
                     android:textSize="22sp" />
 
                 <TextView
@@ -52,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:lines="2"
-                    android:text="蓝氧科技" />
+                    android:text="--" />
             </LinearLayout>
 
             <TextView

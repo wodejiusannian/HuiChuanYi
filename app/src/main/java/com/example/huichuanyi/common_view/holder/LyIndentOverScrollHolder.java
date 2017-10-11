@@ -1,5 +1,6 @@
 package com.example.huichuanyi.common_view.holder;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,7 +17,7 @@ import com.example.huichuanyi.utils.CommonUtils;
  * Created by yq05481 on 2017/1/3.
  */
 
-public class LyIndentOverScrollHolder extends BaseViewHolder<LyListIndentScroll>  {
+public class LyIndentOverScrollHolder extends BaseViewHolder<LyListIndentScroll> {
 
     public LyIndentOverScrollHolder(View itemView) {
         super(itemView);
@@ -27,10 +28,35 @@ public class LyIndentOverScrollHolder extends BaseViewHolder<LyListIndentScroll>
         LinearLayout view = (LinearLayout) getView(R.id.ll_item_indentscroll_pics);
         TextView moneys = (TextView) getView(R.id.tv_item_indentscroll_moneys);
         TextView counts = (TextView) getView(R.id.tv_item_indentscroll_counts);
-        final ImageView gopay = (ImageView) getView(R.id.iv_item_indentscroll_quzhifu);
-        gopay.setTag(position);
-        gopay.setOnClickListener(adapter.getmOnclick());
-        moneys.setText("共计¥" + model.getMoney_pay());
+        final TextView gopay = (TextView) getView(R.id.iv_item_indentscroll_quzhifu);
+        switch (model.getState()) {
+            case "10":
+                gopay.setText("待发货");
+                moneys.setText("共计¥" + model.getMoney_pay());
+                break;
+            case "11":
+                gopay.setText("已发货");
+                moneys.setText("共计¥" + model.getMoney_pay());
+                break;
+            case "12":
+                gopay.setText("已收货");
+                moneys.setText("共计¥" + model.getMoney_pay());
+                break;
+            case "20":
+                gopay.setText("去支付");
+                moneys.setText("共计¥" + model.getMoney_one());
+                break;
+            case "40":
+                gopay.setText("已关闭");
+                moneys.setText("共计¥" + model.getMoney_pay());
+                break;
+            default:
+                break;
+        }
+        if (TextUtils.equals("20", model.getState())) {
+            gopay.setTag(position);
+            gopay.setOnClickListener(adapter.getmOnclick());
+        }
         counts.setText("x" + model.getNum());
         view.removeAllViews();
         String pic_url = model.getPic_url();

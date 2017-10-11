@@ -60,9 +60,6 @@ public class Fragment_Home extends BaseFragment implements OnItemClickListener, 
     @BindView(R.id.swipe)
     public SwipeRefreshLayout swipe;
 
-    @BindView(R.id.iv_hm_usth)
-    ImageView usth;
-
     private HomeAdapter mAdapter;
 
     private List<Banner> mBanners = new ArrayList<>();
@@ -117,9 +114,6 @@ public class Fragment_Home extends BaseFragment implements OnItemClickListener, 
     protected void setData() {
         super.setData();
         swipe.setOnRefreshListener(this);
-        Glide.with(this)
-                .load(R.drawable.hm_usth)
-                .into(new GlideDrawableImageViewTarget(usth, 1000));
     }
 
     private void initViewPager() {
@@ -158,7 +152,7 @@ public class Fragment_Home extends BaseFragment implements OnItemClickListener, 
         }
     }
 
-    @OnClick({R.id.iv_home_match, R.id.iv_home_info, R.id.iv_home_partner, R.id.iv_home_closet,R.id.iv_hm_usth})
+    @OnClick({R.id.iv_home_match, R.id.iv_home_info, R.id.iv_home_partner, R.id.iv_home_closet, R.id.iv_hm_usth})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_home_match:

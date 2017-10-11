@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,10 +15,12 @@ import com.example.huichuanyi.adapter.LyDetailsAdapter;
 import com.example.huichuanyi.common_view.model.LyBanner;
 import com.example.huichuanyi.common_view.model.LyShopCar;
 import com.example.huichuanyi.config.NetConfig;
+import com.example.huichuanyi.custom.LineTextView;
 import com.example.huichuanyi.custom.MyListView;
 import com.example.huichuanyi.ui.base.BaseActivity;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
+import com.jude.rollviewpager.OnItemClickListener;
 import com.jude.rollviewpager.RollPagerView;
 
 import org.json.JSONArray;
@@ -52,6 +55,9 @@ public class LyShopDetailsActivity extends BaseActivity implements UtilsInternet
             R.id.tv_shopdetails_changgui, R.id.tv_shopdetails_shopcar_count, R.id.tv_ly_shopdetails_count})
     TextView[] textViews;
 
+    @BindView(R.id.lv_ly_shopdetails_price)
+    LineTextView lineTextView;
+
     private HomeLyDetailsAdapter adapter;
 
     private int count = 1;
@@ -71,7 +77,7 @@ public class LyShopDetailsActivity extends BaseActivity implements UtilsInternet
 
     private double price_one;
 
-    private String goods_name, shop_logo, pic_url, shop_name;
+    private String goods_name, shop_logo, pic_url, shop_name, details_page;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +89,15 @@ public class LyShopDetailsActivity extends BaseActivity implements UtilsInternet
     protected void setListener() {
         rvAdapter = new LyDetailsAdapter(changgui, this);
         myListView.setAdapter(rvAdapter);
+        rollPagerView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Intent intent = new Intent(LyShopDetailsActivity.this, LyDetailsWebActivity.class);
+                intent.putExtra("details_page", details_page);
+                startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            }
+        });
     }
 
     @Override
@@ -202,6 +217,7 @@ public class LyShopDetailsActivity extends BaseActivity implements UtilsInternet
 
     @Override
     public void onResponse(String result) {
+        Log.e(TAG, "onResponse: " + result);
         try {
             JSONObject object = new JSONObject(result);
             JSONObject body = object.getJSONObject("body");
@@ -234,10 +250,12 @@ public class LyShopDetailsActivity extends BaseActivity implements UtilsInternet
             price_one = obj.getInt("price");
             goods_name = obj.getString("name");
             shop_logo = obj.getString("shop_logo");
+            details_page = obj.getString("details_page");
+            final String price_init = obj.getString("price_init");
             pic_url = obj.getString("pic_url");
             shop_name = obj.getString("shop_name");
             final String name = obj.getString("name");
-            final int price = obj.getInt("price");
+            final double price = obj.getDouble("price");
             new Handler().post(new Runnable() {
                 @Override
                 public void run() {
@@ -245,6 +263,8 @@ public class LyShopDetailsActivity extends BaseActivity implements UtilsInternet
                         textViews[0].setText(name);
                     if (textViews[1] != null)
                         textViews[1].setText(price + "");
+                    if (lineTextView != null)
+                        lineTextView.setText(price_init);
                     if (textViews[2] != null)
                         textViews[2].setText(color);
                     if (textViews[3] != null)

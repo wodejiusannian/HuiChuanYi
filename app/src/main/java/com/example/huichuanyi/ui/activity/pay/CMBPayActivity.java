@@ -2,7 +2,6 @@ package com.example.huichuanyi.ui.activity.pay;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 
@@ -15,7 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.view.annotation.ViewInject;
 
-public class YWTPayActivity extends BaseActivity implements PayUtils.Sign {
+public class CMBPayActivity extends BaseActivity  {
     @ViewInject(R.id.ywt_pay)
     private YWTWebView ywtWebView;
     private PayUtils payUtils = PayUtils.getInstance();
@@ -36,9 +35,15 @@ public class YWTPayActivity extends BaseActivity implements PayUtils.Sign {
     public void initView() {
         Intent intent = getIntent();
         String order_id = intent.getStringExtra("order_id");
-        String type = intent.getStringExtra("type");
-        Log.e("TAG", "initView: " + order_id + "----" + type);
-        payUtils.payYWT(order_id, type, this);
+        try {
+            JSONObject object = new JSONObject(order_id);
+            JSONObject body = object.getJSONObject("body");
+            String mSign = body.getString("sign");
+            String jsondata = "jsonRequestData=" + mSign;
+            ywtWebView.postUrl(payUrl, jsondata.getBytes());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -51,20 +56,7 @@ public class YWTPayActivity extends BaseActivity implements PayUtils.Sign {
 
     }
 
-    @Override
-    public void getSign(String sign) {
-        Log.e("TAG", "getSign: " + sign);
-        try {
-            JSONObject object = new JSONObject(sign);
-            JSONObject body = object.getJSONObject("body");
-            String mSign = body.getString("sign");
-            String jsondata = "jsonRequestData=" + mSign;
-            ywtWebView.postUrl(payUrl, jsondata.getBytes());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-    }
 
     public void back(View view) {
         if (ywtWebView.canGoBack()) {

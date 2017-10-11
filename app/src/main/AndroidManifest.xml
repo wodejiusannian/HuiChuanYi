@@ -194,6 +194,7 @@
         <activity android:name=".ui.activity.register.RegisterOverCompleteInfoActivity" />
         <activity android:name=".ui.activity.LiJiYuYueStudioSelectCityActivity" />
         <activity android:name=".ui.activity.video.HomeVideoYouhuiquanActivity" />
+        <activity android:name=".ui.activity.pay.CMBPayActivity"></activity>
         <activity
             android:name=".ui.activity.video.FullVideoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -393,7 +394,8 @@
         <activity android:name=".ui.activity.lanyang.LyShopDetailsActivity" />
         <activity android:name=".ui.activity.lanyang.LyBuyActivity" />
         <activity android:name=".ui.activity.lanyang.LyShopCarActivity" />
-        <activity android:name=".ui.activity.lanyang.LyCommendPeopleActivity"></activity>
+        <activity android:name=".ui.activity.lanyang.LyCommendPeopleActivity" />
+        <activity android:name=".ui.activity.lanyang.LyDetailsWebActivity"></activity>
     </application>
 
 </manifest>

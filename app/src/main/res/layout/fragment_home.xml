@@ -115,12 +115,30 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/iv_hm_usth"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:layout_centerInParent="true"
-                    android:src="@mipmap/ic_launcher" />
+                    android:orientation="vertical">
+
+                    <com.example.huichuanyi.custom.RippleSpreadView
+                        xmlns:RippleWaveView="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        RippleWaveView:rsv_innerAnimDuration="3000"
+                        RippleWaveView:rsv_innerSize="100dp"
+                        RippleWaveView:rsv_outAnimDuration="3000"
+                        RippleWaveView:rsv_outSize="200dp" />
+
+                    <ImageView
+                        android:id="@+id/iv_hm_usth"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/test" />
+                </RelativeLayout>
             </RelativeLayout>
 
         </RelativeLayout>

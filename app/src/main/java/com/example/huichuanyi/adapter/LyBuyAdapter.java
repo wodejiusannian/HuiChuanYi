@@ -70,7 +70,7 @@ public class LyBuyAdapter extends BaseAdapter {
         LyShopCar.BodyBean bean = mData.get(position);
         holder.num.setText("x" + bean.getNum());
         holder.name.setText(bean.getGoods_name());
-        holder.introduce.setText(bean.getGoods_name());
+        holder.introduce.setText(bean.getPrice_one() + "");
         Glide.with(context).load(bean.getPic_url()).error(R.mipmap.stand).into(holder.photo);
         return convertView;
     }

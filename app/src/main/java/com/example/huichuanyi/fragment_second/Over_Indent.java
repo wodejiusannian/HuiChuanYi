@@ -1,8 +1,10 @@
 package com.example.huichuanyi.fragment_second;
 
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
@@ -17,6 +19,7 @@ import com.example.huichuanyi.common_view.model.Visitable;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MySelfPayDialog;
 import com.example.huichuanyi.ui.activity.HomeVideoCoverActivity;
+import com.example.huichuanyi.ui.activity.pay.CMBPayActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.IsSuccess;
@@ -100,7 +103,7 @@ public class Over_Indent extends BaseFragment implements SwipeRefreshLayout.OnRe
                             LyListIndentScroll scroll = new LyListIndentScroll();
                             scroll.setNum(object.getInt("num"));
                             scroll.setName(object.getString("name"));
-                            scroll.setMoney_one(object.getDouble("money_one"));
+                            scroll.setMoney_one(object.getDouble("money_now"));
                             scroll.setMoney_pay(object.getDouble("money_pay"));
                             scroll.setOrder_id(object.getString("order_id"));
                             scroll.setPic_url(object.getString("pic_url"));
@@ -110,7 +113,7 @@ public class Over_Indent extends BaseFragment implements SwipeRefreshLayout.OnRe
                             LyListIndent indent = new LyListIndent();
                             indent.setNum(object.getInt("num"));
                             indent.setName(object.getString("name"));
-                            indent.setMoney_one(object.getDouble("money_one"));
+                            indent.setMoney_one(object.getDouble("money_now"));
                             indent.setMoney_pay(object.getDouble("money_pay"));
                             indent.setOrder_id(object.getString("order_id"));
                             indent.setPic_url(object.getString("pic_url"));
@@ -246,7 +249,32 @@ public class Over_Indent extends BaseFragment implements SwipeRefreshLayout.OnRe
                 });
                 break;
             case "3":
-                Toast.makeText(getContext(), "本次购物暂不支持一网通支付", Toast.LENGTH_SHORT).show();
+                RequestParams pap = new RequestParams(NetConfig.LY_SHOP_GET_SIGN);
+                pap.addBodyParameter("order_id", order_id);
+                pap.addBodyParameter("pay_type", "3");
+                x.http().post(pap, new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        Intent intent = new Intent(getContext(), CMBPayActivity.class);
+                        intent.putExtra("order_id", result);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
                 break;
             default:
                 break;

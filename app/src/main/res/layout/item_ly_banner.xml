@@ -7,7 +7,7 @@
     <com.jude.rollviewpager.RollPagerView
         android:id="@+id/banner_item_ly"
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="400dp">
 
     </com.jude.rollviewpager.RollPagerView>
 </LinearLayout>

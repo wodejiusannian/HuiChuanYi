@@ -42,12 +42,16 @@
             android:layout_centerVertical="true"
             android:text="总计" />
 
-        <ImageView
+        <TextView
+            android:layout_marginRight="10dp"
             android:id="@+id/iv_item_indentscroll_quzhifu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:src="@mipmap/quzhifu" />
+            android:background="@drawable/shape_red_4dp"
+            android:padding="10dp"
+            android:text="去支付"
+            android:textColor="#fff" />
     </RelativeLayout>
 </RelativeLayout>

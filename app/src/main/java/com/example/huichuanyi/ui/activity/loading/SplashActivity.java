@@ -65,7 +65,6 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public void initView() {
-        Log.e("TAG", "initView: "+ JPushInterface.getRegistrationID(this));
         RequestParams params = new RequestParams(NetConfig.IS_BUY_365);
         params.addBodyParameter("user_id", SharedPreferenceUtils.getUserData(this, 1));
         x.http().post(params, new Callback.CommonCallback<String>() {

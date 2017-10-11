@@ -19,6 +19,7 @@ import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MyListView;
 import com.example.huichuanyi.custom.MySelfPayDialog;
 import com.example.huichuanyi.ui.activity.AddressListActivity;
+import com.example.huichuanyi.ui.activity.pay.CMBPayActivity;
 import com.example.huichuanyi.ui.base.BaseActivity;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.IsSuccess;
@@ -153,7 +154,7 @@ public class LyBuyActivity extends BaseActivity implements MySelfPayDialog.OnYes
             String s2 = tvs[3].getText().toString();
             String s3 = tvs[4].getText().toString();
             if (CommonUtils.isEmpty(s1) || CommonUtils.isEmpty(s2) || CommonUtils.isEmpty(s3)) {
-                Toast.makeText(this, "请问完善地址信息", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "请完善地址信息", Toast.LENGTH_SHORT).show();
                 return;
             }
             obj.put("shr_name", s1);
@@ -234,10 +235,10 @@ public class LyBuyActivity extends BaseActivity implements MySelfPayDialog.OnYes
                         tvs[1].setText(ry_studio_name);
                         tvs[2].setText(model.getName_gzs());
                     } else {
-                        studio_id = "";
+                        studio_id = "0";
                         rls[0].setVisibility(View.GONE);
                         tvs[0].setVisibility(View.VISIBLE);
-                        tvs[0].setText("不选择管理师");
+                        tvs[0].setText("不选择服务顾问");
                     }
                 } catch (NullPointerException e) {
                     e.printStackTrace();
@@ -342,7 +343,32 @@ public class LyBuyActivity extends BaseActivity implements MySelfPayDialog.OnYes
                 });
                 break;
             case "3":
-                Toast.makeText(this, "本次购物暂不支持一网通支付", Toast.LENGTH_SHORT).show();
+                RequestParams pap = new RequestParams(NetConfig.LY_SHOP_GET_SIGN);
+                pap.addBodyParameter("order_id", order_id);
+                pap.addBodyParameter("pay_type", "3");
+                x.http().post(pap, new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        Intent intent = new Intent(LyBuyActivity.this, CMBPayActivity.class);
+                        intent.putExtra("order_id", result);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
                 break;
             default:
                 break;

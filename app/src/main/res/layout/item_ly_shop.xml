@@ -8,5 +8,5 @@
         android:id="@+id/tv_item_shop_test"
         android:scaleType="centerCrop"
         android:layout_width="match_parent"
-        android:layout_height="130dp" />
+        android:layout_height="200dp" />
 </RelativeLayout>
