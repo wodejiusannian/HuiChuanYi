@@ -131,8 +131,12 @@ public class PayListView extends ListView {
             } else {
                 h.rb_is_check.setChecked(false);
             }
-            if (pa.pic != null && pa.pic.length() > 5)
+            if (pa.pic != null && pa.pic.length() > 5) {
+                h.picActive.setVisibility(VISIBLE);
                 Picasso.with(getContext()).load(pa.pic).into(h.picActive);
+            } else {
+                h.picActive.setVisibility(GONE);
+            }
             switch (type) {
                 case "1":
                     h.picState.setImageResource(R.mipmap.image_pay_ali);

@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/distance_15"
+            android:layout_margin="10dp"
             android:gravity="center"
             android:text="消息提示"
             android:textColor="#000000"
@@ -96,7 +96,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/my_self_yes"
+                android:id="@+id/my_self_no"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -106,20 +106,21 @@
                 android:textColor="#000"
                 android:textSize="16sp" />
 
+
             <View
                 android:layout_width="1px"
                 android:layout_height="match_parent"
                 android:background="#E4E4E4" />
 
             <Button
-                android:id="@+id/my_self_no"
+                android:id="@+id/my_self_yes"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:textColor="@color/main_color_write"
                 android:background="@drawable/dialog_ac0000"
                 android:gravity="center"
                 android:singleLine="true"
-                android:textColor="@color/main_color_write"
                 android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>

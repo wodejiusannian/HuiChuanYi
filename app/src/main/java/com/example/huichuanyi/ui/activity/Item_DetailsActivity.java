@@ -73,6 +73,33 @@ public class Item_DetailsActivity extends BaseActivity implements View.OnClickLi
 
 
     private void getUpActivityData() {
+     /*   Intent intent = getIntent();
+        PrivateRecommendModel cardItem = (PrivateRecommendModel) intent.getSerializableExtra("cardItem");
+        String recommend_id = cardItem.getRecommend_id();
+        loadUrl = String.format(NetConfig.SHOP_DETAILS, recommend_id);
+        String clothes_get = cardItem.getClothes_get();
+        String color = cardItem.getColor();
+        String color_name = cardItem.getColor_name();
+        String id = cardItem.getId();
+        String introduction = cardItem.getIntroduction();
+        String name = cardItem.getClothes_name();
+        String price_dj = cardItem.getPrice_dj();
+        String reason = cardItem.getReason();
+        String size_name = cardItem.getSize_name();
+        String type = intent.getStringExtra("type");
+        map.put("clothes_get", clothes_get);
+        map.put("color", color);
+        map.put("color_name", color_name);
+        map.put("id", id);
+        map.put("introduction", introduction);
+        map.put("name", name);
+        map.put("price_dj", price_dj);
+        map.put("reason", reason);
+        map.put("size_name", size_name);
+        map.put("type", type);
+        map.put("recommend_id", recommend_id);
+*/
+
         Intent intent = getIntent();
         String recommend_id = intent.getStringExtra("recommend_id");
         loadUrl = String.format(NetConfig.SHOP_DETAILS, recommend_id);

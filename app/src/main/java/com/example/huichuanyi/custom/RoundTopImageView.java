@@ -15,17 +15,19 @@ import android.widget.ImageView;
 
 import com.example.huichuanyi.R;
 
-public class RoundTopImageView extends ImageView{
+public class RoundTopImageView extends ImageView {
 
 
     private Paint paint;
     /**
      * 个人理解是
-     *
+     * <p>
      * 这两个都是画圆的半径
      */
     private int roundWidth = 8;
+
     private int roundHeight = 8;
+
     private Paint paint2;
 
     public RoundTopImageView(Context context, AttributeSet attrs, int defStyle) {

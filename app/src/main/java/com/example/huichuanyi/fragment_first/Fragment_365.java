@@ -1,50 +1,7 @@
 package com.example.huichuanyi.fragment_first;
 
-import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import com.example.huichuanyi.R;
-import com.example.huichuanyi.adapter.MyPartnerAdapter;
-import com.example.huichuanyi.baidumap.Fresh_365;
-import com.example.huichuanyi.base.BaseFragment;
-import com.example.huichuanyi.bean.CardItem;
-import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.custom.MySelfDialog;
-import com.example.huichuanyi.ui.activity.DatumActivity;
-import com.example.huichuanyi.ui.activity.Item_DetailsActivity;
-import com.example.huichuanyi.ui.activity.MainActivity;
-import com.example.huichuanyi.ui.activity.SLWActiveActivity;
-import com.example.huichuanyi.ui.activity.SLWJianJieActivity;
-import com.example.huichuanyi.ui.activity.SLWRecordActivity;
-import com.example.huichuanyi.ui.activity.SLWWriteInfoActivity;
-import com.example.huichuanyi.utils.ActivityUtils;
-import com.example.huichuanyi.utils.CommonUtils;
-import com.example.huichuanyi.utils.SharedPreferenceUtils;
-import com.example.huichuanyi.utils.UtilsInternet;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import io.rong.imkit.RongIM;
-
-
-public class Fragment_365 extends BaseFragment implements View.OnClickListener, UtilsInternet.XCallBack, Fresh_365, MySelfDialog.OnYesClickListener {
-    private UtilsInternet instance = UtilsInternet.getInstance();
+public class Fragment_365 /*extends BaseFragment implements View.OnClickListener, UtilsInternet.XCallBack, Fresh_365, MySelfDialog.OnYesClickListener*/ {
+   /* private UtilsInternet instance = UtilsInternet.getInstance();
     private Map<String, String> map = new HashMap<>();
     private Map<String, Object> jumpMap = new HashMap<>();
     private List<CardItem> mData = new ArrayList<>();
@@ -185,9 +142,9 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
         }
     }
 
-    /*
+    *//*
     * 添加调到下个页面的数据的
-    * */
+    * *//*
     private void addJumpData(int currentItem) {
         CardItem item = mData.get(currentItem);
         String clothes_get = item.getClothes_get();
@@ -214,15 +171,10 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
     }
 
 
-    /*
+    *//*
     * 点击去开通
-    * */
+    * *//*
     private void goDredge() {
-        /*String city = SharedPreferenceUtils.getBuyCity(getContext());
-        Map<String, Object> map = new HashMap<>();
-        map.put("location", city);
-        map.put("order_365", "365");
-        ActivityUtils.switchTo(getActivity(), LiJiYuYueActivity.class, map);*/
         ActivityUtils.switchTo(getActivity(), SLWJianJieActivity.class);
     }
 
@@ -258,9 +210,9 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
         super.onDestroy();
     }
 
-    /*
+    *//*
     * 是否已经购买365服务,购买成功or购买失败
-    * */
+    * *//*
     private void isYetPay() {
         String activity = SharedPreferenceUtils.getActivity(getActivity());
         if (TextUtils.equals("Y", activity)) {
@@ -273,7 +225,7 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
         if (TextUtils.equals("365", m365)) {
             mPay.setVisibility(View.VISIBLE);
             mRecord.setVisibility(View.VISIBLE);
-            chat.setVisibility(View.VISIBLE);
+            chat.setVisibility(View.VISIBLE);https://s.click.taobao.com/6YY2sVw
             mNoPay.setVisibility(View.GONE);
         } else {
             mRecord.setVisibility(View.GONE);
@@ -303,30 +255,9 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
                     JSONObject object = new JSONObject(result);
                     String name = object.getString("name");
                     String sex = object.getString("sex");
-                    String age = object.getString("age");
                     String city = object.getString("city");
-                    String height = object.getString("height");
-                    String weight = object.getString("weight");
-                    String occupation = object.getString("occupation");
-                    String orientate = object.getString("orientate");
-                    String birthday = object.getString("birthday");
-                    String pos1 = object.getString("pos1");
-                    String phone_data = object.getString("phone_data");
-                    String pos2 = object.getString("pos2");
-                    String pos3 = object.getString("pos3");
-                    String character = object.getString("character");
-                    String colour_tag = object.getString("colour_tag");
-                    String neck_circumference = object.getString("neck_circumference");
-                    String shoulder_circumference = object.getString("shoulder_circumference");
-                    String bust = object.getString("bust");
-                    String waistline = object.getString("waistline");
-                    String hipline = object.getString("hipline");
-                    String desired_image = object.getString("desired_image");
-                    if (CommonUtils.isEmpty(name) || CommonUtils.isEmpty(age) || CommonUtils.isEmpty(city) || CommonUtils.isEmpty(height)
-                            || CommonUtils.isEmpty(weight) || CommonUtils.isEmpty(occupation) || CommonUtils.isEmpty(orientate) || CommonUtils.isEmpty(birthday)
-                            || CommonUtils.isEmpty(pos1) || CommonUtils.isEmpty(phone_data) || CommonUtils.isEmpty(pos2) || CommonUtils.isEmpty(pos3) || CommonUtils.isEmpty(character)
-                            || CommonUtils.isEmpty(colour_tag) || CommonUtils.isEmpty(neck_circumference) || CommonUtils.isEmpty(shoulder_circumference) || CommonUtils.isEmpty(bust) || CommonUtils.isEmpty(waistline)
-                            || CommonUtils.isEmpty(hipline) || CommonUtils.isEmpty(desired_image)) {
+                    String phone = object.getString("phone");
+                    if (CommonUtils.isEmpty(name) || CommonUtils.isEmpty(city) || CommonUtils.isEmpty(sex) || CommonUtils.isEmpty(phone)) {
                         showDialog();
                     } else {
                         goDredge();
@@ -356,7 +287,7 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
     private void showDialog() {
         MySelfDialog mySelfDialog = new MySelfDialog(getContext());
         mySelfDialog.setTitle("温馨提示");
-        mySelfDialog.setMessage("请完善您资料中全部信息！");
+        mySelfDialog.setMessage("★  为了您更好的享受慧美衣橱各项服务，姓名，性别，城市，手机号四项为必填项，请您填写清楚");
         mySelfDialog.setOnNoListener("取消", null);
         mySelfDialog.setOnYesListener("去完善资料", this);
         mySelfDialog.show();
@@ -365,5 +296,5 @@ public class Fragment_365 extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onClick() {
         ActivityUtils.switchTo(getActivity(), DatumActivity.class);
-    }
+    }*/
 }

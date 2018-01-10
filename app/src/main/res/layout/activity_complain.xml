@@ -21,12 +21,9 @@
             android:src="@drawable/back" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ActivityTopTextTitleStyle"
             android:layout_centerInParent="true"
-            android:text="投诉"
-            android:textColor="#fff"
-            android:textSize="@dimen/text_size_big" />
+            android:text="投诉" />
 
         <ImageView
             android:id="@+id/iv_complain_phone"

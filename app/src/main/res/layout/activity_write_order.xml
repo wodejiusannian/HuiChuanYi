@@ -183,17 +183,14 @@
         android:id="@+id/rl_write_order_title"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/text_color">
+        android:background="@color/activityTop">
 
         <include layout="@layout/btn_back"></include>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ActivityTopTextTitleStyle"
             android:layout_centerInParent="true"
-            android:text="填写订单"
-            android:textColor="@color/main_color_write"
-            android:textSize="@dimen/text_size_18" />
+            android:text="填写订单" />
     </RelativeLayout>
 
     <LinearLayout

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.example.huichuanyi.ui.activity.PrivateManagerActivity">
+
+    <RelativeLayout
+        android:id="@+id/tv_365_top"
+        style="@style/AcFrTopStyle">
+
+        <include layout="@layout/btn_back"></include>
+
+        <TextView
+            style="@style/ActivityTopTextTitleStyle"
+            android:layout_centerInParent="true"
+            android:text="@string/activity_private_manager_title" />
+
+    </RelativeLayout>
+
+    <RadioGroup
+        android:id="@+id/rg_main_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_private_recommend"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:drawableTop="@drawable/selector_reommend"
+            android:paddingTop="5dp" />
+
+        <RadioButton
+            android:id="@+id/rb_private_guidance"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/selector_guidance"
+            android:paddingTop="5dp" />
+
+        <RadioButton
+            android:id="@+id/rb_private_manager"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/selector_manager"
+            android:paddingTop="5dp" />
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="为您精准推荐服饰"
+            android:textColor="#ac0000"
+            android:textSize="10sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="工作室专业着装指导"
+            android:textColor="#ac0000"
+            android:textSize="10sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="工作室专业衣橱管理"
+            android:textColor="#ac0000"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_private_show"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp">
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -11,8 +11,9 @@
     <color name="back_ground_6e">#eeeeee</color>
     <color name="text_color">#ac0000</color>
     <color name="color_ac0000">#ac0000</color>
-    <color name="top_color">#ac0000</color>
+    <color name="top_color">#ffffff</color>
     <color name="write">#ffffff</color>
+    <color name="statusbar">#28ffffff</color>
     <color name="et_999999">#999999</color>
     <color name="black">#000000</color>
     <color name="photopicker_background">#181819</color>
@@ -29,4 +30,7 @@
     <color name="hm_gary">#f7f4f4</color>
     <color name="hm_write">#ffffff</color>
     <color name="line_color">#f7f4f4</color>
+    <color name="activityTop">#ffffff</color>
+    <color name="activityTopBigText">#000000</color>
+    s
 </resources>

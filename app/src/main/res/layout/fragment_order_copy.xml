@@ -3,19 +3,17 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/hm_gary"
+    android:background="@color/write"
     android:clickable="true"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/order_top"
+        style="@style/ActivityTopTextTitleStyle"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/text_color"
         android:gravity="center"
-        android:text="预约"
-        android:textColor="@color/main_color_write"
-        android:textSize="@dimen/text_size_18" />
+        android:text="预约" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe"

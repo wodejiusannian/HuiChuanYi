@@ -107,7 +107,7 @@ public class LiJiYuYueActivity extends BaseActivity {
             mTop.setText("选择工作室");
             address.setVisibility(View.GONE);
         }
-        mTitles.add("默认排序");
+        mTitles.add("距离排序");
         mTitles.add("评分最高");
         mTitles.add("销量最好");
         mData.add(new LiJiYuYueDefaultFragment());

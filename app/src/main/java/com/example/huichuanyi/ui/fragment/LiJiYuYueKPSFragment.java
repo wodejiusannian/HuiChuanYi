@@ -38,7 +38,6 @@ import java.util.Map;
 
 @ContentView(R.layout.fragment_lijiyuyue_default)
 public class LiJiYuYueKPSFragment extends BaseFragment implements UtilsInternet.XCallBack, SwipeRefreshLayout.OnRefreshListener {
-    private static final String TAG = LiJiYuYueKPSFragment.class.getSimpleName();
 
     @ViewInject(R.id.sf_default_refresh)
     private SwipeRefreshLayout refreshLayout;
@@ -77,7 +76,7 @@ public class LiJiYuYueKPSFragment extends BaseFragment implements UtilsInternet.
     }
 
     private void loadData() {
-        value.put("city", Location.mAddress);
+        value.put("city_temp", Location.mAddress);
         value.put("type", "21");
         value.put("lng", Location.lng);
         value.put("lat", Location.lat);

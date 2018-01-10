@@ -22,22 +22,16 @@
 
         <TextView
             android:id="@+id/tv_feilei_zhonglei"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textColor="#fff"
-            android:textSize="@dimen/text_size_big" />
+            style="@style/ActivityTopTextTitleStyle"
+            android:layout_centerInParent="true" />
 
         <TextView
             android:id="@+id/tv_old_clothes_all"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ActivityTopTextSubTitleStyle"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/distance"
-            android:text="一键还原"
-            android:textColor="@color/write"
-            android:textSize="@dimen/text_size_middle" />
+            android:text="一键还原" />
     </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout

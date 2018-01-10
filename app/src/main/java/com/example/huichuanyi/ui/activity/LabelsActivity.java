@@ -74,7 +74,7 @@ public class LabelsActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void initData() {
-        user_id = SharedPreferenceUtils.getUserData(this,1);
+        user_id = SharedPreferenceUtils.getUserData(this, 1);
         photoTime = new Date().getTime() + "";
         mData = new ArrayList<>();
         mAdapter = new MyPicAdapter(this, mData, jsons);
@@ -146,7 +146,6 @@ public class LabelsActivity extends BaseActivity implements View.OnClickListener
                 toJson();
                 break;
             default:
-
                 break;
         }
     }
@@ -292,7 +291,8 @@ public class LabelsActivity extends BaseActivity implements View.OnClickListener
     public void upPhoto(String jsons) {
         RequestParams params = new RequestParams(NetConfig.LABEL_PATH_UP);
         params.addBodyParameter("data", jsons);
-        if (mPhotos.size() == 0) {
+        if (mPhotos == null || mPhotos.size() == 0) {
+            mProgress.dismiss();
             return;
         }
         for (int i = 0; i < mPhotos.size(); i++) {
@@ -338,4 +338,5 @@ public class LabelsActivity extends BaseActivity implements View.OnClickListener
             post.cancel();
         }
     }
+
 }

@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.HomeAdapter;
 import com.example.huichuanyi.baidumap.GetCity;
@@ -34,6 +33,9 @@ import com.jude.rollviewpager.hintview.ColorPointHintView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,6 +62,8 @@ public class Fragment_Home extends BaseFragment implements OnItemClickListener, 
     @BindView(R.id.swipe)
     public SwipeRefreshLayout swipe;
 
+    @BindView(R.id.iv_hm_usth)
+    ImageView iv;
     private HomeAdapter mAdapter;
 
     private List<Banner> mBanners = new ArrayList<>();
@@ -114,6 +118,7 @@ public class Fragment_Home extends BaseFragment implements OnItemClickListener, 
     protected void setData() {
         super.setData();
         swipe.setOnRefreshListener(this);
+        getButton();
     }
 
     private void initViewPager() {
@@ -209,6 +214,49 @@ public class Fragment_Home extends BaseFragment implements OnItemClickListener, 
     public void onRefresh() {
         goNet();
         handler.sendEmptyMessageDelayed(0, 5000);
+        getButton();
+    }
+
+    private void getButton() {
+        RequestParams pa = new RequestParams(NetConfig.GET_BUTTON);
+        x.http().post(pa, new Callback.CacheCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                try {
+                    JSONObject object = new JSONObject(result);
+                    JSONObject body = object.getJSONObject("body");
+                    final String url = body.getString("url");
+                    new Handler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Glide.with(getContext()).load(url).error(R.mipmap.test).into(iv);
+                        }
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+
+            @Override
+            public boolean onCache(String result) {
+                return false;
+            }
+        });
     }
 
     private Handler handler = new Handler() {

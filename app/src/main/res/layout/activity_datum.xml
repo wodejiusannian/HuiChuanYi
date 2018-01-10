@@ -20,12 +20,9 @@
             android:src="@drawable/back" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ActivityTopTextTitleStyle"
             android:layout_centerInParent="true"
-            android:text="我的资料"
-            android:textColor="#fff"
-            android:textSize="@dimen/text_size_big" />
+            android:text="我的资料" />
 
     </RelativeLayout>
 
@@ -59,7 +56,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/distance"
-                        android:text="姓名："
+                        android:text="★ 姓名："
                         android:textSize="16sp" />
 
                     <EditText
@@ -88,7 +85,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/distance"
-                        android:text="性别："
+                        android:text="★ 性别："
                         android:textSize="16sp" />
 
                     <EditText
@@ -109,6 +106,86 @@
                         android:layout_below="@+id/tv_datum_sex1"
                         android:background="@color/back_ground" />
                 </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_datum_city0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/distance"
+                        android:text="★ 城市："
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/et_datum_city"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/distance"
+                        android:layout_toRightOf="@+id/tv_datum_city0"
+                        android:background="@drawable/hm_background"
+                        android:hint="请输入城市"
+                        android:textSize="14sp" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/tv_datum_city0"
+                        android:background="@color/back_ground" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_datum_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/distance"
+                        android:text="★ 手机："
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/et_datum_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/distance"
+                        android:layout_toRightOf="@+id/tv_datum_phone"
+                        android:background="@drawable/hm_background"
+                        android:digits="0123456789"
+                        android:hint="请输入手机号"
+                        android:maxLength="11"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/tv_datum_phone"
+                        android:background="@color/back_ground" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_margin="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="为了您可以享受更多服务，加★项为必填项"
+                    android:textColor="#ac0000"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/distance"
+                android:background="@drawable/hm_background"
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -140,70 +217,6 @@
                         android:layout_below="@+id/tv_datum_age0"
                         android:background="@color/back_ground" />
                 </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/tv_datum_phone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/distance"
-                        android:text="手机："
-                        android:textSize="16sp" />
-
-                    <EditText
-                        android:id="@+id/et_datum_phone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/distance"
-                        android:layout_toRightOf="@+id/tv_datum_phone"
-                        android:background="@drawable/hm_background"
-                        android:digits="0123456789"
-                        android:hint="请输入手机号"
-                        android:maxLength="11"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_below="@+id/tv_datum_phone"
-                        android:background="@color/back_ground" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/distance">
-
-                    <TextView
-                        android:id="@+id/tv_datum_city0"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/distance"
-                        android:text="城市："
-                        android:textSize="16sp" />
-
-                    <EditText
-                        android:id="@+id/et_datum_city"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/distance"
-                        android:layout_toRightOf="@+id/tv_datum_city0"
-                        android:background="@drawable/hm_background"
-                        android:hint="请输入城市"
-                        android:textSize="14sp" />
-                </RelativeLayout>
-            </LinearLayout>
-
-            <LinearLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/distance"
-                android:background="@drawable/hm_background"
-                android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"

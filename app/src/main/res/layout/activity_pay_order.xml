@@ -17,12 +17,9 @@
         <include layout="@layout/btn_back"></include>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ActivityTopTextTitleStyle"
             android:layout_centerInParent="true"
-            android:text="订单支付"
-            android:textColor="#fff"
-            android:textSize="@dimen/text_size_big" />
+            android:text="订单支付" />
     </RelativeLayout>
 
     <RelativeLayout

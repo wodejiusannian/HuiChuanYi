@@ -5,27 +5,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.example.huichuanyi.R;
 import com.example.huichuanyi.custom.MyProgressDialog;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.gyf.barlibrary.ImmersionBar;
 import com.umeng.analytics.MobclickAgent;
 
 import org.xutils.x;
 
 public abstract class BaseActivity extends AppCompatActivity {
     private MyProgressDialog progressDialog;
-
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         super.setContentView(layoutResID);
         x.view().inject(this);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        ImmersionBar.with(this)
+                .statusBarDarkFont(true, 0.2f)
+                .init();
+       /* getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         SystemBarTintManager systemBarTintManager = new SystemBarTintManager(this);
         systemBarTintManager.setStatusBarTintEnabled(true);
         systemBarTintManager.setNavigationBarTintEnabled(true);
-        systemBarTintManager.setTintResource(R.color.text_color);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        systemBarTintManager.setTintResource(R.color.write);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);*/
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         initView();
         initData();

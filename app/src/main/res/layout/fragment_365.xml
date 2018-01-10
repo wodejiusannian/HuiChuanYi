@@ -10,7 +10,7 @@
         android:id="@+id/tv_365_top"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/text_color">
+        android:background="@color/activityTop">
 
         <TextView
             android:id="@+id/tv_365_chat"

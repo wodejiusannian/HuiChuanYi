@@ -51,6 +51,7 @@ public class LyBuyActivity extends BaseActivity implements MySelfPayDialog.OnYes
     private List<LyShopCar.BodyBean> mData = new ArrayList<>();
 
     private List<LyShopCar.BodyBean> data;
+
     @BindViews({R.id.tv_ly_buy_commendpeople, R.id.tv_lybuy_name, R.id.tv_lybuy_introduce, R.id.tv_write_order_phone,
             R.id.tv_write_order_address, R.id.tv_write_order_name, R.id.tv_lybuy_money, R.id.tv_lybuy_count, R.id.rv_lyshopdetails_zhanwei})
     TextView[] tvs;

@@ -116,10 +116,6 @@
     </style>
 
 
-
-
-
-
     <style name="PhoneET">
         <item name="android:maxLength">11</item>
         <item name="android:layout_width">240dp</item>
@@ -132,7 +128,6 @@
         <item name="android:paddingBottom">7dp</item>
         <item name="android:textCursorDrawable">@drawable/shape_edittext</item>
     </style>
-
 
 
     <style name="AuthCodeET">
@@ -175,5 +170,32 @@
         <item name="android:paddingBottom">7dp</item>
         <item name="android:paddingRight">5dp</item>
         <item name="android:textColor">@color/write</item>
+    </style>
+
+    <style name="AcFrTopStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:background">#ffffff</item>
+    </style>
+
+    <style name="AcFrTopTitleStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/statusbar</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="ActivityTopTextTitleStyle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/activityTopBigText</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="ActivityTopTextSubTitleStyle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/activityTopBigText</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 </resources>

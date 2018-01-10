@@ -13,27 +13,21 @@
         android:id="@+id/rl_list_address_top"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/color_ac0000">
+        android:background="@color/activityTop">
 
         <include layout="@layout/btn_back"></include>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ActivityTopTextTitleStyle"
             android:layout_centerInParent="true"
-            android:text="我的地址"
-            android:textColor="@color/main_color_write"
-            android:textSize="@dimen/text_size_18" />
+            android:text="我的地址" />
 
         <TextView
             android:id="@+id/tv_list_address_sure"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ActivityTopTextSubTitleStyle"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:padding="@dimen/distance_10"
-            android:text="确定"
-            android:textColor="@color/main_color_write" />
+            android:padding="@dimen/distance_10" />
     </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout

@@ -47,4 +47,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="fragment_365_title">365私人衣橱管理顾问</string>
+    <string name="activity_private_manager_title">365私人衣橱顾问</string>
 </resources>

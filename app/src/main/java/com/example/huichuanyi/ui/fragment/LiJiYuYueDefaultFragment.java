@@ -79,7 +79,7 @@ public class LiJiYuYueDefaultFragment extends BaseFragment implements UtilsInter
     }
 
     private void loadData() {
-        value.put("city", Location.mAddress);
+        value.put("city_temp", Location.mAddress);
         value.put("type", "15");
         value.put("lng", Location.lng);
         value.put("lat", Location.lat);

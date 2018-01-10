@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_history_zhenduan"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_write_8dp"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/tv_history_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_history_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@+id/rv_history_pic"
+        android:textColor="#000" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_history_date"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:text="点击查看诊断报告" />
+
+    <com.example.huichuanyi.custom.RoundImageView
+        android:id="@+id/rv_history_pic"
+        android:layout_width="71dp"
+        android:layout_height="71dp"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>

@@ -6,11 +6,10 @@ import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.example.huichuanyi.R;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.gyf.barlibrary.ImmersionBar;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -57,11 +56,9 @@ public class ConversationActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        SystemBarTintManager systemBarTintManager = new SystemBarTintManager(this);
-        systemBarTintManager.setStatusBarTintEnabled(true);
-        systemBarTintManager.setNavigationBarTintEnabled(true);
-        systemBarTintManager.setTintResource(R.color.text_color);
+        ImmersionBar.with(this)
+                .statusBarDarkFont(true, 0.2f)
+                .init();
         tvTitle = (TextView) this.findViewById(R.id.tv_title);
         title = getIntent().getData().getQueryParameter("title");
         mTargetId = getIntent().getData().getQueryParameter("targetId");
@@ -74,7 +71,7 @@ public class ConversationActivity extends FragmentActivity {
         RongIMClient.setTypingStatusListener(new RongIMClient.TypingStatusListener() {
             @Override
             public void onTypingStatusChanged(Conversation.ConversationType type, String targetId, Collection<TypingStatus> typingStatusSet) {
-                if (targetId.equals(mTargetId)){
+                if (targetId.equals(mTargetId)) {
                     //当输入状态的会话类型和targetID与当前会话一致时，才需要显示
                     int count = typingStatusSet.size();
                     //count表示当前会话中正在输入的用户数量，目前只支持单聊，所以判断大于0就可以给予显示了

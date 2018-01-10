@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.SMSTimeUtils;
+import com.example.huichuanyi.custom.dialog.VerificationCodeDialog;
 import com.example.huichuanyi.ui.activity.MainActivity;
 import com.example.huichuanyi.ui.activity.login.LoginByAuthCodeActivity;
 import com.example.huichuanyi.ui.base.BaseFragment;
@@ -128,10 +129,16 @@ public class AuthCodeWriteFragment extends BaseFragment implements SMSUtils.SMSO
                 activity.currentItem(0);
                 break;
             case R.id.tv_write_auth_code_time:
-                String number = phone.getText().toString().trim().replace(" ", "");
-                sms.smsSend(number, this);
-                SMSTimeUtils smsTimeUtils = new SMSTimeUtils(send, 60000, 1000);
-                smsTimeUtils.start();
+                final String number = phone.getText().toString().trim().replace(" ", "");
+                VerificationCodeDialog codeDialog = new VerificationCodeDialog(getContext());
+                codeDialog.setPhone(number, new VerificationCodeDialog.EditYes() {
+                    @Override
+                    public void getEdit() {
+                        SMSTimeUtils smsTimeUtils = new SMSTimeUtils(send, 60000, 1000);
+                        smsTimeUtils.start();
+                    }
+                });
+                codeDialog.show();
                 break;
             case R.id.iv_login_next:
                 netLogin();

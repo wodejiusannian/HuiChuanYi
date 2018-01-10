@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="40dp"
     app:contentInsetStart="0dp"
-    android:background="@color/text_color"
+    android:background="@color/activityTop"
     android:minHeight="?attr/actionBarSize"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     >
@@ -19,12 +19,9 @@
             android:layout_width="40dp"
             android:layout_height="wrap_content" />
         <TextView
+            style="@style/ActivityTopTextTitleStyle"
             android:id="@+id/tv_toolbar_title"
-            android:textSize="@dimen/text_size_big"
-            android:textColor="@color/write"
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_centerInParent="true" />
         <ImageView
             android:layout_marginRight="@dimen/distance"
             android:layout_centerVertical="true"

@@ -12,27 +12,21 @@
         android:id="@+id/rl_ly_shopcar_title"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/color_ac0000">
+        android:background="@color/activityTop">
 
         <TextView
             android:id="@+id/tv_ly_shopcar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="购物车"
-            android:textColor="#fff"
-            android:textSize="18sp" />
+            style="@style/ActivityTopTextTitleStyle"
+            android:text="购物车"/>
 
         <TextView
             android:id="@+id/tv_ly_shopcar_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ActivityTopTextSubTitleStyle"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:padding="10dp"
-            android:text="编辑"
-            android:textColor="#fff"
-            android:textSize="14sp" />
+            android:text="编辑" />
     </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout

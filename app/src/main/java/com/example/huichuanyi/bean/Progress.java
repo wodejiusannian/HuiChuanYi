@@ -73,6 +73,7 @@ public class Progress {
         private String usercode;
         private String username;
 
+
         public String getAddress() {
             return address;
         }

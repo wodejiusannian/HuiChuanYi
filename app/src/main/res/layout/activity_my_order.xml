@@ -17,11 +17,8 @@
         <include layout="@layout/btn_back"></include>
         <TextView
             android:text="我的预约"
-            android:textColor="#fff"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            style="@style/ActivityTopTextTitleStyle"
             android:layout_centerInParent="true"
-            android:textSize="@dimen/text_size_big"
             />
     </RelativeLayout>
     <RelativeLayout

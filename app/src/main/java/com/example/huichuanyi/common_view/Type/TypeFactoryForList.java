@@ -3,7 +3,9 @@ package com.example.huichuanyi.common_view.Type;
 import android.view.View;
 
 import com.example.huichuanyi.R;
+import com.example.huichuanyi.bean.HistotyZhenDuan;
 import com.example.huichuanyi.common_view.holder.BaseViewHolder;
+import com.example.huichuanyi.common_view.holder.HistoryHolder;
 import com.example.huichuanyi.common_view.holder.LyBanerHolder;
 import com.example.huichuanyi.common_view.holder.LyCommendPeopleHolder;
 import com.example.huichuanyi.common_view.holder.LyIndentOverHolder;
@@ -12,16 +14,36 @@ import com.example.huichuanyi.common_view.holder.LyItemShopHolder;
 import com.example.huichuanyi.common_view.holder.LyItemSortHolder;
 import com.example.huichuanyi.common_view.holder.LyItemTestHolder;
 import com.example.huichuanyi.common_view.holder.LyListShopHolder;
+import com.example.huichuanyi.common_view.holder.LyMainHolder;
+import com.example.huichuanyi.common_view.holder.LyRTCReportHolder;
 import com.example.huichuanyi.common_view.holder.LyShopCarHolder;
+import com.example.huichuanyi.common_view.holder.PrivateRecommendHolder;
+import com.example.huichuanyi.common_view.holder.SlwFiveHolder;
+import com.example.huichuanyi.common_view.holder.SlwFourHolder;
+import com.example.huichuanyi.common_view.holder.SlwOneHolder;
+import com.example.huichuanyi.common_view.holder.SlwSevenHolder;
+import com.example.huichuanyi.common_view.holder.SlwSixHolder;
+import com.example.huichuanyi.common_view.holder.SlwThreeHolder;
+import com.example.huichuanyi.common_view.holder.SlwTwoHolder;
 import com.example.huichuanyi.common_view.model.LyBanner;
 import com.example.huichuanyi.common_view.model.LyCommendPeople;
 import com.example.huichuanyi.common_view.model.LyItemShop;
 import com.example.huichuanyi.common_view.model.LyItemSort;
 import com.example.huichuanyi.common_view.model.LyListIndent;
 import com.example.huichuanyi.common_view.model.LyListIndentScroll;
+import com.example.huichuanyi.common_view.model.LyMain;
 import com.example.huichuanyi.common_view.model.LyShopCar;
 import com.example.huichuanyi.common_view.model.LyShopList;
 import com.example.huichuanyi.common_view.model.LyTest;
+import com.example.huichuanyi.common_view.model.PrivateRecommendModel;
+import com.example.huichuanyi.common_view.model.RTCReport;
+import com.example.huichuanyi.common_view.model.SlwFiveModel;
+import com.example.huichuanyi.common_view.model.SlwFourModel;
+import com.example.huichuanyi.common_view.model.SlwOneModel;
+import com.example.huichuanyi.common_view.model.SlwSevenModle;
+import com.example.huichuanyi.common_view.model.SlwSixModel;
+import com.example.huichuanyi.common_view.model.SlwThreeModel;
+import com.example.huichuanyi.common_view.model.SlwTwoModel;
 
 
 /**
@@ -48,6 +70,28 @@ public class TypeFactoryForList implements TypeFactory {
     private final int TYPE_RESOURCE_ITEM_LIST_INDENT_OVER_SCROLL = R.layout.item_ly_list_indent_scroll;
 
     private final int TYPE_RESOURCE_ITEM_TEST = R.layout.item_ly_list_no_select;
+
+    private final int TYPE_RESOURCE_LY_MAIN = R.layout.item_recycle_ly_main;
+
+    private final int TYPE_RESOURCE_LY_RTC_REPORT = R.layout.item_recycle_rtc_report;
+
+    private final int TYPE_RESOURCE_365_ITEM_1 = R.layout.item_365_one;
+
+    private final int TYPE_RESOURCE_365_ITEM_2 = R.layout.item_365_two;
+
+    private final int TYPE_RESOURCE_365_ITEM_3 = R.layout.item_365_three;
+
+    private final int TYPE_RESOURCE_365_ITEM_4 = R.layout.item_365_four;
+
+    private final int TYPE_RESOURCE_365_ITEM_5 = R.layout.item_365_five;
+
+    private final int TYPE_RESOURCE_365_ITEM_6 = R.layout.item_365_six;
+
+    private final int TYPE_RESOURCE_365_ITEM_7 = R.layout.item_365_serven;
+
+    private final int TYPE_RESOURCE_PRIVATE_RECOMMEND = R.layout.item_test;
+
+    private final int TYPE_RESOURCE_PRIVATE_HISTORY_ZHEN_DUAN = R.layout.item_history;
 
     @Override
     public int type(LyBanner one) {
@@ -85,6 +129,62 @@ public class TypeFactoryForList implements TypeFactory {
     }
 
     @Override
+    public int type(LyMain.BodyBean bean) {
+        return TYPE_RESOURCE_LY_MAIN;
+    }
+
+    @Override
+    public int type(RTCReport bean) {
+        return TYPE_RESOURCE_LY_RTC_REPORT;
+    }
+
+    @Override
+    public int type(SlwOneModel slwOneModel) {
+        return TYPE_RESOURCE_365_ITEM_1;
+    }
+
+    @Override
+    public int type(SlwTwoModel slwTwoModel) {
+        return TYPE_RESOURCE_365_ITEM_2;
+    }
+
+    @Override
+    public int type(SlwThreeModel slwThreeModel) {
+        return TYPE_RESOURCE_365_ITEM_3;
+    }
+
+    @Override
+    public int type(SlwFourModel slwFourModel) {
+        return TYPE_RESOURCE_365_ITEM_4;
+    }
+
+    @Override
+    public int type(SlwFiveModel slwFiveModel) {
+        return TYPE_RESOURCE_365_ITEM_5;
+    }
+
+    @Override
+    public int type(SlwSixModel slwSixModel) {
+        return TYPE_RESOURCE_365_ITEM_6;
+    }
+
+    @Override
+    public int type(SlwSevenModle slwSevenModle) {
+        return TYPE_RESOURCE_365_ITEM_7;
+    }
+
+    @Override
+    public int type(PrivateRecommendModel privateRecommendModel) {
+        return TYPE_RESOURCE_PRIVATE_RECOMMEND;
+    }
+
+    @Override
+    public int type(HistotyZhenDuan histotyZhenDuan) {
+        return TYPE_RESOURCE_PRIVATE_HISTORY_ZHEN_DUAN;
+    }
+
+
+    @Override
     public int type(LyShopCar.BodyBean lyShopCar) {
         return TYPE_RESOURCE_ITEM_SHOP_CAR;
     }
@@ -117,6 +217,29 @@ public class TypeFactoryForList implements TypeFactory {
                 return new LyIndentOverScrollHolder(itemView);
             case TYPE_RESOURCE_ITEM_TEST:
                 return new LyItemTestHolder(itemView);
+            case TYPE_RESOURCE_LY_MAIN:
+                return new LyMainHolder(itemView);
+            case TYPE_RESOURCE_LY_RTC_REPORT:
+                return new LyRTCReportHolder(itemView);
+            case TYPE_RESOURCE_365_ITEM_1:
+                return new SlwOneHolder(itemView);
+            case TYPE_RESOURCE_365_ITEM_2:
+                return new SlwTwoHolder(itemView);
+            case TYPE_RESOURCE_365_ITEM_3:
+                return new SlwThreeHolder(itemView);
+            case TYPE_RESOURCE_365_ITEM_4:
+                return new SlwFourHolder(itemView);
+            case TYPE_RESOURCE_365_ITEM_5:
+                return new SlwFiveHolder(itemView);
+            case TYPE_RESOURCE_365_ITEM_6:
+                return new SlwSixHolder(itemView);
+            case TYPE_RESOURCE_PRIVATE_RECOMMEND:
+                return new PrivateRecommendHolder(itemView);
+            case TYPE_RESOURCE_365_ITEM_7:
+
+                return new SlwSevenHolder(itemView);
+            case TYPE_RESOURCE_PRIVATE_HISTORY_ZHEN_DUAN:
+                return new HistoryHolder(itemView);
             default:
                 return null;
         }

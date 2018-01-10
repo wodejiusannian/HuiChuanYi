@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -22,6 +21,7 @@ import com.example.huichuanyi.ui.activity.MineSettingActivity;
 import com.example.huichuanyi.ui.activity.MineStyleActivity;
 import com.example.huichuanyi.ui.activity.MyOrderActivity;
 import com.example.huichuanyi.ui.activity.My_365Activity;
+import com.example.huichuanyi.ui.activity.RTCReportActivity;
 import com.example.huichuanyi.ui.activity.ZhenDuanActivity;
 import com.example.huichuanyi.ui.activity.login.LoginByAuthCodeActivity;
 import com.example.huichuanyi.ui.base.BaseFragment;
@@ -68,7 +68,8 @@ public class Fragment_Mine extends BaseFragment {
 
     @Event({R.id.iv_mine_photo, R.id.iv_mine_setting,
             R.id.ll_mine_datum, R.id.ll_mine_report, R.id.ll_mine_order, R.id.ll_mine_365,
-            R.id.ll_mine_indent, R.id.ll_mine_invite, R.id.ll_mine_exit, R.id.ll_clo_zhenduan})
+            R.id.ll_mine_indent, R.id.ll_mine_invite, R.id.ll_mine_exit, R.id.ll_clo_zhenduan,
+            R.id.ll_mine_rtc_report})
     private void onEvent(View v) {
         switch (v.getId()) {
             case R.id.iv_mine_photo:
@@ -94,6 +95,9 @@ public class Fragment_Mine extends BaseFragment {
                 break;
             case R.id.ll_mine_indent:
                 ActivityUtils.switchTo(getActivity(), IndentActivity.class);
+                break;
+            case R.id.ll_mine_rtc_report:
+                ActivityUtils.switchTo(getActivity(), RTCReportActivity.class);
                 break;
             case R.id.ll_mine_invite:
                 Share.inviteFriend(getContext());
@@ -191,7 +195,6 @@ public class Fragment_Mine extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        activity.unregisterReceiver(new HaveMsg());
     }
 
 
@@ -228,7 +231,6 @@ public class Fragment_Mine extends BaseFragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             String read = intent.getStringExtra("isRead");
-            Log.e("TAG", "onReceive: " + read);
             if (TextUtils.equals("no", read)) {
                 tDian.setVisibility(View.VISIBLE);
             } else {

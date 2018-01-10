@@ -32,7 +32,6 @@ import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.utils.JsonUtils;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.Utils_Data;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -62,11 +61,6 @@ public class WDYCPicActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pic);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        SystemBarTintManager systemBarTintManager = new SystemBarTintManager(this);
-        systemBarTintManager.setStatusBarTintEnabled(true);
-        systemBarTintManager.setNavigationBarTintEnabled(true);
-        systemBarTintManager.setTintResource(R.color.black);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
     }
 

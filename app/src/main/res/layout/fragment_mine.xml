@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="我的"
-            android:textColor="#fff"
+            android:textColor="#000"
             android:textSize="@dimen/text_size_big" />
 
         <TextView
@@ -29,7 +29,7 @@
             android:layout_marginTop="7dp"
             android:padding="@dimen/distance_5"
             android:text="设置"
-            android:textColor="@color/main_color_write" />
+            android:textColor="#000" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -205,6 +205,31 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
                         android:text="我的报告" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_mine_rtc_report"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="@dimen/main_margin_left"
+                    android:layout_marginRight="@dimen/main_margin_right"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/hm_background"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/distance"
+                        android:src="@mipmap/hm_mine_rtc_report" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:text="我的RTC" />
                 </LinearLayout>
 
                 <LinearLayout

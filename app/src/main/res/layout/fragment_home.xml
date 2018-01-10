@@ -13,7 +13,7 @@
         android:background="@color/top_color"
         android:gravity="center"
         android:text="首页"
-        android:textColor="@color/main_color_write"
+        android:textColor="#000000"
         android:textSize="@dimen/text_size_top_title" />
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -122,7 +122,7 @@
                     android:layout_centerInParent="true"
                     android:orientation="vertical">
 
-                    <com.example.huichuanyi.custom.RippleSpreadView
+                    <!--<com.example.huichuanyi.custom.RippleSpreadView
                         xmlns:RippleWaveView="http://schemas.android.com/apk/res-auto"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -130,14 +130,16 @@
                         RippleWaveView:rsv_innerAnimDuration="3000"
                         RippleWaveView:rsv_innerSize="100dp"
                         RippleWaveView:rsv_outAnimDuration="3000"
-                        RippleWaveView:rsv_outSize="200dp" />
+                        RippleWaveView:rsv_outSize="200dp" />-->
 
                     <ImageView
                         android:id="@+id/iv_hm_usth"
-                        android:layout_width="200dp"
-                        android:layout_height="200dp"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
                         android:layout_centerInParent="true"
+                        android:scaleType="centerCrop"
                         android:src="@mipmap/test" />
+
                 </RelativeLayout>
             </RelativeLayout>
 

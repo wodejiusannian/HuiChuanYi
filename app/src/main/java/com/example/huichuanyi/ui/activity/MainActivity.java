@@ -24,9 +24,9 @@ import com.example.huichuanyi.baidumap.Fresh_365;
 import com.example.huichuanyi.baidumap.Location;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.fragment_first.Fragment_365;
 import com.example.huichuanyi.fragment_first.Fragment_Home;
 import com.example.huichuanyi.fragment_first.Fragment_Mine;
+import com.example.huichuanyi.fragment_first.MainFragment365;
 import com.example.huichuanyi.ui.activity.login.LoginByAuthCodeActivity;
 import com.example.huichuanyi.ui.fragment.OrderFragment;
 import com.example.huichuanyi.utils.ActivityUtils;
@@ -110,7 +110,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         Fragment_Home mHome = new Fragment_Home();
         OrderFragment mOrder = new OrderFragment();
         Fragment_Mine mMine = new Fragment_Mine();
-        Fragment_365 m365 = new Fragment_365();
+        MainFragment365 m365 = new MainFragment365();
         mFragments = new Fragment[]{mHome, mOrder, m365, mMine};
         int page = getIntent().getIntExtra("page", 0);
 

@@ -12,8 +12,6 @@ import com.example.huichuanyi.adapter.OverAdapter;
 import com.example.huichuanyi.base.BaseFragment;
 import com.example.huichuanyi.bean.Progress;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.ui.activity.MyOrderDetailsActivity;
-import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.google.gson.Gson;
 
@@ -109,6 +107,6 @@ public class Over_Order extends BaseFragment implements SwipeRefreshLayout.OnRef
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Map<String, Object> map = new HashMap<>();
         map.put("orderid", mData.get(position).getId());
-        ActivityUtils.switchTo(getActivity(), MyOrderDetailsActivity.class, map);
+        //ActivityUtils.switchTo(getActivity(), MyOrderDetailsActivity.class, map);
     }
 }

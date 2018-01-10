@@ -11,25 +11,20 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="#ac0000">
+        android:background="@color/activityTop">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ActivityTopTextTitleStyle"
             android:layout_centerInParent="true"
-            android:text="推荐人选择"
-            android:textColor="#fff"
-            android:textSize="18sp" />
+            android:text="推荐人选择"/>
 
         <TextView
             android:id="@+id/tv_ly_commendpeople_city"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ActivityTopTextSubTitleStyle"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:padding="10dp"
-            android:text="地址"
-            android:textColor="#fff" />
+            android:text="地址" />
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView

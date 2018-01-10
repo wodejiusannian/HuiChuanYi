@@ -1,10 +1,31 @@
-package com.example.huichuanyi.bean;
+package com.example.huichuanyi.common_view.model;
 
-/**
- * Created by 小五 on 2017/2/10.
- */
+import com.example.huichuanyi.common_view.Type.TypeFactory;
 
-public class CardItem {
+import java.io.Serializable;
+
+// ┏┓　　　┏┓
+// ┏┛┻━━━┛┻┓
+// ┃　　　　　　　┃ 　
+// ┃　　　━　　　┃
+// ┃　┳┛　┗┳　┃
+// ┃　　　　　　　┃
+// ┃　　　┻　　　┃
+// ┃　　　　　　　┃
+// ┗━┓　　　┏━┛
+// ┃　　　┃ 神兽保佑　　　　　　　　
+// ┃　　　┃ 代码无BUG！
+// ┃　　　┗━━━┓
+// ┃　　　　　　　┣┓
+// ┃　　　　　　　┏┛
+// ┗┓┓┏━┳┓┏┛
+// ┃┫┫　┃┫┫
+// ┗┻┛　┗┻┛
+public class PrivateRecommendModel implements Visitable,Serializable{
+
+
+    public PrivateRecommendModel() {
+    }
 
     private String id;
     private String color;
@@ -112,5 +133,9 @@ public class CardItem {
 
     public void setColor_name(String color_name) {
         this.color_name = color_name;
+    }
+    @Override
+    public int type(TypeFactory typeFactory) {
+        return typeFactory.type(this);
     }
 }

@@ -2,6 +2,7 @@ package com.example.huichuanyi.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -15,10 +16,10 @@ import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.bean.PayState;
 import com.example.huichuanyi.bean.Progress;
 import com.example.huichuanyi.custom.PayListView;
-import com.example.huichuanyi.ui.activity.pay.YWTPayActivity;
+import com.example.huichuanyi.ui.activity.pay.CMBPayActivity;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.IsSuccess;
-import com.example.huichuanyi.utils.PayUtils;
+import com.example.huichuanyi.utils.PayUtilsCopy;
 import com.example.huichuanyi.utils.UtilsPay;
 
 import org.json.JSONArray;
@@ -33,7 +34,7 @@ import org.xutils.x;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClosingPriceActivity extends BaseActivity implements PayUtils.Sign, IsSuccess, PayListView.PayState {
+public class ClosingPriceActivity extends BaseActivity implements PayUtilsCopy.Sign, IsSuccess, PayListView.PayState {
 
     @ViewInject(R.id.et_cp_count)
     private EditText cpCount;
@@ -44,21 +45,22 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtils.Sign,
     @ViewInject(R.id.tv_cp_money)
     private TextView cpMoney;
 
-
     @ViewInject(R.id.include_pay_list)
+
     private PayListView payListView;
 
-
     private UtilsPay mPay;
-    private double box_price, intPrice_baseNum1, intPrice_baseNum2, intPrice2, intPrice11, intPrice_raiseNum, intPrice_raisePrice;
+
+
     /*
     * 1 代表使用支付宝，2 代表使用微信，3 代表使用一网通
     * */
-    private String a_w_c ;
+    private String a_w_c, mmCount;
 
-    private PayUtils pay = PayUtils.getInstance();
+    private PayUtilsCopy pay = PayUtilsCopy.getInstance();
 
     private String kind = null;
+
     private String order_id;
 
     @Override
@@ -72,13 +74,6 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtils.Sign,
         Intent in = getIntent();
         kind = in.getStringExtra("kind");
         Progress.ListBean bean = (Progress.ListBean) in.getSerializableExtra("bean");
-        box_price = getDouble(bean.getBox_price());
-        intPrice_baseNum1 = getDouble(bean.getPrice_baseNum1());
-        intPrice_baseNum2 = getDouble(bean.getPrice_baseNum2());
-        intPrice11 = getDouble(bean.getPrice_basePrice1());
-        intPrice2 = getDouble(bean.getPrice_basePrice2());
-        intPrice_raiseNum = getDouble(bean.getPrice_raiseNum());
-        intPrice_raisePrice = getDouble(bean.getPrice_raisePrice());
         order_id = bean.getId();
         if (TextUtils.equals("5", kind)) {
             cpKind.setText("上门服务补差价");
@@ -90,7 +85,6 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtils.Sign,
 
     @Override
     public void initData() {
-        cpCount.addTextChangedListener(watcher);
         mPay = new UtilsPay(this);
     }
 
@@ -101,6 +95,7 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtils.Sign,
 
     @Override
     public void setListener() {
+        cpCount.addTextChangedListener(watcher);
         initPayListView();
     }
 
@@ -114,23 +109,55 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtils.Sign,
 
     @Event(R.id.btn_cp_pay)
     private void onEvent(View v) {
-        if (getDouble(cpMoney.getText().toString().trim()) > 1) {
+        if (getDouble(mmCount) > 1) {
             switch (v.getId()) {
                 case R.id.btn_cp_pay:
                     switch (a_w_c) {
                         case "1":
                             String counts = cpCount.getText().toString().trim();
-                            pay.aLiSign(kind, order_id, counts, counts, this);
+                            pay.aLiSign("1", order_id, mmCount, this,kind);
                             break;
                         case "2":
-                            String countss = cpCount.getText().toString().trim();
-                            pay.weChatSign(kind, order_id, countss, countss, this);
+                            pay.weChatSign("2", order_id, mmCount, this,kind);
                             break;
                         case "3":
-                            Intent it = new Intent(this, YWTPayActivity.class);
-                            it.putExtra("type", kind);
-                            it.putExtra("order_id", order_id);
-                            startActivity(it);
+                            RequestParams params;
+                            if (TextUtils.equals("6", kind)) {
+                                params = new RequestParams("http://hmyc365.net:8081/HM/app/doorToDoorService/pay/supplementaryPriceDifference/box/getSign.do");
+                            } else {
+                                params = new RequestParams("http://hmyc365.net:8081/HM/app/doorToDoorService/pay/supplementaryPriceDifference/clothes/getSign.do");
+                            }
+                            params.addBodyParameter("order_id", order_id);
+                            params.addBodyParameter("pay_type", "3");
+                            params.addBodyParameter("num", mmCount);
+                            x.http().post(params, new Callback.CacheCallback<String>() {
+                                @Override
+                                public void onSuccess(String result) {
+                                    Intent it = new Intent(ClosingPriceActivity.this, CMBPayActivity.class);
+                                    it.putExtra("order_id", result);
+                                    startActivity(it);
+                                }
+
+                                @Override
+                                public void onError(Throwable ex, boolean isOnCallback) {
+
+                                }
+
+                                @Override
+                                public void onCancelled(CancelledException cex) {
+
+                                }
+
+                                @Override
+                                public void onFinished() {
+
+                                }
+
+                                @Override
+                                public boolean onCache(String result) {
+                                    return false;
+                                }
+                            });
                             break;
                         default:
                             break;
@@ -150,43 +177,6 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtils.Sign,
         }
     }
 
-    TextWatcher watcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            String co = cpCount.getText().toString().trim();
-            double x = getDouble(co);
-            if (TextUtils.equals("5", kind)) {
-                if (!TextUtils.isEmpty(s)) {
-                    if (x <= intPrice_baseNum1) {
-                        cpMoney.setText("0");
-                        return;
-                    } else if (intPrice_baseNum1 < x && x <= intPrice_baseNum2) {
-                        cpMoney.setText((intPrice2 - intPrice11) + "");
-                        return;
-                    } else {
-                        int a = (int) ((x - intPrice_baseNum2) / intPrice_raiseNum);
-                        if ((x - intPrice_baseNum2) % intPrice_raiseNum != 0) {
-                            a = a + 1;
-                        }
-                        cpMoney.setText(((a * intPrice_raisePrice + intPrice2) - intPrice11) + "");
-                        return;
-                    }
-                }
-            } else if (TextUtils.equals("6", kind)) {
-                cpMoney.setText(box_price * x + "");
-            }
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-        }
-    };
 
     @Override
     public void getSign(String sign) {
@@ -232,7 +222,6 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtils.Sign,
                     JSONObject object = new JSONObject(result);
                     JSONArray arr = object.getJSONArray("body");
                     for (int i = 0; i < arr.length(); i++) {
-
                         PayState pa = new PayState();
                         JSONObject o1 = arr.getJSONObject(i);
                         if (i == 0) {
@@ -271,4 +260,90 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtils.Sign,
     public void state(String p) {
         a_w_c = p;
     }
+
+
+    private Handler handler = new Handler();
+
+    /**
+     * 延迟线程，看是否还有下一个字符输入
+     */
+    private Runnable delayRun = new Runnable() {
+
+        @Override
+        public void run() {
+            RequestParams pa;
+            if (TextUtils.equals("6", kind)) {
+                pa = new RequestParams("http://hmyc365.net:8081/HM/app/doorToDoorService/order/price/getBcjBoxPrice.do");
+                pa.addBodyParameter("box_num", mmCount);
+            } else {
+                pa = new RequestParams("http://hmyc365.net:8081/HM/app/doorToDoorService/order/price/getBcjCloPrice.do");
+                pa.addBodyParameter("clothes_num", mmCount);
+            }
+            pa.addBodyParameter("order_id", order_id);
+            x.http().post(pa, new Callback.CacheCallback<String>() {
+                @Override
+                public void onSuccess(String result) {
+                    try {
+                        JSONObject object = new JSONObject(result);
+                        JSONObject body = object.getJSONObject("body");
+                        final String price = body.getString("price");
+                        new Handler().post(new Runnable() {
+                            @Override
+                            public void run() {
+                                cpMoney.setText(price);
+                            }
+                        });
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+                }
+
+                @Override
+                public void onCancelled(CancelledException cex) {
+
+                }
+
+                @Override
+                public void onFinished() {
+
+                }
+
+                @Override
+                public boolean onCache(String result) {
+                    return false;
+                }
+            });
+        }
+    };
+
+    TextWatcher watcher = new TextWatcher() {
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before,
+                                  int count) {
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count,
+                                      int after) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+            if (delayRun != null) {
+                //每次editText有变化的时候，则移除上次发出的延迟线程
+                handler.removeCallbacks(delayRun);
+            }
+
+            mmCount = s.toString();
+            //延迟800ms，如果不再输入字符，则执行该线程的run方法
+            handler.postDelayed(delayRun, 800);
+        }
+    };
 }

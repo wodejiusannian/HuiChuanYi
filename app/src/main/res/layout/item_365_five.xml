@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/rl_go"
+    android:background="@drawable/shape_write_8dp"
+    android:orientation="vertical"
+    android:padding="15dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="166dp"
+        android:paddingLeft="14dp"
+        android:paddingTop="15dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/hm_365_yet_pay_bg" />
+
+        <TextView
+            android:id="@+id/tv_item_365_five_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="110dp"
+            android:layout_marginTop="32dp"
+            android:textColor="#fff"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/tv_item_365_five_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_item_365_five_title"
+            android:layout_marginLeft="110dp"
+            android:layout_marginTop="21dp"
+            android:text="已服务68次"
+            android:textColor="#fff"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/iv_item_365_chat_manager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/hm_365_chat_manager" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_item_365_photo"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="fitCenter" />
+</RelativeLayout>

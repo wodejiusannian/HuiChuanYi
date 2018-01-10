@@ -36,9 +36,14 @@ import java.util.List;
 import java.util.Map;
 
 public class Progress_Order extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, ProgressAdapter.OnOrderClickListener {
+
+
     private ListView mListView;
+
     private ProgressAdapter mAdapter;
+
     private List<Progress.ListBean> mData;
+
     private SwipeRefreshLayout mRefreshLayout;
 
     @Override
@@ -133,6 +138,8 @@ public class Progress_Order extends BaseFragment implements SwipeRefreshLayout.O
                     map.put("allMoney", money);
                     map.put("orderid", orderid);
                     map.put("state", mPosition2.getState());
+                    map.put("ordertime", mPosition2.getOrdertime());
+                    map.put("managernumber", mPosition2.getManagernumber());
                     ActivityUtils.switchTo(getActivity(), ShenQingTuiKuanActivity.class, map);
                     break;
                 case R.id.iv_progress_item_zailaiyidian:

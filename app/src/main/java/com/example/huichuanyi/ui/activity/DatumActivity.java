@@ -7,8 +7,8 @@ import android.os.Message;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -41,6 +41,9 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
             mEditTextContact, mEditTextRelax, mEditTextHeight, mEditTextWeight,
             mEditTextNeck, mEditTextBear, mEditTextBosom, mEditTextNates,
             mEditTextWaist, editPhone;
+
+    private TextView tv1, tv2, tv3, tv4;
+
 
     private TextView mTextViewBirthDay;
     private ImageView mImageViewBack;
@@ -89,11 +92,11 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
             }
             if (!TextUtils.equals("null", pos11) && !TextUtils.isEmpty(pos11) && !TextUtils.equals(" ", pos11)) {
                 String[] split = pos11.split("\\|");
-                Log.i("TAG", "-----" + pos11);
                 for (int i = 0; i < split.length; i++) {
                     int i1 = Integer.parseInt(split[i]);
                     if (i1 < arr.length) {
                         mRecyclerView.getChildAt(i1).setSelected(true);
+                        isContains.add(i1);
                     }
                 }
             }
@@ -104,6 +107,7 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
                     int i1 = Integer.parseInt(split[i]);
                     if (i1 < arr.length) {
                         mRecyclerViewselfdom.getChildAt(i1).setSelected(true);
+                        mIntegersSelf.add(i1);
                     }
                 }
             }
@@ -113,6 +117,7 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
                     int i1 = Integer.parseInt(split[i]);
                     if (i1 < arr.length) {
                         mRecyclerViewExpect.getChildAt(i1).setSelected(true);
+                        mIntegersExpect.add(i1);
                     }
 
                 }
@@ -124,7 +129,6 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
                 mEditTextWork.setText(occupation);
             }
             if (!TextUtils.equals("||", orientate) && !TextUtils.equals("null", orientate) && !TextUtils.equals(" ", orientate) && !TextUtils.isEmpty(orientate) && !TextUtils.equals(" ", pos11)) {
-                Log.i("TAG", "------------" + orientate);
                 String[] split = orientate.split("\\|");
                 mEditTextBusiness.setText(split[0]);
                 mEditTextContact.setText(split[1]);
@@ -198,6 +202,18 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
         mTextViewBirthDay = (TextView) findViewById(R.id.tv_datum_nian_yue_ri);
         mButtonSubject = (Button) findViewById(R.id.btn_datum_subject);
         editPhone = (EditText) findViewById(R.id.et_datum_phone);
+        tv1 = (TextView) findViewById(R.id.tv_datum_name1);
+        tv2 = (TextView) findViewById(R.id.tv_datum_sex1);
+        tv3 = (TextView) findViewById(R.id.tv_datum_city0);
+        tv4 = (TextView) findViewById(R.id.tv_datum_phone);
+        String str1 = "<font color='#ac0000'>★ </font>姓名：";
+        tv1.setText(Html.fromHtml(str1));
+        String str2 = "<font color='#ac0000'>★ </font>性别：";
+        tv2.setText(Html.fromHtml(str2));
+        String str3 = "<font color='#ac0000'>★ </font>城市：";
+        tv3.setText(Html.fromHtml(str3));
+        String str4 = "<font color='#ac0000'>★ </font>手机：";
+        tv4.setText(Html.fromHtml(str4));
     }
 
     @Override
@@ -392,8 +408,20 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
             CommonUtils.Toast(DatumActivity.this, "手机号不能为空");
             return;
         }
-        String orientate = null;
-        if (!TextUtils.isEmpty(trim1) && !TextUtils.isEmpty(trim2) && !TextUtils.isEmpty(trim3)) {
+        if (TextUtils.isEmpty(name)) {
+            CommonUtils.Toast(DatumActivity.this, "姓名不能为空");
+            return;
+        }
+        if (TextUtils.isEmpty(sex)) {
+            CommonUtils.Toast(DatumActivity.this, "性别不能为空");
+            return;
+        }
+        if (TextUtils.isEmpty(city)) {
+            CommonUtils.Toast(DatumActivity.this, "城市不能为空");
+            return;
+        }
+        String orientate = trim1 + "|" + trim2 + "|" + trim3;
+        /*if (!TextUtils.isEmpty(trim1) && !TextUtils.isEmpty(trim2) && !TextUtils.isEmpty(trim3)) {
             if (Integer.parseInt(trim1) + Integer.parseInt(trim2) + Integer.parseInt(trim3) != 100) {
                 CommonUtils.Toast(DatumActivity.this, "定位的值相加要等于100");
                 return;
@@ -403,7 +431,7 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
         } else {
             CommonUtils.Toast(DatumActivity.this, "三个定位的值不能为空");
             return;
-        }
+        }*/
 
         String birthday = mTextViewBirthDay.getText().toString().trim();
         String neck_circumference = mEditTextNeck.getText().toString().trim();
@@ -448,7 +476,6 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
         StringBuffer pos3 = new StringBuffer();
         for (int w = 0; w < mIntegersExpect.size(); w++) {
             Integer integer = mIntegersExpect.get(w);
-            Log.e(TAG, "upDataTo: " + arrExpect[integer]);
             pos3.append(integer);
             desired_image.append(arrExpect[integer]);
             if (w != mIntegersExpect.size() && w != mIntegersExpect.size() - 1) {

@@ -18,22 +18,19 @@
 
         <TextView
             android:id="@+id/tv_order_top"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ActivityTopTextTitleStyle"
             android:layout_centerInParent="true"
-            android:text="工作室详情"
-            android:textColor="#fff"
-            android:textSize="@dimen/text_size_big" />
+            android:text="工作室详情" />
 
         <TextView
             android:id="@+id/tv_lijiyueyue_address"
+            style="@style/ActivityTopTextSubTitleStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_marginRight="@dimen/distance_5"
             android:gravity="center"
-            android:text="地址选择"
-            android:textColor="@color/main_color_write" />
+            android:text="地址选择" />
     </RelativeLayout>
 
     <RelativeLayout

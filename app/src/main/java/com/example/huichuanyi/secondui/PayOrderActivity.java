@@ -2,7 +2,9 @@ package com.example.huichuanyi.secondui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -63,7 +65,7 @@ public class PayOrderActivity extends BaseActivity implements UtilsInternet.XCal
 
     private String AliPayOrWeChat;
 
-    private String managerPhoto, managerName, nowMoney, order_id, type;
+    private String managerPhoto, managerName, nowMoney, order_id, type, invitation_code;
 
     private UtilsInternet instance = UtilsInternet.getInstance();
 
@@ -90,12 +92,18 @@ public class PayOrderActivity extends BaseActivity implements UtilsInternet.XCal
         managerName = intent.getStringExtra("managerName");
         nowMoney = intent.getStringExtra("nowMoney");
         order_id = intent.getStringExtra("orderid");
+        invitation_code = intent.getStringExtra("invitation_code");
         type = intent.getStringExtra("type");
+        String studio_id = intent.getStringExtra("studio_id");
+        String city = intent.getStringExtra("city");
+        String count = intent.getStringExtra("count");
+        getMoney(studio_id, count, city);
         String num = intent.getStringExtra("num");
         mNum.setText(num);
         CommonStatic.wechatType = type;
         mPay = new UtilsPay(this);
     }
+
 
     @Override
     public void setData() {
@@ -106,6 +114,53 @@ public class PayOrderActivity extends BaseActivity implements UtilsInternet.XCal
         mTextViewName.setText(managerName);
         mTextViewMoney.setText(nowMoney);
         mTextViewNowMoney.setText(nowMoney);
+    }
+
+    private void getMoney(String stu, String count, String city) {
+        RequestParams pa = new RequestParams(NetConfig.GO_DOOR_MONEY);
+        pa.addBodyParameter("studio_id", stu);
+        pa.addBodyParameter("studio_city", city);
+        pa.addBodyParameter("clothes_num", count);
+        pa.addBodyParameter("invitation_code", invitation_code);
+        x.http().post(pa, new Callback.CacheCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                try {
+                    JSONObject object = new JSONObject(result);
+                    JSONObject body = object.getJSONObject("body");
+                    final String price = body.getString("price");
+                    new Handler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mTextViewMoney.setText(price);
+                            mTextViewNowMoney.setText(price);
+                        }
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+
+            @Override
+            public boolean onCache(String result) {
+                return false;
+            }
+        });
     }
 
     @Override

@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.SMSTimeUtils;
+import com.example.huichuanyi.custom.dialog.VerificationCodeDialog;
 import com.example.huichuanyi.ui.activity.MainActivity;
 import com.example.huichuanyi.ui.activity.login.LoginByAuthCodeActivity;
 import com.example.huichuanyi.ui.activity.login.LoginHMService;
@@ -92,10 +93,16 @@ public class AuthCodeGetFragment extends BaseFragment implements SMSUtils.SMSOnR
     private void onEvent(View v) {
         switch (v.getId()) {
             case R.id.btn_send_sms:
-                String number = mPhone.getText().toString().trim().replace(" ", "");
-                sms.smsSend(number, this);
-                SMSTimeUtils smsTimeUtils = new SMSTimeUtils(tvTime, 60000, 1000);
-                smsTimeUtils.start();
+                final String number = mPhone.getText().toString().trim().replace(" ", "");
+                VerificationCodeDialog codeDialog = new VerificationCodeDialog(getContext());
+                codeDialog.setPhone(number, new VerificationCodeDialog.EditYes() {
+                    @Override
+                    public void getEdit() {
+                        SMSTimeUtils smsTimeUtils = new SMSTimeUtils(tvTime, 60000, 1000);
+                        smsTimeUtils.start();
+                    }
+                });
+                codeDialog.show();
                 break;
             case R.id.iv_login_next:
                 //这个地方是点击确定的地方

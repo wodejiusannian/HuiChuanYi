@@ -77,7 +77,7 @@ public class LiJiYuYueMailsFragment extends BaseFragment implements UtilsInterne
     }
 
     private void loadData() {
-        value.put("city", Location.mAddress);
+        value.put("city_temp", Location.mAddress);
         value.put("type", "32");
         value.put("lng", Location.lng);
         value.put("lat", Location.lat);

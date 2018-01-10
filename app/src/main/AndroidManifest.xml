@@ -134,6 +134,8 @@
         <activity android:name=".ui.activity.HomeStatisticsActivity" />
         <activity android:name=".ui.activity.MySortActivity" />
         <activity android:name=".secondui.ShowPhotoActivity" />
+        <activity android:name=".ui.activity.TestActivity" />
+        <activity android:name=".ui.activity.video.HMWebSlwActivity" />
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
@@ -171,7 +173,6 @@
         <activity android:name=".ui.activity.SelectStudioTimeActivity" />
         <activity android:name=".ui.activity.LiJiYuYueActivity" />
         <activity android:name=".ui.activity.ComplainActivity" />
-        <activity android:name=".ui.activity.MyOrderDetailsActivity" />
         <activity android:name=".ui.activity.LabelsActivity" />
         <activity android:name=".ui.activity.Item_DetailsActivity" />
         <activity
@@ -194,7 +195,7 @@
         <activity android:name=".ui.activity.register.RegisterOverCompleteInfoActivity" />
         <activity android:name=".ui.activity.LiJiYuYueStudioSelectCityActivity" />
         <activity android:name=".ui.activity.video.HomeVideoYouhuiquanActivity" />
-        <activity android:name=".ui.activity.pay.CMBPayActivity"></activity>
+        <activity android:name=".ui.activity.pay.CMBPayActivity" />
         <activity
             android:name=".ui.activity.video.FullVideoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -395,7 +396,15 @@
         <activity android:name=".ui.activity.lanyang.LyBuyActivity" />
         <activity android:name=".ui.activity.lanyang.LyShopCarActivity" />
         <activity android:name=".ui.activity.lanyang.LyCommendPeopleActivity" />
-        <activity android:name=".ui.activity.lanyang.LyDetailsWebActivity"></activity>
+        <activity android:name=".ui.activity.lanyang.LyDetailsWebActivity" />
+        <activity android:name=".ui.activity.lanyang.RTCWebActivity" />
+        <activity android:name=".ui.activity.RTCReportActivity" />
+        <activity android:name=".ui.activity.lanyang.LyOpenRTCActivity" />
+        <activity
+            android:name=".ui.activity.PrivateManagerActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".ui.SlwGoActivity"></activity>
+        <activity android:name=".ui.activity.HistoryZhenDuanActivity"></activity>
     </application>
 
 </manifest>

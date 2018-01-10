@@ -13,17 +13,14 @@
         android:id="@+id/rl_top"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/color_ac0000">
+        android:background="@color/activityTop">
 
         <include layout="@layout/btn_back"></include>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ActivityTopTextTitleStyle"
             android:layout_centerInParent="true"
-            android:text="预约"
-            android:textColor="@color/main_color_write"
-            android:textSize="@dimen/text_size_18" />
+            android:text="预约" />
     </RelativeLayout>
 
     <ScrollView
@@ -43,9 +40,19 @@
 
             <include layout="@layout/include_write_clothes_count"></include>
 
+            <include layout="@layout/include_coupon"></include>
+
             <include layout="@layout/include_pay"></include>
 
             <include layout="@layout/include_studio_info"></include>
+
+            <ImageView
+                android:id="@+id/iv"
+                android:layout_margin="10dp"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </ScrollView>
 

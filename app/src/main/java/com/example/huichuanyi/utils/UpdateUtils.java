@@ -46,7 +46,7 @@ public class UpdateUtils {
     private void init() {
         updManager = IFlytekUpdate.getInstance(context);
         updManager.setDebugMode(true);
-        updManager.setParameter(UpdateConstants.EXTRA_WIFIONLY, "true");
+        updManager.setParameter(UpdateConstants.EXTRA_WIFIONLY, "false");
         updManager.setParameter(UpdateConstants.EXTRA_STYLE, UpdateConstants.UPDATE_UI_DIALOG);
     }
 

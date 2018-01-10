@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+
+    <RelativeLayout
+        android:layout_width="101dp"
+        android:layout_height="101dp"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:id="@+id/iv_365_four_service"
+            android:layout_width="101dp"
+            android:layout_height="101dp" />
+
+        <ImageView
+            android:id="@+id/iv_365_four_is_service"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="10dp" />
+    </RelativeLayout>
+
+</RelativeLayout>

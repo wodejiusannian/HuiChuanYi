@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="10dp">
+
+    <RelativeLayout
+        android:id="@+id/rl_slw_private_recommend_history"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@drawable/shape_bg_6e">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:text="服饰推荐"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tv_slw_private_recommend_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="推荐记录》"
+            android:textColor="@color/color_ac0000"
+            android:textSize="13sp" />
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_private_recommend_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/ll_bottom"
+        android:layout_below="@+id/rl_slw_private_recommend_history"
+        android:layout_marginBottom="10dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:id="@+id/ll_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/hm_365_clothes_dislike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/hm_365_clothes_dislike" />
+
+        <ImageView
+            android:id="@+id/hm_365_clothes_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:src="@mipmap/hm_365_clothes_like" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_private_recommend_no_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_slw_private_recommend_history"
+        android:background="#fff"
+        android:clickable="true"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/tv_private_recommed_day"
+            android:layout_margin="10dp"
+            android:background="@drawable/shape_nofill_grayline_round"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_365_seven_no_data"
+                android:layout_width="105dp"
+                android:layout_height="105dp"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/hm_365_no_data_refuse" />
+
+            <TextView
+                android:id="@+id/iv_365_seven_no_tip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_365_seven_no_data"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="没有服饰推荐哦" />
+
+            <Button
+                android:id="@+id/btn_365_seven_refuse_data"
+                android:layout_width="160dp"
+                android:layout_height="35dp"
+                android:layout_below="@+id/iv_365_seven_no_tip"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/button_red"
+                android:text="点击立即通知工作室"
+                android:textColor="#fff" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_private_recommed_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp" />
+    </RelativeLayout>
+</RelativeLayout>

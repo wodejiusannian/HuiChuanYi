@@ -1,24 +1,31 @@
 package com.example.huichuanyi.ui.activity.lanyang;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.huichuanyi.R;
-import com.example.huichuanyi.adapter.ClosetAdapter;
+import com.example.huichuanyi.common_view.adapter.MultiTypeAdapter;
+import com.example.huichuanyi.common_view.model.LyShopList;
+import com.example.huichuanyi.common_view.model.Visitable;
 import com.example.huichuanyi.config.NetConfig;
+import com.example.huichuanyi.custom.FiveSwipeRefreshLayout;
 import com.example.huichuanyi.ui.base.BaseActivity;
+import com.example.huichuanyi.utils.ItemDecoration;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 
@@ -39,8 +46,8 @@ import butterknife.BindView;
 // ┗┓┓┏━┳┓┏┛
 // ┃┫┫　┃┫┫
 // ┗┻┛　┗┻┛
-public class LyShopListActivity extends BaseActivity implements UtilsInternet.XCallBack {
-    @BindView(R.id.tb_ly_shoplist)
+public class LyShopListActivity extends BaseActivity implements UtilsInternet.XCallBack, SwipeRefreshLayout.OnRefreshListener {
+    /*@BindView(R.id.tb_ly_shoplist)
     TabLayout tb;
 
     @BindView(R.id.vp_ly_shoplist)
@@ -53,7 +60,25 @@ public class LyShopListActivity extends BaseActivity implements UtilsInternet.XC
     private List<Fragment> fragments = new ArrayList<>();
     private List<String> titles = new ArrayList<>();
 
-    private int pos;
+    private int pos;*/
+    @BindView(R.id.rv_item_shop_list)
+    RecyclerView rvContent;
+
+    @BindView(R.id.fr_refresh)
+    FiveSwipeRefreshLayout refreshLayout;
+
+
+    @BindView(R.id.tv_main_ly_list_title)
+    TextView title;
+
+
+    private List<Visitable> mData = new ArrayList<>();
+
+    private MultiTypeAdapter adapter;
+
+    private UtilsInternet net = UtilsInternet.getInstance();
+
+    private Map<String, String> map = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,19 +94,38 @@ public class LyShopListActivity extends BaseActivity implements UtilsInternet.XC
 
     @Override
     protected void initData() {
-        adapter = new ClosetAdapter(getSupportFragmentManager(), fragments, titles);
+        Intent intent = getIntent();
+        int supplier_id = intent.getIntExtra("supplier_id", 0);
+        String brand = intent.getStringExtra("brand");
+        title.setText(brand);
+        map.put("supplier_id", supplier_id + "");
+        map.put("user_id", SharedPreferenceUtils.getUserData(this, 1));
+        adapter = new MultiTypeAdapter(mData);
+        initNet();
+        GridLayoutManager manager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
+        rvContent.setLayoutManager(manager);
+        rvContent.setAdapter(adapter);
+        rvContent.addItemDecoration(new ItemDecoration(15));
+      /*  adapter = new ClosetAdapter(getSupportFragmentManager(), fragments, titles);
         tb.setupWithViewPager(vp);
-        vp.setAdapter(adapter);
+        vp.setAdapter(adapter);*/
     }
 
     @Override
     protected void setData() {
-        pos = getIntent().getIntExtra("pos", 0);
-        initNet();
+        refreshLayout.setRefreshing(true);
+        refreshLayout.setOnRefreshListener(this);
+
+        /*pos = getIntent().getIntExtra("pos", 0);
+        initNet();*/
     }
 
-    private void initNet() {
+    /*private void initNet() {
         net.post(NetConfig.LY_MAIN_DATA, null, this);
+    }*/
+
+    private void initNet() {
+        net.post(NetConfig.LY_GOODS, map, this);
     }
 
     public void back(View view) {
@@ -89,6 +133,30 @@ public class LyShopListActivity extends BaseActivity implements UtilsInternet.XC
     }
 
     @Override
+    public void onResponse(String result) {
+        Log.e("TAG", "onResponse: " + result);
+        try {
+            mData.clear();
+            Gson gson = new Gson();
+            LyShopList lyShopList = gson.fromJson(result, LyShopList.class);
+            mData.addAll(lyShopList.getBody());
+            adapter.notifyDataSetChanged();
+            if (refreshLayout.isRefreshing())
+                refreshLayout.setRefreshing(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "请重试", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    @Override
+    public void onRefresh() {
+        initNet();
+    }
+
+
+    /*@Override
     public void onResponse(String result) {
         try {
             JSONObject json = new JSONObject(result);
@@ -114,5 +182,5 @@ public class LyShopListActivity extends BaseActivity implements UtilsInternet.XC
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }

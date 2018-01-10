@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.example.huichuanyi.ui.activity.lanyang.RTCWebActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/activityTop">
+
+        <include layout="@layout/btn_back"></include>
+
+        <TextView
+            android:id="@+id/tv_activity_rtc_title"
+            android:layout_centerInParent="true"
+            style="@style/ActivityTopTextTitleStyle"
+            android:text="我的RTC报告" />
+    </RelativeLayout>
+
+    <WebView
+        android:id="@+id/wb_activity_rtc_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </WebView>
+
+
+</LinearLayout>

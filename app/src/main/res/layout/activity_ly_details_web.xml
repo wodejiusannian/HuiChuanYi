@@ -42,9 +42,9 @@
         android:id="@+id/iv_back"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         android:onClick="back"
-        android:src="@drawable/hm_ly_lydetails_back" />
+        android:src="@drawable/hm_ly_lydetails_back"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

@@ -13,11 +13,13 @@ import butterknife.Unbinder;
 
 
 public abstract class BaseFragment extends Fragment {
+
     private Unbinder unbind;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override

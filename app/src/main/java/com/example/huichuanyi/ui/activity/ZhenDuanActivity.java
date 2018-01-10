@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
+import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
 
 import org.xutils.view.annotation.ViewInject;
@@ -45,10 +46,16 @@ public class ZhenDuanActivity extends BaseActivity {
     @Override
     public void initView() {
         tv.setText("衣橱诊断");
-
+        String id = getIntent().getStringExtra("id");
         String s = SharedPreferenceUtils.getUserData(this, 1);
-        String url = String.format(NetConfig.CLO_ZHENDUAN, s);
-        loadindUrl(url);
+        if (CommonUtils.isEmpty(id)) {
+            String url = String.format(NetConfig.CLO_ZHENDUAN, s);
+            loadindUrl(url);
+        } else {
+            String url = "http://hmyc365.net:8082/file/hm/html/wardrobe_yczd/index.html?user_id=%s&type=1&yczd_id=%s";
+            String format = String.format(url, s, id);
+            loadindUrl(format);
+        }
     }
 
     @Override

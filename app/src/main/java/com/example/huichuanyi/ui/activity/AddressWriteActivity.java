@@ -63,7 +63,6 @@ public class AddressWriteActivity extends BaseActivity implements View.OnClickLi
         setContentView(R.layout.activity_write_address);
     }
 
-
     @Override
     public void initView() {
         mSave = (TextView) findViewById(R.id.tv_write_address_save);

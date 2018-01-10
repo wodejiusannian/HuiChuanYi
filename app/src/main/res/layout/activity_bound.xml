@@ -21,12 +21,9 @@
             android:src="@drawable/back" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="绑定手机号"
-            android:textColor="#fff"
-            android:textSize="@dimen/text_size_big" />
+            style="@style/ActivityTopTextTitleStyle"
+            android:text="绑定手机号"/>
     </RelativeLayout>
 
     <TextView

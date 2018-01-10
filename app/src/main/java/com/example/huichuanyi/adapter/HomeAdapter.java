@@ -29,7 +29,7 @@ public class HomeAdapter extends LoopPagerAdapter {
     public View getView(ViewGroup container, int position) {
         ImageView view = new ImageView(mContext);
         Picasso.with(mContext).load(mBanner.get(position).getPic_url()).into(view);
-        view.setScaleType(ImageView.ScaleType.FIT_XY);
+        view.setScaleType(ImageView.ScaleType.CENTER_CROP);
         view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         return view;
     }

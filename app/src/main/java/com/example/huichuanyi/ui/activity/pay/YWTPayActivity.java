@@ -37,7 +37,6 @@ public class YWTPayActivity extends BaseActivity implements PayUtils.Sign {
         Intent intent = getIntent();
         String order_id = intent.getStringExtra("order_id");
         String type = intent.getStringExtra("type");
-        Log.e("TAG", "initView: " + order_id + "----" + type);
         payUtils.payYWT(order_id, type, this);
     }
 

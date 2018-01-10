@@ -20,12 +20,9 @@
             android:src="@drawable/back" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ActivityTopTextTitleStyle"
             android:layout_centerInParent="true"
-            android:text="批量上传"
-            android:textColor="#fff"
-            android:textSize="@dimen/text_size_big" />
+            android:text="批量上传" />
 
         <TextView
             android:id="@+id/tv_labels_show_pop"
@@ -35,14 +32,11 @@
 
         <TextView
             android:id="@+id/tv_labels_up_sure"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ActivityTopTextSubTitleStyle"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/distance"
-            android:text="确定"
-            android:textColor="@color/write"
-            android:textSize="@dimen/text_size_middle" />
+            android:text="确定" />
     </RelativeLayout>
 
     <ListView

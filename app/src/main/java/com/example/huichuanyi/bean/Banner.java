@@ -9,6 +9,17 @@ public class Banner {
     private String share_name;
     private String share_url;
 
+    public Banner() {
+    }
+
+    public Banner(String web_url, String type, String pic_url, String share_name, String share_url) {
+        this.web_url = web_url;
+        this.type = type;
+        this.pic_url = pic_url;
+        this.share_name = share_name;
+        this.share_url = share_url;
+    }
+
     public String getShare_name() {
         return share_name;
     }

@@ -12,6 +12,7 @@ import com.example.huichuanyi.ui.activity.SLWWriteInfoActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonStatic;
 import com.example.huichuanyi.utils.CommonUtils;
+import com.example.huichuanyi.utils.RxBus;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
@@ -67,6 +68,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                                 break;
                         }
                     }
+                    RxBus.getDefault().post(1);
                     CommonUtils.Toast(this, "支付成功");
                 case -1:
                     CommonUtils.Toast(this, "支付失败");

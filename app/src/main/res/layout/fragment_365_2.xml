@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eeeeee"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/tv_365_top"
+        style="@style/AcFrTopStyle">
+
+        <TextView
+            style="@style/ActivityTopTextTitleStyle"
+            android:layout_centerInParent="true"
+            android:text="@string/fragment_365_title" />
+
+    </RelativeLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/sf_fragment_365_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tv_365_top">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_fragment_365_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <RelativeLayout
+                android:visibility="gone"
+                android:id="@+id/rl_fragment_365_no_pay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.example.huichuanyi.custom.SlwWebView
+                    android:id="@+id/web_fragment_365_no_pay"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/btn_fragment_365_go_pay">
+
+                </com.example.huichuanyi.custom.SlwWebView>
+
+                <Button
+                    android:id="@+id/btn_fragment_365_go_pay"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/button_red"
+                    android:text="立即开通"
+                    android:textColor="#fff" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
+</RelativeLayout>
