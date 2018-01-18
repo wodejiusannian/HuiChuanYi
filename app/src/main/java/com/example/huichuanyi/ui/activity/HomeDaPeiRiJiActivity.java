@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -36,7 +35,6 @@ import java.util.Map;
 
 public class HomeDaPeiRiJiActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
-    private ImageView mImageViewBack;
     private Button mButtonAdd;
     private ListView mListView;
     private List<Match.EvaluatesBean> mData;
@@ -52,10 +50,13 @@ public class HomeDaPeiRiJiActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void initView() {
-        mImageViewBack = (ImageView) findViewById(R.id.iv_match_back);
         mButtonAdd = (Button) findViewById(R.id.btn_match_add);
         mListView = (ListView) findViewById(R.id.lv_match_show);
         mRefresh = (SwipeRefreshLayout) findViewById(R.id.sf_match_refresh);
+    }
+
+    public void back(View view) {
+        finish();
     }
 
     @Override
@@ -72,7 +73,6 @@ public class HomeDaPeiRiJiActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void setListener() {
-        mImageViewBack.setOnClickListener(this);
         mButtonAdd.setOnClickListener(this);
         mListView.setOnItemClickListener(this);
         mRefresh.setOnRefreshListener(this);
@@ -81,11 +81,7 @@ public class HomeDaPeiRiJiActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        Map<String, Object> map = new HashMap<>();
         switch (v.getId()) {
-            case R.id.iv_match_back:
-                finish();
-                break;
             case R.id.btn_match_add:
                 startActivity(new Intent(this, CollocationDiaryActivity.class));
                 break;
@@ -95,7 +91,7 @@ public class HomeDaPeiRiJiActivity extends BaseActivity implements View.OnClickL
     public void getData(String wardrobe_id) {
 
         RequestParams params = new RequestParams(NetConfig.MATCH_DIARY);
-        params.addBodyParameter("userid", SharedPreferenceUtils.getUserData(this,1));
+        params.addBodyParameter("userid", SharedPreferenceUtils.getUserData(this, 1));
         params.addBodyParameter("wardrobe_id", wardrobe_id);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
@@ -166,7 +162,7 @@ public class HomeDaPeiRiJiActivity extends BaseActivity implements View.OnClickL
         int itemId = item.getItemId();
         if (itemId == 1) {
             RequestParams params = new RequestParams(NetConfig.DELETE_MATCH);
-            params.addBodyParameter("userid", SharedPreferenceUtils.getUserData(this,1));
+            params.addBodyParameter("userid", SharedPreferenceUtils.getUserData(this, 1));
             params.addBodyParameter("id", mData.get(i).getId());
             x.http().post(params, new Callback.CommonCallback<String>() {
                 @Override

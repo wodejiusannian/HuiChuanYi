@@ -4,24 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context="com.example.huichuanyi.ui.activity.lanyang.LyMainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="#ac0000">
+        android:background="@color/activityTop">
 
         <include layout="@layout/btn_back"></include>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ActivityTopTextTitleStyle"
             android:layout_centerInParent="true"
-            android:text="慧美黑科技"
-            android:textColor="#fff"
-            android:textSize="18sp" />
+            android:text="慧美黑科技" />
 
     </RelativeLayout>
 

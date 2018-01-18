@@ -202,4 +202,9 @@ public class OrderFragment extends BaseFragment implements UtilsInternet.XCallBa
             }
         }
     };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 }

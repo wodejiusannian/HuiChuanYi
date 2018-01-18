@@ -5,11 +5,6 @@ import android.view.View;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
-import com.example.huichuanyi.utils.ActivityUtils;
-import com.example.huichuanyi.utils.SharedPreferenceUtils;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -46,11 +41,7 @@ public class SLWJianJieActivity extends BaseActivity {
 
     @OnClick(R.id.btn_buy)
     public void onclick(View view) {
-        String city = SharedPreferenceUtils.getBuyCity(this);
-        Map<String, Object> map = new HashMap<>();
-        map.put("location", city);
-        map.put("order_365", "365");
-        ActivityUtils.switchTo(this, LiJiYuYueActivity.class, map);
+
     }
 
     public void back(View view) {

@@ -164,6 +164,7 @@ public class SlwFragmentGuidance extends BaseFragment {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                userEvent = 0;
                 refreshLayout.setRefreshing(false);
                 loadindUrl(one, url);
                 loadindUrl(two, url2);
@@ -270,7 +271,7 @@ public class SlwFragmentGuidance extends BaseFragment {
         Map map = new HashMap();
         map.put("studio_id", studio_id);
         map.put("user_id", SharedPreferenceUtils.getUserData(getContext(), 1));
-        map.put("demandType", userEvent + "");
+        map.put("demandType", "量体");
         String json = HttpUtils.toJson(map);
         new AsyncHttpUtils(new HttpCallBack() {
             @Override

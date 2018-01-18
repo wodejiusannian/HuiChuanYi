@@ -13,7 +13,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ScrollView;
-import android.widget.TextView;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base_2.BaseFragment;
@@ -36,7 +35,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 import io.rong.imkit.RongIM;
 
 // ┏┓　　　┏┓
@@ -72,8 +70,6 @@ public class SlwFragmentManager extends BaseFragment {
     ScrollView scrollView;
 
 
-    @BindView(R.id.tv_test_zero)
-    TextView zero;
     private Handler handler = new Handler();
 
     private int userEvent;
@@ -114,6 +110,10 @@ public class SlwFragmentManager extends BaseFragment {
                 if ("http://www.huimei.com/connect/manager".equals(url)) {
                     showStudioDialog(1);
                     return true;
+                } else if ("http://www.huimei.com/lookup/record".equals(url)) {
+                    Intent intent = new Intent(getContext(), HistoryZhenDuanActivity.class);
+                    startActivity(intent);
+                    return true;
                 }
                 view.loadUrl(url);
                 return true;
@@ -135,7 +135,7 @@ public class SlwFragmentManager extends BaseFragment {
 
                             @Override
                             public void run() {
-                                scrollToPosition(0, zero.getHeight() + one.getHeight());
+                                scrollToPosition(0, one.getHeight());
                             }
                         });
                     }
@@ -162,6 +162,7 @@ public class SlwFragmentManager extends BaseFragment {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                userEvent = 0;
                 refreshLayout.setRefreshing(false);
                 loadindUrl(one, url);
                 loadindUrl(two, url2);
@@ -264,7 +265,7 @@ public class SlwFragmentManager extends BaseFragment {
         animators.start();
     }
 
-    @OnClick({R.id.tv_test_zero_history})
+    /*@OnClick({R.id.tv_test_zero_history})
     public void onEvent(View v) {
         switch (v.getId()) {
             case R.id.tv_test_zero_history:
@@ -274,13 +275,13 @@ public class SlwFragmentManager extends BaseFragment {
             default:
                 break;
         }
-    }
+    }*/
 
     public void showStudioDialog(int userEvent) {
         Map map = new HashMap();
         map.put("studio_id", studio_id);
         map.put("user_id", SharedPreferenceUtils.getUserData(getContext(), 1));
-        map.put("demandType", userEvent + "");
+        map.put("demandType", "衣橱诊断报告");
         String json = HttpUtils.toJson(map);
         new AsyncHttpUtils(new HttpCallBack() {
             @Override

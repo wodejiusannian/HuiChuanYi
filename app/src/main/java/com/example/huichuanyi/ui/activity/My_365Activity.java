@@ -1,6 +1,5 @@
 package com.example.huichuanyi.ui.activity;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -174,9 +173,6 @@ public class My_365Activity extends BaseActivity implements UtilsInternet.XCallB
         if (view != null) {
             switch (view.getId()) {
                 case R.id.btn_chat_with_manager:
-                    Intent broadcast = new Intent("action.have.msg");
-                    broadcast.putExtra("isRead", "yes");
-                    sendOrderedBroadcast(broadcast, null);
                     RongIM im = RongIM.getInstance();
                     if (im != null && studio_id != null) {
                         im.startPrivateChat(My_365Activity.this, "hmgls_" + studio_id, studio_name);

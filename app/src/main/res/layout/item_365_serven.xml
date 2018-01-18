@@ -1,33 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="5dp"
-    android:background="@drawable/shape_write_8dp">
-
-    <ImageView
-        android:id="@+id/iv_365_seven_no_data"
-        android:layout_width="105dp"
-        android:layout_height="105dp"
-        android:layout_centerHorizontal="true"
-        android:src="@mipmap/hm_365_no_data_refuse" />
+    android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/iv_365_seven_no_tip"
+        android:id="@+id/tv_top"
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <RelativeLayout
+        android:layout_below="@+id/tv_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_365_seven_no_data"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:text="没有服饰推荐哦" />
+        android:background="@drawable/shape_write_8dp"
+        android:padding="5dp">
 
-    <Button
-        android:id="@+id/btn_365_seven_refuse_data"
-        android:layout_width="160dp"
-        android:layout_height="35dp"
-        android:layout_below="@+id/iv_365_seven_no_tip"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/button_red"
-        android:text="点击立即通知工作室"
-        android:textColor="#fff" />
+        <ImageView
+            android:id="@+id/iv_365_seven_no_data"
+            android:layout_width="105dp"
+            android:layout_height="105dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:src="@mipmap/hm_365_no_data_refuse" />
+
+        <TextView
+            android:id="@+id/iv_365_seven_no_tip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_365_seven_no_data"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="没有服饰推荐哦" />
+
+        <Button
+            android:id="@+id/btn_365_seven_refuse_data"
+            android:layout_width="160dp"
+            android:layout_height="35dp"
+            android:layout_below="@+id/iv_365_seven_no_tip"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/button_red"
+            android:text="点击立即通知工作室"
+            android:textColor="#fff" />
+    </RelativeLayout>
+
 </RelativeLayout>

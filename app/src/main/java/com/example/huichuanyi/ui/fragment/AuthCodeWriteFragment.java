@@ -20,7 +20,6 @@ import com.example.huichuanyi.ui.activity.login.LoginByAuthCodeActivity;
 import com.example.huichuanyi.ui.base.BaseFragment;
 import com.example.huichuanyi.utils.CommonStatic;
 import com.example.huichuanyi.utils.CommonUtils;
-import com.example.huichuanyi.utils.SMSUtils;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
 
@@ -36,7 +35,7 @@ import java.util.Map;
 import cn.jpush.android.api.JPushInterface;
 
 @ContentView(R.layout.fragment_write_auth_code)
-public class AuthCodeWriteFragment extends BaseFragment implements SMSUtils.SMSOnResponse, UtilsInternet.XCallBack {
+public class AuthCodeWriteFragment extends BaseFragment implements UtilsInternet.XCallBack {
     private static final String TAG = "AuthCodeWriteFragment";
 
     @ViewInject(R.id.et_write_auth_code_phone)
@@ -54,7 +53,6 @@ public class AuthCodeWriteFragment extends BaseFragment implements SMSUtils.SMSO
     @ViewInject(R.id.iv_login_next)
     private ImageView next;
 
-    private SMSUtils sms;
 
     private String mType;
 
@@ -109,7 +107,6 @@ public class AuthCodeWriteFragment extends BaseFragment implements SMSUtils.SMSO
     @Override
     protected void initData() {
         super.initData();
-        sms = new SMSUtils();
 
     }
 
@@ -175,13 +172,6 @@ public class AuthCodeWriteFragment extends BaseFragment implements SMSUtils.SMSO
             phone.setText(CommonStatic.LOGIN_PHONE);
             forceOpenSoftKeyboard(getActivity());
         }
-    }
-
-
-    @Override
-    public void onSuccess(String send_type) {
-        Toast.makeText(getContext(), "成功获取验证码", Toast.LENGTH_SHORT).show();
-        mType = send_type;
     }
 
 

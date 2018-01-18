@@ -18,6 +18,7 @@ import com.example.huichuanyi.common_view.holder.LyMainHolder;
 import com.example.huichuanyi.common_view.holder.LyRTCReportHolder;
 import com.example.huichuanyi.common_view.holder.LyShopCarHolder;
 import com.example.huichuanyi.common_view.holder.PrivateRecommendHolder;
+import com.example.huichuanyi.common_view.holder.SlwEightHolder;
 import com.example.huichuanyi.common_view.holder.SlwFiveHolder;
 import com.example.huichuanyi.common_view.holder.SlwFourHolder;
 import com.example.huichuanyi.common_view.holder.SlwOneHolder;
@@ -38,6 +39,7 @@ import com.example.huichuanyi.common_view.model.LyTest;
 import com.example.huichuanyi.common_view.model.PrivateRecommendModel;
 import com.example.huichuanyi.common_view.model.RTCReport;
 import com.example.huichuanyi.common_view.model.SlwFiveModel;
+import com.example.huichuanyi.common_view.model.SlwEightModel;
 import com.example.huichuanyi.common_view.model.SlwFourModel;
 import com.example.huichuanyi.common_view.model.SlwOneModel;
 import com.example.huichuanyi.common_view.model.SlwSevenModle;
@@ -88,6 +90,8 @@ public class TypeFactoryForList implements TypeFactory {
     private final int TYPE_RESOURCE_365_ITEM_6 = R.layout.item_365_six;
 
     private final int TYPE_RESOURCE_365_ITEM_7 = R.layout.item_365_serven;
+
+    private final int TYPE_RESOURCE_365_ITEM_8 = R.layout.item_365_eight;
 
     private final int TYPE_RESOURCE_PRIVATE_RECOMMEND = R.layout.item_test;
 
@@ -179,6 +183,11 @@ public class TypeFactoryForList implements TypeFactory {
     }
 
     @Override
+    public int type(SlwEightModel privateRecommendModel) {
+        return TYPE_RESOURCE_365_ITEM_8;
+    }
+
+    @Override
     public int type(HistotyZhenDuan histotyZhenDuan) {
         return TYPE_RESOURCE_PRIVATE_HISTORY_ZHEN_DUAN;
     }
@@ -238,6 +247,9 @@ public class TypeFactoryForList implements TypeFactory {
             case TYPE_RESOURCE_365_ITEM_7:
 
                 return new SlwSevenHolder(itemView);
+            case TYPE_RESOURCE_365_ITEM_8:
+
+                return new SlwEightHolder(itemView);
             case TYPE_RESOURCE_PRIVATE_HISTORY_ZHEN_DUAN:
                 return new HistoryHolder(itemView);
             default:

@@ -1,9 +1,6 @@
 package com.example.huichuanyi.common_view.model;
 
-import com.example.huichuanyi.bean.Banner;
 import com.example.huichuanyi.common_view.Type.TypeFactory;
-
-import java.util.List;
 
 // ┏┓　　　┏┓
 // ┏┛┻━━━┛┻┓
@@ -24,10 +21,14 @@ import java.util.List;
 // ┗┻┛　┗┻┛
 public class SlwTwoModel implements Visitable {
 
-    public List<Banner> data;
+    public String picOnclickUrl;
+    public String problemPic;
+    public String urlTitle;
 
-    public SlwTwoModel(List<Banner> data) {
-        this.data = data;
+    public SlwTwoModel(String picOnclickUrl, String problemPic, String urlTitle) {
+        this.picOnclickUrl = picOnclickUrl;
+        this.problemPic = problemPic;
+        this.urlTitle = urlTitle;
     }
 
     @Override
@@ -36,19 +37,4 @@ public class SlwTwoModel implements Visitable {
     }
 
 
-    /*public static class Banner {
-        public String pic_url;
-        public String share_name;
-        public String share_url;
-        public int type;
-        public String web_url;
-
-        public Banner(String pic_url, String share_name, String share_url, int type, String web_url) {
-            this.pic_url = pic_url;
-            this.share_name = share_name;
-            this.share_url = share_url;
-            this.type = type;
-            this.web_url = web_url;
-        }
-    }*/
 }

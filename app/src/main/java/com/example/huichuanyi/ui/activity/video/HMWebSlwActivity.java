@@ -6,6 +6,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.example.huichuanyi.R;
@@ -21,6 +22,8 @@ public class HMWebSlwActivity extends BaseActivity {
     @BindView(R.id.pr_web_loading_hint)
     ProgressBar mLoading;
 
+    @BindView(R.id.iv_web_share)
+    ImageView share;
 
 
     @Override
@@ -33,7 +36,6 @@ public class HMWebSlwActivity extends BaseActivity {
 
     @Override
     public void setListener() {
-
     }
 
 
@@ -46,7 +48,7 @@ public class HMWebSlwActivity extends BaseActivity {
 
     @Override
     public void setData() {
-
+        share.setVisibility(View.GONE);
     }
 
 

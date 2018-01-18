@@ -7,8 +7,8 @@ android {
         applicationId "com.example.huichuanyi"
         minSdkVersion 18
         targetSdkVersion 22
-        versionCode 35
-        versionName "2.2.4"
+        versionCode 37
+        versionName "2.2.7"
         multiDexEnabled true
         ndk {
 

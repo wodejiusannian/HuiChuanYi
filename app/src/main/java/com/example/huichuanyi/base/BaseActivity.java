@@ -21,12 +21,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         ImmersionBar.with(this)
                 .statusBarDarkFont(true, 0.2f)
                 .init();
-       /* getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        SystemBarTintManager systemBarTintManager = new SystemBarTintManager(this);
-        systemBarTintManager.setStatusBarTintEnabled(true);
-        systemBarTintManager.setNavigationBarTintEnabled(true);
-        systemBarTintManager.setTintResource(R.color.write);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);*/
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         initView();
         initData();

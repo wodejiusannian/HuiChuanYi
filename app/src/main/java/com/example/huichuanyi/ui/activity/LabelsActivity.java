@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,7 +37,6 @@ import java.util.Date;
 import java.util.List;
 
 public class LabelsActivity extends BaseActivity implements View.OnClickListener, LabelPopupWindow.GetData {
-    private ImageView mBack;
     private ListView mPhoto;
     private List<String> mPhotos;
     private static final int REQUEST_CAMERA_CODE = 11;
@@ -64,7 +62,6 @@ public class LabelsActivity extends BaseActivity implements View.OnClickListener
         jsons = hqSysCloTag.getString("hqSysCloTag", "");
         getStyle("1");
         mPhoto = (ListView) findViewById(R.id.lv_labels_photos);
-        mBack = (ImageView) findViewById(R.id.iv_labels_back);
         mPop = new LabelPopupWindow(this);
         mShowPop = (TextView) findViewById(R.id.tv_labels_show_pop);
         mUp = (TextView) findViewById(R.id.tv_labels_up_sure);
@@ -87,7 +84,6 @@ public class LabelsActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void setListener() {
-        mBack.setOnClickListener(this);
         mAdapter.setOnItemClick(this);
         mPop.setLabel(this);
         mUp.setOnClickListener(this);
@@ -127,9 +123,6 @@ public class LabelsActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.iv_labels_back:
-                finish();
-                break;
             case R.id.tv_item_label_more:
                 morePosition = (int) v.getTag();
                 mPop.showPopupWindow(mShowPop);
@@ -150,6 +143,9 @@ public class LabelsActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
+    public void back(View view){
+        finish();
+    }
     //更新下数据
     private List<String> getStyle(String str) {
         List<String> mStyles = new ArrayList<>();

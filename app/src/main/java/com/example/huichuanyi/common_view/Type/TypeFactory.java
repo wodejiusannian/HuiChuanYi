@@ -17,6 +17,7 @@ import com.example.huichuanyi.common_view.model.LyTest;
 import com.example.huichuanyi.common_view.model.PrivateRecommendModel;
 import com.example.huichuanyi.common_view.model.RTCReport;
 import com.example.huichuanyi.common_view.model.SlwFiveModel;
+import com.example.huichuanyi.common_view.model.SlwEightModel;
 import com.example.huichuanyi.common_view.model.SlwFourModel;
 import com.example.huichuanyi.common_view.model.SlwOneModel;
 import com.example.huichuanyi.common_view.model.SlwSevenModle;
@@ -69,7 +70,7 @@ public interface TypeFactory {
 
     int type(PrivateRecommendModel privateRecommendModel);
 
-
+    int type(SlwEightModel privateRecommendModel);
     int type(HistotyZhenDuan histotyZhenDuan);
     BaseViewHolder createViewHolder(int type, View itemView);
 }

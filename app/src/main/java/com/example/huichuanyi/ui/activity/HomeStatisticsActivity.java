@@ -5,7 +5,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.ClosetAdapter;
@@ -19,8 +18,7 @@ import org.xutils.view.annotation.Event;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeStatisticsActivity extends BaseActivity implements View.OnClickListener {
-    private ImageView mImageViewBack;
+public class HomeStatisticsActivity extends BaseActivity {
     private ViewPager mViewPager;
     private ClosetAdapter mAdapter;
     private List<Fragment> mData;
@@ -36,7 +34,6 @@ public class HomeStatisticsActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void initView() {
-        mImageViewBack = (ImageView) findViewById(R.id.iv_statistics_back);
         mViewPager = (ViewPager) findViewById(R.id.vp_info_mPager);
         mTabLayout = (TabLayout) findViewById(R.id.tb_info_mTitle);
     }
@@ -60,7 +57,6 @@ public class HomeStatisticsActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void setListener() {
-        mImageViewBack.setOnClickListener(this);
     }
 
     @Event({R.id.tv_statistics_info})
@@ -74,12 +70,7 @@ public class HomeStatisticsActivity extends BaseActivity implements View.OnClick
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.iv_statistics_back:
-                finish();
-                break;
-        }
+    public void back(View view) {
+        finish();
     }
 }

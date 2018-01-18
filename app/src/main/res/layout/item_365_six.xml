@@ -43,8 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/iv_item_365_six_photo"
-                android:ellipsize="end"
-                android:lines="1" />
+                android:lines="2" />
 
             <TextView
                 android:id="@+id/tv_item_365_six_content"
@@ -52,6 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_item_365_six_title"
                 android:layout_marginLeft="5dp"
+                android:lines="3"
                 android:layout_marginTop="18dp"
                 android:layout_toRightOf="@+id/iv_item_365_six_photo" />
         </RelativeLayout>

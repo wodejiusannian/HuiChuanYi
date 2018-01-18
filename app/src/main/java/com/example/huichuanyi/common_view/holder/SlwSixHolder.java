@@ -1,7 +1,6 @@
 package com.example.huichuanyi.common_view.holder;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -11,7 +10,6 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.common_view.adapter.MultiTypeAdapter;
 import com.example.huichuanyi.common_view.model.SlwSixModel;
 import com.example.huichuanyi.custom.RoundImageView;
-import com.example.huichuanyi.ui.activity.PrivateManagerActivity;
 import com.example.huichuanyi.utils.RxBus;
 
 // ┏┓　　　┏┓
@@ -48,7 +46,7 @@ public class SlwSixHolder extends BaseViewHolder<SlwSixModel> {
         count.setText("您已经享受" + model.rec_totalNum + "次服饰推荐");
         reason.setText(model.rec_reason);
         Glide.with(context).load(model.rec_cloPic).into(photo);
-        title.setText("商品名称：" + model.rec_cloName);
+        title.setText(model.rec_cloName);
         recommend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -14,7 +14,6 @@ import com.example.huichuanyi.adapter.ProgressAdapter;
 import com.example.huichuanyi.base.BaseFragment;
 import com.example.huichuanyi.bean.Progress;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.custom.BottomDialog;
 import com.example.huichuanyi.secondui.PayOrderActivity;
 import com.example.huichuanyi.secondui.ShenQingTuiKuanActivity;
 import com.example.huichuanyi.ui.activity.ClosingPriceActivity;
@@ -164,7 +163,8 @@ public class Progress_Order extends BaseFragment implements SwipeRefreshLayout.O
                     ActivityUtils.switchTo(getActivity(), PayOrderActivity.class, map);
                     break;
                 case R.id.iv_progress_item_buchajia:
-                    BottomDialog bottomDialog = new BottomDialog(getContext());
+                    goCp("5", mPosition2);
+                   /* BottomDialog bottomDialog = new BottomDialog(getContext());
                     bottomDialog.setTop("补上门服务差价", new BottomDialog.OnTop() {
                         @Override
                         public void onClick() {
@@ -177,7 +177,7 @@ public class Progress_Order extends BaseFragment implements SwipeRefreshLayout.O
                             goCp("6", mPosition2);
                         }
                     });
-                    bottomDialog.show();
+                    bottomDialog.show();*/
                     break;
                 default:
 

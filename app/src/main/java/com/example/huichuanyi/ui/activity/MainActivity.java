@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +29,7 @@ import com.example.huichuanyi.fragment_first.Fragment_Home;
 import com.example.huichuanyi.fragment_first.Fragment_Mine;
 import com.example.huichuanyi.fragment_first.MainFragment365;
 import com.example.huichuanyi.ui.activity.login.LoginByAuthCodeActivity;
-import com.example.huichuanyi.ui.fragment.OrderFragment;
+import com.example.huichuanyi.ui.fragment.Order2Fragment;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
@@ -59,6 +60,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     @ViewInject(R.id.rl_masking)
     private LinearLayout mask;
 
+    @ViewInject(R.id.rl_main_show)
+    private RelativeLayout rl;
     @ViewInject(R.id.sv_main_show_active)
     private SimpleDraweeView maskActive;
 
@@ -108,7 +111,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
     public void initData() {
         Fragment_Home mHome = new Fragment_Home();
-        OrderFragment mOrder = new OrderFragment();
+        Order2Fragment mOrder = new Order2Fragment();
         Fragment_Mine mMine = new Fragment_Mine();
         MainFragment365 m365 = new MainFragment365();
         mFragments = new Fragment[]{mHome, mOrder, m365, mMine};
@@ -139,6 +142,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     public void setListener() {
         mRadioGroup.setOnCheckedChangeListener(this);
         connect(SharedPreferenceUtils.getToken(MainActivity.this));
+        //rl.setFitsSystemWindows(true);
     }
 
 
@@ -218,14 +222,18 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         switch (checkedId) {
             case R.id.rb_main_home:
                 index = 0;
+                rl.setFitsSystemWindows(true);
                 break;
             case R.id.rb_main_order:
                 index = 1;
+                rl.setFitsSystemWindows(false);
                 break;
             case R.id.rb_main_365:
                 index = 2;
+                rl.setFitsSystemWindows(false);
                 break;
             case R.id.rb_main_me:
+                rl.setFitsSystemWindows(false);
                 index = 3;
                 break;
         }
@@ -333,7 +341,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         public boolean onReceived(final io.rong.imlib.model.Message message, int i) {
             handler.sendEmptyMessage(0);
             Intent broadcast = new Intent("action.have.msg");
-            broadcast.putExtra("isRead", "no");
+            broadcast.putExtra("isRead", i + 1);
             sendOrderedBroadcast(broadcast, null);
             return false;
         }
@@ -360,7 +368,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        int page = intent.getIntExtra("page",0);
+        int page = intent.getIntExtra("page", 0);
         RadioButton but = (RadioButton) mRadioGroup.getChildAt(page);
         but.setChecked(true);
     }

@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HomeWoDeYiChuActivity extends BaseActivity implements View.OnClickListener {
-    private ImageView mImageViewBack, JiaTingYiChu, ChuXingYiChu, JiuYiHuiShou, QiTaYiChu;
+    private ImageView  JiaTingYiChu, ChuXingYiChu, JiuYiHuiShou, QiTaYiChu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,6 @@ public class HomeWoDeYiChuActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void initView() {
-        mImageViewBack = (ImageView) findViewById(R.id.iv_my_clothes_back);
         JiaTingYiChu = (ImageView) findViewById(R.id.iv_my_clothes_jiatingyichu);
         ChuXingYiChu = (ImageView) findViewById(R.id.iv_my_clothes_chuxingyichu);
         JiuYiHuiShou = (ImageView) findViewById(R.id.iv_my_clothes_jiuyihuishou);
@@ -41,20 +40,19 @@ public class HomeWoDeYiChuActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void setListener() {
-        mImageViewBack.setOnClickListener(this);
         JiaTingYiChu.setOnClickListener(this);
         ChuXingYiChu.setOnClickListener(this);
         JiuYiHuiShou.setOnClickListener(this);
         QiTaYiChu.setOnClickListener(this);
     }
 
+    public void back(View view){
+        finish();
+    }
     @Override
     public void onClick(View v) {
         Map<String, Object> map = new HashMap<>();
         switch (v.getId()) {
-            case R.id.iv_my_clothes_back:
-                finish();
-                break;
             case R.id.iv_my_clothes_jiatingyichu:
                 map.put("yichu", "家庭衣橱");
                 ActivityUtils.switchTo(this, MC_HomeActivity.class, map);

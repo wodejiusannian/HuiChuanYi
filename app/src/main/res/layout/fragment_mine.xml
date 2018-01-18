@@ -6,10 +6,17 @@
     android:background="@color/hm_gary"
     android:clickable="true">
 
+    <TextView
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:background="@color/top_color" />
+
     <RelativeLayout
         android:id="@+id/tl_mine_show"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_below="@+id/top"
         android:background="@color/top_color">
 
         <TextView
@@ -28,6 +35,7 @@
             android:layout_marginRight="@dimen/distance_10"
             android:layout_marginTop="7dp"
             android:padding="@dimen/distance_5"
+            android:paddingTop="20dp"
             android:text="设置"
             android:textColor="#000" />
     </RelativeLayout>

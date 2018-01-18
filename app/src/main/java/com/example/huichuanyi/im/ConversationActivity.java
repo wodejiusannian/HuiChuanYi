@@ -1,5 +1,6 @@
 package com.example.huichuanyi.im;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -67,6 +68,10 @@ public class ConversationActivity extends FragmentActivity {
         } else {
             tvTitle.setText("私人衣橱管理师");
         }
+
+        Intent broadcast = new Intent("action.have.msg");
+        broadcast.putExtra("isRead", "yes");
+        sendOrderedBroadcast(broadcast, null);
 
         RongIMClient.setTypingStatusListener(new RongIMClient.TypingStatusListener() {
             @Override

@@ -13,16 +13,12 @@
         android:layout_height="40dp"
         android:background="@color/top_color">
 
-        <ImageView
-            android:id="@+id/iv_match_back"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/back" />
+        <include layout="@layout/btn_back"></include>
 
         <TextView
             style="@style/ActivityTopTextTitleStyle"
             android:layout_centerInParent="true"
-            android:text="搭配日记"/>
+            android:text="搭配日记" />
     </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -30,9 +26,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/btn_match_add"
+        android:layout_below="@+id/tl_match_mTool_show"
         android:layout_marginLeft="@dimen/distance"
         android:layout_marginRight="@dimen/distance"
-        android:layout_below="@+id/tl_match_mTool_show"
         android:layout_marginTop="10dp">
 
         <ListView

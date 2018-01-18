@@ -1,15 +1,19 @@
 package com.example.huichuanyi.ui;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.ui.base.BaseActivity;
+import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
 
 import butterknife.BindView;
@@ -22,6 +26,13 @@ public class SlwGoActivity extends BaseActivity {
     @BindView(R.id.pr_web_loading_hint)
     ProgressBar mLoading;
 
+    @BindView(R.id.tv_web_title)
+    TextView tv;
+
+    ProgressDialog dialog;
+
+    @BindView(R.id.iv_web_share)
+    ImageView share;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,24 +44,35 @@ public class SlwGoActivity extends BaseActivity {
 
     @Override
     public void setListener() {
-
+        share.setVisibility(View.GONE);
     }
 
 
     @Override
     public void initData() {
-        String studio_name = getIntent().getStringExtra("studio_name");
-        String studio_pic = getIntent().getStringExtra("studio_pic");
-        String user_id = SharedPreferenceUtils.getUserData(this, 1);
-        String user_name = SharedPreferenceUtils.getUserData(this, 2);
-        String user_pic = SharedPreferenceUtils.getUserData(this, 3);
-        String url = "http://hmyc365.net/file/html/app/vipServiceCount/index.html?user_id=%s&user_name=%s&user_pic=%s&studio_name=%s&studio_pic=%s";
-        loadindUrl(String.format(url, user_id, user_name, user_pic, studio_name, studio_pic));
+        String title = getIntent().getStringExtra("title");
+        if (!CommonUtils.isEmpty(title)) {
+            String picOnclickUrl = getIntent().getStringExtra("picOnclickUrl");
+            tv.setText(title);
+            loadindUrl(picOnclickUrl);
+        } else {
+            tv.setText("服务统计");
+            String studio_name = getIntent().getStringExtra("studio_name");
+            String studio_pic = getIntent().getStringExtra("studio_pic");
+            String user_id = SharedPreferenceUtils.getUserData(this, 1);
+            String user_name = SharedPreferenceUtils.getUserData(this, 2);
+            String user_pic = SharedPreferenceUtils.getUserData(this, 3);
+            String url = "http://hmyc365.net/file/html/app/vipServiceCount/index.html?user_id=%s&user_name=%s&user_pic=%s&studio_name=%s&studio_pic=%s";
+            loadindUrl(String.format(url, user_id, user_name, user_pic, studio_name, studio_pic));
+        }
     }
 
     @Override
     public void setData() {
-
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("加载中.....");
+        dialog.setCancelable(false);
+        dialog.show();
     }
 
 
@@ -83,12 +105,8 @@ public class SlwGoActivity extends BaseActivity {
             public void onProgressChanged(WebView view, int newProgress) {
 
                 if (newProgress == 100) {
-                    mLoading.setVisibility(View.GONE);//加载完网页进度条消失
-                } else {
-                    mLoading.setVisibility(View.VISIBLE);//开始加载网页时显示进度条
-                    mLoading.setProgress(newProgress);//设置进度值
+                    dialog.dismiss();
                 }
-
             }
 
         };

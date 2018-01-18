@@ -5,7 +5,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.ClosetAdapter;
@@ -16,13 +15,16 @@ import com.example.huichuanyi.fragment_second.Progress_Indent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IndentActivity extends BaseActivity implements View.OnClickListener {
-    private ImageView mImageViewBack;
+public class IndentActivity extends BaseActivity {
     private TabLayout mIndentTab;
     private ViewPager mIndentPager;
     private List<Fragment> mData;
     private List<String> mTitles;
     private ClosetAdapter mAdapter;
+
+    public void back(View view) {
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,6 @@ public class IndentActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void initView() {
-        mImageViewBack = (ImageView) findViewById(R.id.iv_indent_back);
         mIndentTab = (TabLayout) findViewById(R.id.tb_my_indent_mTitle);
         mIndentPager = (ViewPager) findViewById(R.id.vp_my_indent_mPager);
     }
@@ -57,15 +58,7 @@ public class IndentActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void setListener() {
-        mImageViewBack.setOnClickListener(this);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.iv_indent_back:
-                finish();
-                break;
-        }
-    }
+
 }

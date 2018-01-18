@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -66,6 +67,8 @@ public class Fragment_Mine extends BaseFragment {
 
     private MainActivity activity;
 
+    private HaveMsg haveMsg;
+
     @Event({R.id.iv_mine_photo, R.id.iv_mine_setting,
             R.id.ll_mine_datum, R.id.ll_mine_report, R.id.ll_mine_order, R.id.ll_mine_365,
             R.id.ll_mine_indent, R.id.ll_mine_invite, R.id.ll_mine_exit, R.id.ll_clo_zhenduan,
@@ -115,7 +118,8 @@ public class Fragment_Mine extends BaseFragment {
         if (activity.isHave()) {
             tDian.setVisibility(View.VISIBLE);
         }
-        activity.registerReceiver(new HaveMsg(), new IntentFilter("action.have.msg"));
+        haveMsg = new HaveMsg();
+        activity.registerReceiver(haveMsg, new IntentFilter("action.have.msg"));
     }
 
     private void getUserPhoto() {
@@ -195,6 +199,7 @@ public class Fragment_Mine extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        getActivity().unregisterReceiver(haveMsg);
     }
 
 
@@ -224,14 +229,16 @@ public class Fragment_Mine extends BaseFragment {
         mName.setText(SharedPreferenceUtils.getUserData(getContext(), 2));
         mPhoto.setImageURI(SharedPreferenceUtils.getUserData(getContext(), 3));
         getUserPhoto();
+        Log.e("TAG", "onResume: --------MINE");
+
     }
 
     private class HaveMsg extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            String read = intent.getStringExtra("isRead");
-            if (TextUtils.equals("no", read)) {
+            int read = intent.getIntExtra("isRead", 0);
+            if (read > 0) {
                 tDian.setVisibility(View.VISIBLE);
             } else {
                 tDian.setVisibility(View.GONE);
@@ -239,4 +246,5 @@ public class Fragment_Mine extends BaseFragment {
             }
         }
     }
+
 }

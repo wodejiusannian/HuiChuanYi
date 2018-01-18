@@ -50,7 +50,7 @@ public interface NetConfig {
     String THIRD_LOGIN = BASE_URL + "user!otherLogin.action";
 
     //三方登陆绑定手机号
-    String THIRD_BOUND = BASE_URL + "user!addPhone.action";
+    String THIRD_BOUND = BASE_URL + "user!addPhone_B.action";
 
     //发送反馈到服务器
     String SEND_FANKUI = BASE_URL + "user!userAdvice.action";

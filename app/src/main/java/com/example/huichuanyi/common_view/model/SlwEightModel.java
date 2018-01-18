@@ -21,13 +21,13 @@ import java.util.List;
 // ┗┓┓┏━┳┓┏┛
 // ┃┫┫　┃┫┫
 // ┗┻┛　┗┻┛
-public class SlwFourModel implements Visitable {
+public class SlwEightModel implements Visitable {
 
-    private List<Four> Data;
+    private List<Eight> Data;
 
     private String title;
 
-    public SlwFourModel(List<Four> data, String title) {
+    public SlwEightModel(List<Eight> data, String title) {
         Data = data;
         this.title = title;
     }
@@ -45,25 +45,25 @@ public class SlwFourModel implements Visitable {
         return typeFactory.type(this);
     }
 
-    public List<Four> getData() {
+    public List<Eight> getData() {
         return Data;
     }
 
-    public void setData(List<Four> data) {
+    public void setData(List<Eight> data) {
         Data = data;
     }
 
-    public static class Four {
+    public static class Eight {
         public int resID;
         public int showResID;
         public int type;
         public String title;
         public int count;
 
-        public Four() {
+        public Eight() {
         }
 
-        public Four(int resID, int showResID, int type, String title, int count) {
+        public Eight(int resID, int showResID, int type, String title, int count) {
             this.resID = resID;
             this.showResID = showResID;
             this.type = type;

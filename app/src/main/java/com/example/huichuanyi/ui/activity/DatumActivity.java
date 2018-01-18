@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.huichuanyi.R;
@@ -46,7 +45,6 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
 
 
     private TextView mTextViewBirthDay;
-    private ImageView mImageViewBack;
     private RecyclerView mRecyclerView, mRecyclerViewselfdom,
             mRecyclerViewExpect;
     private EventAdapter mVerticalAdapter;
@@ -190,7 +188,6 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
         mEditTextRelax = (EditText) findViewById(R.id.et_datum_relax);
         mEditTextHeight = (EditText) findViewById(R.id.et_datum_height);
         mEditTextWeight = (EditText) findViewById(R.id.et_datum_weight);
-        mImageViewBack = (ImageView) findViewById(R.id.iv_datum_back);
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_datum_color);
         mRecyclerViewselfdom = (RecyclerView) findViewById(R.id.rv_datum_selfdom);
         mRecyclerViewExpect = (RecyclerView) findViewById(R.id.rv_datum_expect);
@@ -214,6 +211,10 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
         tv3.setText(Html.fromHtml(str3));
         String str4 = "<font color='#ac0000'>★ </font>手机：";
         tv4.setText(Html.fromHtml(str4));
+    }
+
+    public void back(View view) {
+        finish();
     }
 
     @Override
@@ -319,7 +320,6 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     public void setListener() {
-        mImageViewBack.setOnClickListener(this);
         mVerticalAdapter.setOnItemClickListener(this);
         mSelfAdapter.setOnItemClickListener(this);
         mExpectAdapter.setOnItemClickListener(this);
@@ -331,9 +331,6 @@ public class DatumActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.iv_datum_back:
-                finish();
-                break;
             case R.id.tv_item_recycler:
                 selectColor(mRecyclerView, v);
                 break;

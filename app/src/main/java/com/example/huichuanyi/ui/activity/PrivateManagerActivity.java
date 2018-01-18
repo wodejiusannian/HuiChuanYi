@@ -6,7 +6,6 @@ import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.RadioGroup;
 
@@ -37,8 +36,6 @@ public class PrivateManagerActivity extends BaseActivity {
 
     @BindView(R.id.rg_main_navigation)
     RadioGroup rg;
-
-
 
     public void back(View view) {
         finish();

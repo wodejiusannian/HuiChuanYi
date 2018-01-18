@@ -26,7 +26,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:text="推荐记录》"
+            android:text="推荐记录"
             android:textColor="@color/color_ac0000"
             android:textSize="13sp" />
 
@@ -46,7 +46,7 @@
         android:id="@+id/ll_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/tv_private_recommed_day"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:gravity="center"
@@ -67,10 +67,21 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tv_private_recommed_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:textSize="10sp" />
+
     <RelativeLayout
         android:id="@+id/rl_private_recommend_no_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/tv_private_recommed_day"
         android:layout_below="@+id/rl_slw_private_recommend_history"
         android:background="#fff"
         android:clickable="true"
@@ -80,7 +91,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/tv_private_recommed_day"
             android:layout_margin="10dp"
             android:background="@drawable/shape_nofill_grayline_round"
             android:gravity="center">
@@ -112,12 +122,6 @@
                 android:textColor="#fff" />
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/tv_private_recommed_day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp" />
+
     </RelativeLayout>
 </RelativeLayout>

@@ -1,10 +1,14 @@
 package com.example.huichuanyi.fragment_first;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -14,9 +18,10 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.huichuanyi.R;
+import com.example.huichuanyi.baidumap.Fresh_365;
 import com.example.huichuanyi.base_2.BaseFragment;
-import com.example.huichuanyi.bean.Banner;
 import com.example.huichuanyi.common_view.adapter.MultiTypeAdapter;
+import com.example.huichuanyi.common_view.model.SlwEightModel;
 import com.example.huichuanyi.common_view.model.SlwFiveModel;
 import com.example.huichuanyi.common_view.model.SlwFourModel;
 import com.example.huichuanyi.common_view.model.SlwSevenModle;
@@ -28,8 +33,9 @@ import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.custom.SlwWebView;
 import com.example.huichuanyi.ui.SlwGoActivity;
 import com.example.huichuanyi.ui.activity.DatumActivity;
+import com.example.huichuanyi.ui.activity.LiJiYuYueActivity;
+import com.example.huichuanyi.ui.activity.MainActivity;
 import com.example.huichuanyi.ui.activity.PrivateManagerActivity;
-import com.example.huichuanyi.ui.activity.SLWJianJieActivity;
 import com.example.huichuanyi.ui.activity.video.HMWebSlwActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.AsyncHttpUtils;
@@ -39,7 +45,6 @@ import com.example.huichuanyi.utils.HttpUtils;
 import com.example.huichuanyi.utils.RxBus;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.common.Callback;
@@ -55,6 +60,8 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import io.rong.imkit.RongIM;
 import rx.functions.Action1;
+
+import static android.webkit.WebSettings.LOAD_NO_CACHE;
 
 // ┏┓　　　┏┓
 // ┏┛┻━━━┛┻┓
@@ -73,7 +80,7 @@ import rx.functions.Action1;
 // ┗┓┓┏━┳┓┏┛
 // ┃┫┫　┃┫┫
 // ┗┻┛　┗┻┛
-public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesClickListener {
+public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesClickListener, Fresh_365 {
 
 
     @BindView(R.id.rv_fragment_365_content)
@@ -88,8 +95,12 @@ public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesC
     @BindView(R.id.rl_fragment_365_no_pay)
     RelativeLayout noPay;
 
+    private int count;
+
 
     private List<Visitable> mData = new ArrayList<>();
+
+    private boolean isHappyReport = false;
 
     MultiTypeAdapter adapter;
 
@@ -97,6 +108,9 @@ public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesC
     private String studio_id;
     private String studio_pic;
     String vip_endDate;
+    MainActivity activity;
+
+    private HaveMsg haveMsg;
 
     @Override
     protected void setData() {
@@ -118,6 +132,14 @@ public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesC
                 }
             }
         });
+
+        activity = (MainActivity) getActivity();
+        activity.setFresh365(this);
+        if (activity.isHave()) {
+            count = 1;
+        }
+        haveMsg = new HaveMsg();
+        activity.registerReceiver(haveMsg, new IntentFilter("action.have.msg"));
     }
 
     @Override
@@ -137,7 +159,6 @@ public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesC
         rvContent.setAdapter(adapter);
 
         initNet();
-
     }
 
     /*
@@ -173,18 +194,6 @@ public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesC
                 int style_report = body.getInt("style_report_num");
                 int wardrobe_diagnosis = body.getInt("wardrobe_diagnosis_num");
                 int rec_clothes_num = body.getInt("rec_clothes_num");
-                JSONArray banner = body.getJSONArray("banner");
-                List<Banner> data = new ArrayList<>();
-                for (int i = 0; i < banner.length(); i++) {
-                    JSONObject ban = banner.getJSONObject(i);
-                    String pic_url = ban.getString("pic_url");
-                    String share_name = ban.getString("share_name");
-                    String share_url = ban.getString("share_url");
-                    String type = ban.getString("type");
-                    String web_url = ban.getString("web_url");
-                    Banner banner1 = new Banner(web_url, type, pic_url, share_name, share_url);
-                    data.add(banner1);
-                }
                 JSONObject vip_info = body.getJSONObject("vip_info");
                 studio_pic = vip_info.getString("studio_headPic");
                 studio_name = vip_info.getString("studio_name");
@@ -196,36 +205,40 @@ public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesC
                 String rec_totalNum = (body_data + style_report + wardrobe_diagnosis + rec_clothes_num) + "";
                 SlwFiveModel slwFiveModel = new SlwFiveModel(studio_pic, studio_name, rec_totalNum);
                 SlwSixModel slwSixModel = new SlwSixModel(rec_cloName, rec_cloPic, rec_reason, rec_clothes_num + "");
-                List<SlwFourModel.Four> data1 = new ArrayList<>();
+                List<SlwEightModel.Eight> data1 = new ArrayList<>();
                 List<SlwFourModel.Four> data2 = new ArrayList<>();
                 if (body_data > 0) {
-                    data1.add(new SlwFourModel.Four(R.mipmap.hm_365_guidance_measure, R.mipmap.hm_365_yet_pay_yet, 10081));
+                    data1.add(new SlwEightModel.Eight(R.mipmap.hm_365_guidance_measure, R.mipmap.hm_365_yet_pay_yet, 10081, "上门量体", 0));
                 } else {
-                    data1.add(new SlwFourModel.Four(R.mipmap.hm_365_guidance_measure, R.mipmap.hm_365_yet_pay_no_yet, 10081));
+                    data1.add(new SlwEightModel.Eight(R.mipmap.hm_365_guidance_measure, R.mipmap.hmyc_no_order, 10081, "上门量体", 0));
                 }
 
                 if (style_report > 0) {
-                    data1.add(new SlwFourModel.Four(R.mipmap.hm_365_guidance_style, R.mipmap.hm_365_yet_pay_yet, 10082));
+                    data1.add(new SlwEightModel.Eight(R.mipmap.hm_365_guidance_style, R.mipmap.hm_365_yet_pay_yet, 10082, "风格报告", 0));
                 } else {
-                    data1.add(new SlwFourModel.Four(R.mipmap.hm_365_guidance_style, R.mipmap.hm_365_yet_pay_no_yet, 10082));
+                    data1.add(new SlwEightModel.Eight(R.mipmap.hm_365_guidance_style, R.mipmap.hm_365_yet_pay_no_yet, 10082, "风格报告", 0));
                 }
 
-                data1.add(new SlwFourModel.Four(R.mipmap.hm_365_guidance_chat, R.mipmap.hm_365_yet_pay_no_yet, 10086));
+                data1.add(new SlwEightModel.Eight(R.mipmap.hm_365_guidance_chat, R.mipmap.hm_365_yet_pay_no_yet, 10086, "在线咨询", count));
 
                 if (wardrobe_diagnosis > 0) {
-                    data2.add(new SlwFourModel.Four(R.mipmap.hm_365_manager_diagnosis_report, R.mipmap.hm_365_yet_pay_yet, 10087));
+                    data2.add(new SlwFourModel.Four(R.mipmap.hm_365_manager_diagnosis_report, R.mipmap.hm_365_yet_pay_yet, 10087, "衣橱诊断报告", 0));
                 } else {
-                    data2.add(new SlwFourModel.Four(R.mipmap.hm_365_manager_diagnosis_report, R.mipmap.hm_365_yet_pay_no_yet, 10087));
+                    data2.add(new SlwFourModel.Four(R.mipmap.hm_365_manager_diagnosis_report, R.mipmap.hm_365_yet_pay_no_yet, 10087, "衣橱诊断报告", 0));
                 }
 
-                data2.add(new SlwFourModel.Four(R.mipmap.hm_365_manager_statisitic_report, R.mipmap.hm_365_yet_pay_yet, 10088));
+                data2.add(new SlwFourModel.Four(R.mipmap.hm_365_manager_statisitic_report, R.mipmap.hm_365_yet_pay_yet, 10088, "衣橱数据统计报告", 0));
 
-                SlwFourModel slwFourModel = new SlwFourModel(data1);
-                SlwFourModel slwFourMode2 = new SlwFourModel(data2);
+                SlwEightModel slwFourModel = new SlwEightModel(data1, "着装指导");
+                SlwFourModel slwFourMode2 = new SlwFourModel(data2, "衣橱管理");
                 mData.add(slwFiveModel);
-                if (data != null && data.size() > 0) {
-                    SlwTwoModel slwTwoModel = new SlwTwoModel(data);
+                String urlTitle = body.getString("urlTitle");
+                String problemPic = body.getString("problemPic");
+                String picOnclickUrl = body.getString("picOnclickUrl");
+                if (!CommonUtils.isEmpty(urlTitle)) {
+                    SlwTwoModel slwTwoModel = new SlwTwoModel(picOnclickUrl, problemPic, urlTitle);
                     mData.add(slwTwoModel);
+                    isHappyReport = true;
                 }
                 if (CommonUtils.isEmpty(rec_cloName)) {
                     mData.add(new SlwSevenModle());
@@ -388,9 +401,27 @@ public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesC
         mySelfDialog.show();
     }
 
+
+   /* private void showDialogGo() {
+        MySelfDialog mySelfDialog = new MySelfDialog(getContext());
+        mySelfDialog.setTitle("温馨提示");
+        mySelfDialog.setMessage("★  开通365服务后工作室将会看到您衣橱信息和个人资料信息");
+        mySelfDialog.setOnNoListener("取消", null);
+        mySelfDialog.setOnYesListener("确定", new MySelfDialog.OnYesClickListener() {
+            @Override
+            public void onClick() {
+                goDredge();
+            }
+        });
+        mySelfDialog.show();
+    }*/
+
     private void goDredge() {
-        ActivityUtils.switchTo(getActivity(), SLWJianJieActivity.class);
-        //ActivityUtils.switchTo(getActivity(), PrivateManagerActivity.class);
+        String city = SharedPreferenceUtils.getBuyCity(getContext());
+        Map<String, Object> map = new HashMap<>();
+        map.put("location", city);
+        map.put("order_365", "365");
+        ActivityUtils.switchTo(getActivity(), LiJiYuYueActivity.class, map);
     }
 
     @Override
@@ -403,12 +434,13 @@ public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesC
         webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setCacheMode(LOAD_NO_CACHE);
         web.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 // TODO Auto-generated method stub
                 //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
-                if ("http://hmyc365.net/file/html/app/vipCommonProblems/index.html".equals(url)) {
+                if ("http://www.huimei.com/problem/normal".equals(url)) {
                     Intent in = new Intent(getContext(), HMWebSlwActivity.class);
                     startActivity(in);
                     return true;
@@ -447,7 +479,7 @@ public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesC
         Map map = new HashMap();
         map.put("studio_id", studio_id);
         map.put("user_id", SharedPreferenceUtils.getUserData(getContext(), 1));
-        map.put("demandType", userEvent + "");
+        map.put("demandType", "衣服推荐");
         String json = HttpUtils.toJson(map);
         new AsyncHttpUtils(new HttpCallBack() {
             @Override
@@ -466,5 +498,65 @@ public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesC
                 mDialog.show();
             }
         }, getActivity()).execute("http://hmyc365.net/HM/bg/hmyc/vip/info/noticeStudio.do", json);
+    }
+
+    @Override
+    public void reFresh365() {
+        initNet();
+    }
+
+    private class HaveMsg extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            try {
+                int read = intent.getIntExtra("isRead", 0);
+                if (read > 0) {
+                    count += read;
+                } else {
+                    count = 0;
+                }
+                List<Visitable> data = new ArrayList<>();
+                data.clear();
+                if (isHappyReport) {
+                    for (int i = 0; i < mData.size(); i++) {
+                        if (i != 3) {
+                            data.add(mData.get(i));
+                        } else {
+                            SlwEightModel visitable = (SlwEightModel) mData.get(3);
+                            visitable.getData().get(2).count = count;
+                            data.add(visitable);
+                        }
+                    }
+                } else {
+                    for (int i = 0; i < mData.size(); i++) {
+                        if (i != 2) {
+                            data.add(mData.get(i));
+                        } else {
+                            SlwEightModel visitable = (SlwEightModel) mData.get(2);
+                            visitable.getData().get(2).count = count;
+                            data.add(visitable);
+                        }
+                    }
+                }
+                mData.clear();
+                mData.addAll(data);
+                adapter.notifyDataSetChanged();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unregisterReceiver(haveMsg);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e("TAG", "onResume: --------365");
     }
 }

@@ -21,20 +21,21 @@
             android:id="@+id/iv_365_four_is_service"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="5dp" />
 
         <TextView
             android:id="@+id/tv_365_four_is_count"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_alignParentEnd="true"
+            android:layout_alignStart="@+id/iv_365_four_is_service"
             android:background="@drawable/shape_fill_clcle_redline"
             android:gravity="center"
             android:text="99+"
             android:textColor="#fff"
-            android:visibility="gone"
             android:textSize="10sp"
-            android:layout_alignStart="@+id/iv_365_four_is_service" />
+            android:visibility="gone" />
     </RelativeLayout>
 
     <TextView

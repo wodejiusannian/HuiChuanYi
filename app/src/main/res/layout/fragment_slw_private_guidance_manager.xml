@@ -28,7 +28,7 @@
                 <WebView
                     android:id="@+id/wb_test_one"
                     android:layout_width="match_parent"
-                    android:layout_height="800dp"
+                    android:layout_height="300dp"
                     android:layout_below="@+id/tv_test_zero">
 
                 </WebView>

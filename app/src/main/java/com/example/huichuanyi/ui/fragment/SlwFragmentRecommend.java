@@ -165,7 +165,13 @@ public class SlwFragmentRecommend extends BaseFragment {
     @Override
     protected void initEvent() {
         super.initEvent();
-
+        mAdapter.setOnItemClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int p = (int) v.getTag();
+                goNext(p);
+            }
+        });
         callback.setSwipeListener(new RenRenCallback.OnSwipeListener() {
             @Override
             public void onSwiped(int adapterPosition, int direction) {
@@ -206,25 +212,27 @@ public class SlwFragmentRecommend extends BaseFragment {
     public void onEvent(View v) {
         switch (v.getId()) {
             case R.id.hm_365_clothes_dislike:
-                final int i = content.getAdapter().getItemCount() - 1;
-                PrivateRecommendModel privateRecommendModel = (PrivateRecommendModel) mData.get(i);
-                Map<String, String> map = new HashMap<String, String>();
-                map.put("user_id", SharedPreferenceUtils.getUserData(getContext(), 1));
-                map.put("rec_id", privateRecommendModel.getRecommend_id());
-                String json = HttpUtils.toJson(map);
-                new AsyncHttpUtils(new HttpCallBack() {
-                    @Override
-                    public void onResponse(String result) {
-                        String ret = JsonUtils.getRet(result);
-                        if ("0".equals(ret)) {
-                            mData.remove(i);
-                            mAdapter.notifyDataSetChanged();
-                            if (mData != null && mData.size() == 0) {
-                                mHandler.sendEmptyMessage(0);
+                if (mData != null && mData.size() > 0) {
+                    final int i = content.getAdapter().getItemCount() - 1;
+                    PrivateRecommendModel privateRecommendModel = (PrivateRecommendModel) mData.get(i);
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put("user_id", SharedPreferenceUtils.getUserData(getContext(), 1));
+                    map.put("rec_id", privateRecommendModel.getRecommend_id());
+                    String json = HttpUtils.toJson(map);
+                    new AsyncHttpUtils(new HttpCallBack() {
+                        @Override
+                        public void onResponse(String result) {
+                            String ret = JsonUtils.getRet(result);
+                            if ("0".equals(ret)) {
+                                mData.remove(i);
+                                mAdapter.notifyDataSetChanged();
+                                if (mData != null && mData.size() == 0) {
+                                    mHandler.sendEmptyMessage(0);
+                                }
                             }
                         }
-                    }
-                }, getActivity()).execute("http://hmyc365.net/HM/bg/hmyc/vip/info/deleteRecClo.do", json);
+                    }, getActivity()).execute("http://hmyc365.net/HM/bg/hmyc/vip/info/deleteRecClo.do", json);
+                }
               /*  callback.toLeft(content, new RenRenCallback.SwipePosition() {
                     @Override
                     public void swipePosition(final int p) {
@@ -236,37 +244,11 @@ public class SlwFragmentRecommend extends BaseFragment {
                 showStudioDialog(4);
                 break;
             case R.id.hm_365_clothes_like:
-                int i11 = content.getAdapter().getItemCount() - 1;
-                PrivateRecommendModel item = (PrivateRecommendModel) mData.get(i11);
-                Intent in = new Intent(getContext(), Item_DetailsActivity.class);
-                String clothes_get = item.getClothes_get();
-                String color = item.getColor();
-                String color_name = item.getColor_name();
-                String id = item.getId();
-                String introduction = item.getIntroduction();
-                String price_dj = item.getPrice_dj();
-                String reason = item.getReason();
-                String size_name = item.getSize_name();
-                String clothes_name = item.getClothes_name();
-                String recommend_id = item.getRecommend_id();
-                in.putExtra("clothes_get", clothes_get);
-                in.putExtra("color", color);
-                in.putExtra("color_name", color_name);
-                in.putExtra("id", id);
-                in.putExtra("type", "3");
-                in.putExtra("introduction", introduction);
-                in.putExtra("price_dj", price_dj);
-                in.putExtra("name", clothes_name);
-                in.putExtra("reason", reason);
-                in.putExtra("size_name", size_name);
-                in.putExtra("recommend_id", recommend_id);
-                startActivity(in);
-               /* callback.toRight(content, new RenRenCallback.SwipePosition() {
-                    @Override
-                    public void swipePosition(int p) {
+                if (mData != null && mData.size() > 0) {
+                    int i11 = content.getAdapter().getItemCount() - 1;
+                    goNext(i11);
 
-                    }
-                });*/
+                }
                 break;
             case R.id.tv_slw_private_recommend_history:
                 Intent intent = new Intent(getContext(), SLWRecordActivity.class);
@@ -277,11 +259,38 @@ public class SlwFragmentRecommend extends BaseFragment {
         }
     }
 
+    private void goNext(int i11) {
+        PrivateRecommendModel item = (PrivateRecommendModel) mData.get(i11);
+        Intent in = new Intent(getContext(), Item_DetailsActivity.class);
+        String clothes_get = item.getClothes_get();
+        String color = item.getColor();
+        String color_name = item.getColor_name();
+        String id = item.getId();
+        String introduction = item.getIntroduction();
+        String price_dj = item.getPrice_dj();
+        String reason = item.getReason();
+        String size_name = item.getSize_name();
+        String clothes_name = item.getClothes_name();
+        String recommend_id = item.getRecommend_id();
+        in.putExtra("clothes_get", clothes_get);
+        in.putExtra("color", color);
+        in.putExtra("color_name", color_name);
+        in.putExtra("id", id);
+        in.putExtra("type", "3");
+        in.putExtra("introduction", introduction);
+        in.putExtra("price_dj", price_dj);
+        in.putExtra("name", clothes_name);
+        in.putExtra("reason", reason);
+        in.putExtra("size_name", size_name);
+        in.putExtra("recommend_id", recommend_id);
+        startActivity(in);
+    }
+
     public void showStudioDialog(int userEvent) {
         Map map = new HashMap();
         map.put("studio_id", studio_id);
         map.put("user_id", SharedPreferenceUtils.getUserData(getContext(), 1));
-        map.put("demandType", userEvent + "");
+        map.put("demandType", "衣服推荐");
         String json = HttpUtils.toJson(map);
         new AsyncHttpUtils(new HttpCallBack() {
             @Override

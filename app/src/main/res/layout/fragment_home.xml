@@ -7,8 +7,9 @@
     android:orientation="vertical">
 
     <TextView
+        android:paddingTop="15dp"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="55dp"
         android:layout_gravity="center"
         android:background="@color/top_color"
         android:gravity="center"

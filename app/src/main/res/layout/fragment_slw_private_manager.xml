@@ -19,8 +19,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-
-                <RelativeLayout
+                <TextView
+                    android:id="@+id/tv_test_zero"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="衣橱诊断报告" />
+                <!--<RelativeLayout
                     android:id="@+id/rl_test_zero"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -39,13 +43,13 @@
                         android:layout_alignParentEnd="true"
                         android:text="查看记录>>"
                         android:textColor="@color/color_ac0000" />
-                </RelativeLayout>
+                </RelativeLayout>-->
 
                 <WebView
+                    android:layout_below="@+id/tv_test_zero"
                     android:id="@+id/wb_test_one"
                     android:layout_width="match_parent"
-                    android:layout_height="1100dp"
-                    android:layout_below="@+id/rl_test_zero">
+                    android:layout_height="800dp">
 
                 </WebView>
 

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/shape_write_8dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="5dp">
 
-    <com.jude.rollviewpager.RollPagerView
+    <ImageView
         android:id="@+id/roll_item_365_two_banner"
         android:layout_width="match_parent"
-        android:layout_height="51dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:background="#f453">
+        android:layout_marginRight="15dp">
 
-    </com.jude.rollviewpager.RollPagerView>
-</LinearLayout>
+    </ImageView>
+</RelativeLayout>
