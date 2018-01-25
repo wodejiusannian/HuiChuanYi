@@ -54,7 +54,7 @@ public class Buy_365Activity extends BaseActivity implements UtilsInternet.XCall
 
     @Override
     public void initData() {
-        user_id = SharedPreferenceUtils.getUserData(this,1);
+        user_id = SharedPreferenceUtils.getUserData(this, 1);
         Intent intent = getIntent();
         City.BodyBean bodyBean = (City.BodyBean) intent.getSerializableExtra("bodyBean");
         studioId = bodyBean.getId();
@@ -88,8 +88,6 @@ public class Buy_365Activity extends BaseActivity implements UtilsInternet.XCall
 
     @Override
     public void onResponse(String result) {
-        Utils.Log(result);
-
         switch (flag) {
             case 0:
                 try {

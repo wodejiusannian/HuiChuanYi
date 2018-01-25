@@ -21,6 +21,7 @@ import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.ui.activity.ManageActivity;
 import com.example.huichuanyi.ui.base.BaseFragment;
 import com.example.huichuanyi.utils.JsonUtils;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
 import com.google.gson.Gson;
 
@@ -76,10 +77,11 @@ public class LiJiYuYueKPSFragment extends BaseFragment implements UtilsInternet.
     }
 
     private void loadData() {
-        value.put("city_temp", Location.mAddress);
+        value.put("city", Location.mAddress);
         value.put("type", "21");
         value.put("lng", Location.lng);
         value.put("lat", Location.lat);
+        value.put("user_id", SharedPreferenceUtils.getUserData(getContext(), 1));
         net.post(NetConfig.GET_STUDIO_LIST, value, this);
     }
 

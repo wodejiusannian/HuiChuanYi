@@ -26,4 +26,32 @@ public class CommonUtils {
     public static void Toast(Context mContext, String msg) {
         CustomToast.showToast(mContext, msg);
     }
+
+    public static String area(String msg) {
+
+        try {
+
+            int s = 0, q = 0;
+
+            for (int i = 0; i < msg.length(); i++) {
+                String c = msg.charAt(i) + "";
+                if ("市".equals(c)) {
+                    s = i;
+                    break;
+                }
+            }
+
+            for (int i = 0; i < msg.length(); i++) {
+                String c = msg.charAt(i) + "";
+                if ("区".equals(c)) {
+                    q = i;
+                    break;
+                }
+            }
+            return msg.substring(s + 1, q + 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

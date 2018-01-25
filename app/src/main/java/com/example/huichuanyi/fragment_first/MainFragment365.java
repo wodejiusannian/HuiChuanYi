@@ -8,7 +8,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -554,9 +553,5 @@ public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesC
         getActivity().unregisterReceiver(haveMsg);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.e("TAG", "onResume: --------365");
-    }
+
 }

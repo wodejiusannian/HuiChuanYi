@@ -10,6 +10,7 @@
     tools:context=".ui.activity.LiJiYuYueActivity">
 
     <RelativeLayout
+        android:id="@+id/rl_order_top"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/top_color">
@@ -20,41 +21,98 @@
             android:id="@+id/tv_order_top"
             style="@style/ActivityTopTextTitleStyle"
             android:layout_centerInParent="true"
-            android:text="工作室详情" />
+            android:text="工作室管理列表" />
 
         <TextView
             android:id="@+id/tv_lijiyueyue_address"
             style="@style/ActivityTopTextSubTitleStyle"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_order_top"
             android:layout_alignParentEnd="true"
-            android:layout_marginRight="@dimen/distance_5"
+            android:layout_marginRight="13dp"
             android:gravity="center"
             android:text="地址选择" />
     </RelativeLayout>
 
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_margin="@dimen/distance">
+        android:layout_height="match_parent">
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tb_order_mTitle"
+        <TextView
+            android:id="@+id/tv_order_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#eeeeee" />
+
+        <RelativeLayout
+            android:id="@+id/rl_order_title"
+            android:layout_width="match_parent"
+            android:layout_height="61dp"
+            android:layout_below="@+id/tv_order_line"
+            android:background="#fff">
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tb_order_title"
+                android:layout_width="match_parent"
+                android:layout_height="61dp"
+                android:background="#fff"
+                app:tabIndicatorHeight="0dp">
+
+            </android.support.design.widget.TabLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp">
+
+                    <TextView
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentEnd="true"
+                        android:background="#eeeeee" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp">
+
+                    <TextView
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentEnd="true"
+                        android:background="#eeeeee" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_order_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:tabBackground="@drawable/shape_tab_background"
-            app:tabIndicatorHeight="0dp"
-            app:tabSelectedTextColor="@color/main_color_write">
+            android:layout_below="@+id/rl_order_title">
 
-        </android.support.design.widget.TabLayout>
+        </android.support.v4.view.ViewPager>
+
+        <include layout="@layout/include_no_body"></include>
     </RelativeLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_order_mPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/distance"
-        android:layout_marginRight="@dimen/distance">
-
-    </android.support.v4.view.ViewPager>
 </LinearLayout>

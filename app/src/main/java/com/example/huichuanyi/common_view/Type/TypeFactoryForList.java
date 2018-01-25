@@ -3,6 +3,7 @@ package com.example.huichuanyi.common_view.Type;
 import android.view.View;
 
 import com.example.huichuanyi.R;
+import com.example.huichuanyi.bean.City;
 import com.example.huichuanyi.bean.HistotyZhenDuan;
 import com.example.huichuanyi.common_view.holder.BaseViewHolder;
 import com.example.huichuanyi.common_view.holder.HistoryHolder;
@@ -17,6 +18,10 @@ import com.example.huichuanyi.common_view.holder.LyListShopHolder;
 import com.example.huichuanyi.common_view.holder.LyMainHolder;
 import com.example.huichuanyi.common_view.holder.LyRTCReportHolder;
 import com.example.huichuanyi.common_view.holder.LyShopCarHolder;
+import com.example.huichuanyi.common_view.holder.OrderStudioFillHolder;
+import com.example.huichuanyi.common_view.holder.OrderStudioOneHolder;
+import com.example.huichuanyi.common_view.holder.OrderStudioThreeHolder;
+import com.example.huichuanyi.common_view.holder.OrderStudioTwoHolder;
 import com.example.huichuanyi.common_view.holder.PrivateRecommendHolder;
 import com.example.huichuanyi.common_view.holder.SlwEightHolder;
 import com.example.huichuanyi.common_view.holder.SlwFiveHolder;
@@ -36,10 +41,13 @@ import com.example.huichuanyi.common_view.model.LyMain;
 import com.example.huichuanyi.common_view.model.LyShopCar;
 import com.example.huichuanyi.common_view.model.LyShopList;
 import com.example.huichuanyi.common_view.model.LyTest;
+import com.example.huichuanyi.common_view.model.OrderStudioFill;
+import com.example.huichuanyi.common_view.model.OrderStudioOne;
+import com.example.huichuanyi.common_view.model.OrderStudioThree;
 import com.example.huichuanyi.common_view.model.PrivateRecommendModel;
 import com.example.huichuanyi.common_view.model.RTCReport;
-import com.example.huichuanyi.common_view.model.SlwFiveModel;
 import com.example.huichuanyi.common_view.model.SlwEightModel;
+import com.example.huichuanyi.common_view.model.SlwFiveModel;
 import com.example.huichuanyi.common_view.model.SlwFourModel;
 import com.example.huichuanyi.common_view.model.SlwOneModel;
 import com.example.huichuanyi.common_view.model.SlwSevenModle;
@@ -53,7 +61,6 @@ import com.example.huichuanyi.common_view.model.SlwTwoModel;
  */
 
 public class TypeFactoryForList implements TypeFactory {
-    private static final String TAG = "TypeFactoryForList";
 
     private final int TYPE_RESOURCE_BANNER = R.layout.item_ly_banner;
 
@@ -96,6 +103,14 @@ public class TypeFactoryForList implements TypeFactory {
     private final int TYPE_RESOURCE_PRIVATE_RECOMMEND = R.layout.item_test;
 
     private final int TYPE_RESOURCE_PRIVATE_HISTORY_ZHEN_DUAN = R.layout.item_history;
+
+    private final int TYPE_RESOURCE_ORDER_STUDIO_ONE = R.layout.item_order_studio_one;
+
+    private final int TYPE_RESOURCE_ORDER_STUDIO_TWO = R.layout.item_order_studio_normal;
+
+    private final int TYPE_RESOURCE_ORDER_STUDIO_THREE = R.layout.item_bottom;
+
+    private final int TYPE_RESOURCE_ORDER_STUDIO_FILL = R.layout.item_fill;
 
     @Override
     public int type(LyBanner one) {
@@ -178,6 +193,21 @@ public class TypeFactoryForList implements TypeFactory {
     }
 
     @Override
+    public int type(OrderStudioOne slwSevenModle) {
+        return TYPE_RESOURCE_ORDER_STUDIO_ONE;
+    }
+
+    @Override
+    public int type(City.BodyBean slwSevenModle) {
+        return TYPE_RESOURCE_ORDER_STUDIO_TWO;
+    }
+
+    @Override
+    public int type(OrderStudioThree slwSevenModle) {
+        return TYPE_RESOURCE_ORDER_STUDIO_THREE;
+    }
+
+    @Override
     public int type(PrivateRecommendModel privateRecommendModel) {
         return TYPE_RESOURCE_PRIVATE_RECOMMEND;
     }
@@ -190,6 +220,11 @@ public class TypeFactoryForList implements TypeFactory {
     @Override
     public int type(HistotyZhenDuan histotyZhenDuan) {
         return TYPE_RESOURCE_PRIVATE_HISTORY_ZHEN_DUAN;
+    }
+
+    @Override
+    public int type(OrderStudioFill histotyZhenDuan) {
+        return TYPE_RESOURCE_ORDER_STUDIO_FILL;
     }
 
 
@@ -245,13 +280,19 @@ public class TypeFactoryForList implements TypeFactory {
             case TYPE_RESOURCE_PRIVATE_RECOMMEND:
                 return new PrivateRecommendHolder(itemView);
             case TYPE_RESOURCE_365_ITEM_7:
-
                 return new SlwSevenHolder(itemView);
             case TYPE_RESOURCE_365_ITEM_8:
-
                 return new SlwEightHolder(itemView);
             case TYPE_RESOURCE_PRIVATE_HISTORY_ZHEN_DUAN:
                 return new HistoryHolder(itemView);
+            case TYPE_RESOURCE_ORDER_STUDIO_ONE:
+                return new OrderStudioOneHolder(itemView);
+            case TYPE_RESOURCE_ORDER_STUDIO_TWO:
+                return new OrderStudioTwoHolder(itemView);
+            case TYPE_RESOURCE_ORDER_STUDIO_THREE:
+                return new OrderStudioThreeHolder(itemView);
+            case TYPE_RESOURCE_ORDER_STUDIO_FILL:
+                return new OrderStudioFillHolder(itemView);
             default:
                 return null;
         }

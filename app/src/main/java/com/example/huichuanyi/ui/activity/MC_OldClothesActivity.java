@@ -6,17 +6,16 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.MC_OldAdapter;
 import com.example.huichuanyi.base.BaseActivity;
+import com.example.huichuanyi.bean.MyClothess;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.utils.ItemDecoration;
-import com.example.huichuanyi.bean.MyClothess;
 import com.example.huichuanyi.utils.JsonUtils;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
@@ -32,7 +31,6 @@ import java.util.List;
 import java.util.Map;
 
 public class MC_OldClothesActivity extends BaseActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, UtilsInternet.XCallBack {
-    private ImageView mImageViewBack;
     private RecyclerView mRecycleView;
     private List<MyClothess.BodyBean.ClothesInfoBean> mData;
     private MC_OldAdapter mAdapter;
@@ -47,9 +45,12 @@ public class MC_OldClothesActivity extends BaseActivity implements View.OnClickL
 
     }
 
+    public void back(View view) {
+        finish();
+    }
+
     @Override
     public void initView() {
-        mImageViewBack = (ImageView) findViewById(R.id.iv_my_sort_back);
         mRecycleView = (RecyclerView) findViewById(R.id.rv_my_sort_pic);
         mRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.sl_my_sort_refresh);
         mTextView = (TextView) findViewById(R.id.tv_feilei_zhonglei);
@@ -58,7 +59,7 @@ public class MC_OldClothesActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void initData() {
-        user_id = SharedPreferenceUtils.getUserData(this,1);
+        user_id = SharedPreferenceUtils.getUserData(this, 1);
         mData = new ArrayList<>();
         mAdapter = new MC_OldAdapter(this, mData);
         mTextView.setText("旧衣回收");
@@ -87,7 +88,6 @@ public class MC_OldClothesActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void setListener() {
-        mImageViewBack.setOnClickListener(this);
         mRefreshLayout.setOnRefreshListener(this);
         mTextViewALL.setOnClickListener(this);
     }
@@ -95,9 +95,6 @@ public class MC_OldClothesActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.iv_my_sort_back:
-                finish();
-                break;
             case R.id.tv_old_clothes_all:
                 MySelfDialog mySelfDialog = new MySelfDialog(this);
                 mySelfDialog.setOnNoListener("取消", null);

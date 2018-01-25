@@ -48,7 +48,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MySortActivity extends BaseActivity implements View.OnClickListener, BtnChangeAdapter_1.GetOcc, CompoundButton.OnCheckedChangeListener, BtnChangeAdapter_4_1.GetStylesssss, BtnChangeAdapter6.GetOccc, BtnChangeAdapter_5_1.GetMaterial, SwipeRefreshLayout.OnRefreshListener {
-    private ImageView mBack, mFilter;
+    private ImageView mFilter;
     private List<MyClothess.BodyBean.ClothesInfoBean> mData;
     private Toolbar mToolbar;
     private DrawerLayout mDrawer;
@@ -74,12 +74,14 @@ public class MySortActivity extends BaseActivity implements View.OnClickListener
 
     }
 
+    public void back(View view) {
+        finish();
+    }
 
     @Override
     public void initView() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        mBack = (ImageView) findViewById(R.id.iv_sort_back);
         mFilter = (ImageView) findViewById(R.id.iv_sort_filter);
         mDrawer = (DrawerLayout) findViewById(R.id.drawer);
         mOccasion = (RecyclerView) findViewById(R.id.rv_drawer_occasion);
@@ -105,7 +107,7 @@ public class MySortActivity extends BaseActivity implements View.OnClickListener
         zhonglei = intent.getStringExtra("zhonglei");
         tag = intent.getStringExtra("tag");
         yichuzhonglei = intent.getStringExtra("yichuzhonglei");
-        user_id = SharedPreferenceUtils.getUserData(this,1);
+        user_id = SharedPreferenceUtils.getUserData(this, 1);
         SharedPreferences hqSysCloTag = getSharedPreferences("hqSysCloTag", 0);
         jsons = hqSysCloTag.getString("hqSysCloTag", "");
         mStyles = new ArrayList<>();
@@ -227,7 +229,6 @@ public class MySortActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void setListener() {
         mFilter.setOnClickListener(this);
-        mBack.setOnClickListener(this);
         mBtnStyle.setOnCheckedChangeListener(this);
         mBtnMaterial.setOnCheckedChangeListener(this);
         mBtnSeason.setOnCheckedChangeListener(this);
@@ -261,9 +262,6 @@ public class MySortActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.iv_sort_filter:
                 mDrawer.openDrawer(Gravity.RIGHT);
-                break;
-            case R.id.iv_sort_back:
-                finish();
                 break;
             case R.id.iv_item_recycler_3:
                 int position = (int) v.getTag();

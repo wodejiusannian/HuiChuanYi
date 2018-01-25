@@ -2,6 +2,7 @@ package com.example.huichuanyi.ui.fragment;
 
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -10,8 +11,10 @@ import android.webkit.WebViewClient;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base_2.BaseFragment;
 import com.example.huichuanyi.ui.activity.video.HMWebSlwActivity;
+import com.example.huichuanyi.ui.newpage.OrderStudioActivity;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 import static android.webkit.WebSettings.LOAD_NO_CACHE;
 
@@ -94,5 +97,15 @@ public class Order2Fragment extends BaseFragment {
         }
     }
 
+    @OnClick({R.id.tv_order_sure})
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_order_sure:
+                startActivity(new Intent(getActivity(), OrderStudioActivity.class));
+                break;
+            default:
+                break;
+        }
+    }
 
 }

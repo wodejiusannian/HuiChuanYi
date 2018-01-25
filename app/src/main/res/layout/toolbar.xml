@@ -1,34 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="40dp"
-    app:contentInsetStart="0dp"
     android:background="@color/activityTop"
     android:minHeight="?attr/actionBarSize"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-    >
+    app:contentInsetStart="0dp"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ImageView
-            android:id="@+id/iv_sort_back"
-            android:src="@drawable/back"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content" />
+
+        <include layout="@layout/btn_back"></include>
+
         <TextView
-            style="@style/ActivityTopTextTitleStyle"
             android:id="@+id/tv_toolbar_title"
+            style="@style/ActivityTopTextTitleStyle"
             android:layout_centerInParent="true" />
+
         <ImageView
-            android:layout_marginRight="@dimen/distance"
-            android:layout_centerVertical="true"
             android:id="@+id/iv_sort_filter"
-            android:layout_alignParentEnd="true"
-            android:src="@mipmap/filter"
             android:layout_width="50dp"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/distance"
+            android:src="@mipmap/filter" />
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>

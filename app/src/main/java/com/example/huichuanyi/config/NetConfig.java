@@ -142,7 +142,7 @@ public interface NetConfig {
     * 365工作室的数据接口
     * */
     //获取工作室的列表
-    String GET_STUDIO_LIST = BASE_URL_NEW + "studio/user/info/getStudioList.do";
+    String GET_STUDIO_LIST = BASE_URL_NEW + "studio/userinfo/getStudioListVip.do";
 
     String CLO_ZHENDUAN = "http://hmyc365.net:8082/file/hm/html/wardrobe_yczd/index.html?user_id=%s&type=1";
 

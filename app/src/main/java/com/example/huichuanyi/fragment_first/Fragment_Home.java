@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -276,9 +275,4 @@ public class Fragment_Home extends BaseFragment implements OnItemClickListener, 
         }
     };
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.e("TAG", "onResume: --------HOME");
-    }
 }

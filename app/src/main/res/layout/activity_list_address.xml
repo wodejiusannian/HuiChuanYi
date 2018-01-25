@@ -27,7 +27,9 @@
             style="@style/ActivityTopTextSubTitleStyle"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:padding="@dimen/distance_10" />
+            android:padding="@dimen/distance_10"
+            android:text="确定"
+            android:textColor="#000" />
     </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout

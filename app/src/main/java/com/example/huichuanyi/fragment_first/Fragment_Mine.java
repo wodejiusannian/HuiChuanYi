@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -229,8 +228,6 @@ public class Fragment_Mine extends BaseFragment {
         mName.setText(SharedPreferenceUtils.getUserData(getContext(), 2));
         mPhoto.setImageURI(SharedPreferenceUtils.getUserData(getContext(), 3));
         getUserPhoto();
-        Log.e("TAG", "onResume: --------MINE");
-
     }
 
     private class HaveMsg extends BroadcastReceiver {

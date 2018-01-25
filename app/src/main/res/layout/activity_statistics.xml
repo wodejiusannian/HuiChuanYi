@@ -29,7 +29,7 @@
             android:layout_centerVertical="true"
             android:padding="10dp"
             android:text="统计详情"
-            android:textColor="@color/write" />
+            android:textColor="@color/activityTopBigText" />
     </RelativeLayout>
 
     <android.support.design.widget.TabLayout

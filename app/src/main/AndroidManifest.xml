@@ -403,8 +403,9 @@
         <activity
             android:name=".ui.activity.PrivateManagerActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.SlwGoActivity"></activity>
-        <activity android:name=".ui.activity.HistoryZhenDuanActivity"></activity>
+        <activity android:name=".ui.SlwGoActivity" />
+        <activity android:name=".ui.activity.HistoryZhenDuanActivity" />
+        <activity android:name=".ui.newpage.OrderStudioActivity"></activity>
     </application>
 
 </manifest>

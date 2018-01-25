@@ -10,15 +10,14 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.MC_MyClothesAdapter2;
 import com.example.huichuanyi.base.BaseActivity;
+import com.example.huichuanyi.bean.MyClothess;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.utils.ItemDecoration;
-import com.example.huichuanyi.bean.MyClothess;
 import com.example.huichuanyi.utils.JsonUtils;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.google.gson.Gson;
@@ -32,13 +31,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MC_TripAndElseActivity extends BaseActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
-    private ImageView mImageViewBack;
     private RecyclerView mRecycleView;
     private List<MyClothess.BodyBean.ClothesInfoBean> mData;
     private MC_MyClothesAdapter2 mAdapter;
     private SwipeRefreshLayout mRefreshLayout;
     private String word_id;
     private TextView mTextView;
+
+    public void back(View view) {
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,6 @@ public class MC_TripAndElseActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void initView() {
-        mImageViewBack = (ImageView) findViewById(R.id.iv_my_sorts_back);
         mRecycleView = (RecyclerView) findViewById(R.id.rv_my_sorts_pic);
         mRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.sl_my_sorts_refresh);
         mTextView = (TextView) findViewById(R.id.tv_feilei_zhonglei);
@@ -67,7 +68,7 @@ public class MC_TripAndElseActivity extends BaseActivity implements View.OnClick
 
     public void getData() {
         RequestParams params = new RequestParams(NetConfig.CHA_KAN_YI_FU);
-        params.addBodyParameter("user_id", SharedPreferenceUtils.getUserData(this,1));
+        params.addBodyParameter("user_id", SharedPreferenceUtils.getUserData(this, 1));
         params.addBodyParameter("clothes_wardrobeId", word_id);
         params.addBodyParameter("clothes_typeId", "%");
         params.addBodyParameter("clothes_situation", "%");
@@ -118,7 +119,6 @@ public class MC_TripAndElseActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void setListener() {
-        mImageViewBack.setOnClickListener(this);
         mRefreshLayout.setOnRefreshListener(this);
         mAdapter.setOnItemClickListener(this);
     }
@@ -126,9 +126,6 @@ public class MC_TripAndElseActivity extends BaseActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.iv_my_sorts_back:
-                finish();
-                break;
             case R.id.iv_item_recycler_3:
                 int position = (int) v.getTag();
                 Intent intent = new Intent(this, WDYCPicActivity.class);

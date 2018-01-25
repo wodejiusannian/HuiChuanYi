@@ -13,11 +13,7 @@
         android:layout_height="40dp"
         android:background="@color/activityTop">
 
-        <ImageView
-            android:id="@+id/iv_setting_back"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/back" />
+        <include layout="@layout/btn_back"></include>
 
         <TextView
             style="@style/ActivityTopTextTitleStyle"
@@ -29,11 +25,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tl_setting_mTool"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="@dimen/distance"
         android:layout_marginRight="@dimen/distance"
-        android:orientation="vertical"
-        android:layout_below="@+id/tl_setting_mTool"
-        android:layout_centerHorizontal="true">
+        android:orientation="vertical">
 
         <RelativeLayout
             android:id="@+id/rl_setting_tuisong"

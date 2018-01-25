@@ -13,11 +13,7 @@
         android:layout_height="40dp"
         android:background="@color/top_color">
 
-        <ImageView
-            android:id="@+id/iv_fankui_back"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/back" />
+        <include layout="@layout/btn_back"></include>
 
         <TextView
             style="@style/ActivityTopTextTitleStyle"

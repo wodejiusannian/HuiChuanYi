@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
@@ -21,6 +23,7 @@ import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.ui.activity.ManageActivity;
 import com.example.huichuanyi.ui.base.BaseFragment;
 import com.example.huichuanyi.utils.JsonUtils;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
 import com.google.gson.Gson;
 
@@ -38,13 +41,11 @@ import java.util.Map;
 
 @ContentView(R.layout.fragment_lijiyuyue_default)
 public class LiJiYuYueDefaultFragment extends BaseFragment implements UtilsInternet.XCallBack, SwipeRefreshLayout.OnRefreshListener {
-    private static final String TAG = LiJiYuYueDefaultFragment.class.getSimpleName();
 
     @ViewInject(R.id.sf_default_refresh)
     private SwipeRefreshLayout refreshLayout;
     @ViewInject(R.id.lv_default_studios)
     private ListView studios;
-
 
 
     private List<City.BodyBean> mData = new ArrayList<>();
@@ -57,6 +58,7 @@ public class LiJiYuYueDefaultFragment extends BaseFragment implements UtilsInter
     private ImageView noBody;
     @ViewInject(R.id.ll_no_body)
     private LinearLayout mllnoBody;
+
     @Override
     protected void initView() {
         super.initView();
@@ -79,10 +81,11 @@ public class LiJiYuYueDefaultFragment extends BaseFragment implements UtilsInter
     }
 
     private void loadData() {
-        value.put("city_temp", Location.mAddress);
+        value.put("city", Location.mAddress);
         value.put("type", "15");
         value.put("lng", Location.lng);
         value.put("lat", Location.lat);
+        value.put("user_id", SharedPreferenceUtils.getUserData(getContext(), 1));
         net.post(NetConfig.GET_STUDIO_LIST, value, this);
     }
 
@@ -122,19 +125,37 @@ public class LiJiYuYueDefaultFragment extends BaseFragment implements UtilsInter
         String s = JsonUtils.getRet(result);
         mData.clear();
         if (TextUtils.equals("0", s)) {
+            Message message = Message.obtain();
             Gson gson = new Gson();
             City city = gson.fromJson(result, City.class);
             if (city.getBody().size() == 0) {
-                mllnoBody.setVisibility(View.VISIBLE);
-                noBody.setImageResource(R.mipmap.include_busy);
+                message.what = 1;
             } else {
-                mllnoBody.setVisibility(View.GONE);
+                message.what = 2;
             }
+            mHandler.sendMessage(message);
             mData.addAll(city.getBody());
             adapter.notifyDataSetChanged();
         }
     }
 
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    mllnoBody.setVisibility(View.VISIBLE);
+                    noBody.setImageResource(R.mipmap.include_busy);
+                    break;
+                case 2:
+                    mllnoBody.setVisibility(View.GONE);
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
     @Override
     public void onRefresh() {

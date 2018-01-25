@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.huichuanyi.R;
@@ -38,15 +39,18 @@ public class LiJiYuYueActivity extends BaseActivity {
     private TextView mTop;
     @ViewInject(R.id.tv_lijiyueyue_address)
     private TextView address;
-    @ViewInject(R.id.tb_order_mTitle)
+    @ViewInject(R.id.tb_order_title)
     private TabLayout mTabLayout;
-    @ViewInject(R.id.vp_order_mPager)
+    @ViewInject(R.id.vp_order_pager)
     private ViewPager mViewPager;
     private ClosetAdapter mAdapter;
 
+    @ViewInject(R.id.ll_no_body)
+    private LinearLayout no;
     private GetCity mGetCity;
 
     public static Activity instanceLiji;
+
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -70,7 +74,8 @@ public class LiJiYuYueActivity extends BaseActivity {
 
     @Override
     public void setListener() {
-
+        address.setVisibility(View.GONE);
+        no.setVisibility(View.GONE);
     }
 
     @Override

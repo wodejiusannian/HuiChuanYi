@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ToggleButton;
@@ -30,7 +29,6 @@ public class MineSettingActivity extends BaseActivity implements View.OnClickLis
     private SharedPreferences mShare;
     private int check;
     private Dialog mLiXiDialog;
-    private ImageView mImageViewBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +43,6 @@ public class MineSettingActivity extends BaseActivity implements View.OnClickLis
         mRelativeLayoutFankui = (RelativeLayout) findViewById(R.id.rl_setting_fankui);
         mRelativeLayoutLianxi = (RelativeLayout) findViewById(R.id.rl_setting_lianxi);
         mRelativeLayoutmy = (RelativeLayout) findViewById(R.id.rl_setting_my);
-        mImageViewBack = (ImageView) findViewById(R.id.iv_setting_back);
         mRelativeLayoutUpDate = (RelativeLayout) findViewById(R.id.rl_setting_update);
     }
 
@@ -71,7 +68,6 @@ public class MineSettingActivity extends BaseActivity implements View.OnClickLis
         mRelativeLayoutLianxi.setOnClickListener(this);
         mRelativeLayoutmy.setOnClickListener(this);
         mToggleButton.setOnCheckedChangeListener(this);
-        mImageViewBack.setOnClickListener(this);
         mRelativeLayoutUpDate.setOnClickListener(this);
     }
 
@@ -94,15 +90,15 @@ public class MineSettingActivity extends BaseActivity implements View.OnClickLis
                 Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:18210293536"));
                 startActivity(intent);
                 break;
-            case R.id.iv_setting_back:
-                finish();
-                break;
             case R.id.rl_setting_update:
                 UpdateUtils.getInstance(getApplicationContext()).update(true);
                 break;
         }
     }
 
+    public void back(View view) {
+        finish();
+    }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
