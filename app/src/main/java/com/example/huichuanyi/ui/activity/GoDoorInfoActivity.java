@@ -155,52 +155,9 @@ public class GoDoorInfoActivity extends BaseActivity implements UtilsInternet.XC
 
     @Override
     public void setData() {
-        isHaveActive();
     }
 
-    /*
-    * 是否有团购活动
-    * */
-    private void isHaveActive() {
-        RequestParams pa = new RequestParams("http://hmyc365.net:8081/HM/app/doorToDoorService/order/code/isGroupActivity.do");
-        pa.addBodyParameter("user_id", userID);
-        pa.addBodyParameter("studio_id", managerid);
-        x.http().post(pa, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                try {
-                    JSONObject ob = new JSONObject(result);
-                    JSONObject body = ob.getJSONObject("body");
-                    String isGroup = body.getString("isGroup");
-                    if (TextUtils.equals("Y", isGroup)) {
-                        new Handler().post(new Runnable() {
-                            @Override
-                            public void run() {
-                                youhuiquan.setVisibility(View.VISIBLE);
-                            }
-                        });
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
 
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
-    }
 
     @Override
     public void setListener() {

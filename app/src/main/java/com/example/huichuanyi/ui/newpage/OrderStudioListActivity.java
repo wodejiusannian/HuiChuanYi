@@ -17,6 +17,7 @@ import com.example.huichuanyi.adapter.OrderStudioAdapter;
 import com.example.huichuanyi.baidumap.GetCity;
 import com.example.huichuanyi.ui.activity.LiJiYuYueStudioSelectCityActivity;
 import com.example.huichuanyi.ui.base.BaseActivity;
+import com.example.huichuanyi.utils.ActivityCacheUtils;
 import com.example.huichuanyi.utils.CommonUtils;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 
-public class OrderStudioActivity extends BaseActivity {
+public class OrderStudioListActivity extends BaseActivity {
 
     public void back(View view) {
         finish();
@@ -36,7 +37,7 @@ public class OrderStudioActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
-
+        ActivityCacheUtils.addActivity(this);
     }
 
 
@@ -104,10 +105,10 @@ public class OrderStudioActivity extends BaseActivity {
         mHandler.sendEmptyMessageDelayed(1, 5000);
         for (int i = 0; i < types.length; i++) {
             Bundle bundle = new Bundle();
-            OrderStudioFragment orderStudioFragment = new OrderStudioFragment();
+            OrderStudioListFragment orderStudioListFragment = new OrderStudioListFragment();
             bundle.putInt("type", types[i]);
-            orderStudioFragment.setArguments(bundle);
-            mData.add(orderStudioFragment);
+            orderStudioListFragment.setArguments(bundle);
+            mData.add(orderStudioListFragment);
         }
         mAdapter = new OrderStudioAdapter(getSupportFragmentManager(), mData);
         mTabLayout.setupWithViewPager(mViewPager);

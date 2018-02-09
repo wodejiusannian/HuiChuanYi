@@ -26,7 +26,6 @@ import io.rong.push.notification.PushNotificationMessage;
 // ┗┻┛　┗┻┛
 public class SealNotificationReceiver extends PushMessageReceiver {
 
-    private static final String TAG = "SealNotification";
 
     @Override
     public boolean onNotificationMessageArrived(Context context, PushNotificationMessage pushNotificationMessage) {

@@ -125,7 +125,7 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtilsCopy.S
                             if (TextUtils.equals("6", kind)) {
                                 params = new RequestParams("http://hmyc365.net:8081/HM/app/doorToDoorService/pay/supplementaryPriceDifference/box/getSign.do");
                             } else {
-                                params = new RequestParams("http://hmyc365.net:8081/HM/app/doorToDoorService/pay/supplementaryPriceDifference/clothes/getSign.do");
+                                params = new RequestParams("http://hmyc365.net:8081/HM/app/doorToDoorService/pay/supplementaryPriceDifference/clothes/getSign_new.do");
                             }
                             params.addBodyParameter("order_id", order_id);
                             params.addBodyParameter("pay_type", "3");
@@ -276,7 +276,7 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtilsCopy.S
                 pa = new RequestParams("http://hmyc365.net:8081/HM/app/doorToDoorService/order/price/getBcjBoxPrice.do");
                 pa.addBodyParameter("box_num", mmCount);
             } else {
-                pa = new RequestParams("http://hmyc365.net:8081/HM/app/doorToDoorService/order/price/getBcjCloPrice.do");
+                pa = new RequestParams("http://hmyc365.net:8081/HM/app/doorToDoorService/order/price/getBcjCloPriceNew.do");
                 pa.addBodyParameter("clothes_num", mmCount);
             }
             pa.addBodyParameter("order_id", order_id);

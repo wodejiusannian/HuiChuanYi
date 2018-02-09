@@ -4,17 +4,16 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.example.huichuanyi.ui.activity.HMWebActivity;
 import com.example.huichuanyi.ui.activity.HomeDaPeiRiJiActivity;
 import com.example.huichuanyi.ui.activity.HomeStatisticsActivity;
 import com.example.huichuanyi.ui.activity.HomeVideoCoverActivity;
 import com.example.huichuanyi.ui.activity.HomeWoDeYiChuActivity;
-import com.example.huichuanyi.ui.activity.LiJiYuYueActivity;
 import com.example.huichuanyi.ui.activity.MainActivity;
 import com.example.huichuanyi.ui.activity.MineStyleActivity;
 import com.example.huichuanyi.ui.activity.ZhenDuanActivity;
+import com.example.huichuanyi.ui.newpage.OrderStudioListActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,8 +46,6 @@ public class MyPushService extends BroadcastReceiver {
         if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent
                 .getAction())) {
             String extra = bundle.getString(JPushInterface.EXTRA_EXTRA);
-            Log.e(TAG, "onReceive: ---------" + extra);
-            Log.e(TAG, "onReceive: " + "-----------------2");
             try {
                 JSONObject obj = new JSONObject(extra);
                 String click_type = obj.getString("click_type");
@@ -86,7 +83,7 @@ public class MyPushService extends BroadcastReceiver {
                         context.startActivity(i5);
                         break;
                     case "6":
-                        Intent i6 = new Intent(context, LiJiYuYueActivity.class); // 自定义打开的界面
+                        Intent i6 = new Intent(context, OrderStudioListActivity.class); // 自定义打开的界面
                         i6.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(i6);
                         break;

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_update_main_color_bottom">
+
+    <TextView
+        android:id="@+id/tv_order_studio_introduce_pj_line"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/orderIntroduceBg" />
+
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_order_studio_introduce_pj_line"
+        android:paddingBottom="14dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="10dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_order_studio_introduce_pj_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_order_studio_introduce_pj_top_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*****"
+                android:textColor="#656565"
+                android:textSize="10sp" />
+
+            <RatingBar
+                android:id="@+id/rat_order_studio_introduce_pj_top_star"
+                style="@style/HmFoodStarBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="13dp"
+                android:layout_marginStart="14dp"
+                android:layout_toEndOf="@+id/tv_order_studio_introduce_pj_top_tip"
+                android:isIndicator="false"
+                android:numStars="5"
+                android:rating="5" />
+
+            <TextView
+                android:id="@+id/tv_order_studio_introduce_pj_top_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="***"
+                android:textColor="#656565"
+                android:textSize="10sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/rl_order_studio_introduce_pj_top_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_order_studio_introduce_pj_top"
+            android:layout_marginTop="11dp"
+            android:ellipsize="end"
+            android:lines="2"
+            android:text="*****"
+            android:textColor="#323232"
+            android:textSize="12sp" />
+
+        <RelativeLayout
+            android:id="@+id/rl_order_studio_introduce_pj_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_order_studio_introduce_pj_top_content"
+            android:layout_marginTop="9dp">
+
+            <TextView
+                android:id="@+id/tv_order_studio_introduce_pj_top_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*****"
+                android:textColor="#656565"
+                android:textSize="9sp" />
+
+
+            <TextView
+                android:id="@+id/tv_order_studio_introduce_pj_top_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/tv_order_studio_introduce_pj_top_date"
+                android:text="*****"
+                android:textColor="#656565"
+                android:textSize="9sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/rl_top"
+        android:background="@color/orderIntroduceBg">
+
+    </RelativeLayout>
+
+</RelativeLayout>

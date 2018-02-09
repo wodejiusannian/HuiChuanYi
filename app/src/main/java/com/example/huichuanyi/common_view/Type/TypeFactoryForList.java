@@ -19,6 +19,13 @@ import com.example.huichuanyi.common_view.holder.LyMainHolder;
 import com.example.huichuanyi.common_view.holder.LyRTCReportHolder;
 import com.example.huichuanyi.common_view.holder.LyShopCarHolder;
 import com.example.huichuanyi.common_view.holder.OrderStudioFillHolder;
+import com.example.huichuanyi.common_view.holder.OrderStudioIntroduceOpenHolder;
+import com.example.huichuanyi.common_view.holder.OrderStudioIntroducePJBottomHolder;
+import com.example.huichuanyi.common_view.holder.OrderStudioIntroducePJMiddleHolder;
+import com.example.huichuanyi.common_view.holder.OrderStudioIntroducePJTopHolder;
+import com.example.huichuanyi.common_view.holder.OrderStudioIntroduceSecondHolder;
+import com.example.huichuanyi.common_view.holder.OrderStudioIntroduceThirdHolder;
+import com.example.huichuanyi.common_view.holder.OrderStudioIntroduceTopHolder;
 import com.example.huichuanyi.common_view.holder.OrderStudioOneHolder;
 import com.example.huichuanyi.common_view.holder.OrderStudioThreeHolder;
 import com.example.huichuanyi.common_view.holder.OrderStudioTwoHolder;
@@ -42,6 +49,13 @@ import com.example.huichuanyi.common_view.model.LyShopCar;
 import com.example.huichuanyi.common_view.model.LyShopList;
 import com.example.huichuanyi.common_view.model.LyTest;
 import com.example.huichuanyi.common_view.model.OrderStudioFill;
+import com.example.huichuanyi.common_view.model.OrderStudioIntroduceOpenModel;
+import com.example.huichuanyi.common_view.model.OrderStudioIntroducePJBottomModel;
+import com.example.huichuanyi.common_view.model.OrderStudioIntroducePJMiddleModel;
+import com.example.huichuanyi.common_view.model.OrderStudioIntroducePJTopModel;
+import com.example.huichuanyi.common_view.model.OrderStudioIntroduceSecondModel;
+import com.example.huichuanyi.common_view.model.OrderStudioIntroduceThirdModel;
+import com.example.huichuanyi.common_view.model.OrderStudioIntroduceTopModel;
 import com.example.huichuanyi.common_view.model.OrderStudioOne;
 import com.example.huichuanyi.common_view.model.OrderStudioThree;
 import com.example.huichuanyi.common_view.model.PrivateRecommendModel;
@@ -111,6 +125,20 @@ public class TypeFactoryForList implements TypeFactory {
     private final int TYPE_RESOURCE_ORDER_STUDIO_THREE = R.layout.item_bottom;
 
     private final int TYPE_RESOURCE_ORDER_STUDIO_FILL = R.layout.item_fill;
+
+    private final int TYPE_RESOURCE_ORDER_STUDIO_INTRODUCE_TOP = R.layout.item_order_studio_introduce_top;
+
+    private final int TYPE_RESOURCE_ORDER_STUDIO_INTRODUCE_SECOND = R.layout.item_order_studio_introduce_second;
+
+    private final int TYPE_RESOURCE_ORDER_STUDIO_INTRODUCE_THIRD = R.layout.item_order_studio_introduce_third;
+
+    private final int TYPE_RESOURCE_ORDER_STUDIO_INTRODUCE_OPEN = R.layout.item_order_studio_introduce_open;
+
+    private final int TYPE_RESOURCE_ORDER_STUDIO_INTRODUCE_PJ_TOP = R.layout.item_order_studio_introduce_pj_top;
+
+    private final int TYPE_RESOURCE_ORDER_STUDIO_INTRODUCE_PJ_MIDDLE = R.layout.item_order_studio_introduce_pj_middle;
+
+    private final int TYPE_RESOURCE_ORDER_STUDIO_INTRODUCE_PJ_BOTTOM = R.layout.item_order_studio_introduce_pj_bottom;
 
     @Override
     public int type(LyBanner one) {
@@ -223,6 +251,41 @@ public class TypeFactoryForList implements TypeFactory {
     }
 
     @Override
+    public int type(OrderStudioIntroduceTopModel histotyZhenDuan) {
+        return TYPE_RESOURCE_ORDER_STUDIO_INTRODUCE_TOP;
+    }
+
+    @Override
+    public int type(OrderStudioIntroduceSecondModel histotyZhenDuan) {
+        return TYPE_RESOURCE_ORDER_STUDIO_INTRODUCE_SECOND;
+    }
+
+    @Override
+    public int type(OrderStudioIntroduceThirdModel histotyZhenDuan) {
+        return TYPE_RESOURCE_ORDER_STUDIO_INTRODUCE_THIRD;
+    }
+
+    @Override
+    public int type(OrderStudioIntroducePJTopModel histotyZhenDuan) {
+        return TYPE_RESOURCE_ORDER_STUDIO_INTRODUCE_PJ_TOP;
+    }
+
+    @Override
+    public int type(OrderStudioIntroducePJMiddleModel histotyZhenDuan) {
+        return TYPE_RESOURCE_ORDER_STUDIO_INTRODUCE_PJ_MIDDLE;
+    }
+
+    @Override
+    public int type(OrderStudioIntroducePJBottomModel histotyZhenDuan) {
+        return TYPE_RESOURCE_ORDER_STUDIO_INTRODUCE_PJ_BOTTOM;
+    }
+
+    @Override
+    public int type(OrderStudioIntroduceOpenModel histotyZhenDuan) {
+        return TYPE_RESOURCE_ORDER_STUDIO_INTRODUCE_OPEN;
+    }
+
+    @Override
     public int type(OrderStudioFill histotyZhenDuan) {
         return TYPE_RESOURCE_ORDER_STUDIO_FILL;
     }
@@ -293,6 +356,20 @@ public class TypeFactoryForList implements TypeFactory {
                 return new OrderStudioThreeHolder(itemView);
             case TYPE_RESOURCE_ORDER_STUDIO_FILL:
                 return new OrderStudioFillHolder(itemView);
+            case TYPE_RESOURCE_ORDER_STUDIO_INTRODUCE_TOP:
+                return new OrderStudioIntroduceTopHolder(itemView);
+            case TYPE_RESOURCE_ORDER_STUDIO_INTRODUCE_SECOND:
+                return new OrderStudioIntroduceSecondHolder(itemView);
+            case TYPE_RESOURCE_ORDER_STUDIO_INTRODUCE_THIRD:
+                return new OrderStudioIntroduceThirdHolder(itemView);
+            case TYPE_RESOURCE_ORDER_STUDIO_INTRODUCE_PJ_TOP:
+                return new OrderStudioIntroducePJTopHolder(itemView);
+            case TYPE_RESOURCE_ORDER_STUDIO_INTRODUCE_PJ_MIDDLE:
+                return new OrderStudioIntroducePJMiddleHolder(itemView);
+            case TYPE_RESOURCE_ORDER_STUDIO_INTRODUCE_PJ_BOTTOM:
+                return new OrderStudioIntroducePJBottomHolder(itemView);
+            case TYPE_RESOURCE_ORDER_STUDIO_INTRODUCE_OPEN:
+                return new OrderStudioIntroduceOpenHolder(itemView);
             default:
                 return null;
         }

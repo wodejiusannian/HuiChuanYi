@@ -8,12 +8,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.signature.StringSignature;
 import com.example.huichuanyi.R;
-import com.example.huichuanyi.baidumap.Location;
 import com.example.huichuanyi.bean.City;
 import com.example.huichuanyi.common_view.adapter.MultiTypeAdapter;
 import com.example.huichuanyi.custom.GlideCircleTransform;
-import com.example.huichuanyi.ui.activity.ManageActivity;
+import com.example.huichuanyi.ui.newpage.OrderStudioIntroduceActivity;
 import com.example.huichuanyi.utils.CommonUtils;
 
 // ┏┓　　　┏┓
@@ -56,7 +56,7 @@ public class OrderStudioTwoHolder extends BaseViewHolder<City.BodyBean> {
         String pf1 = model.getPf();
         double v1 = Double.parseDouble(pf1);
         String jl2 = String.format("%.1f", v1);
-        score.setText(jl2 + "颗星");
+        score.setText(jl2 + "星");
         name.setText(model.getName());
         area.setText(model.getArea());
         String introduction = model.getIntroduction();
@@ -68,10 +68,18 @@ public class OrderStudioTwoHolder extends BaseViewHolder<City.BodyBean> {
         String jl = model.getJl();
         double v = Double.parseDouble(jl);
         String jll = String.format("%.1f", v);
-        distance.setText(jll);
-        ranking.setText(model.getXl() + "");
+        distance.setText(jll + "km");
+        ranking.setText(model.getXl() + "单");
         String grade = model.getGrade();
-        if ("1".equals(grade)) {
+        String imgPath = model.getImgPath();
+        String updateTime = String.valueOf(System.currentTimeMillis());
+        Glide.with(context).load(imgPath+grade+"_icon.png")
+                .signature(new StringSignature(updateTime))
+                .into(level_small);
+        Glide.with(context).load(imgPath+grade+"_grade.png")
+                .signature(new StringSignature(updateTime))
+                .into(level_big);
+        /*if ("1".equals(grade)) {
             level_small.setImageResource(R.mipmap.hm_studio_trainee_small);
             level_big.setImageResource(R.mipmap.hm_studio_trainee_big);
         } else if ("2".equals(grade)) {
@@ -83,13 +91,16 @@ public class OrderStudioTwoHolder extends BaseViewHolder<City.BodyBean> {
         } else {
             level_small.setImageResource(R.mipmap.hm_studio_high_senior_small);
             level_big.setImageResource(R.mipmap.hm_studio_high_senior_big);
-        }
+        }*/
         rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ManageActivity.class);
+                /*Intent intent = new Intent(context, ManageActivity.class);
                 intent.putExtra("bodyBean", model);
                 Location.mOrder_365 = "567";
+                context.startActivity(intent);*/
+                Intent intent = new Intent(context, OrderStudioIntroduceActivity.class);
+                intent.putExtra("model", model);
                 context.startActivity(intent);
             }
         });

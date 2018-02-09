@@ -1,7 +1,6 @@
 package com.example.huichuanyi.utils;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -54,7 +53,7 @@ public class PayUtilsCopy implements UtilsInternet.XCallBack {
         if (TextUtils.equals("6", kind)) {
             net.post("http://hmyc365.net:8081/HM/app/doorToDoorService/pay/supplementaryPriceDifference/box/getSign.do", map, this);
         } else {
-            net.post("http://hmyc365.net:8081/HM/app/doorToDoorService/pay/supplementaryPriceDifference/clothes/getSign.do", map, this);
+            net.post("http://hmyc365.net:8081/HM/app/doorToDoorService/pay/supplementaryPriceDifference/clothes/getSign_new.do", map, this);
         }
     }
 
@@ -66,7 +65,7 @@ public class PayUtilsCopy implements UtilsInternet.XCallBack {
         if (TextUtils.equals("6", kind)) {
             net.post("http://hmyc365.net:8081/HM/app/doorToDoorService/pay/supplementaryPriceDifference/box/getSign.do", map, this);
         } else {
-            net.post("http://hmyc365.net:8081/HM/app/doorToDoorService/pay/supplementaryPriceDifference/clothes/getSign.do", map, this);
+            net.post("http://hmyc365.net:8081/HM/app/doorToDoorService/pay/supplementaryPriceDifference/clothes/getSign_new.do", map, this);
         }
     }
 

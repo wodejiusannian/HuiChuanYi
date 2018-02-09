@@ -74,7 +74,7 @@ public class RegisterOverCompleteInfoActivity extends AppCompatActivity implemen
     }
 
     @Override
-    public void getWillGetCity(String city,String lat,String lng) {
+    public void getWillGetCity(String city, String lat, String lng) {
         if (!CommonUtils.isEmpty(city)) {
             Bundle bundle = new Bundle();
             bundle.putString("location", city);

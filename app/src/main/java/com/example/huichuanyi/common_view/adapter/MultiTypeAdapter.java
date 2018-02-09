@@ -63,6 +63,24 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         mOnclick = onItemClickListener;
     }
 
+    private Scroll mScroll;
+
+    public void OnScroll(Scroll scroll) {
+        mScroll = scroll;
+    }
+
+    public interface Scroll {
+        void onScrollBottom();
+    }
+
+    public Scroll getScroll() {
+        if (mScroll != null) {
+            return mScroll;
+        } else {
+            return null;
+        }
+    }
+
     public View.OnClickListener getmOnclick() {
         if (mOnclick != null) {
             return mOnclick;

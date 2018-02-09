@@ -405,7 +405,11 @@
             android:launchMode="singleTask" />
         <activity android:name=".ui.SlwGoActivity" />
         <activity android:name=".ui.activity.HistoryZhenDuanActivity" />
-        <activity android:name=".ui.newpage.OrderStudioActivity"></activity>
+        <activity android:name=".ui.newpage.OrderStudioListActivity" />
+        <activity android:name=".ui.newpage.OrderStudioIntroduceActivity" />
+        <activity
+            android:name=".ui.newpage.OrderDetailsActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
     </application>
 
 </manifest>

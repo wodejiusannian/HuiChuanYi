@@ -96,7 +96,15 @@ public class City {
         private String address;
         private String grade;
         private String area;
+        private String imgPath;
 
+        public String getImgPath() {
+            return imgPath;
+        }
+
+        public void setImgPath(String imgPath) {
+            this.imgPath = imgPath;
+        }
 
         public String getGrade() {
             return grade;

@@ -59,7 +59,7 @@ public interface NetConfig {
     String MANAGER_URL = BASE_URL + "studio!getStudioInfo.action";
 
     //上传订单详情的接口
-    String UPLOADING_COM_DETAILS = BASE_URL_NEW + "stu/order/service/order/addServiceOrder.do";
+    String UPLOADING_COM_DETAILS = BASE_URL_NEW + "stu/order/service/order/addServiceOrder_new.do";
 
     //我的资料的接口
     String ME_INFORMATION = BASE_URL + "user!updateData.action";
@@ -263,12 +263,11 @@ public interface NetConfig {
 
     String LY_SHOP_LIST = BASE_URL_NEW + "mall/order/order/getOrder.do";
 
-    String GO_DOOR_MONEY = BASE_URL_NEW + "doorToDoorService/order/price/getServicePrice.do";
+    String GO_DOOR_MONEY = BASE_URL_NEW + "doorToDoorService/order/price/getServicePriceNew.do";
 
     String GET_BUTTON = BASE_URL_NEW + "system/hkj/button/getButton.do";
 
     String SLW_DATA = "http://hmyc365.net/HM/bg/hmyc/vip/info/userVipInfo.do";
-
 
     String PRIVATE_MANAGER_DATA = "http://hmyc365.net/file/html/app/liangTi/index.html?user_id=%s";
 }

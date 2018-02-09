@@ -47,7 +47,7 @@ import butterknife.BindView;
 // ┗┓┓┏━┳┓┏┛
 // ┃┫┫　┃┫┫
 // ┗┻┛　┗┻┛
-public class OrderStudioFragment extends BaseFragment {
+public class OrderStudioListFragment extends BaseFragment {
 
     @Override
     protected int layoutInflaterId() {
@@ -64,7 +64,7 @@ public class OrderStudioFragment extends BaseFragment {
 
     private List<Visitable> mData = new ArrayList<>();
 
-    private OrderStudioActivity activity;
+    private OrderStudioListActivity activity;
 
     private UtilsInternet net = UtilsInternet.getInstance();
 
@@ -86,7 +86,7 @@ public class OrderStudioFragment extends BaseFragment {
         adapter = new MultiTypeAdapter(mData);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
-        activity = (OrderStudioActivity) getActivity();
+        activity = (OrderStudioListActivity) getActivity();
     }
 
 
@@ -101,7 +101,7 @@ public class OrderStudioFragment extends BaseFragment {
         windowsHeight -= dip2px(getContext(), 80);
         if (15 == type) {
             //默认排序
-            activity.setOnFresh(new OrderStudioActivity.OnFresh() {
+            activity.setOnFresh(new OrderStudioListActivity.OnFresh() {
                 @Override
                 public void onFresh(String address, String lat, String lng) {
                     city = address;
@@ -113,7 +113,7 @@ public class OrderStudioFragment extends BaseFragment {
             });
         } else if (21 == type) {
             //评分最高
-            activity.setOnFresh2(new OrderStudioActivity.OnFresh() {
+            activity.setOnFresh2(new OrderStudioListActivity.OnFresh() {
                 @Override
                 public void onFresh(String address, String lat, String lng) {
                     city = address;
@@ -125,7 +125,7 @@ public class OrderStudioFragment extends BaseFragment {
             });
         } else if (32 == type) {
             //销量最高
-            activity.setOnFresh3(new OrderStudioActivity.OnFresh() {
+            activity.setOnFresh3(new OrderStudioListActivity.OnFresh() {
                 @Override
                 public void onFresh(String address, String lat, String lng) {
                     city = address;
@@ -177,6 +177,7 @@ public class OrderStudioFragment extends BaseFragment {
                         mData.clear();
                         JSONObject body = obj.getJSONObject("body");
                         boolean lately = body.getBoolean("lately");
+                        String imgPath = body.getString("imgPath");
                         boolean vip = body.getBoolean("vip");
                         if (vip) {
                             mData.add(new OrderStudioOne("已购买365服务工作室"));
@@ -195,6 +196,7 @@ public class OrderStudioFragment extends BaseFragment {
                             String introduction = latelyStudioList.getString("introduction");
                             String photo_get = latelyStudioList.getString("photo_get");
                             String city = latelyStudioList.getString("city");
+                            bean.setImgPath(imgPath);
                             bean.setId(id);
                             bean.setPf(pf + "");
                             bean.setPhone(phone);
@@ -242,6 +244,7 @@ public class OrderStudioFragment extends BaseFragment {
                             bean.setPhoto_get(photo_get);
                             bean.setCity(city);
                             bean.setArea(CommonUtils.area(address));
+                            bean.setImgPath(imgPath);
                             mData.add(bean);
                         }
                         if (mData != null && mData.size() != 0)
@@ -274,6 +277,7 @@ public class OrderStudioFragment extends BaseFragment {
                             bean.setService(service);
                             bean.setGrade(grade);
                             bean.setJl(jl);
+                            bean.setImgPath(imgPath);
                             bean.setIntroduction(introduction);
                             bean.setPhoto_get(photo_get);
                             bean.setArea(CommonUtils.area(address));

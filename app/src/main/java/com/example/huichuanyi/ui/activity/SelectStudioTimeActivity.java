@@ -11,9 +11,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.huichuanyi.R;
-import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.ui.adapter.SelectTimeAdapter;
+import com.example.huichuanyi.ui.base.BaseActivity;
 import com.example.huichuanyi.ui.modle.Week;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.ItemDecoration;
@@ -22,32 +22,32 @@ import com.example.huichuanyi.utils.UtilsInternet;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.xutils.view.annotation.Event;
-import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.OnClick;
+
 public class SelectStudioTimeActivity extends BaseActivity implements UtilsInternet.XCallBack, SelectTimeAdapter.getPos {
-    private static final String TAG = "SelectStudioTimeActivity";
 
-    @ViewInject(R.id.btn_time_sure)
-    private Button go;
+    @BindView(R.id.btn_time_sure)
+    Button go;
 
-    @ViewInject(R.id.rv_time_week)
-    private RecyclerView rvWeek;
+    @BindView(R.id.rv_time_week)
+    RecyclerView rvWeek;
 
     private SelectTimeAdapter adapter;
 
     private UtilsInternet net = UtilsInternet.getInstance();
     private Map<String, String> map = new HashMap<>();
     List<Week> mData = new ArrayList<>();
-    @ViewInject(R.id.rb_am)
-    private Button mAm;
-    @ViewInject(R.id.rb_pm)
-    private Button mPm;
+    @BindView(R.id.rb_am)
+    Button mAm;
+    @BindView(R.id.rb_pm)
+    Button mPm;
 
     private String day, am_pm;
 
@@ -62,18 +62,15 @@ public class SelectStudioTimeActivity extends BaseActivity implements UtilsInter
     public void setListener() {
     }
 
+
     @Override
-    public void initView() {
+    public void initData() {
         adapter = new SelectTimeAdapter(this, mData);
         GridLayoutManager layout = new GridLayoutManager(this, 1, LinearLayoutManager.HORIZONTAL, false);
         rvWeek.setLayoutManager(layout);
         rvWeek.setAdapter(adapter);
         rvWeek.addItemDecoration(new ItemDecoration(13));
         adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void initData() {
         String studio_id = getIntent().getStringExtra("studio_id");
         map.put("studio_id", studio_id);
         net.post(NetConfig.GET_STUDIO_TIME, map, this);
@@ -84,8 +81,8 @@ public class SelectStudioTimeActivity extends BaseActivity implements UtilsInter
         adapter.setOnItemOnClickListener(this);
     }
 
-    @Event({R.id.btn_time_sure, R.id.rb_am, R.id.rb_pm})
-    private void onEvent(View v) {
+    @OnClick({R.id.btn_time_sure, R.id.rb_am, R.id.rb_pm})
+    public void onEvent(View v) {
         switch (v.getId()) {
             case R.id.btn_time_sure:
                 tranData();

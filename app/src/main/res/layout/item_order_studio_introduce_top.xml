@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <com.jude.rollviewpager.RollPagerView
+        android:id="@+id/iv_order_studio_introduce_bg"
+        android:layout_width="match_parent"
+        android:layout_height="230dp" />
+
+    <ImageView
+        android:id="@+id/iv_order_studio_introduce_logo"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        android:layout_below="@+id/iv_order_studio_introduce_bg"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-33dp"
+        android:src="@mipmap/hm_stand_cicle" />
+
+    <TextView
+        android:id="@+id/tv_order_studio_introduce_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_order_studio_introduce_logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:text="*******"
+        android:textColor="#323232"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_order_studio_introduce_real_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_order_studio_introduce_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:text="*******"
+        android:textColor="#323232"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_order_studio_introduce_introduce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_order_studio_introduce_real_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="11dp"
+        android:text="暂无简介"
+        android:textColor="#323232"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:id="@+id/ll_order_studio_introduce_flag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_order_studio_introduce_introduce"
+        android:layout_marginTop="12dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@+id/ll_order_studio_introduce_flag"
+        android:layout_marginTop="15dp"
+        android:background="@color/orderIntroduceBg" />
+</RelativeLayout>

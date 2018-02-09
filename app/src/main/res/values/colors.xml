@@ -32,5 +32,6 @@
     <color name="line_color">#f7f4f4</color>
     <color name="activityTop">#ffffff</color>
     <color name="activityTopBigText">#000000</color>
-    s
+    <color name="orderIntroduceBg">#eeeeee</color>
+    <color name="orderIntroduceStarBg">#FF0707</color>
 </resources>

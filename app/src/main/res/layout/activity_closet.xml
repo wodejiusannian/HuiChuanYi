@@ -12,6 +12,8 @@
         android:id="@+id/tl_closet_mTool"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:background="@color/top_color">
 
         <include layout="@layout/btn_back"></include>
@@ -30,7 +32,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/distance"
             android:text="上传服饰"
-            android:textColor="@color/write"
+            android:textColor="#000"
             android:textSize="@dimen/text_size_middle" />
     </RelativeLayout>
 

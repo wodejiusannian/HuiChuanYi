@@ -16,6 +16,13 @@ import com.example.huichuanyi.common_view.model.LyShopCar;
 import com.example.huichuanyi.common_view.model.LyShopList;
 import com.example.huichuanyi.common_view.model.LyTest;
 import com.example.huichuanyi.common_view.model.OrderStudioFill;
+import com.example.huichuanyi.common_view.model.OrderStudioIntroduceOpenModel;
+import com.example.huichuanyi.common_view.model.OrderStudioIntroducePJBottomModel;
+import com.example.huichuanyi.common_view.model.OrderStudioIntroducePJMiddleModel;
+import com.example.huichuanyi.common_view.model.OrderStudioIntroducePJTopModel;
+import com.example.huichuanyi.common_view.model.OrderStudioIntroduceSecondModel;
+import com.example.huichuanyi.common_view.model.OrderStudioIntroduceThirdModel;
+import com.example.huichuanyi.common_view.model.OrderStudioIntroduceTopModel;
 import com.example.huichuanyi.common_view.model.OrderStudioOne;
 import com.example.huichuanyi.common_view.model.OrderStudioThree;
 import com.example.huichuanyi.common_view.model.PrivateRecommendModel;
@@ -84,7 +91,23 @@ public interface TypeFactory {
 
     int type(HistotyZhenDuan histotyZhenDuan);
 
+    int type(OrderStudioIntroduceTopModel histotyZhenDuan);
+
+    int type(OrderStudioIntroduceSecondModel histotyZhenDuan);
+
+    int type(OrderStudioIntroduceThirdModel histotyZhenDuan);
+
+    int type(OrderStudioIntroducePJTopModel histotyZhenDuan);
+
+    int type(OrderStudioIntroducePJMiddleModel histotyZhenDuan);
+
+    int type(OrderStudioIntroducePJBottomModel histotyZhenDuan);
+
+    int type(OrderStudioIntroduceOpenModel histotyZhenDuan);
+
     int type(OrderStudioFill histotyZhenDuan);
+
+    //int type(OrderStudioHoz histotyZhenDuan);
 
     BaseViewHolder createViewHolder(int type, View itemView);
 }

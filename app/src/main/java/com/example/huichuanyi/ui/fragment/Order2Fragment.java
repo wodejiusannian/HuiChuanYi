@@ -11,7 +11,7 @@ import android.webkit.WebViewClient;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base_2.BaseFragment;
 import com.example.huichuanyi.ui.activity.video.HMWebSlwActivity;
-import com.example.huichuanyi.ui.newpage.OrderStudioActivity;
+import com.example.huichuanyi.ui.newpage.OrderStudioListActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -101,7 +101,7 @@ public class Order2Fragment extends BaseFragment {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_order_sure:
-                startActivity(new Intent(getActivity(), OrderStudioActivity.class));
+                startActivity(new Intent(getActivity(), OrderStudioListActivity.class));
                 break;
             default:
                 break;

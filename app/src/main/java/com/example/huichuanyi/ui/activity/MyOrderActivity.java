@@ -11,6 +11,7 @@ import com.example.huichuanyi.adapter.ClosetAdapter;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.fragment_second.Over_Order;
 import com.example.huichuanyi.fragment_second.Progress_Order;
+import com.example.huichuanyi.utils.ActivityCacheUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,7 @@ public class MyOrderActivity extends BaseActivity {
     public void setData() {
         mTabLayout.setupWithViewPager(mViewPager);
         mViewPager.setAdapter(mAdapter);
+        ActivityCacheUtils.finishActivity();
     }
 
     @Override
