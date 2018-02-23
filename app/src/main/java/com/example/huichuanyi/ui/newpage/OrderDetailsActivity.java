@@ -3,7 +3,9 @@ package com.example.huichuanyi.ui.newpage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -102,6 +104,10 @@ public class OrderDetailsActivity extends BaseActivity implements IsSuccess {
 
     private UtilsPay mPay;
 
+    private String invitation_code;
+
+    private Handler handler = new Handler();
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -172,6 +178,9 @@ public class OrderDetailsActivity extends BaseActivity implements IsSuccess {
         }
     }
 
+    @BindView(R.id.tv_delete_money)
+    TextView deleteMoney;
+
     private void goPay() {
         String invitation_code = ets[0].getText().toString();
         String time = tvTime.getText().toString().trim();
@@ -194,7 +203,8 @@ public class OrderDetailsActivity extends BaseActivity implements IsSuccess {
         //pa.addBodyParameter("user_id", user_id);
         map.put("studio_id", studio_id);
         //pa.addBodyParameter("studio_id", studio_id);
-        map.put("clothes_num", clothes_num.split("-")[1]);
+        String s = clothes_num.split("-")[1];
+        map.put("clothes_num", s.substring(0, s.length() - 3));
         //pa.addBodyParameter("clothes_num", clothes_num.split("-")[1]);
         map.put("address_id", address_id);
         //pa.addBodyParameter("address_id", address_id);
@@ -220,11 +230,11 @@ public class OrderDetailsActivity extends BaseActivity implements IsSuccess {
             map.put("order_date_tag", "PM_BUSY");
             // pa.addBodyParameter("order_date_tag", "PM_BUSY");
         }
+        //String url = "http://192.168.1.160:8081/HM/app/stu/order/service/order/addServiceOrder_new.do";
         net.post(NetConfig.UPLOADING_COM_DETAILS, this, map, new MUtilsInternet.XCallBack() {
             @Override
             public void onResponse(String result) {
                 try {
-
                     JSONObject obj = new JSONObject(result);
                     String ret = obj.getString("ret");
                     if ("0".equals(ret)) {
@@ -240,33 +250,99 @@ public class OrderDetailsActivity extends BaseActivity implements IsSuccess {
                 }
             }
         });
-        /*x.http().post(pa, new Callback.CacheCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                Log.e("TAG", "onSuccess: -----------" + result);
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                Log.e("TAG", "onSuccess: -----------" + ex.getMessage());
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-
-            @Override
-            public boolean onCache(String result) {
-                return false;
-            }
-        });*/
     }
+
+    private String money;
+    /**
+     * 延迟线程，看是否还有下一个字符输入
+     */
+    private Runnable delayRun = new Runnable() {
+
+        @Override
+        public void run() {
+            String s = tvCount.getText().toString().split("-")[1];
+            String substring = s.substring(0, s.length() - 3);
+            RequestParams pa = new RequestParams(NetConfig.GO_DOOR_MONEY);
+            pa.addBodyParameter("studio_id", model.getId());
+            pa.addBodyParameter("studio_city", model.getCity());
+            pa.addBodyParameter("clothes_num", substring);
+            pa.addBodyParameter("invitation_code", invitation_code);
+            x.http().post(pa, new Callback.CacheCallback<String>() {
+                @Override
+                public void onSuccess(String result) {
+                    try {
+                        JSONObject object = new JSONObject(result);
+                        JSONObject body = object.getJSONObject("body");
+                        final String price = body.getString("price");
+                        double v = Double.parseDouble(price);
+                        double v1 = Double.parseDouble(money);
+                        final double v2 = v1 - v;
+                        if (v2 > 0) {
+                            new Handler().post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    tvMoney.setText("¥" + price);
+                                    tvMoneys.setText("¥" + price);
+                                    deleteMoney.setText("- ¥" + v2);
+                                }
+                            });
+                        } else {
+                            deleteMoney.setText("不可用");
+                            tvMoney.setText("¥" + money);
+                            tvMoneys.setText("¥" + money);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+                }
+
+                @Override
+                public void onCancelled(CancelledException cex) {
+
+                }
+
+                @Override
+                public void onFinished() {
+
+                }
+
+                @Override
+                public boolean onCache(String result) {
+                    return false;
+                }
+            });
+        }
+    };
+
+    TextWatcher watcher = new TextWatcher() {
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before,
+                                  int count) {
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count,
+                                      int after) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+            if (delayRun != null) {
+                //每次editText有变化的时候，则移除上次发出的延迟线程
+                handler.removeCallbacks(delayRun);
+            }
+            invitation_code = s.toString();
+            //延迟800ms，如果不再输入字符，则执行该线程的run方法
+            handler.postDelayed(delayRun, 800);
+        }
+    };
 
     private void payGo() {
         if (TextUtils.equals("3", payTag)) {
@@ -320,6 +396,8 @@ public class OrderDetailsActivity extends BaseActivity implements IsSuccess {
     @Override
     protected void setListener() {
         isHaveActive();
+
+        ets[0].addTextChangedListener(watcher);
     }
 
     ;
@@ -401,29 +479,20 @@ public class OrderDetailsActivity extends BaseActivity implements IsSuccess {
         model = (City.BodyBean) intent.getSerializableExtra("model");
         String count = intent.getStringExtra("count");
         String time = intent.getStringExtra("time");
-        String money = intent.getStringExtra("money");
+        money = intent.getStringExtra("money");
         addGrade = intent.getStringExtra("addGrade");
-        tvMoney.setText(money);
+        tvMoney.setText("¥" + money);
         tvCount.setText(count);
         tvTime.setText(time);
-        tvMoneys.setText("¥ " + money);
+        tvMoneys.setText("¥" + money);
+        String imgPath = model.getImgPath();
+        String grade = model.getGrade();
         studioInfo[0].setText(model.getName());
         studioInfo[1].setText(model.getIntroduction());
         Glide.with(this).load(model.getPhoto_get()).transform(new GlideCircleTransform(this)).into(studioLogo);
-        String grade = model.getGrade();
-        if ("1".equals(grade)) {
-            studioSmallLevel.setImageResource(R.mipmap.hm_studio_trainee_small);
-            studioBigLevel.setImageResource(R.mipmap.hm_studio_trainee_big);
-        } else if ("2".equals(grade)) {
-            studioSmallLevel.setImageResource(R.mipmap.hm_studio_authentication_small);
-            studioBigLevel.setImageResource(R.mipmap.hm_studio_authentication_big);
-        } else if ("3".equals(grade)) {
-            studioSmallLevel.setImageResource(R.mipmap.hm_studio_senior_small);
-            studioBigLevel.setImageResource(R.mipmap.hm_studio_senior_big);
-        } else {
-            studioSmallLevel.setImageResource(R.mipmap.hm_studio_high_senior_small);
-            studioBigLevel.setImageResource(R.mipmap.hm_studio_high_senior_big);
-        }
+        Glide.with(this).load(imgPath + grade + "_icon.png").into(studioSmallLevel);
+        Glide.with(this).load(imgPath + grade + "_grade.png").into(studioBigLevel);
+
     }
 
     private City.BodyBean model;

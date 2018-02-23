@@ -33,6 +33,8 @@ public class OrderStudioListActivity extends BaseActivity {
         finish();
     }
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -226,6 +228,7 @@ public class OrderStudioListActivity extends BaseActivity {
         if (data != null) {
             String mAdd = data.getStringExtra("address");
             if (!CommonUtils.isEmpty(mAdd)) {
+                noBody.setVisibility(View.GONE);
                 address.setText(mAdd);
                 if (mOnFresh1 != null)
                     mOnFresh1.onFresh(mAdd, mLat, mLng);

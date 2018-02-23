@@ -16,7 +16,6 @@ public class EventExpectAdapter extends RecyclerView.Adapter<EventExpectAdapter.
     private String[]  mData;
     private Context mContext;
     private View.OnClickListener mListener;
-
     public void setOnItemClickListener(View.OnClickListener listener){
         mListener = listener;
     }
@@ -48,7 +47,6 @@ public class EventExpectAdapter extends RecyclerView.Adapter<EventExpectAdapter.
     }
 
     public static  class  MyViewHolder extends RecyclerView.ViewHolder{
-
         private TextView mTextView;
         public MyViewHolder(View itemView) {
             super(itemView);

@@ -73,27 +73,27 @@ public class SelectClothesCountDialog extends Dialog {
             public void getItemData(OrderGoDoorPrice str) {
                 switch (gradle) {
                     case "1":
-                        mCount = str.priceRange + "件";
+                        mCount = str.priceRange + "(件)";
                         mPrice = str.gradeOne;
                         break;
                     case "2":
-                        mCount = str.priceRange + "件";
+                        mCount = str.priceRange + "(件)";
                         mPrice = str.gradeTwo;
                         break;
                     case "3":
-                        mCount = str.priceRange + "件";
+                        mCount = str.priceRange + "(件)";
                         mPrice = str.gradeThree;
                         break;
                     case "4":
-                        mCount = str.priceRange + "件";
+                        mCount = str.priceRange + "(件)";
                         mPrice = str.gradeFour;
                         break;
                     case "5":
-                        mCount = str.priceRange + "件";
+                        mCount = str.priceRange + "(件)";
                         mPrice = str.gradeFive;
                         break;
                     case "6":
-                        mCount = str.priceRange + "件";
+                        mCount = str.priceRange + "(件)";
                         mPrice = str.gradeSix;
                         break;
                     default:

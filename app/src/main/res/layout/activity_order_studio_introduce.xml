@@ -26,13 +26,21 @@
             android:layout_height="match_parent"
             android:layout_toLeftOf="@+id/tv_order_studio_introduce_go_order"
             android:background="@drawable/shape_go_order_text">
-
             <TextView
-                android:id="@+id/tv_order_studio_introduce_money"
+                android:id="@+id/tv_tip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
+                android:text="¥ "
+                android:textColor="#ac0000"
+                android:textSize="18sp" />
+            <TextView
+                android:layout_toRightOf="@+id/tv_tip"
+                android:id="@+id/tv_order_studio_introduce_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:text="00.0"
                 android:textColor="#ac0000"
                 android:textSize="18sp" />
@@ -107,9 +115,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="20dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:paddingTop="20dp">
 
         <include layout="@layout/btn_back"></include>
 
