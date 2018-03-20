@@ -9,14 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.huichuanyi.R;
-import com.example.huichuanyi.custom.RoundImageView;
-import com.example.huichuanyi.bean.Progress;
-import com.squareup.picasso.Picasso;
+import com.example.huichuanyi.bean.ServiceBean;
 
 import java.util.List;
 
 public class ProgressAdapter extends BaseAdapter {
-    private List<Progress.ListBean> mData;
+    private List<ServiceBean.BodyBean> mData;
 
     private Context mContext;
 
@@ -26,7 +24,7 @@ public class ProgressAdapter extends BaseAdapter {
         mOnOrderClick = onOrderClick;
     }
 
-    public ProgressAdapter(List<Progress.ListBean> data, Context context) {
+    public ProgressAdapter(List<ServiceBean.BodyBean> data, Context context) {
         mData = data;
         mContext = context;
     }
@@ -46,6 +44,8 @@ public class ProgressAdapter extends BaseAdapter {
         return position;
     }
 
+    //订单状态对应：-2购物车；-1-20下单未支付；0-10支付成功；1-11已发货/接单；
+    // 2-12已完成；3-100未接单申退；4-110已接单申退；5-101拒绝接单退款成功；6-1001或1101申请退款成功；
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder mHolder = null;
@@ -57,59 +57,71 @@ public class ProgressAdapter extends BaseAdapter {
             mHolder = (ViewHolder) convertView.getTag();
         }
         if (mData != null && mData.size() > 0) {
-            Progress.ListBean mPosition = mData.get(position);
-            String state = mPosition.getState();
+            ServiceBean.BodyBean mPosition = mData.get(position);
+            String state = mPosition.getDeleteStatus();
             switch (state) {
+                case "-1":
                 case "20":
                     mHolder.BuChaJia.setVisibility(View.GONE);
                     mHolder.ShenQingTuiKuan.setVisibility(View.GONE);
                     mHolder.DaiQueRen.setVisibility(View.GONE);
                     mHolder.ZaiLaiYiDan.setVisibility(View.GONE);
                     mHolder.QuZhiFu.setVisibility(View.VISIBLE);
-                    mHolder.mTextViewState.setText("待支付");
+                    //mHolder.mTextViewState.setText("待支付");
                     break;
+                case "0":
                 case "10":
                     mHolder.DaiQueRen.setVisibility(View.VISIBLE);
                     mHolder.ShenQingTuiKuan.setVisibility(View.VISIBLE);
                     mHolder.BuChaJia.setVisibility(View.GONE);
                     mHolder.ZaiLaiYiDan.setVisibility(View.GONE);
                     mHolder.QuZhiFu.setVisibility(View.GONE);
-                    mHolder.mTextViewState.setText("进行中");
+                    //mHolder.mTextViewState.setText("进行中");
                     break;
+                case "1":
                 case "11":
                     mHolder.DaiQueRen.setVisibility(View.VISIBLE);
                     mHolder.ShenQingTuiKuan.setVisibility(View.VISIBLE);
                     mHolder.BuChaJia.setVisibility(View.VISIBLE);
                     mHolder.ZaiLaiYiDan.setVisibility(View.GONE);
                     mHolder.QuZhiFu.setVisibility(View.GONE);
-                    mHolder.mTextViewState.setText("进行中");
+                    //mHolder.mTextViewState.setText("进行中");
                     break;
-                case "14":
-                    mHolder.DaiQueRen.setVisibility(View.VISIBLE);
-                    mHolder.BuChaJia.setVisibility(View.VISIBLE);
-                    mHolder.ZaiLaiYiDan.setVisibility(View.GONE);
-                    mHolder.QuZhiFu.setVisibility(View.GONE);
-                    mHolder.ShenQingTuiKuan.setVisibility(View.GONE);
+                case "2":
+                case "12":
+                    if ("0".equals(mPosition.getEvaluateState())) {
+                        //mHolder.mTextViewState.setText("已完成");
+                        mHolder.BuChaJia.setVisibility(View.GONE);
+                        mHolder.ShenQingTuiKuan.setVisibility(View.GONE);
+                        mHolder.DaiQueRen.setVisibility(View.GONE);
+                        mHolder.ZaiLaiYiDan.setVisibility(View.VISIBLE);
+                        mHolder.QuZhiFu.setVisibility(View.GONE);
+                    } else {
+                        mHolder.BuChaJia.setVisibility(View.GONE);
+                        mHolder.ShenQingTuiKuan.setVisibility(View.GONE);
+                        mHolder.DaiQueRen.setVisibility(View.GONE);
+                        mHolder.ZaiLaiYiDan.setVisibility(View.VISIBLE);
+                        mHolder.QuZhiFu.setVisibility(View.GONE);
+                        mHolder.ZaiLaiYiDan.setImageResource(R.mipmap.qupingjia);
+                    }
                     break;
+                case "4":
+                case "3":
                 case "100":
-                    mHolder.mTextViewState.setText("审核中");
-                    mHolder.BuChaJia.setVisibility(View.GONE);
-                    mHolder.ShenQingTuiKuan.setVisibility(View.GONE);
-                    mHolder.DaiQueRen.setVisibility(View.GONE);
-                    mHolder.ZaiLaiYiDan.setVisibility(View.GONE);
-                    mHolder.QuZhiFu.setVisibility(View.GONE);
-                    break;
                 case "110":
-                    mHolder.mTextViewState.setText("审核中");
+                    mHolder.ZaiLaiYiDan.setVisibility(View.VISIBLE);
+                    //mHolder.mTextViewState.setText("审核中");
                     mHolder.BuChaJia.setVisibility(View.GONE);
                     mHolder.ShenQingTuiKuan.setVisibility(View.GONE);
                     mHolder.DaiQueRen.setVisibility(View.GONE);
-                    mHolder.ZaiLaiYiDan.setVisibility(View.GONE);
                     mHolder.QuZhiFu.setVisibility(View.GONE);
+                    mHolder.ZaiLaiYiDan.setImageResource(R.mipmap.shenhezhong);
                     break;
-                default:
-                    mHolder.mTextViewState.setText("订单取消" +
-                            "");
+                case "5":
+                case "6":
+                case "1001":
+                case "1102":
+                    //mHolder.mTextViewState.setText("订单取消" + "");
                     mHolder.BuChaJia.setVisibility(View.GONE);
                     mHolder.ShenQingTuiKuan.setVisibility(View.GONE);
                     mHolder.DaiQueRen.setVisibility(View.GONE);
@@ -119,15 +131,11 @@ public class ProgressAdapter extends BaseAdapter {
             }
 
             //进行每个item的展示
-            String manager_photo = mPosition.getManager_photo();
-            if (manager_photo.length() > 5) {
-                Picasso.with(mContext).load(manager_photo).into(mHolder.mImageViewPhoto);
-            } else {
-                mHolder.mImageViewPhoto.setImageResource(R.mipmap.stand);
-            }
-            mHolder.mTextViewName.setText(mPosition.getManagername());
-            mHolder.mTextViewAllMoney.setText("¥" + mPosition.getMoney());
-            mHolder.mTextViewDingDanHao.setText(mPosition.getId());
+            /*String manager_photo = mPosition.getManager_photo();
+            Glide.with(mContext).load(manager_photo).error(R.mipmap.stand).into(mHolder.mImageViewPhoto);*/
+            //mHolder.mTextViewName.setText(mPosition.getBuyUserName());
+            mHolder.mTextViewAllMoney.setText("¥" + mPosition.getMoneyTotal());
+            mHolder.mTextViewDingDanHao.setText(mPosition.getSellerUserName());
             //为每个空间添加TAG,添加回调接口
             mHolder.ShenQingTuiKuan.setTag(position);
             mHolder.ZaiLaiYiDan.setTag(position);
@@ -173,20 +181,20 @@ public class ProgressAdapter extends BaseAdapter {
     }
 
     public static class ViewHolder {
-        private RoundImageView mImageViewPhoto;
+        //private RoundImageView mImageViewPhoto;
         private ImageView ShenQingTuiKuan, BuChaJia, QuZhiFu, ZaiLaiYiDan, DaiQueRen;
-        private TextView mTextViewName, mTextViewAllMoney, mTextViewDingDanHao, mTextViewState;
+        private TextView mTextViewAllMoney, mTextViewDingDanHao;
 
         public ViewHolder(View view) {
-            mImageViewPhoto = (RoundImageView) view.findViewById(R.id.rv_progress_item_photo);
+            //mImageViewPhoto = (RoundImageView) view.findViewById(R.id.rv_progress_item_photo);
             ShenQingTuiKuan = (ImageView) view.findViewById(R.id.iv_progress_item_shenqingtuikuan);
             BuChaJia = (ImageView) view.findViewById(R.id.iv_progress_item_buchajia);
             QuZhiFu = (ImageView) view.findViewById(R.id.iv_progress_item_quzhifu);
             ZaiLaiYiDan = (ImageView) view.findViewById(R.id.iv_progress_item_zailaiyidian);
-            mTextViewName = (TextView) view.findViewById(R.id.tv_progress_item_name);
+            //mTextViewName = (TextView) view.findViewById(R.id.tv_progress_item_name);
             mTextViewAllMoney = (TextView) view.findViewById(R.id.tv_progress_item_allMoney);
             mTextViewDingDanHao = (TextView) view.findViewById(R.id.tv_progress_item_dingdanhao);
-            mTextViewState = (TextView) view.findViewById(R.id.tv_progress_item_isPay);
+            //mTextViewState = (TextView) view.findViewById(R.id.tv_progress_item_isPay);
             DaiQueRen = (ImageView) view.findViewById(R.id.iv_progress_item_daiqueren);
         }
     }

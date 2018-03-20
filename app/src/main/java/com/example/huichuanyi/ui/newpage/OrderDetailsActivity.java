@@ -19,6 +19,7 @@ import com.example.huichuanyi.bean.City;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.GlideCircleTransform;
 import com.example.huichuanyi.custom.MySelfPayDialog;
+import com.example.huichuanyi.emum.ServiceType;
 import com.example.huichuanyi.ui.activity.AddressListActivity;
 import com.example.huichuanyi.ui.activity.LiJiYuYueWhatActivity;
 import com.example.huichuanyi.ui.activity.MyOrderActivity;
@@ -29,8 +30,10 @@ import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.IsSuccess;
 import com.example.huichuanyi.utils.MUtilsInternet;
+import com.example.huichuanyi.utils.ServiceSingleUtils;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UtilsPay;
+import com.example.huichuanyi.wxapi.WXPayEntryActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -159,12 +162,22 @@ public class OrderDetailsActivity extends BaseActivity implements IsSuccess {
                 dialog.show();
                 break;
             case R.id.tv_order_studio_introduce_go_order:
-                if (!CommonUtils.isEmpty(payTag))
-                    if (CommonUtils.isEmpty(order_id))
-                        goPay();
-                    else
-                        payGo();
-                else {
+                if (!CommonUtils.isEmpty(payTag)) {
+                    if (ServiceSingleUtils.getInstance().getServiceType() == ServiceType.SERVICE_ACARUS_KILLING) {
+                        //除螨提交订单和获取签名支付
+                        if (CommonUtils.isEmpty(order_id)) {
+                            goAcarusKilling();
+                        } else {
+                            payGoAcaruskilling();
+                        }
+                    } else {
+                        if (CommonUtils.isEmpty(order_id)) {
+                            goPay();
+                        } else {
+                            payGo();
+                        }
+                    }
+                } else {
                     Toast.makeText(this, "请选择支付方式", Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -175,6 +188,103 @@ public class OrderDetailsActivity extends BaseActivity implements IsSuccess {
                 break;
             default:
                 break;
+        }
+    }
+
+    /*
+    * 提交除螨订单，获取订单号
+    * */
+    private void goAcarusKilling() {
+        String user_name = customerInfo[0].getText().toString().trim();
+        String userCity = customerInfo[2].getText().toString().trim();
+        String userPhone = customerInfo[1].getText().toString().trim();
+        final String remarks = ets[1].getText().toString();
+        String user_id = SharedPreferenceUtils.getUserData(this, 1);
+        String sellerUserId = model.getId();
+        String sellerUserName = model.getName();
+        String sellerPhone = model.getPhone();
+        String sellerCityName = model.getCity();
+        String consigneeTime = tvTime.getText().toString().trim();
+        if (CommonUtils.isEmpty(user_name) || CommonUtils.isEmpty(userCity) || CommonUtils.isEmpty(userPhone)) {
+            Toast.makeText(this, "请输入完整信息", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        map.put("token", "82D5FBD40259C743ADDEF14D0E22F347");
+        map.put("orderRemarkBuyer", remarks);
+        map.put("buyUserId", user_id);
+        map.put("buyUserName", user_name);
+        map.put("sellerUserId", sellerUserId);
+        map.put("sellerUserName", sellerUserName);
+        map.put("sellerCityName", sellerCityName);
+        map.put("sellerPhone", sellerPhone);
+        map.put("consigneeName", user_name);
+        map.put("consigneePhone", userPhone);
+        map.put("consigneeAddress", userCity);
+        map.put("orderNumber", orderNumber);
+        map.put("consigneeTime", consigneeTime);
+        net.post(NetConfig.ORDER_ACARUS_KILLING, this, map, new MUtilsInternet.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+                try {
+                    JSONObject obj = new JSONObject(result);
+                    String ret = obj.getString("ret");
+                    if ("0".equals(ret)) {
+                        JSONObject body = obj.getJSONObject("body");
+                        order_id = body.getString("orderId");
+                        payGoAcaruskilling();
+                    } else {
+                        String msg = obj.getString("msg");
+                        Toast.makeText(OrderDetailsActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private String orderNumber;
+
+    /*
+    * 获取签名进行支付
+    * */
+    private void payGoAcaruskilling() {
+        if (TextUtils.equals("3", payTag)) {
+            Toast.makeText(this, "一网通支付暂未开通，敬请期待", Toast.LENGTH_SHORT).show();
+        } else {
+            switch (payTag) {
+                case "1":
+                    map.put("token", "82D5FBD40259C743ADDEF14D0E22F347");
+                    map.put("orderId", order_id);
+                    map.put("payType", "1");
+                    net.post(NetConfig.PAY_SIGN_ACARUS_KILLING, this, map, new MUtilsInternet.XCallBack() {
+                        @Override
+                        public void onResponse(String result) {
+                            try {
+                                JSONObject object = new JSONObject(result);
+                                JSONObject body = object.getJSONObject("body");
+                                String sign = body.getString("sign");
+                                mPay.aliPay(sign);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    break;
+                case "2":
+                    map.put("token", "82D5FBD40259C743ADDEF14D0E22F347");
+                    map.put("orderId", order_id);
+                    map.put("payType", "2");
+                    net.post(NetConfig.PAY_SIGN_ACARUS_KILLING, this, map, new MUtilsInternet.XCallBack() {
+                        @Override
+                        public void onResponse(String result) {
+                            mPay.weChatPay(result);
+                        }
+                    });
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -191,6 +301,10 @@ public class OrderDetailsActivity extends BaseActivity implements IsSuccess {
         final String remarks = ets[1].getText().toString();
         String user_id = SharedPreferenceUtils.getUserData(this, 1);
         String studio_id = model.getId();
+        if (CommonUtils.isEmpty(user_name) || CommonUtils.isEmpty(userCity) || CommonUtils.isEmpty(userPhone)) {
+            Toast.makeText(this, "请输入完整信息", Toast.LENGTH_SHORT).show();
+            return;
+        }
         //RequestParams pa = new RequestParams(NetConfig.UPLOADING_COM_DETAILS);
         if (CommonUtils.isEmpty(invitation_code)) {
             map.put("type", "0");
@@ -395,16 +509,37 @@ public class OrderDetailsActivity extends BaseActivity implements IsSuccess {
 
     @Override
     protected void setListener() {
-        isHaveActive();
+        if (ServiceSingleUtils.getInstance().getServiceType() != ServiceType.SERVICE_ACARUS_KILLING)
+            isHaveActive();
 
         ets[0].addTextChangedListener(watcher);
+        wxPay = new WXPayEntryActivity();
+        wxPay.wxPayIsSuccess(new WXPayEntryActivity.CallBackCode() {
+            @Override
+            public void onCallBack(int errCode) {
+                if (0 == errCode) {
+                    CommonUtils.Toast(OrderDetailsActivity.this, "支付成功");
+                    mPay.showNotation();
+                    ActivityUtils.switchTo(OrderDetailsActivity.this, MyOrderActivity.class);
+                } else {
+                    CommonUtils.Toast(OrderDetailsActivity.this, "支付失败");
+                }
+            }
+        });
     }
 
+    WXPayEntryActivity wxPay;
     ;
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        wxPay.wxPayIsSuccess(null);
+    }
+
     /*
-   * 是否有团购活动
-   * */
+       * 是否有团购活动
+       * */
     private void isHaveActive() {
         RequestParams pa = new RequestParams("http://hmyc365.net:8081/HM/app/doorToDoorService/order/code/isGroupActivity.do");
         pa.addBodyParameter("user_id", SharedPreferenceUtils.getUserData(this, 1));
@@ -477,6 +612,7 @@ public class OrderDetailsActivity extends BaseActivity implements IsSuccess {
     protected void setData() {
         Intent intent = getIntent();
         model = (City.BodyBean) intent.getSerializableExtra("model");
+        orderNumber = intent.getStringExtra("defaultNum");
         String count = intent.getStringExtra("count");
         String time = intent.getStringExtra("time");
         money = intent.getStringExtra("money");

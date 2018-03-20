@@ -80,7 +80,9 @@ public class OrderStudioListActivity extends BaseActivity {
             if (1 == what) {
                 if (dialog.isShowing())
                     dialog.dismiss();
-            } else {
+            } else if (2==what){
+                loadingLocation();
+            }else {
                 Bundle data = msg.getData();
                 String mAdd = data.getString("location");
                 if (!CommonUtils.isEmpty(mAdd)) {
@@ -119,7 +121,7 @@ public class OrderStudioListActivity extends BaseActivity {
         mTabLayout.getTabAt(0).setIcon(getResources().getDrawable(R.mipmap.hm_studio_distance));
         mTabLayout.getTabAt(1).setIcon(getResources().getDrawable(R.mipmap.hm_studio_unranking));
         mTabLayout.getTabAt(2).setIcon(getResources().getDrawable(R.mipmap.hm_studio_unscore));
-        loadingLocation();
+        mHandler.sendEmptyMessageDelayed(2, 500);
     }
 
     /*

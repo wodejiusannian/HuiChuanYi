@@ -17,6 +17,8 @@ import com.example.huichuanyi.custom.seekbar.ContactAdapter;
 import com.example.huichuanyi.custom.seekbar.RecyclerViewDivider;
 import com.example.huichuanyi.custom.seekbar.RightIndexView;
 import com.example.huichuanyi.custom.seekbar.TinyPY;
+import com.example.huichuanyi.emum.ServiceType;
+import com.example.huichuanyi.utils.ServiceSingleUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
 
 import org.json.JSONArray;
@@ -25,8 +27,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 
 public class LiJiYuYueStudioSelectCityActivity extends BaseActivity implements RightIndexView.OnRightTouchMoveListener, UtilsInternet.XCallBack {
 
@@ -56,7 +60,14 @@ public class LiJiYuYueStudioSelectCityActivity extends BaseActivity implements R
 
     @Override
     public void initData() {
-        net.post(NetConfig.ALL_STUDIO_CITY, null, this);
+        if (ServiceSingleUtils.getInstance().getServiceType() == ServiceType.SERVICE_ACARUS_KILLING) {
+            Map map = new HashMap();
+            map.put("token", "82D5FBD40259C743ADDEF14D0E22F347");
+            map.put("cityType", "1");
+            net.post("http://101.201.36.18/admiral/common/service/city/listCity.htm", map, this);
+        } else {
+            net.post(NetConfig.ALL_STUDIO_CITY, null, this);
+        }
     }
 
     @Override

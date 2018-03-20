@@ -270,5 +270,32 @@ public interface NetConfig {
     String SLW_DATA = "http://hmyc365.net/HM/bg/hmyc/vip/info/userVipInfo.do";
 
     String PRIVATE_MANAGER_DATA = "http://hmyc365.net/file/html/app/liangTi/index.html?user_id=%s";
+
+    //18年新接口
+    String BASE_NEW_URL = "http://hmyc365.net";//192.168.1.160
+
+    //每个城市除螨下单的价格
+    String PRICE_ACARUS_KILLING = BASE_NEW_URL + "/admiral/common/service/price/listPrice.htm";
+
+    //除螨服务下单接口
+    String ORDER_ACARUS_KILLING = BASE_NEW_URL + "/admiral/app/hmyc/service/order/addOrderCmfw.htm";
+
+    /*服务除螨获取签名接口*/
+    String PAY_SIGN_ACARUS_KILLING = BASE_NEW_URL + "/admiral/common/pay/cmfw/sign.htm";
+
+    //除螨服务补差价下单接口
+    String ORDER_CLOSE_MONEY_ACARUS_KILLING = BASE_NEW_URL + "/admiral/app/hmyc/service/order/addOrderCmfwBcj.htm";
+
+    //除螨服务补差价获取签名接口
+    String SIGN_CLOSE_MONEY_ACARUS_KILLING = BASE_NEW_URL + "/admiral/common/pay/cmfwbcj/sign.htm";
+
+
+    String SERVICE_LIST = BASE_NEW_URL + "/admiral/app/hmyc/service/order/listOrder.htm";
+
+    String TUI_KUAN_ACARUS_KILLING = BASE_NEW_URL + "/admiral/app/hmyc/service/order/refund.htm";
+
+    String OVER_SERVICE_ACARUS_KILLING = BASE_NEW_URL + "/admiral/app/hmyc/service/order/complete.htm";
+
+    String PINGJIA_ACARUS_KILLING = BASE_NEW_URL + "/admiral/app/hmyc/service/evaluate/addEvaluate.htm";
 }
 

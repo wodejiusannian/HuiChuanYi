@@ -14,16 +14,13 @@
         android:layout_height="40dp"
         android:background="@color/top_color">
 
-        <ImageView
-            android:id="@+id/iv_myOrder_back"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/back" />
+
+        <include layout="@layout/btn_back"></include>
 
         <TextView
             style="@style/ActivityTopTextTitleStyle"
             android:layout_centerInParent="true"
-            android:text="评价"/>
+            android:text="评价" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -108,7 +105,7 @@
         <Button
             android:id="@+id/btn_pingjia_tijiao"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/distance"
             android:background="@drawable/button_red"

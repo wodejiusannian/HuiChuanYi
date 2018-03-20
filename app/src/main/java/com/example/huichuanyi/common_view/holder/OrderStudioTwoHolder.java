@@ -1,7 +1,6 @@
 package com.example.huichuanyi.common_view.holder;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -13,7 +12,6 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.bean.City;
 import com.example.huichuanyi.common_view.adapter.MultiTypeAdapter;
 import com.example.huichuanyi.custom.GlideCircleTransform;
-import com.example.huichuanyi.ui.newpage.OrderStudioIntroduceActivity;
 import com.example.huichuanyi.utils.CommonUtils;
 
 // ┏┓　　　┏┓
@@ -73,10 +71,10 @@ public class OrderStudioTwoHolder extends BaseViewHolder<City.BodyBean> {
         String grade = model.getGrade();
         String imgPath = model.getImgPath();
         String updateTime = String.valueOf(System.currentTimeMillis());
-        Glide.with(context).load(imgPath+grade+"_icon.png")
+        Glide.with(context).load(imgPath + grade + "_icon.png")
                 .signature(new StringSignature(updateTime))
                 .into(level_small);
-        Glide.with(context).load(imgPath+grade+"_grade.png")
+        Glide.with(context).load(imgPath + grade + "_grade.png")
                 .signature(new StringSignature(updateTime))
                 .into(level_big);
         /*if ("1".equals(grade)) {
@@ -92,17 +90,19 @@ public class OrderStudioTwoHolder extends BaseViewHolder<City.BodyBean> {
             level_small.setImageResource(R.mipmap.hm_studio_high_senior_small);
             level_big.setImageResource(R.mipmap.hm_studio_high_senior_big);
         }*/
-        rl.setOnClickListener(new View.OnClickListener() {
+        rl.setTag(position);
+        rl.setOnClickListener(adapter.getmOnclick());
+       /* rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent intent = new Intent(context, ManageActivity.class);
+                *//*Intent intent = new Intent(context, ManageActivity.class);
                 intent.putExtra("bodyBean", model);
                 Location.mOrder_365 = "567";
-                context.startActivity(intent);*/
+                context.startActivity(intent);*//*
                 Intent intent = new Intent(context, OrderStudioIntroduceActivity.class);
                 intent.putExtra("model", model);
                 context.startActivity(intent);
             }
-        });
+        });*/
     }
 }

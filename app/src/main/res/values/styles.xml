@@ -204,4 +204,10 @@
         <item name="android:minHeight">11dip</item>
         <item name="android:maxHeight">10dip</item>
     </style>
+
+    <style name="HmFoodStarBar2" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/hm_ratingstars</item>
+        <item name="android:minHeight">30dip</item>
+        <item name="android:maxHeight">30dip</item>
+    </style>
 </resources>

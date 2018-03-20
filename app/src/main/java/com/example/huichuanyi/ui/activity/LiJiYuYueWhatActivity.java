@@ -7,6 +7,8 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
+import com.example.huichuanyi.emum.ServiceType;
+import com.example.huichuanyi.utils.ServiceSingleUtils;
 
 public class LiJiYuYueWhatActivity extends BaseActivity {
     private ImageView iv;
@@ -21,19 +23,23 @@ public class LiJiYuYueWhatActivity extends BaseActivity {
     @Override
     public void initView() {
         iv = (ImageView) this.findViewById(R.id.iv);
-        String gra = getIntent().getStringExtra("gra");
-        switch (gra) {
-            case "0":
-                Glide.with(this).load("http://hmyc365.net/hmyc/file/app-studio-picture/price-info-0.png").into(iv);
-                break;
-            case "1":
-                Glide.with(this).load("http://hmyc365.net/hmyc/file/app-studio-picture/price-info-1.png").into(iv);
-                break;
-            case "2":
-                Glide.with(this).load("http://hmyc365.net/hmyc/file/app-studio-picture/price-info-2.png").into(iv);
-                break;
-            default:
-                break;
+        if (ServiceSingleUtils.getInstance().getServiceType() == ServiceType.SERVICE_ACARUS_KILLING) {
+            Glide.with(this).load("http://hmyc365.net/hmyc/file/app-studio-picture/price-info-0.jpg").into(iv);
+        } else {
+            String gra = getIntent().getStringExtra("gra");
+            switch (gra) {
+                case "0":
+                    Glide.with(this).load("http://hmyc365.net/hmyc/file/app-studio-picture/price-info-0.png").into(iv);
+                    break;
+                case "1":
+                    Glide.with(this).load("http://hmyc365.net/hmyc/file/app-studio-picture/price-info-1.png").into(iv);
+                    break;
+                case "2":
+                    Glide.with(this).load("http://hmyc365.net/hmyc/file/app-studio-picture/price-info-2.png").into(iv);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 

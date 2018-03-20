@@ -48,36 +48,42 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     public void onResp(BaseResp resp) {
         if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
             int code = resp.errCode;
-            switch (code) {
-                case 0:
-                    if (!CommonUtils.isEmpty(CommonStatic.wechatType)) {
-                        switch (CommonStatic.wechatType) {
-                            case "1":
-                                closeActivity();
-                                ActivityUtils.switchTo(this, MyOrderActivity.class);
-                                break;
-                            case "2":
-                                SharedPreferenceUtils.save365(this, "365");
-                                sendBroad();
-                                ActivityUtils.switchTo(this, My_365Activity.class);
-                                break;
-                            case "3":
-                                closeActivity();
-                                break;
-                            default:
-                                break;
+            if (mCallBackCode != null) {
+                mCallBackCode.onCallBack(code);
+                finish();
+            } else {
+                switch (code) {
+                    case 0:
+                        if (!CommonUtils.isEmpty(CommonStatic.wechatType)) {
+                            switch (CommonStatic.wechatType) {
+                                case "1":
+                                    closeActivity();
+                                    ActivityUtils.switchTo(this, MyOrderActivity.class);
+                                    break;
+                                case "2":
+                                    SharedPreferenceUtils.save365(this, "365");
+                                    sendBroad();
+                                    ActivityUtils.switchTo(this, My_365Activity.class);
+                                    break;
+                                case "3":
+                                    closeActivity();
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
-                    }
-                    RxBus.getDefault().post(1);
-                    CommonUtils.Toast(this, "支付成功");
-                case -1:
-                    CommonUtils.Toast(this, "支付失败");
-                    break;
-                case -2:
-                    CommonUtils.Toast(this, "支付取消");
-                    break;
+                        RxBus.getDefault().post(1);
+                        CommonUtils.Toast(this, "支付成功");
+                        break;
+                    case -1:
+                        CommonUtils.Toast(this, "支付失败");
+                        break;
+                    case -2:
+                        CommonUtils.Toast(this, "支付取消");
+                        break;
+                }
+                finish();
             }
-            finish();
         }
     }
 
@@ -100,5 +106,21 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
             Item_DetailsActivity.item_detailsActivity.finish();
             Item_DetailsActivity.item_detailsActivity = null;
         }
+    }
+
+    private static CallBackCode mCallBackCode;
+
+    public void wxPayIsSuccess(CallBackCode callBackCode) {
+        mCallBackCode = callBackCode;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mCallBackCode = null;
+    }
+
+    public interface CallBackCode {
+        void onCallBack(int errCode);
     }
 }

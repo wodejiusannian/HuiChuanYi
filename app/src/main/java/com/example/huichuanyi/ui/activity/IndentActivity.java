@@ -9,7 +9,7 @@ import android.view.View;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.ClosetAdapter;
 import com.example.huichuanyi.base.BaseActivity;
-import com.example.huichuanyi.fragment_second.Over_Indent;
+import com.example.huichuanyi.fragment_second.IndentFragment;
 import com.example.huichuanyi.fragment_second.Progress_Indent;
 
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class IndentActivity extends BaseActivity {
         mData = new ArrayList<>();
         mTitles = new ArrayList<>();
         mData.add(new Progress_Indent());
-        mData.add(new Over_Indent());
+        mData.add(new IndentFragment());
         mTitles.add("视频订单");
         mTitles.add("黑科技订单");
         mAdapter = new ClosetAdapter(getSupportFragmentManager(), mData, mTitles);

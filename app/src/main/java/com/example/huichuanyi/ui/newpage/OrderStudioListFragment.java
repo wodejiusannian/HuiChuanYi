@@ -1,10 +1,12 @@
 package com.example.huichuanyi.ui.newpage;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -16,11 +18,15 @@ import com.example.huichuanyi.common_view.model.OrderStudioFill;
 import com.example.huichuanyi.common_view.model.OrderStudioOne;
 import com.example.huichuanyi.common_view.model.OrderStudioThree;
 import com.example.huichuanyi.common_view.model.Visitable;
+import com.example.huichuanyi.config.NetConfig;
+import com.example.huichuanyi.emum.ServiceType;
 import com.example.huichuanyi.utils.CommonUtils;
+import com.example.huichuanyi.utils.ServiceSingleUtils;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -135,8 +141,49 @@ public class OrderStudioListFragment extends BaseFragment {
                 }
             });
         }
+        adapter.setOnItemClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = (int) v.getTag();
+                City.BodyBean bodyBean = (City.BodyBean) mData.get(position);
+                if (ServiceSingleUtils.getInstance().getServiceType() == ServiceType.SERVICE_ACARUS_KILLING) {
+                    acausKilling(bodyBean.getCity(), position);
+                } else {
+                    Intent intent = new Intent(getContext(), OrderStudioIntroduceActivity.class);
+                    intent.putExtra("model", bodyBean);
+                    startActivity(intent);
+                }
+            }
+        });
+    }
+
+    private void acausKilling(String city, final int position) {
+        Map<String, String> map = new HashMap<>();
+        map.put("token", "82D5FBD40259C743ADDEF14D0E22F347");
+        map.put("priceType", "1");
+        map.put("city", city);
+        net.post(NetConfig.PRICE_ACARUS_KILLING, map, new UtilsInternet.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+                try {
+                    JSONObject obj = new JSONObject(result);
+                    JSONObject body = obj.getJSONObject("body");
+                    int defaultNum = body.getInt("defaultNum");
+                    double defaultPrice = body.getDouble("defaultPrice");
+                    City.BodyBean bodyBean = (City.BodyBean) mData.get(position);
+                    Intent intent = new Intent(getContext(), OrderStudioIntroduceActivity.class);
+                    intent.putExtra("defaultNum", defaultNum + "");
+                    intent.putExtra("defaultPrice", defaultPrice + "");
+                    intent.putExtra("model", bodyBean);
+                    startActivity(intent);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
     }
+
 
     @Override
     protected void setData() {
@@ -167,6 +214,11 @@ public class OrderStudioListFragment extends BaseFragment {
         map.put("lng", mLng);
         map.put("lat", mLat);
         map.put("type", type + "");
+        if (ServiceSingleUtils.getInstance().getServiceType() == ServiceType.SERVICE_ACARUS_KILLING) {
+            map.put("cmfw", "1");
+        } else {
+            map.put("cmfw", "0");
+        }
         net.post("http://hmyc365.net:8081/HM/app/studio/userinfo/getStudioListNew.do", map, new UtilsInternet.XCallBack() {
             @Override
             public void onResponse(String result) {

@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,7 +15,8 @@ import android.widget.Toast;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.bean.PayState;
-import com.example.huichuanyi.bean.Progress;
+import com.example.huichuanyi.bean.ServiceBean;
+import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.PayListView;
 import com.example.huichuanyi.ui.activity.pay.CMBPayActivity;
 import com.example.huichuanyi.utils.CommonUtils;
@@ -46,7 +48,6 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtilsCopy.S
     private TextView cpMoney;
 
     @ViewInject(R.id.include_pay_list)
-
     private PayListView payListView;
 
     private UtilsPay mPay;
@@ -69,19 +70,27 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtilsCopy.S
         setContentView(R.layout.activity_price_closing);
     }
 
+    private ServiceBean.BodyBean bean;
+
     @Override
     public void initView() {
         Intent in = getIntent();
         kind = in.getStringExtra("kind");
-        Progress.ListBean bean = (Progress.ListBean) in.getSerializableExtra("bean");
+        bean = (ServiceBean.BodyBean) in.getSerializableExtra("bean");
         order_id = bean.getId();
-        if (TextUtils.equals("5", kind)) {
-            cpKind.setText("上门服务补差价");
-        } else if (TextUtils.equals("6", kind)) {
-            cpKind.setText("小蓝盒补差价");
-            cpCount.setHint("请输入小蓝盒数量");
+        if ("1".equals(bean.getOrderType())) {
+            cpKind.setText("除螨服务补差价");
+            cpCount.setHint("请输入蓝氧空气机材料使用数量");
+        } else {
+            if (TextUtils.equals("5", kind)) {
+                cpKind.setText("上门服务补差价");
+            } else if (TextUtils.equals("6", kind)) {
+                cpKind.setText("小蓝盒补差价");
+                cpCount.setHint("请输入小蓝盒数量");
+            }
         }
     }
+
 
     @Override
     public void initData() {
@@ -112,52 +121,65 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtilsCopy.S
         if (getDouble(mmCount) > 1) {
             switch (v.getId()) {
                 case R.id.btn_cp_pay:
+                    //这个是除螨补差价接口
                     switch (a_w_c) {
                         case "1":
-                            String counts = cpCount.getText().toString().trim();
-                            pay.aLiSign("1", order_id, mmCount, this,kind);
+                            if ("1".equals(bean.getOrderType())) {
+                                acarusKill();
+                            } else {
+                                String counts = cpCount.getText().toString().trim();
+                                pay.aLiSign("1", bean.getOrderId(), mmCount, this, kind);
+                            }
                             break;
                         case "2":
-                            pay.weChatSign("2", order_id, mmCount, this,kind);
+                            if ("1".equals(bean.getOrderType())) {
+                                acarusKill();
+                            } else {
+                                pay.weChatSign("2", bean.getOrderId(), mmCount, this, kind);
+                            }
                             break;
                         case "3":
-                            RequestParams params;
-                            if (TextUtils.equals("6", kind)) {
-                                params = new RequestParams("http://hmyc365.net:8081/HM/app/doorToDoorService/pay/supplementaryPriceDifference/box/getSign.do");
+                            if ("1".equals(bean.getOrderType())) {
+                                Toast.makeText(this, "除螨服务现在不支持一网通支付", Toast.LENGTH_SHORT).show();
                             } else {
-                                params = new RequestParams("http://hmyc365.net:8081/HM/app/doorToDoorService/pay/supplementaryPriceDifference/clothes/getSign_new.do");
+                                RequestParams params;
+                                if (TextUtils.equals("6", kind)) {
+                                    params = new RequestParams("http://hmyc365.net:8081/HM/app/doorToDoorService/pay/supplementaryPriceDifference/box/getSign.do");
+                                } else {
+                                    params = new RequestParams("http://hmyc365.net:8081/HM/app/doorToDoorService/pay/supplementaryPriceDifference/clothes/getSign_new.do");
+                                }
+                                params.addBodyParameter("order_id", bean.getOrderId());
+                                params.addBodyParameter("pay_type", "3");
+                                params.addBodyParameter("num", mmCount);
+                                x.http().post(params, new Callback.CacheCallback<String>() {
+                                    @Override
+                                    public void onSuccess(String result) {
+                                        Intent it = new Intent(ClosingPriceActivity.this, CMBPayActivity.class);
+                                        it.putExtra("order_id", result);
+                                        startActivity(it);
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(CancelledException cex) {
+
+                                    }
+
+                                    @Override
+                                    public void onFinished() {
+
+                                    }
+
+                                    @Override
+                                    public boolean onCache(String result) {
+                                        return false;
+                                    }
+                                });
                             }
-                            params.addBodyParameter("order_id", order_id);
-                            params.addBodyParameter("pay_type", "3");
-                            params.addBodyParameter("num", mmCount);
-                            x.http().post(params, new Callback.CacheCallback<String>() {
-                                @Override
-                                public void onSuccess(String result) {
-                                    Intent it = new Intent(ClosingPriceActivity.this, CMBPayActivity.class);
-                                    it.putExtra("order_id", result);
-                                    startActivity(it);
-                                }
-
-                                @Override
-                                public void onError(Throwable ex, boolean isOnCallback) {
-
-                                }
-
-                                @Override
-                                public void onCancelled(CancelledException cex) {
-
-                                }
-
-                                @Override
-                                public void onFinished() {
-
-                                }
-
-                                @Override
-                                public boolean onCache(String result) {
-                                    return false;
-                                }
-                            });
                             break;
                         default:
                             break;
@@ -169,6 +191,91 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtilsCopy.S
         } else {
             Toast.makeText(this, "差价必须大于1", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void acarusKill() {
+        RequestParams p = new RequestParams(NetConfig.ORDER_CLOSE_MONEY_ACARUS_KILLING);
+        p.addBodyParameter("token", "82D5FBD40259C743ADDEF14D0E22F347");
+        p.addBodyParameter("orderId", bean.getOrderId());
+        p.addBodyParameter("orderRemarkBuyer", "");
+        p.addBodyParameter("buyUserId", bean.getBuyUserId());
+        p.addBodyParameter("buyUserName", bean.getBuyUserName());
+        p.addBodyParameter("orderNumber", mmCount);
+        x.http().post(p, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                try {
+                    JSONObject obj = new JSONObject(result);
+                    JSONObject body = obj.getJSONObject("body");
+                    String orderId = body.getString("orderIdBcj");
+                    goPay(orderId);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
+
+    /*
+    * 获取签名支付
+    * */
+    private void goPay(String orderIdBcj) {
+        RequestParams p = new RequestParams(NetConfig.SIGN_CLOSE_MONEY_ACARUS_KILLING);
+        p.addBodyParameter("token", "82D5FBD40259C743ADDEF14D0E22F347");
+        p.addBodyParameter("orderIdBcj", orderIdBcj);
+        p.addBodyParameter("payType", a_w_c);
+        x.http().post(p, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                switch (a_w_c) {
+                    case "1":
+                        try {
+                            JSONObject object = new JSONObject(result);
+                            JSONObject body = object.getJSONObject("body");
+                            String signs = body.getString("sign");
+                            mPay.aliPay(signs);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case "2":
+                        mPay.weChatPay(result);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 
     public void back(View view) {
@@ -204,6 +311,7 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtilsCopy.S
         switch (success) {
             case 9000:
                 CommonUtils.Toast(this, "支付成功");
+                break;
             case 9001:
                 CommonUtils.Toast(this, "支付失败");
                 break;
@@ -261,6 +369,55 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtilsCopy.S
         a_w_c = p;
     }
 
+    private void acarusKillClose() {
+        RequestParams pa = new RequestParams(NetConfig.PRICE_ACARUS_KILLING);
+        pa.addBodyParameter("token", "82D5FBD40259C743ADDEF14D0E22F347");
+        pa.addBodyParameter("priceType", "1");
+        pa.addBodyParameter("city", bean.getSellerCityName());
+        x.http().post(pa, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                try {
+                    JSONObject ob = new JSONObject(result);
+                    JSONObject body = ob.getJSONObject("body");
+                    int defaultNum = body.getInt("defaultNum");
+                    int count = Integer.parseInt(cpCount.getText().toString());
+                    int cha = count - defaultNum;
+                    if (cha > 0) {
+                        int raiseNum = body.getInt("raiseNum");
+                        Double raisePrice = body.getDouble("raisePrice");
+                        final Double m = (cha / raiseNum) * raisePrice;
+                        new Handler().post(new Runnable() {
+                            @Override
+                            public void run() {
+                                cpMoney.setText(m + "");
+                            }
+                        });
+                    } else {
+                        cpMoney.setText("0");
+                        Toast.makeText(ClosingPriceActivity.this, "数量应该大于" + defaultNum, Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
 
     private Handler handler = new Handler();
 
@@ -271,53 +428,58 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtilsCopy.S
 
         @Override
         public void run() {
-            RequestParams pa;
-            if (TextUtils.equals("6", kind)) {
-                pa = new RequestParams("http://hmyc365.net:8081/HM/app/doorToDoorService/order/price/getBcjBoxPrice.do");
-                pa.addBodyParameter("box_num", mmCount);
+            if ("1".equals(bean.getOrderType())) {
+                acarusKillClose();
             } else {
-                pa = new RequestParams("http://hmyc365.net:8081/HM/app/doorToDoorService/order/price/getBcjCloPriceNew.do");
-                pa.addBodyParameter("clothes_num", mmCount);
-            }
-            pa.addBodyParameter("order_id", order_id);
-            x.http().post(pa, new Callback.CacheCallback<String>() {
-                @Override
-                public void onSuccess(String result) {
-                    try {
-                        JSONObject object = new JSONObject(result);
-                        JSONObject body = object.getJSONObject("body");
-                        final String price = body.getString("price");
-                        new Handler().post(new Runnable() {
-                            @Override
-                            public void run() {
-                                cpMoney.setText(price);
-                            }
-                        });
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                RequestParams pa;
+                if (TextUtils.equals("6", kind)) {
+                    pa = new RequestParams("http://hmyc365.net:8081/HM/app/doorToDoorService/order/price/getBcjBoxPrice.do");
+                    pa.addBodyParameter("box_num", mmCount);
+                } else {
+                    pa = new RequestParams("http://hmyc365.net:8081/HM/app/doorToDoorService/order/price/getBcjCloPriceNew.do");
+                    pa.addBodyParameter("clothes_num", mmCount);
+                }
+                pa.addBodyParameter("order_id", bean.getOrderId());
+                x.http().post(pa, new Callback.CacheCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        Log.e("TAG", "onSuccess: ----" + result);
+                        try {
+                            JSONObject object = new JSONObject(result);
+                            JSONObject body = object.getJSONObject("body");
+                            final String price = body.getString("price");
+                            new Handler().post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    cpMoney.setText(price);
+                                }
+                            });
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
                     }
 
-                }
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+                    }
 
-                @Override
-                public void onError(Throwable ex, boolean isOnCallback) {
-                }
+                    @Override
+                    public void onCancelled(CancelledException cex) {
 
-                @Override
-                public void onCancelled(CancelledException cex) {
+                    }
 
-                }
+                    @Override
+                    public void onFinished() {
 
-                @Override
-                public void onFinished() {
+                    }
 
-                }
-
-                @Override
-                public boolean onCache(String result) {
-                    return false;
-                }
-            });
+                    @Override
+                    public boolean onCache(String result) {
+                        return false;
+                    }
+                });
+            }
         }
     };
 

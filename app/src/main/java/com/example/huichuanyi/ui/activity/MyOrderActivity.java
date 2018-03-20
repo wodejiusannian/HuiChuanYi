@@ -9,8 +9,8 @@ import android.view.View;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.ClosetAdapter;
 import com.example.huichuanyi.base.BaseActivity;
-import com.example.huichuanyi.fragment_second.Over_Order;
-import com.example.huichuanyi.fragment_second.Progress_Order;
+import com.example.huichuanyi.fragment_second.ServiceAcarusKillFragment;
+import com.example.huichuanyi.fragment_second.ServiceGoDoorFragment;
 import com.example.huichuanyi.utils.ActivityCacheUtils;
 
 import java.util.ArrayList;
@@ -40,10 +40,10 @@ public class MyOrderActivity extends BaseActivity {
     public void initData() {
         mData = new ArrayList<>();
         mTitles = new ArrayList<>();
-        mData.add(new Progress_Order());
-        mData.add(new Over_Order());
-        mTitles.add("全部预约");
-        mTitles.add("待评价");
+        mData.add(new ServiceGoDoorFragment());
+        mData.add(new ServiceAcarusKillFragment());
+        mTitles.add("上门服务");
+        mTitles.add("除螨服务");
         mAdapter = new ClosetAdapter(getSupportFragmentManager(), mData, mTitles);
     }
 

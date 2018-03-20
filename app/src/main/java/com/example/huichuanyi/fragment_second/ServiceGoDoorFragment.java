@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
@@ -12,13 +13,16 @@ import android.widget.Toast;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.ProgressAdapter;
 import com.example.huichuanyi.base.BaseFragment;
-import com.example.huichuanyi.bean.Progress;
+import com.example.huichuanyi.bean.ServiceBean;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.secondui.PayOrderActivity;
+import com.example.huichuanyi.emum.ServiceType;
+import com.example.huichuanyi.secondui.PingJiaActivity;
 import com.example.huichuanyi.secondui.ShenQingTuiKuanActivity;
 import com.example.huichuanyi.ui.activity.ClosingPriceActivity;
-import com.example.huichuanyi.ui.activity.LiJiYuYueActivity;
+import com.example.huichuanyi.ui.newpage.OrderStudioListActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
+import com.example.huichuanyi.utils.MUtilsInternet;
+import com.example.huichuanyi.utils.ServiceSingleUtils;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.google.gson.Gson;
 
@@ -34,16 +38,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Progress_Order extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, ProgressAdapter.OnOrderClickListener {
+import static android.content.ContentValues.TAG;
+
+public class ServiceGoDoorFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, ProgressAdapter.OnOrderClickListener {
 
 
     private ListView mListView;
 
     private ProgressAdapter mAdapter;
 
-    private List<Progress.ListBean> mData;
+    private List<ServiceBean.BodyBean> mData;
 
     private SwipeRefreshLayout mRefreshLayout;
+
+    private MUtilsInternet net = MUtilsInternet.getInstance();
+
+    private Map<String, String> map = new HashMap<>();
 
     @Override
     protected View initView() {
@@ -62,38 +72,29 @@ public class Progress_Order extends BaseFragment implements SwipeRefreshLayout.O
         super.initData();
         mData = new ArrayList<>();
         mAdapter = new ProgressAdapter(mData, getActivity());
-        getData();
+        map.put("token", "82D5FBD40259C743ADDEF14D0E22F347");
+        map.put("buyUserId", SharedPreferenceUtils.getUserData(getContext(), 1));
+        map.put("orderType", "3");
+        map.put("deleteStatusPj", "0,1,2,3,4,5,6");
+        initNet();
     }
 
-    private void getData() {
-        RequestParams params = new RequestParams(NetConfig.MY_ORDER_PROGRESS);
-        params.addBodyParameter("userid", SharedPreferenceUtils.getUserData(getContext(), 1));
-        x.http().post(params, new Callback.CommonCallback<String>() {
+    /*
+    * 请求服务器获取数据
+    * */
+    private void initNet() {
+        net.post(NetConfig.SERVICE_LIST, getContext(), map, new MUtilsInternet.XCallBack() {
             @Override
-            public void onSuccess(String result) {
-                if (TextUtils.equals("0", result)) {
-                    return;
+            public void onResponse(String result) {
+                try {
+                    mData.clear();
+                    Gson gson = new Gson();
+                    ServiceBean progress = gson.fromJson(result, ServiceBean.class);
+                    mData.addAll(progress.getBody());
+                    mAdapter.notifyDataSetChanged();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                mData.clear();
-                Gson gson = new Gson();
-                Progress progress = gson.fromJson(result, Progress.class);
-                mData.addAll(progress.getList());
-                mAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                //Toast.makeText(getActivity(), R.string.err_internet,Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
             }
         });
     }
@@ -113,7 +114,7 @@ public class Progress_Order extends BaseFragment implements SwipeRefreshLayout.O
 
     @Override
     public void onRefresh() {
-        getData();
+        initNet();
         mRefreshLayout.setRefreshing(false);
     }
 
@@ -122,48 +123,37 @@ public class Progress_Order extends BaseFragment implements SwipeRefreshLayout.O
         if (mData.size() > 0) {
             final Map<String, Object> map = new HashMap<>();
             int position = (int) view.getTag();
-            final Progress.ListBean mPosition2 = mData.get(position);
-            String manager_photo = mPosition2.getManager_photo();
-            final String managername = mPosition2.getManagername();
+            final ServiceBean.BodyBean bean = mData.get(position);
+            String orderid = bean.getOrderId();
+            String managerid = bean.getSellerUserId();
+            /*final String managername = mPosition2.getManagername();
             String managerid = mPosition2.getManagerid();
             final String money = mPosition2.getMoney();
             final String orderid = mPosition2.getId();
             String state = mPosition2.getState();
-            String city = mPosition2.getCity();
+            String city = mPosition2.getCity();*/
             switch (view.getId()) {
                 case R.id.iv_progress_item_shenqingtuikuan:
-                    map.put("managePhoto", manager_photo);
-                    map.put("manageName", managername);
-                    map.put("allMoney", money);
-                    map.put("orderid", orderid);
-                    map.put("state", mPosition2.getState());
-                    map.put("ordertime", mPosition2.getOrdertime());
-                    map.put("managernumber", mPosition2.getManagernumber());
-                    ActivityUtils.switchTo(getActivity(), ShenQingTuiKuanActivity.class, map);
+                    Intent in = new Intent(getActivity(), ShenQingTuiKuanActivity.class);
+                    Bundle bun = new Bundle();
+                    bun.putSerializable("bean", bean);
+                    in.putExtras(bun);
+                    startActivity(in);
                     break;
                 case R.id.iv_progress_item_zailaiyidian:
-                    Map<String, Object> map1 = new HashMap<>();
-                    map1.put("location", city);
-                    map1.put("time", getNowTime());
-                    ActivityUtils.switchTo(getActivity(), LiJiYuYueActivity.class, map1);
+                    ServiceSingleUtils.getInstance().setServiceType(ServiceType.SERVICE_THE_DOOR);
+                    ActivityUtils.switchTo(getActivity(), OrderStudioListActivity.class);
                     break;
                 case R.id.iv_progress_item_daiqueren:
+                    String state = bean.getDeleteStatus();
                     if (!TextUtils.equals("10", state)) {
                         upQueRen(orderid, managerid, position);
                     } else {
                         Toast.makeText(getContext(), "等待工作室接单", Toast.LENGTH_SHORT).show();
                     }
                     break;
-                case R.id.iv_progress_item_quzhifu:
-                    map.put("managerPhoto", manager_photo);
-                    map.put("managerName", managername);
-                    map.put("nowMoney", money);
-                    map.put("orderid", orderid);
-                    map.put("type", "1");
-                    ActivityUtils.switchTo(getActivity(), PayOrderActivity.class, map);
-                    break;
                 case R.id.iv_progress_item_buchajia:
-                    goCp("5", mPosition2);
+                    goCp("5", bean);
                    /* BottomDialog bottomDialog = new BottomDialog(getContext());
                     bottomDialog.setTop("补上门服务差价", new BottomDialog.OnTop() {
                         @Override
@@ -178,6 +168,16 @@ public class Progress_Order extends BaseFragment implements SwipeRefreshLayout.O
                         }
                     });
                     bottomDialog.show();*/
+                    break;
+                case R.id.iv_over_item_qupingjia:
+                    Intent in22 = new Intent(getActivity(), PingJiaActivity.class);
+                    Bundle bun22 = new Bundle();
+                    in22.putExtra("orderid", orderid);
+                    in22.putExtra("manager_id", bean.getSellerUserId());
+                    in22.putExtra("user_name", bean.getBuyUserName());
+                    in22.putExtra("manager_name", bean.getSellerUserName());
+                    in22.putExtras(bun22);
+                    startActivity(in22);
                     break;
                 default:
 
@@ -195,11 +195,10 @@ public class Progress_Order extends BaseFragment implements SwipeRefreshLayout.O
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                Log.e(TAG, "onSuccess: ---" + result);
                 if (TextUtils.equals("1", result)) {
-                    mData.remove(position);
-                    mAdapter.notifyDataSetChanged();
+                    initNet();
                 }
-
             }
 
             @Override
@@ -234,7 +233,7 @@ public class Progress_Order extends BaseFragment implements SwipeRefreshLayout.O
     /*
     * 跳入补差价页面
     * */
-    private void goCp(String kind, Progress.ListBean bean) {
+    private void goCp(String kind, ServiceBean.BodyBean bean) {
         Intent in = new Intent(getActivity(), ClosingPriceActivity.class);
         Bundle bun = new Bundle();
         bun.putSerializable("bean", bean);

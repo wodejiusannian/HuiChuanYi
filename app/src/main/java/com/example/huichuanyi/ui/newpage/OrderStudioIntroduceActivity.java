@@ -26,6 +26,7 @@ import com.example.huichuanyi.common_view.model.OrderStudioIntroduceTopModel;
 import com.example.huichuanyi.common_view.model.OrderStudioOne;
 import com.example.huichuanyi.common_view.model.Visitable;
 import com.example.huichuanyi.custom.dialog.SelectClothesCountDialog;
+import com.example.huichuanyi.emum.ServiceType;
 import com.example.huichuanyi.ui.activity.LiJiYuYueWhatActivity;
 import com.example.huichuanyi.ui.activity.SelectStudioTimeActivity;
 import com.example.huichuanyi.ui.activity.lanyang.LyDetailsWebActivity;
@@ -34,6 +35,7 @@ import com.example.huichuanyi.ui.modle.OrderGoDoorPrice;
 import com.example.huichuanyi.utils.ActivityCacheUtils;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.MUtilsInternet;
+import com.example.huichuanyi.utils.ServiceSingleUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -135,62 +137,66 @@ public class OrderStudioIntroduceActivity extends BaseActivity {
                         int position = (int) v.getTag();
                         OrderStudioIntroduceSecondModel visitable = (OrderStudioIntroduceSecondModel) mData.get(position);
                         if (1 == visitable.type) {
-                            final List<OrderGoDoorPrice> mDatass = new ArrayList<>();
-                            RequestParams params = new RequestParams(BASE_URL + "/admiral/app/hmyc/service/manager/listPrice.htm");
-                            params.addBodyParameter("userIdManager", model.getId());
-                            x.http().post(params, new Callback.CacheCallback<String>() {
-                                @Override
-                                public void onSuccess(String result) {
-                                    try {
-                                        JSONObject ob = new JSONObject(result);
-                                        JSONObject body = ob.getJSONObject("body");
-                                        addGrade = body.getString("addGrade");
-                                        int i1 = Integer.parseInt(addGrade) + Integer.parseInt(model.getGrade());
-                                        JSONArray records = body.getJSONArray("records");
-                                        for (int i = 0; i < records.length(); i++) {
-                                            JSONObject o = records.getJSONObject(i);
-                                            mDatass.add(new OrderGoDoorPrice(o.getString("priceRange"), o.getString("gradeOne"),
-                                                    o.getString("gradeTwo"), o.getString("gradeThree"), o.getString("gradeFour"),
-                                                    o.getString("gradeFive"), o.getString("gradeSix")));
+                            if (ServiceSingleUtils.getInstance().getServiceType() == ServiceType.SERVICE_ACARUS_KILLING) {
+                                Toast.makeText(OrderStudioIntroduceActivity.this, "亲，此单位是标准哦", Toast.LENGTH_SHORT).show();
+                            } else {
+                                final List<OrderGoDoorPrice> mDatass = new ArrayList<>();
+                                RequestParams params = new RequestParams(BASE_URL + "/admiral/app/hmyc/service/manager/listPrice.htm");
+                                params.addBodyParameter("userIdManager", model.getId());
+                                x.http().post(params, new Callback.CacheCallback<String>() {
+                                    @Override
+                                    public void onSuccess(String result) {
+                                        try {
+                                            JSONObject ob = new JSONObject(result);
+                                            JSONObject body = ob.getJSONObject("body");
+                                            addGrade = body.getString("addGrade");
+                                            int i1 = Integer.parseInt(addGrade) + Integer.parseInt(model.getGrade());
+                                            JSONArray records = body.getJSONArray("records");
+                                            for (int i = 0; i < records.length(); i++) {
+                                                JSONObject o = records.getJSONObject(i);
+                                                mDatass.add(new OrderGoDoorPrice(o.getString("priceRange"), o.getString("gradeOne"),
+                                                        o.getString("gradeTwo"), o.getString("gradeThree"), o.getString("gradeFour"),
+                                                        o.getString("gradeFive"), o.getString("gradeSix")));
+                                            }
+                                            if (mDatass != null && mDatass.size() > 0) {
+                                                SelectClothesCountDialog dialog = new SelectClothesCountDialog(OrderStudioIntroduceActivity.this, mDatass, i1 + "");
+                                                dialog.setOnItemGetData(new SelectClothesCountDialog.ItemData() {
+                                                    @Override
+                                                    public void getItemData(String count, String price) {
+                                                        OrderStudioIntroduceSecondModel visitable = (OrderStudioIntroduceSecondModel) mData.get(1);
+                                                        visitable.text = count;
+                                                        money.setText(price);
+                                                        adapter.notifyItemChanged(1);
+                                                    }
+                                                });
+                                                dialog.show();
+                                            }
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
                                         }
-                                        if (mDatass != null && mDatass.size() > 0) {
-                                            SelectClothesCountDialog dialog = new SelectClothesCountDialog(OrderStudioIntroduceActivity.this, mDatass, i1 + "");
-                                            dialog.setOnItemGetData(new SelectClothesCountDialog.ItemData() {
-                                                @Override
-                                                public void getItemData(String count, String price) {
-                                                    OrderStudioIntroduceSecondModel visitable = (OrderStudioIntroduceSecondModel) mData.get(1);
-                                                    visitable.text = count;
-                                                    money.setText(price);
-                                                    adapter.notifyItemChanged(1);
-                                                }
-                                            });
-                                            dialog.show();
-                                        }
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
                                     }
-                                }
 
-                                @Override
-                                public void onError(Throwable ex, boolean isOnCallback) {
+                                    @Override
+                                    public void onError(Throwable ex, boolean isOnCallback) {
 
-                                }
+                                    }
 
-                                @Override
-                                public void onCancelled(CancelledException cex) {
+                                    @Override
+                                    public void onCancelled(CancelledException cex) {
 
-                                }
+                                    }
 
-                                @Override
-                                public void onFinished() {
+                                    @Override
+                                    public void onFinished() {
 
-                                }
+                                    }
 
-                                @Override
-                                public boolean onCache(String result) {
-                                    return false;
-                                }
-                            });
+                                    @Override
+                                    public boolean onCache(String result) {
+                                        return false;
+                                    }
+                                });
+                            }
 
                         } else {
                             Intent in = new Intent(OrderStudioIntroduceActivity.this, SelectStudioTimeActivity.class);
@@ -388,7 +394,10 @@ public class OrderStudioIntroduceActivity extends BaseActivity {
                         textList.add(array.getString(i));
                     }
                     mData.add(0, new OrderStudioIntroduceTopModel(model.getName(), model.getIntroduction(), model.getPhoto_get(), picList, model.getUsername(), textList));
-                    mData.add(1, new OrderStudioIntroduceSecondModel(1, "请选择服饰量区间"));
+                    if (ServiceSingleUtils.getInstance().getServiceType() == ServiceType.SERVICE_ACARUS_KILLING)
+                        mData.add(1, new OrderStudioIntroduceSecondModel(1, "标准"));
+                    else
+                        mData.add(1, new OrderStudioIntroduceSecondModel(1, "请选择服饰量区间"));
                     mData.add(2, new OrderStudioIntroduceSecondModel(2, "请选择服务时间"));
                     double v = (Double.parseDouble(model.getPf()) / 5) * 100;
                     String jll = String.format("%.1f", v);
@@ -427,9 +436,17 @@ public class OrderStudioIntroduceActivity extends BaseActivity {
         adapter = new MultiTypeAdapter(mData);
         recycle.setLayoutManager(new LinearLayoutManager(this));
         recycle.setAdapter(adapter);
-        model = (City.BodyBean) getIntent().getSerializableExtra("model");
+        Intent intent = getIntent();
+        model = (City.BodyBean) intent.getSerializableExtra("model");
+        defaultNum = intent.getStringExtra("defaultNum");
+        String defaultPrice = intent.getStringExtra("defaultPrice");
+        if (!CommonUtils.isEmpty(defaultNum)) {
+            money.setText(defaultPrice);
+        }
         tvAlpha.setText(model.getName());
     }
+
+    private String defaultNum;
 
     @OnClick({R.id.tv_order_studio_introduce_go_order, R.id.ll_order_studio_introduce_what})
     public void onEvent(View v) {
@@ -464,6 +481,7 @@ public class OrderStudioIntroduceActivity extends BaseActivity {
                 intent.putExtra("time", time);
                 intent.putExtra("money", money.getText().toString());
                 intent.putExtra("addGrade", addGrade);
+                intent.putExtra("defaultNum", defaultNum);
                 startActivity(intent);
                 break;
             case R.id.ll_order_studio_introduce_what:

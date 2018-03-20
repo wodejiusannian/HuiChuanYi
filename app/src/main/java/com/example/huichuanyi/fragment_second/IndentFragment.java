@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
@@ -39,7 +38,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class Over_Indent extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, IndentAdapter.OnMyClickInterFace, IsSuccess, MySelfPayDialog.OnYesClickListener {
+public class IndentFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, IndentAdapter.OnMyClickInterFace, IsSuccess, MySelfPayDialog.OnYesClickListener {
 
     @BindView(R.id.rv_fragment_indent_content)
     RecyclerView content;

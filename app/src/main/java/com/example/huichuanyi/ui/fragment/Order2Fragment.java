@@ -10,8 +10,10 @@ import android.webkit.WebViewClient;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base_2.BaseFragment;
+import com.example.huichuanyi.emum.ServiceType;
 import com.example.huichuanyi.ui.activity.video.HMWebSlwActivity;
 import com.example.huichuanyi.ui.newpage.OrderStudioListActivity;
+import com.example.huichuanyi.utils.ServiceSingleUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -34,10 +36,12 @@ public class Order2Fragment extends BaseFragment {
         return R.layout.fragment_order_copys;
     }
 
+    private static final String mUrl = "http://hmyc365.net/hmyc/file/app-service/html/index.html";
+
     @Override
     protected void initData() {
         super.initData();
-        loadindUrl(webView, "http://hmyc365.net/file/html/app/orderService/index.html");
+        loadindUrl(webView);
     }
 
     @Override
@@ -47,12 +51,12 @@ public class Order2Fragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 refreshLayout.setRefreshing(false);
-                loadindUrl(webView, "http://hmyc365.net/file/html/app/orderService/index.html");
+                loadindUrl(webView);
             }
         });
     }
 
-    private void loadindUrl(WebView web, String url) {
+    private void loadindUrl(WebView web) {
         WebSettings webSettings = web.getSettings();
         webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);
@@ -77,6 +81,11 @@ public class Order2Fragment extends BaseFragment {
             @Override
             public void onReceivedTitle(WebView view, String title) {
                 super.onReceivedTitle(view, title);
+                if ("hmyc365.net/hmyc/file/app-service/html/index.html#1".equals(title)) {
+                    ServiceSingleUtils.getInstance().setServiceType(ServiceType.SERVICE_THE_DOOR);
+                } else if ("hmyc365.net/hmyc/file/app-service/html/index.html#2".equals(title)) {
+                    ServiceSingleUtils.getInstance().setServiceType(ServiceType.SERVICE_ACARUS_KILLING);
+                }
             }
 
             @Override
@@ -92,10 +101,9 @@ public class Order2Fragment extends BaseFragment {
 
         };
         web.setWebChromeClient(wvcc);
-        if (url != null) {
-            web.loadUrl(url);
-        }
+        web.loadUrl(mUrl);
     }
+
 
     @OnClick({R.id.tv_order_sure})
     public void onClick(View v) {

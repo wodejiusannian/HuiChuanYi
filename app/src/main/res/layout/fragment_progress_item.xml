@@ -6,24 +6,20 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tv_progress_item_dingdan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/distance"
-        android:text="订单号：" />
-
-    <TextView
         android:id="@+id/tv_progress_item_dingdanhao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/distance"
-        android:layout_toRightOf="@+id/tv_progress_item_dingdan" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:padding="@dimen/distance"
+        android:text="---" />
+
 
     <LinearLayout
         android:id="@+id/ll_line_progress"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/tv_progress_item_dingdan"
+        android:layout_below="@+id/tv_progress_item_dingdanhao"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/distance"
         android:weightSum="2">
@@ -35,7 +31,7 @@
             android:background="@drawable/background2" />
     </LinearLayout>
 
-    <RelativeLayout
+    <!--<RelativeLayout
         android:id="@+id/ll_progress_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,7 +43,7 @@
             android:id="@+id/rv_progress_item_photo"
             android:layout_width="45dp"
             android:layout_height="46dp"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:src="@mipmap/stand" />
 
         <TextView
@@ -70,20 +66,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true" />
-    </RelativeLayout>
+    </RelativeLayout>-->
 
-    <TextView
-        android:id="@+id/tv_line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/ll_progress_item"
-        android:layout_marginLeft="@dimen/distance"
-        android:background="@color/back_ground" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_line"
+        android:layout_below="@+id/ll_line_progress"
+        android:layout_marginTop="10dp"
         android:padding="@dimen/distance">
 
         <TextView

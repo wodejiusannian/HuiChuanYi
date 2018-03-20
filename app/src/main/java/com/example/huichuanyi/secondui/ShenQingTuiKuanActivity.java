@@ -7,17 +7,15 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
+import com.example.huichuanyi.bean.ServiceBean;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MySelfDialog;
-import com.example.huichuanyi.custom.RoundImageView;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,13 +25,12 @@ import org.xutils.x;
 
 public class ShenQingTuiKuanActivity extends BaseActivity implements View.OnClickListener {
 
-    private ImageView mImageViewBack;
-    private RoundImageView mImagePhoto;
-    private TextView mTextViewName, mTextMoneyAll;
-    private String managePhoto, manageName, allMoney, orderid, state, reason;
+    //private RoundImageView mImagePhoto;
+    private TextView mTextViewName, mTextMoneyAll, allMoeny;
     private Button mButtonSure;
     private EditText mEditText;
 
+    private TextView textView6;
     private String ordertime;
 
     private String managernumber;
@@ -50,56 +47,99 @@ public class ShenQingTuiKuanActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void initView() {
-        mImageViewBack = (ImageView) findViewById(R.id.iv_shenqing_back);
-        mImagePhoto = (RoundImageView) findViewById(R.id.iv_shenqing_photo);
         mTextViewName = (TextView) findViewById(R.id.tv_shenqing_name);
         mTextMoneyAll = (TextView) findViewById(R.id.tv_shenqing_moneyall);
         mButtonSure = (Button) findViewById(R.id.btn_shenqingtuikuan_sure);
         mEditText = (EditText) findViewById(R.id.et_shenqing_write);
+        textView6 = (TextView) this.findViewById(R.id.textView6);
+        allMoeny = (TextView) this.findViewById(R.id.tv_shenqing_allmoney);
+
     }
+
+    public void back(View view) {
+        finish();
+    }
+
+    private ServiceBean.BodyBean bean;
 
     @Override
     public void initData() {
-        Intent intent = getIntent();
-        managePhoto = intent.getStringExtra("managePhoto");
-        manageName = intent.getStringExtra("manageName");
-        allMoney = intent.getStringExtra("allMoney");
-        orderid = intent.getStringExtra("orderid");
-        state = intent.getStringExtra("state");
-        ordertime = intent.getStringExtra("ordertime");
-        managernumber = intent.getStringExtra("managernumber");
+        bean = (ServiceBean.BodyBean) getIntent().getSerializableExtra("bean");
     }
 
     @Override
     public void setData() {
-        if (managePhoto.length() > 7) {
-            Picasso.with(this).load(managePhoto).into(mImagePhoto);
-        }
-        mTextViewName.setText(manageName);
-        mTextMoneyAll.setText(allMoney);
+        mTextViewName.setText(bean.getSellerUserName());
+        mTextMoneyAll.setText(bean.getMoneyTotal());
+        textView6.setText(bean.getMoneyTotal());
+        allMoeny.setText(bean.getMoneyTotal());
     }
 
     @Override
     public void setListener() {
-        mImageViewBack.setOnClickListener(this);
         mButtonSure.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.iv_shenqing_back:
-                finish();
-                break;
             case R.id.btn_shenqingtuikuan_sure:
-                isTime();
+                String refundReason = mEditText.getText().toString();
+                if (refundReason.length() < 10) {
+                    Toast.makeText(this, "退款理由不能小于10个字哦", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if ("1".equals(bean.getOrderType())) {
+                    RequestParams pa = new RequestParams(NetConfig.TUI_KUAN_ACARUS_KILLING);
+                    pa.addBodyParameter("token", "82D5FBD40259C743ADDEF14D0E22F347");
+                    pa.addBodyParameter("orderId", bean.getOrderId());
+                    pa.addBodyParameter("orderType", "1");
+                    pa.addBodyParameter("deleteStatus", bean.getDeleteStatus());
+                    pa.addBodyParameter("refundReason", refundReason);
+                    x.http().post(pa, new Callback.CommonCallback<String>() {
+                        @Override
+                        public void onSuccess(String result) {
+                            try {
+                                JSONObject object = new JSONObject(result);
+                                String ret = object.getString("ret");
+                                if (TextUtils.equals(ret, "0")) {
+                                    Toast.makeText(ShenQingTuiKuanActivity.this, "正在申请中，亲，请耐心等待哦", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                } else if (TextUtils.equals(result, "2")) {
+                                    Toast.makeText(ShenQingTuiKuanActivity.this, "退款订单已经申请，请勿重复提交", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(ShenQingTuiKuanActivity.this, "申请退款失败", Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable ex, boolean isOnCallback) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(CancelledException cex) {
+
+                        }
+
+                        @Override
+                        public void onFinished() {
+
+                        }
+                    });
+                } else {
+                    isTime();
+                }
                 break;
         }
     }
 
     private void isTime() {
         RequestParams pa = new RequestParams(NetConfig.TUI_KUAN_TIME_BOOLEAN);
-        pa.addBodyParameter("orderTime", ordertime);
+        pa.addBodyParameter("orderTime", bean.getConsigneeTime());
         x.http().post(pa, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -137,11 +177,11 @@ public class ShenQingTuiKuanActivity extends BaseActivity implements View.OnClic
     }
 
     private void upTuiKuanData() {
-        reason = mEditText.getText().toString().trim();
+        String reason = mEditText.getText().toString().trim();
         RequestParams params = new RequestParams(NetConfig.TUI_KUAN);
         String userid = SharedPreferenceUtils.getUserData(this, 1);
-        params.addBodyParameter("orderid", orderid);
-        params.addBodyParameter("state", state);
+        params.addBodyParameter("orderid", bean.getOrderId());
+        params.addBodyParameter("state", bean.getDeleteStatus());
         params.addBodyParameter("userid", userid);
         params.addBodyParameter("reason", reason);
         params.addBodyParameter("orderTime", ordertime);
