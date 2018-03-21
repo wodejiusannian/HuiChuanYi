@@ -203,7 +203,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.loading.SplashActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+            android:theme="@style/ThemeSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -406,7 +406,9 @@
         <activity android:name=".ui.SlwGoActivity" />
         <activity android:name=".ui.activity.HistoryZhenDuanActivity" />
         <activity android:name=".ui.newpage.OrderStudioListActivity" />
-        <activity android:name=".ui.newpage.OrderStudioIntroduceActivity" />
+        <activity
+            android:name=".ui.newpage.OrderStudioIntroduceActivity"
+            android:launchMode="singleTop" />
         <activity
             android:name=".ui.newpage.OrderDetailsActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />

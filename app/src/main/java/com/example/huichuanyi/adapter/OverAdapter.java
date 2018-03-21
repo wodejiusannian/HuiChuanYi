@@ -9,12 +9,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.huichuanyi.R;
-import com.example.huichuanyi.custom.RoundImageView;
 import com.example.huichuanyi.bean.Progress;
+import com.example.huichuanyi.custom.RoundImageView;
 import com.example.huichuanyi.secondui.PingJiaActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
-import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.List;
@@ -58,7 +58,7 @@ public class OverAdapter extends BaseAdapter implements View.OnClickListener {
             Progress.ListBean  mPosition=   mData.get(position);
             String manager_photo = mPosition.getManager_photo();
             if(manager_photo.length()>5) {
-                Picasso.with(mContext).load(manager_photo).into(mHolder.mImageViewPhoto);
+                Glide.with(mContext).load(manager_photo).into(mHolder.mImageViewPhoto);
             }else{
                 mHolder.mImageViewPhoto.setImageResource(R.mipmap.stand);
             }

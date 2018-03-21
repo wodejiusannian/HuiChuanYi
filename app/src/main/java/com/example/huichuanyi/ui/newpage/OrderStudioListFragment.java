@@ -171,11 +171,17 @@ public class OrderStudioListFragment extends BaseFragment {
                     int defaultNum = body.getInt("defaultNum");
                     double defaultPrice = body.getDouble("defaultPrice");
                     City.BodyBean bodyBean = (City.BodyBean) mData.get(position);
-                    Intent intent = new Intent(getContext(), OrderStudioIntroduceActivity.class);
-                    intent.putExtra("defaultNum", defaultNum + "");
-                    intent.putExtra("defaultPrice", defaultPrice + "");
-                    intent.putExtra("model", bodyBean);
-                    startActivity(intent);
+                    String def = defaultNum + "";
+                    String defPri = defaultPrice + "";
+                    if (!CommonUtils.isEmpty(def) && !CommonUtils.isEmpty(defPri)) {
+                        Intent intent = new Intent(getContext(), OrderStudioIntroduceActivity.class);
+                        intent.putExtra("defaultNum", def);
+                        intent.putExtra("defaultPrice", defPri);
+                        intent.putExtra("model", bodyBean);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(activity, "请重试", Toast.LENGTH_SHORT).show();
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

@@ -210,4 +210,13 @@
         <item name="android:minHeight">30dip</item>
         <item name="android:maxHeight">30dip</item>
     </style>
+
+    <style name="ThemeSplash" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowBackground">@mipmap/start</item>
+       <!-- <item name="android:windowNoTitle">true</item>
+        //一定要，否则有状态栏显示，不能全屏-->
+        <item name="android:windowFullscreen">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
 </resources>

@@ -395,7 +395,7 @@ public class OrderStudioIntroduceActivity extends BaseActivity {
                     }
                     mData.add(0, new OrderStudioIntroduceTopModel(model.getName(), model.getIntroduction(), model.getPhoto_get(), picList, model.getUsername(), textList));
                     if (ServiceSingleUtils.getInstance().getServiceType() == ServiceType.SERVICE_ACARUS_KILLING)
-                        mData.add(1, new OrderStudioIntroduceSecondModel(1, "标准"));
+                        mData.add(1, new OrderStudioIntroduceSecondModel(1, "标准" + defaultNum + "袋 " + defaultPrice + "元"));
                     else
                         mData.add(1, new OrderStudioIntroduceSecondModel(1, "请选择服饰量区间"));
                     mData.add(2, new OrderStudioIntroduceSecondModel(2, "请选择服务时间"));
@@ -439,13 +439,14 @@ public class OrderStudioIntroduceActivity extends BaseActivity {
         Intent intent = getIntent();
         model = (City.BodyBean) intent.getSerializableExtra("model");
         defaultNum = intent.getStringExtra("defaultNum");
-        String defaultPrice = intent.getStringExtra("defaultPrice");
+        defaultPrice = intent.getStringExtra("defaultPrice");
         if (!CommonUtils.isEmpty(defaultNum)) {
             money.setText(defaultPrice);
         }
         tvAlpha.setText(model.getName());
     }
 
+    private String defaultPrice;
     private String defaultNum;
 
     @OnClick({R.id.tv_order_studio_introduce_go_order, R.id.ll_order_studio_introduce_what})

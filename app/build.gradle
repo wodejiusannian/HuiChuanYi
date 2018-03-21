@@ -65,7 +65,6 @@ dependencies {
     compile 'cn.jiguang:jpush:2.1.8'
     compile 'org.xutils:xutils:3.3.36'
     compile 'com.umeng.analytics:analytics:latest.integration'
-    compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.foamtrace:photopicker:1.0'
     compile 'com.android.support:design:25.0.0'

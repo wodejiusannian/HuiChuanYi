@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.huichuanyi.bean.MyClothess;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -47,7 +47,7 @@ public class MyViewPagerPicsAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         int i = position % 4;
         ImageView imageView = mImages.get(i);
-        Picasso.with(context).load(mData.get(position).getClothes_pic()).into(imageView);
+        Glide.with(context).load(mData.get(position).getClothes_pic()).into(imageView);
         container.addView(imageView, 0);
         return imageView;
     }

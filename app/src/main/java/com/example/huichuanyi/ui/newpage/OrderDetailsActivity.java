@@ -80,6 +80,9 @@ public class OrderDetailsActivity extends BaseActivity implements IsSuccess {
     @BindView(R.id.tv_order_details_count)
     TextView tvCount;
 
+    @BindView(R.id.tv_qu)
+    TextView tvQu;
+
     @BindView(R.id.tv_order_details_time)
     TextView tvTime;
 
@@ -220,6 +223,7 @@ public class OrderDetailsActivity extends BaseActivity implements IsSuccess {
         map.put("consigneeName", user_name);
         map.put("consigneePhone", userPhone);
         map.put("consigneeAddress", userCity);
+        map.put("concessionCode", ets[0].getText().toString());
         map.put("orderNumber", orderNumber);
         map.put("consigneeTime", consigneeTime);
         net.post(NetConfig.ORDER_ACARUS_KILLING, this, map, new MUtilsInternet.XCallBack() {
@@ -374,62 +378,132 @@ public class OrderDetailsActivity extends BaseActivity implements IsSuccess {
 
         @Override
         public void run() {
-            String s = tvCount.getText().toString().split("-")[1];
-            String substring = s.substring(0, s.length() - 3);
-            RequestParams pa = new RequestParams(NetConfig.GO_DOOR_MONEY);
-            pa.addBodyParameter("studio_id", model.getId());
-            pa.addBodyParameter("studio_city", model.getCity());
-            pa.addBodyParameter("clothes_num", substring);
-            pa.addBodyParameter("invitation_code", invitation_code);
-            x.http().post(pa, new Callback.CacheCallback<String>() {
-                @Override
-                public void onSuccess(String result) {
-                    try {
-                        JSONObject object = new JSONObject(result);
-                        JSONObject body = object.getJSONObject("body");
-                        final String price = body.getString("price");
-                        double v = Double.parseDouble(price);
-                        double v1 = Double.parseDouble(money);
-                        final double v2 = v1 - v;
-                        if (v2 > 0) {
-                            new Handler().post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    tvMoney.setText("¥" + price);
-                                    tvMoneys.setText("¥" + price);
-                                    deleteMoney.setText("- ¥" + v2);
+            if (ServiceSingleUtils.getInstance().getServiceType() == ServiceType.SERVICE_ACARUS_KILLING) {
+                RequestParams pa = new RequestParams("http://hmyc365.net/admiral/common/concession/code/getPrice.htm");
+                pa.addBodyParameter("token", "82D5FBD40259C743ADDEF14D0E22F347");
+                pa.addBodyParameter("concessionCode", invitation_code);
+                pa.addBodyParameter("orderType","1");
+                x.http().post(pa, new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        try {
+                            JSONObject object = new JSONObject(result);
+                            String ret = object.getString("ret");
+                            if ("0".equals(ret)) {
+                                JSONObject body = object.getJSONObject("body");
+                                final String price = body.getString("concessionMoney");
+                                final String deleteStatus = body.getString("deleteStatus");
+                                double v = Double.parseDouble(price);
+                                double v1 = Double.parseDouble(money);
+                                final double v2 = v1 - v;
+                                if (v2 < 0 || !"0".equals(deleteStatus)) {
+                                    new Handler().post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            deleteMoney.setText("不可用");
+                                            tvMoney.setText("¥" + money);
+                                            tvMoneys.setText("¥" + money);
+                                        }
+                                    });
+                                } else {
+                                    new Handler().post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            tvMoney.setText("¥" + v2);
+                                            tvMoneys.setText("¥" + v2);
+                                            deleteMoney.setText("- ¥" + price);
+                                        }
+                                    });
                                 }
-                            });
-                        } else {
-                            deleteMoney.setText("不可用");
-                            tvMoney.setText("¥" + money);
-                            tvMoneys.setText("¥" + money);
+                            } else {
+                                tvMoney.setText("¥" + money);
+                                tvMoneys.setText("¥" + money);
+                                deleteMoney.setText("不可用");
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
 
-                }
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
 
-                @Override
-                public void onError(Throwable ex, boolean isOnCallback) {
-                }
+                    }
 
-                @Override
-                public void onCancelled(CancelledException cex) {
+                    @Override
+                    public void onCancelled(CancelledException cex) {
 
-                }
+                    }
 
-                @Override
-                public void onFinished() {
+                    @Override
+                    public void onFinished() {
 
-                }
+                    }
+                });
+            } else {
+                String s = tvCount.getText().toString().split("-")[1];
+                String substring = s.substring(0, s.length() - 3);
+                RequestParams pa = new RequestParams(NetConfig.GO_DOOR_MONEY);
+                pa.addBodyParameter("studio_id", model.getId());
+                pa.addBodyParameter("studio_city", model.getCity());
+                pa.addBodyParameter("clothes_num", substring);
+                pa.addBodyParameter("invitation_code", invitation_code);
+                x.http().post(pa, new Callback.CacheCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        try {
+                            JSONObject object = new JSONObject(result);
+                            JSONObject body = object.getJSONObject("body");
+                            final String price = body.getString("price");
+                            double v = Double.parseDouble(price);
+                            double v1 = Double.parseDouble(money);
+                            final double v2 = v1 - v;
+                            if (v2 > 0) {
+                                new Handler().post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        tvMoney.setText("¥" + price);
+                                        tvMoneys.setText("¥" + price);
+                                        deleteMoney.setText("- ¥" + v2);
+                                    }
+                                });
+                            } else {
+                                new Handler().post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        deleteMoney.setText("不可用");
+                                        tvMoney.setText("¥" + money);
+                                        tvMoneys.setText("¥" + money);
+                                    }
+                                });
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
-                @Override
-                public boolean onCache(String result) {
-                    return false;
-                }
-            });
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+
+                    @Override
+                    public boolean onCache(String result) {
+                        return false;
+                    }
+                });
+            }
         }
     };
 
@@ -509,8 +583,8 @@ public class OrderDetailsActivity extends BaseActivity implements IsSuccess {
 
     @Override
     protected void setListener() {
-        if (ServiceSingleUtils.getInstance().getServiceType() != ServiceType.SERVICE_ACARUS_KILLING)
-            isHaveActive();
+        //if (ServiceSingleUtils.getInstance().getServiceType() != ServiceType.SERVICE_ACARUS_KILLING)
+        isHaveActive();
 
         ets[0].addTextChangedListener(watcher);
         wxPay = new WXPayEntryActivity();
@@ -538,8 +612,8 @@ public class OrderDetailsActivity extends BaseActivity implements IsSuccess {
     }
 
     /*
-       * 是否有团购活动
-       * */
+     * 是否有团购活动
+     * */
     private void isHaveActive() {
         RequestParams pa = new RequestParams("http://hmyc365.net:8081/HM/app/doorToDoorService/order/code/isGroupActivity.do");
         pa.addBodyParameter("user_id", SharedPreferenceUtils.getUserData(this, 1));
@@ -621,6 +695,9 @@ public class OrderDetailsActivity extends BaseActivity implements IsSuccess {
         tvCount.setText(count);
         tvTime.setText(time);
         tvMoneys.setText("¥" + money);
+        if (ServiceSingleUtils.getInstance().getServiceType() == ServiceType.SERVICE_ACARUS_KILLING) {
+            tvQu.setText("标准");
+        }
         String imgPath = model.getImgPath();
         String grade = model.getGrade();
         studioInfo[0].setText(model.getName());

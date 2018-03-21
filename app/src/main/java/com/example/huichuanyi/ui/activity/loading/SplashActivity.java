@@ -58,7 +58,6 @@ public class SplashActivity extends AppCompatActivity {
         initData();
         setData();
         setListener();
-
     }
 
     public void initView() {

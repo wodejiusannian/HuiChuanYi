@@ -9,12 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.huichuanyi.R;
+import com.example.huichuanyi.bean.MyClothess;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MySelfDialog;
-import com.example.huichuanyi.bean.MyClothess;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
-import com.squareup.picasso.Picasso;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -50,7 +50,7 @@ public class MC_OldAdapter extends RecyclerView.Adapter<MC_OldAdapter.MyViewHold
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         String getphoto = mData.get(position).getClothes_pic();
         if(!TextUtils.isEmpty(getphoto)) {
-            Picasso.with(mContext).load(getphoto).into(holder.mImageView);
+            Glide.with(mContext).load(getphoto).into(holder.mImageView);
         }
         if (mListener!=null){
             holder.mImageView.setTag(position);

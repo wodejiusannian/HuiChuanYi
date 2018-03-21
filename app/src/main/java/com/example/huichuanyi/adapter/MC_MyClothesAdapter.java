@@ -8,9 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.bean.MyClothess;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -41,7 +41,7 @@ public class MC_MyClothesAdapter extends RecyclerView.Adapter<MC_MyClothesAdapte
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         String getphoto = mData.get(position).getClothes_pic();
         if(!TextUtils.isEmpty(getphoto)) {
-            Picasso.with(mContext).load(getphoto).into(holder.mImageView);
+            Glide.with(mContext).load(getphoto).into(holder.mImageView);
         }
        if (mListener!=null){
             holder.mImageView.setTag(position);

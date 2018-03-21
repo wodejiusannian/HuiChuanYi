@@ -12,8 +12,8 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.huichuanyi.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,7 +133,7 @@ public class PayListView extends ListView {
             }
             if (pa.pic != null && pa.pic.length() > 5) {
                 h.picActive.setVisibility(VISIBLE);
-                Picasso.with(getContext()).load(pa.pic).into(h.picActive);
+                Glide.with(getContext()).load(pa.pic).into(h.picActive);
             } else {
                 h.picActive.setVisibility(GONE);
             }

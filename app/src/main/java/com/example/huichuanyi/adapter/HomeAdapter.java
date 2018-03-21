@@ -6,10 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.huichuanyi.bean.Banner;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.adapter.LoopPagerAdapter;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class HomeAdapter extends LoopPagerAdapter {
     @Override
     public View getView(ViewGroup container, int position) {
         ImageView view = new ImageView(mContext);
-        Picasso.with(mContext).load(mBanner.get(position).getPic_url()).into(view);
+        Glide.with(mContext).load(mBanner.get(position).getPic_url()).into(view);
         view.setScaleType(ImageView.ScaleType.CENTER_CROP);
         view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         return view;
