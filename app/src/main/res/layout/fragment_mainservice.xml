@@ -7,11 +7,17 @@
     android:clickable="true"
     android:orientation="vertical">
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <ProgressBar
+        android:id="@+id/pb_mainservice_loading"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="3dp" />
+
+    <com.example.huichuanyi.custom.VpSwipeRefreshLayout
         android:id="@+id/swipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/rl">
+        android:layout_below="@+id/pb_mainservice_loading">
 
         <WebView
             android:id="@+id/webview_order_content"
@@ -20,28 +26,7 @@
 
         </WebView>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </com.example.huichuanyi.custom.VpSwipeRefreshLayout>
 
-
-    <!--<RelativeLayout
-        android:id="@+id/rl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/write"
-        android:padding="5dp">
-
-
-        <TextView
-            android:id="@+id/tv_order_sure"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="@dimen/distance_10"
-            android:layout_marginRight="@dimen/distance_10"
-            android:background="@drawable/shape_red_4dp"
-            android:gravity="center"
-            android:text="立即预约"
-            android:textColor="@color/main_color_write" />
-    </RelativeLayout>-->
 
 </RelativeLayout>

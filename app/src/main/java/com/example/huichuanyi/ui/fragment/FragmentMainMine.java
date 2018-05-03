@@ -24,6 +24,7 @@ import com.example.huichuanyi.custom.GlideCircleTransform;
 import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.newui.activity.OrderFormActivity;
 import com.example.huichuanyi.newui.activity.OrderFormVideoActivity;
+import com.example.huichuanyi.secondui.FanKuiActivity;
 import com.example.huichuanyi.ui.activity.MainActivity;
 import com.example.huichuanyi.ui.activity.MineSettingActivity;
 import com.example.huichuanyi.ui.activity.login.LoginByAuthCodeActivity;
@@ -55,7 +56,8 @@ import jp.wasabeef.glide.transformations.BlurTransformation;
 public class FragmentMainMine extends BaseFragment {
 
     @OnClick({R.id.iv_mainmine_photo, R.id.iv_mainmine_setting, R.id.tv_mainmine_orderform, R.id.tv_mainmine_clothesform,
-            R.id.tv_mainmine_blackform, R.id.tv_mainmine_videoform, R.id.tv_mainmine_exit, R.id.tv_mainmine_refresh})
+            R.id.tv_mainmine_blackform, R.id.tv_mainmine_videoform, R.id.tv_mainmine_exit, R.id.tv_mainmine_refresh,
+            R.id.tv_mainmine_fankui})
     public void onEvent(View v) {
         switch (v.getId()) {
             case R.id.iv_mine_photo:
@@ -95,6 +97,9 @@ public class FragmentMainMine extends BaseFragment {
                         mHandler.sendEmptyMessage(1);
                     }
                 });
+                break;
+            case R.id.tv_mainmine_fankui:
+                ActivityUtils.switchTo(getActivity(), FanKuiActivity.class);
                 break;
         }
     }
@@ -292,6 +297,7 @@ public class FragmentMainMine extends BaseFragment {
                 tvInfo[2].setText(body.getUserOccupation());
                 tvInfo[3].setText(body.getUserCharactor());
                 Glide.with(context).load(body.getUserPic()).centerCrop().bitmapTransform(new BlurTransformation(context)).into(ivInfo[0]);
+                Glide.with(context).load(body.getUserPic()).transform(new GlideCircleTransform(context)).error(R.mipmap.stand).into(ivInfo[1]);
                 Glide.with(context).load(body.getManagerUrl()).transform(new GlideCircleTransform(context)).error(R.mipmap.stand).into(managerPhoto);
                 String concessionCode = body.getConcessionCode();
                 String vipEndDate = body.getVipEndDate();
@@ -304,7 +310,6 @@ public class FragmentMainMine extends BaseFragment {
                     String managerName = body.getManagerName();
                     managerInfo[0].setText(managerName);
                     managerInfo[1].setText(vipEndDate + "到期");
-                    Glide.with(context).load(body.getUserPic()).transform(new GlideCircleTransform(context)).error(R.mipmap.stand).into(ivInfo[1]);
                 }
                 if (CommonUtils.isEmpty(concessionCode)) {
                     //为空的时候

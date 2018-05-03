@@ -58,41 +58,11 @@
                 android:textOn="" />
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/rl_setting_update"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="3dp"
-            android:background="@drawable/hm_background">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/distance"
-                android:text="检测更新" />
-        </RelativeLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/distance"
             android:orientation="vertical">
-
-            <RelativeLayout
-                android:id="@+id/rl_setting_fankui"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="3dp"
-                android:background="@drawable/hm_background">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/distance"
-                    android:text="反馈建议" />
-            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/rl_setting_lianxi"

@@ -1,10 +1,13 @@
 package com.example.huichuanyi.ui.fragment;
 
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.View;
 import android.webkit.WebView;
+import android.widget.ProgressBar;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base_2.BaseFragment;
+import com.example.huichuanyi.custom.VpSwipeRefreshLayout;
 import com.example.huichuanyi.emum.ServiceType;
 import com.example.huichuanyi.utils.ServiceSingleUtils;
 import com.example.huichuanyi.utils.WebViewUtils;
@@ -20,7 +23,10 @@ public class FragmentMainService extends BaseFragment {
     WebView webView;
 
     @BindView(R.id.swipe)
-    SwipeRefreshLayout refreshLayout;
+    VpSwipeRefreshLayout refreshLayout;
+
+    @BindView(R.id.pb_mainservice_loading)
+    ProgressBar loading;
 
     @Override
     protected int layoutInflaterId() {
@@ -35,7 +41,11 @@ public class FragmentMainService extends BaseFragment {
         mWebViewUtils = new WebViewUtils(new WebViewUtils.WebOnResult() {
             @Override
             public void onResultProgress(int progress) {
-
+                if (100 == progress) {
+                    loading.setVisibility(View.GONE);
+                } else {
+                    loading.setProgress(progress);
+                }
             }
 
             @Override
@@ -63,22 +73,10 @@ public class FragmentMainService extends BaseFragment {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                loading.setVisibility(View.VISIBLE);
                 refreshLayout.setRefreshing(false);
                 mWebViewUtils.LoadingUrl(webView, mUrl);
             }
         });
     }
-
-
-   /* @OnClick({R.id.tv_order_sure})
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tv_order_sure:
-                startActivity(new Intent(getActivity(), OrderStudioListActivity.class));
-                break;
-            default:
-                break;
-        }
-    }*/
-
 }

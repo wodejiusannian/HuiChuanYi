@@ -307,5 +307,9 @@ public interface NetConfig {
     String WEATHER_INFO = BASE_NEW_URL + "/admiral/common/weather/weatherInfo.htm";
     //获取购物车信息
     String SHOPCAR_LIST = BASE_NEW_URL + "/admiral/app/hmyc/order/info/listGwc.htm";
+    //购物车删除接口
+    String SHOPCAR_DELETE_SHOP = BASE_NEW_URL + "/admiral/app/hmyc/order/info/deleteGwc.htm";
+    //购物车更新接口
+    String SHOPCAR_REFRESH_SHOP = BASE_NEW_URL + "/admiral/app/hmyc/order/info/updateGwc.htm";
 }
 

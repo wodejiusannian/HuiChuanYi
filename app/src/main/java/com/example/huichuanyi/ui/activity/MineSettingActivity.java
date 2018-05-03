@@ -18,12 +18,10 @@ import android.widget.ToggleButton;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.secondui.AtMyAcitivty;
-import com.example.huichuanyi.secondui.FanKuiActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 
 public class MineSettingActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
-    private RelativeLayout mRelativeLayoutFankui,
-            mRelativeLayoutLianxi, mRelativeLayoutmy, mRelativeLayoutUpDate;
+    private RelativeLayout mRelativeLayoutLianxi, mRelativeLayoutmy;
     private ToggleButton mToggleButton;
     private SharedPreferences mShare;
     private int check;
@@ -39,10 +37,8 @@ public class MineSettingActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void initView() {
         mToggleButton = (ToggleButton) findViewById(R.id.tb_setting_jpush);
-        mRelativeLayoutFankui = (RelativeLayout) findViewById(R.id.rl_setting_fankui);
         mRelativeLayoutLianxi = (RelativeLayout) findViewById(R.id.rl_setting_lianxi);
         mRelativeLayoutmy = (RelativeLayout) findViewById(R.id.rl_setting_my);
-        mRelativeLayoutUpDate = (RelativeLayout) findViewById(R.id.rl_setting_update);
     }
 
     @Override
@@ -63,19 +59,14 @@ public class MineSettingActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void setListener() {
-        mRelativeLayoutFankui.setOnClickListener(this);
         mRelativeLayoutLianxi.setOnClickListener(this);
         mRelativeLayoutmy.setOnClickListener(this);
         mToggleButton.setOnCheckedChangeListener(this);
-        mRelativeLayoutUpDate.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.rl_setting_fankui:
-                ActivityUtils.switchTo(this, FanKuiActivity.class);
-                break;
             case R.id.rl_setting_lianxi:
                 showDialog();
                 break;

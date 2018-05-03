@@ -1,5 +1,6 @@
 package com.example.huichuanyi.ui.fragment;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,9 @@ import com.example.huichuanyi.common_view.model.ShopCarType3Model;
 import com.example.huichuanyi.common_view.model.Visitable;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.utils.ActivityUtils;
+import com.example.huichuanyi.utils.AsyncHttpUtils;
+import com.example.huichuanyi.utils.HttpCallBack;
+import com.example.huichuanyi.utils.JsonUtils;
 import com.example.huichuanyi.utils.MUtilsInternet;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
 
@@ -123,6 +127,7 @@ public class FragmentMainChildShopCarSelf extends BaseFragment {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                initNet();
                 refreshHandler.sendEmptyMessageDelayed(1, 5000);
             }
         });
@@ -182,6 +187,8 @@ public class FragmentMainChildShopCarSelf extends BaseFragment {
             public void onResponse(String result) {
                 try {
                     mData.clear();
+                    refreshLayout.setRefreshing(false);
+                    rlDelete.setVisibility(View.GONE);
                     mData.add(new ShopCarTopModel());
                     mData.add(new ShopCarButtonModel());
                     mData.add(new ShopCarType0Model("管理", false));
@@ -329,7 +336,7 @@ public class FragmentMainChildShopCarSelf extends BaseFragment {
                         adapter.notifyDataSetChanged();
                         break;
                     case R.id.tv_shocarself_manager:
-                        ShopCarType0Model shop0 = (ShopCarType0Model) mData.get(2);
+                        final ShopCarType0Model shop0 = (ShopCarType0Model) mData.get(2);
                         if (!shop0.isCheckManger) {
                             shop0.strManager = "完成";
                             for (Visitable visitable : mData) {
@@ -341,15 +348,47 @@ public class FragmentMainChildShopCarSelf extends BaseFragment {
                             }
                             rlDelete.setVisibility(View.VISIBLE);
                         } else {
-                            shop0.strManager = "管理";
-                            for (Visitable visitable : mData) {
-                                if (visitable instanceof ShopCarType2Model) {
-                                    ((ShopCarType2Model) visitable).isShow = !((ShopCarType2Model) visitable).isShow;
-                                } else if (visitable instanceof ShopCarType3Model) {
-                                    ((ShopCarType3Model) visitable).isShow = !((ShopCarType3Model) visitable).isShow;
+                            try {
+                                JSONObject o = new JSONObject();
+                                o.put("buyUserId", SharedPreferenceUtils.getUserData(getContext(), 1));
+                                o.put("token", NetConfig.TOKEN);
+                                JSONArray array = new JSONArray();
+                                for (Visitable visitable : mData) {
+                                    if (visitable instanceof ShopCarType2Model) {
+                                        JSONObject o2 = new JSONObject();
+                                        ShopCarType2Model m2 = ((ShopCarType2Model) visitable);
+                                        o2.put("id", m2.id);
+                                        o2.put("orderNumber", m2.orderNumber + "");
+                                        array.put(o2);
+                                    } else if (visitable instanceof ShopCarType3Model) {
+                                        JSONObject o2 = new JSONObject();
+                                        ShopCarType3Model m3 = ((ShopCarType3Model) visitable);
+                                        o2.put("id", m3.id);
+                                        o2.put("orderNumber", m3.orderNumber + "");
+                                        array.put(o2);
+                                    }
                                 }
+                                o.put("orderInfo", array);
+                                new AsyncHttpUtils(new HttpCallBack() {
+                                    @Override
+                                    public void onResponse(String result) {
+                                        String ret = JsonUtils.getRet(result);
+                                        if ("0".equals(ret)) {
+                                            shop0.strManager = "管理";
+                                            for (Visitable visitable : mData) {
+                                                if (visitable instanceof ShopCarType2Model) {
+                                                    ((ShopCarType2Model) visitable).isShow = !((ShopCarType2Model) visitable).isShow;
+                                                } else if (visitable instanceof ShopCarType3Model) {
+                                                    ((ShopCarType3Model) visitable).isShow = !((ShopCarType3Model) visitable).isShow;
+                                                }
+                                            }
+                                            rlDelete.setVisibility(View.GONE);
+                                        }
+                                    }
+                                }, getActivity()).execute(NetConfig.SHOPCAR_REFRESH_SHOP, o.toString());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                            rlDelete.setVisibility(View.GONE);
                         }
                         shop0.isCheckManger = !shop0.isCheckManger;
                         adapter.notifyDataSetChanged();
@@ -415,14 +454,46 @@ public class FragmentMainChildShopCarSelf extends BaseFragment {
 
     private boolean all = true;
 
-    @OnClick({R.id.tv_mainshopcar_accurate, R.id.iv_mainchildshopcar_delete})
+    @OnClick({R.id.tv_mainshopcar_accurate, R.id.iv_mainchildshopcar_delete,R.id.ll_mainchildshopcar_money})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_mainshopcar_accurate:
                 shopCar.setChange();
                 break;
             case R.id.iv_mainchildshopcar_delete:
-
+                Map<String, String> map = new HashMap<>();
+                map.put("buyUserId", SharedPreferenceUtils.getUserData(getContext(), 1));
+                map.put("token", NetConfig.TOKEN);
+                String idPj = "";
+                for (Visitable visitable : mData) {
+                    if (visitable instanceof ShopCarType2Model) {
+                        ShopCarType2Model shopCarType2Model = ((ShopCarType2Model) visitable);
+                        if (shopCarType2Model.isCheck) {
+                            idPj = idPj + "," + shopCarType2Model.id;
+                        }
+                    } else if (visitable instanceof ShopCarType3Model) {
+                        ShopCarType3Model shopCarType3Model = ((ShopCarType3Model) visitable);
+                        if (shopCarType3Model.isCheck) {
+                            idPj = idPj + "," + shopCarType3Model.id;
+                        }
+                    }
+                }
+                map.put("idPj", idPj);
+                net.post(NetConfig.SHOPCAR_DELETE_SHOP, getContext(), map, new MUtilsInternet.XCallBack() {
+                    @Override
+                    public void onResponse(String result) {
+                        String ret = JsonUtils.getRet(result);
+                        if ("0".equals(ret)) {
+                            initNet();
+                        } else {
+                            Toast.makeText(getContext(), "删除失败", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                break;
+            case R.id.ll_mainchildshopcar_money:
+                Intent intent = new Intent();
+                startActivity(intent);
                 break;
             default:
                 break;

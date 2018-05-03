@@ -387,6 +387,7 @@
                         android:textSize="17sp" />
 
                     <TextView
+                        android:id="@+id/tv_mainmine_fankui"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginRight="5dp"
