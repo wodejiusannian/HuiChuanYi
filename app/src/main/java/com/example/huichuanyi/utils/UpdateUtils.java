@@ -1,9 +1,6 @@
 package com.example.huichuanyi.utils;
 
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.widget.Toast;
 
 import com.iflytek.autoupdate.IFlytekUpdate;
 import com.iflytek.autoupdate.IFlytekUpdateListener;
@@ -19,12 +16,7 @@ import com.iflytek.autoupdate.UpdateType;
 public class UpdateUtils {
     private static UpdateUtils instance;
     private IFlytekUpdate updManager;
-    private Toast mToast;
     private Context context;
-
-    /**
-     *
-     */
 
     public static UpdateUtils getInstance(Context context) {
         if (instance == null) {
@@ -67,31 +59,25 @@ public class UpdateUtils {
 
         @Override
         public void onResult(int errorcode, UpdateInfo result) {
-
             if (errorcode == UpdateErrorCode.OK && result != null) {
                 if (result.getUpdateType() == UpdateType.NoNeed) {
-                    //取得当前版本
-                    PackageManager packageManager = context.getPackageManager();
-                    PackageInfo packInfo;
-                    String mVersion = "";
-                    try {
-                        packInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
-                        mVersion = packInfo.versionName;
-                    } catch (PackageManager.NameNotFoundException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
+                    mU.update();
                     return;
                 }
                 updManager.showUpdateInfo(context, result);
-            } else {
-                //showTip("请求更新失败！\n更新错误码：" + errorcode);
             }
         }
     };
 
-    private void showTip(final String str) {
-        mToast.setText(str);
-        mToast.show();
+    private Update mU;
+
+    public void setOnUpListener(Update u) {
+        if (u != null) {
+            mU = u;
+        }
+    }
+
+    public interface Update {
+        void update();
     }
 }

@@ -34,4 +34,5 @@
     <color name="activityTopBigText">#000000</color>
     <color name="orderIntroduceBg">#eeeeee</color>
     <color name="orderIntroduceStarBg">#FF0707</color>
+    <color name="colorHmAppBg">#f7f4f4</color>
 </resources>

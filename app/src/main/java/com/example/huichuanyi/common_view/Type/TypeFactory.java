@@ -15,6 +15,9 @@ import com.example.huichuanyi.common_view.model.LyMain;
 import com.example.huichuanyi.common_view.model.LyShopCar;
 import com.example.huichuanyi.common_view.model.LyShopList;
 import com.example.huichuanyi.common_view.model.LyTest;
+import com.example.huichuanyi.common_view.model.OrderFormOrder;
+import com.example.huichuanyi.common_view.model.OrderFormSLW;
+import com.example.huichuanyi.common_view.model.OrderFormVideo;
 import com.example.huichuanyi.common_view.model.OrderStudioFill;
 import com.example.huichuanyi.common_view.model.OrderStudioIntroduceOpenModel;
 import com.example.huichuanyi.common_view.model.OrderStudioIntroducePJBottomModel;
@@ -27,6 +30,12 @@ import com.example.huichuanyi.common_view.model.OrderStudioOne;
 import com.example.huichuanyi.common_view.model.OrderStudioThree;
 import com.example.huichuanyi.common_view.model.PrivateRecommendModel;
 import com.example.huichuanyi.common_view.model.RTCReport;
+import com.example.huichuanyi.common_view.model.ShopCarButtonModel;
+import com.example.huichuanyi.common_view.model.ShopCarTopModel;
+import com.example.huichuanyi.common_view.model.ShopCarType0Model;
+import com.example.huichuanyi.common_view.model.ShopCarType1Model;
+import com.example.huichuanyi.common_view.model.ShopCarType2Model;
+import com.example.huichuanyi.common_view.model.ShopCarType3Model;
 import com.example.huichuanyi.common_view.model.SlwEightModel;
 import com.example.huichuanyi.common_view.model.SlwFiveModel;
 import com.example.huichuanyi.common_view.model.SlwFourModel;
@@ -77,6 +86,8 @@ public interface TypeFactory {
 
     int type(SlwSixModel slwSixModel);
 
+    int type(ShopCarTopModel slwSixModel);
+
     int type(SlwSevenModle slwSevenModle);
 
     int type(OrderStudioOne slwSevenModle);
@@ -107,6 +118,21 @@ public interface TypeFactory {
 
     int type(OrderStudioFill histotyZhenDuan);
 
+    int type(ShopCarButtonModel histotyZhenDuan);
+
+    int type(ShopCarType0Model histotyZhenDuan);
+
+    int type(ShopCarType1Model histotyZhenDuan);
+
+    int type(ShopCarType2Model histotyZhenDuan);
+
+    int type(ShopCarType3Model histotyZhenDuan);
+
+    int type(OrderFormOrder histotyZhenDuan);
+
+    int type(OrderFormSLW histotyZhenDuan);
+
+    int type(OrderFormVideo histotyZhenDuan);
     //int type(OrderStudioHoz histotyZhenDuan);
 
     BaseViewHolder createViewHolder(int type, View itemView);

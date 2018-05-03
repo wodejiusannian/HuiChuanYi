@@ -18,6 +18,9 @@ import com.example.huichuanyi.common_view.holder.LyListShopHolder;
 import com.example.huichuanyi.common_view.holder.LyMainHolder;
 import com.example.huichuanyi.common_view.holder.LyRTCReportHolder;
 import com.example.huichuanyi.common_view.holder.LyShopCarHolder;
+import com.example.huichuanyi.common_view.holder.OrderFormOrderHolder;
+import com.example.huichuanyi.common_view.holder.OrderFormSLWHolder;
+import com.example.huichuanyi.common_view.holder.OrderFormVideoHolder;
 import com.example.huichuanyi.common_view.holder.OrderStudioFillHolder;
 import com.example.huichuanyi.common_view.holder.OrderStudioIntroduceOpenHolder;
 import com.example.huichuanyi.common_view.holder.OrderStudioIntroducePJBottomHolder;
@@ -29,7 +32,13 @@ import com.example.huichuanyi.common_view.holder.OrderStudioIntroduceTopHolder;
 import com.example.huichuanyi.common_view.holder.OrderStudioOneHolder;
 import com.example.huichuanyi.common_view.holder.OrderStudioThreeHolder;
 import com.example.huichuanyi.common_view.holder.OrderStudioTwoHolder;
-import com.example.huichuanyi.common_view.holder.PrivateRecommendHolder;
+import com.example.huichuanyi.common_view.holder.ShopCarAccurateHolder;
+import com.example.huichuanyi.common_view.holder.ShopCarSelfButtonHolder;
+import com.example.huichuanyi.common_view.holder.ShopCarSelfTopHolder;
+import com.example.huichuanyi.common_view.holder.ShopCarSelfType0Holder;
+import com.example.huichuanyi.common_view.holder.ShopCarSelfType1Holder;
+import com.example.huichuanyi.common_view.holder.ShopCarSelfType2Holder;
+import com.example.huichuanyi.common_view.holder.ShopCarSelfType3Holder;
 import com.example.huichuanyi.common_view.holder.SlwEightHolder;
 import com.example.huichuanyi.common_view.holder.SlwFiveHolder;
 import com.example.huichuanyi.common_view.holder.SlwFourHolder;
@@ -48,6 +57,9 @@ import com.example.huichuanyi.common_view.model.LyMain;
 import com.example.huichuanyi.common_view.model.LyShopCar;
 import com.example.huichuanyi.common_view.model.LyShopList;
 import com.example.huichuanyi.common_view.model.LyTest;
+import com.example.huichuanyi.common_view.model.OrderFormOrder;
+import com.example.huichuanyi.common_view.model.OrderFormSLW;
+import com.example.huichuanyi.common_view.model.OrderFormVideo;
 import com.example.huichuanyi.common_view.model.OrderStudioFill;
 import com.example.huichuanyi.common_view.model.OrderStudioIntroduceOpenModel;
 import com.example.huichuanyi.common_view.model.OrderStudioIntroducePJBottomModel;
@@ -60,6 +72,12 @@ import com.example.huichuanyi.common_view.model.OrderStudioOne;
 import com.example.huichuanyi.common_view.model.OrderStudioThree;
 import com.example.huichuanyi.common_view.model.PrivateRecommendModel;
 import com.example.huichuanyi.common_view.model.RTCReport;
+import com.example.huichuanyi.common_view.model.ShopCarButtonModel;
+import com.example.huichuanyi.common_view.model.ShopCarTopModel;
+import com.example.huichuanyi.common_view.model.ShopCarType0Model;
+import com.example.huichuanyi.common_view.model.ShopCarType1Model;
+import com.example.huichuanyi.common_view.model.ShopCarType2Model;
+import com.example.huichuanyi.common_view.model.ShopCarType3Model;
 import com.example.huichuanyi.common_view.model.SlwEightModel;
 import com.example.huichuanyi.common_view.model.SlwFiveModel;
 import com.example.huichuanyi.common_view.model.SlwFourModel;
@@ -114,7 +132,7 @@ public class TypeFactoryForList implements TypeFactory {
 
     private final int TYPE_RESOURCE_365_ITEM_8 = R.layout.item_365_eight;
 
-    private final int TYPE_RESOURCE_PRIVATE_RECOMMEND = R.layout.item_test;
+    private final int TYPE_RESOURCE_PRIVATE_RECOMMEND = R.layout.item_shapcaraccurate_tantan;
 
     private final int TYPE_RESOURCE_PRIVATE_HISTORY_ZHEN_DUAN = R.layout.item_history;
 
@@ -139,6 +157,22 @@ public class TypeFactoryForList implements TypeFactory {
     private final int TYPE_RESOURCE_ORDER_STUDIO_INTRODUCE_PJ_MIDDLE = R.layout.item_order_studio_introduce_pj_middle;
 
     private final int TYPE_RESOURCE_ORDER_STUDIO_INTRODUCE_PJ_BOTTOM = R.layout.item_order_studio_introduce_pj_bottom;
+
+    private final int TYPE_RESOURCE_SHO_CAR_AD = R.layout.item_shopcarself_top;
+
+    private final int TYPE_RESOURCE_SHO_CAR_BUTTON = R.layout.item_shopcarself_button;
+    private final int TYPE_RESOURCE_SHO_CAR_TYPE0 = R.layout.item_shopcarself_type0;
+    private final int TYPE_RESOURCE_SHO_CAR_TYPE1 = R.layout.item_shopcarself_type1;
+
+    private final int TYPE_RESOURCE_SHO_CAR_TYPE2 = R.layout.item_shopcarself_type2;
+
+    private final int TYPE_RESOURCE_SHO_CAR_TYPE3 = R.layout.item_shopcarself_type3;
+
+    private final int TYPE_RESOURCE_ORDER_FORM_ORDER = R.layout.item_orderformorder_state;
+
+    private final int TYPE_RESOURCE_ORDER_FORM_SLW = R.layout.item_orderformslw_state;
+
+    private final int TYPE_RESOURCE_ORDER_FORM_VIDEO = R.layout.item_orderformvideo_state;
 
     @Override
     public int type(LyBanner one) {
@@ -216,6 +250,11 @@ public class TypeFactoryForList implements TypeFactory {
     }
 
     @Override
+    public int type(ShopCarTopModel slwSixModel) {
+        return TYPE_RESOURCE_SHO_CAR_AD;
+    }
+
+    @Override
     public int type(SlwSevenModle slwSevenModle) {
         return TYPE_RESOURCE_365_ITEM_7;
     }
@@ -290,6 +329,46 @@ public class TypeFactoryForList implements TypeFactory {
         return TYPE_RESOURCE_ORDER_STUDIO_FILL;
     }
 
+    @Override
+    public int type(ShopCarButtonModel histotyZhenDuan) {
+        return TYPE_RESOURCE_SHO_CAR_BUTTON;
+    }
+
+    @Override
+    public int type(ShopCarType0Model histotyZhenDuan) {
+        return TYPE_RESOURCE_SHO_CAR_TYPE0;
+    }
+
+    @Override
+    public int type(ShopCarType1Model histotyZhenDuan) {
+        return TYPE_RESOURCE_SHO_CAR_TYPE1;
+    }
+
+    @Override
+    public int type(ShopCarType2Model histotyZhenDuan) {
+        return TYPE_RESOURCE_SHO_CAR_TYPE2;
+    }
+
+    @Override
+    public int type(ShopCarType3Model histotyZhenDuan) {
+        return TYPE_RESOURCE_SHO_CAR_TYPE3;
+    }
+
+    @Override
+    public int type(OrderFormOrder histotyZhenDuan) {
+        return TYPE_RESOURCE_ORDER_FORM_ORDER;
+    }
+
+    @Override
+    public int type(OrderFormSLW histotyZhenDuan) {
+        return TYPE_RESOURCE_ORDER_FORM_SLW;
+    }
+
+    @Override
+    public int type(OrderFormVideo histotyZhenDuan) {
+        return TYPE_RESOURCE_ORDER_FORM_VIDEO;
+    }
+
 
     @Override
     public int type(LyShopCar.BodyBean lyShopCar) {
@@ -341,7 +420,7 @@ public class TypeFactoryForList implements TypeFactory {
             case TYPE_RESOURCE_365_ITEM_6:
                 return new SlwSixHolder(itemView);
             case TYPE_RESOURCE_PRIVATE_RECOMMEND:
-                return new PrivateRecommendHolder(itemView);
+                return new ShopCarAccurateHolder(itemView);
             case TYPE_RESOURCE_365_ITEM_7:
                 return new SlwSevenHolder(itemView);
             case TYPE_RESOURCE_365_ITEM_8:
@@ -370,6 +449,24 @@ public class TypeFactoryForList implements TypeFactory {
                 return new OrderStudioIntroducePJBottomHolder(itemView);
             case TYPE_RESOURCE_ORDER_STUDIO_INTRODUCE_OPEN:
                 return new OrderStudioIntroduceOpenHolder(itemView);
+            case TYPE_RESOURCE_SHO_CAR_AD:
+                return new ShopCarSelfTopHolder(itemView);
+            case TYPE_RESOURCE_SHO_CAR_BUTTON:
+                return new ShopCarSelfButtonHolder(itemView);
+            case TYPE_RESOURCE_SHO_CAR_TYPE1:
+                return new ShopCarSelfType1Holder(itemView);
+            case TYPE_RESOURCE_SHO_CAR_TYPE2:
+                return new ShopCarSelfType2Holder(itemView);
+            case TYPE_RESOURCE_SHO_CAR_TYPE3:
+                return new ShopCarSelfType3Holder(itemView);
+            case TYPE_RESOURCE_ORDER_FORM_ORDER:
+                return new OrderFormOrderHolder(itemView);
+            case TYPE_RESOURCE_ORDER_FORM_SLW:
+                return new OrderFormSLWHolder(itemView);
+            case TYPE_RESOURCE_ORDER_FORM_VIDEO:
+                return new OrderFormVideoHolder(itemView);
+            case TYPE_RESOURCE_SHO_CAR_TYPE0:
+                return new ShopCarSelfType0Holder(itemView);
             default:
                 return null;
         }

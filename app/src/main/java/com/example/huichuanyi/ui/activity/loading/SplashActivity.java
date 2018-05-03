@@ -139,9 +139,8 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public void setListener() {
-        mHandler.sendEmptyMessageDelayed(1, 3000);
+        mHandler.sendEmptyMessageDelayed(1, 2000);
     }
-
 
 
 }

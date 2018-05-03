@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f7f4f4"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.example.huichuanyi.newui.activity.OrderFormActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/top_color">
+
+        <include layout="@layout/btn_back"></include>
+
+        <TextView
+            android:id="@+id/tv_orderform_title"
+            style="@style/ActivityTopTextTitleStyle"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:layout_marginTop="3dp"
+        android:background="#fff">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tb_orderform_title"
+            android:layout_width="match_parent"
+            android:layout_height="51dp"
+            app:tabIndicatorHeight="0dp"
+            app:tabSelectedTextColor="#ac0000">
+
+        </android.support.design.widget.TabLayout>
+
+        <TextView
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:background="#f7f4f4" />
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_orderform_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+</LinearLayout>

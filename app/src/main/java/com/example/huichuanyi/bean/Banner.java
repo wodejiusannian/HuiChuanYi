@@ -8,6 +8,15 @@ public class Banner {
     private String pic_url;
     private String share_name;
     private String share_url;
+    private String weather;
+
+    public String getWeather() {
+        return weather;
+    }
+
+    public void setWeather(String weather) {
+        this.weather = weather;
+    }
 
     public Banner() {
     }

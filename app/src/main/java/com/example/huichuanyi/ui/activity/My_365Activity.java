@@ -6,16 +6,17 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.utils.JsonUtils;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
-import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,7 +30,7 @@ import io.rong.imlib.model.UserInfo;
 public class My_365Activity extends BaseActivity implements UtilsInternet.XCallBack, RongIM.UserInfoProvider {
 
 
-    private SimpleDraweeView userPhoto, studioLogo;
+    private ImageView userPhoto, studioLogo;
 
     private TextView userName, useDate, studioName, isOpen, studioInfo;
 
@@ -51,7 +52,7 @@ public class My_365Activity extends BaseActivity implements UtilsInternet.XCallB
                 String studio_name = data.getString("studio_name");
                 String studio_introduction = data.getString("studio_introduction");
                 String studio_photo = data.getString("studio_photo");
-                studioLogo.setImageURI(studio_photo);
+                Glide.with(My_365Activity.this).load(studio_photo).into(studioLogo);
                 useDate.setText(end_time + "到期");
                 studioName.setText(studio_name);
                 if (TextUtils.equals("365", m365)) {
@@ -74,8 +75,8 @@ public class My_365Activity extends BaseActivity implements UtilsInternet.XCallB
 
     @Override
     public void initView() {
-        userPhoto = (SimpleDraweeView) findViewById(R.id.sv_user_photo);
-        studioLogo = (SimpleDraweeView) findViewById(R.id.sv_studio_logo);
+        userPhoto = (ImageView) findViewById(R.id.sv_user_photo);
+        studioLogo = (ImageView) findViewById(R.id.sv_studio_logo);
         userName = (TextView) findViewById(R.id.tv_user_name);
         useDate = (TextView) findViewById(R.id.tv_uesr_date);
         studioName = (TextView) findViewById(R.id.tv_studio_name);
@@ -85,7 +86,7 @@ public class My_365Activity extends BaseActivity implements UtilsInternet.XCallB
 
     @Override
     public void initData() {
-        userPhoto.setImageURI(SharedPreferenceUtils.getUserData(this, 3));
+        Glide.with(My_365Activity.this).load(SharedPreferenceUtils.getUserData(this, 3)).into(userPhoto);
         userName.setText(SharedPreferenceUtils.getUserData(this, 2));
         RequestParams pa = new RequestParams(NetConfig.IS_BUY_365);
         pa.addBodyParameter("user_id", SharedPreferenceUtils.getUserData(this, 1));

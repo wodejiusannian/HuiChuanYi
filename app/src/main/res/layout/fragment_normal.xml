@@ -4,5 +4,5 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/include_common_view"></include>
+    <include layout="@layout/refresh_reycleview"></include>
 </LinearLayout>

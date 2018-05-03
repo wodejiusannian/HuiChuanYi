@@ -17,7 +17,7 @@ public class Share {
         oks.setText(content + titleUrl);
         oks.setUrl(titleUrl);
         oks.setComment(content);
-        oks.setImageUrl("http://hmyc365.net:8081/file/logo.png");
+        oks.setImageUrl("http://hmyc365.net:8081/file/hm_app_logopp_logo.png");
         oks.show(context);
     }
 
@@ -43,7 +43,7 @@ public class Share {
         oks.setText("轻松生活来自慧美，让衣橱管理走进千万家");
         oks.setUrl("http://hmyc365.net:8080/html/share/share.html");
         oks.setComment("轻松生活来自慧美，让衣橱管理走进千万家");
-        oks.setImageUrl("http://hmyc365.net:8081/file/logo.png");
+        oks.setImageUrl("http://hmyc365.net:8081/file/hm_app_logopp_logo.png");
         oks.show(mContext);
     }
 }

@@ -21,17 +21,15 @@
         android:background="@drawable/shape_bg_go_door"
         android:padding="10dp">
 
-        <com.facebook.drawee.view.SimpleDraweeView
+        <ImageView
             android:id="@+id/sv_studio_info_logo"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
-            fresco:actualImageScaleType="centerCrop"
-            fresco:placeholderImage="@mipmap/stand"
-            fresco:placeholderImageScaleType="centerCrop"
-            fresco:roundedCornerRadius="4dp" />
+            android:scaleType="centerCrop"
+            android:src="@mipmap/stand" />
 
         <LinearLayout
             android:layout_width="match_parent"

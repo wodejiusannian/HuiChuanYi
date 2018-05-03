@@ -58,7 +58,7 @@
     <application xmlns:tools="http://schemas.android.com/tools"
         android:name=".application.APP"
         android:allowBackup="true"
-        android:icon="@drawable/logo"
+        android:icon="@drawable/hm_app_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
@@ -170,6 +170,7 @@
             </intent-filter>
         </receiver>
 
+        <activity android:name=".newui.activity.OrderFormDetailsActivity" />
         <activity android:name=".ui.activity.SelectStudioTimeActivity" />
         <activity android:name=".ui.activity.LiJiYuYueActivity" />
         <activity android:name=".ui.activity.ComplainActivity" />
@@ -412,6 +413,8 @@
         <activity
             android:name=".ui.newpage.OrderDetailsActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity android:name=".newui.activity.OrderFormActivity" />
+        <activity android:name=".newui.activity.OrderFormVideoActivity"></activity>
     </application>
 
 </manifest>

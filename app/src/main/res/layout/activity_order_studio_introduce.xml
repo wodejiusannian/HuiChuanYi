@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/rl_order_studio_introduce_bottom">
 
-        <include layout="@layout/include_common_view"></include>
+        <include layout="@layout/refresh_reycleview"></include>
     </RelativeLayout>
 
     <RelativeLayout
@@ -26,6 +26,7 @@
             android:layout_height="match_parent"
             android:layout_toLeftOf="@+id/tv_order_studio_introduce_go_order"
             android:background="@drawable/shape_go_order_text">
+
             <TextView
                 android:id="@+id/tv_tip"
                 android:layout_width="wrap_content"
@@ -35,12 +36,13 @@
                 android:text="¥ "
                 android:textColor="#ac0000"
                 android:textSize="18sp" />
+
             <TextView
-                android:layout_toRightOf="@+id/tv_tip"
                 android:id="@+id/tv_order_studio_introduce_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/tv_tip"
                 android:text="00.0"
                 android:textColor="#ac0000"
                 android:textSize="18sp" />
@@ -115,8 +117,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:paddingTop="20dp">
 
         <include layout="@layout/btn_back"></include>

@@ -20,6 +20,7 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.bean.City;
 import com.example.huichuanyi.config.NetConfig;
+import com.example.huichuanyi.custom.GlideRoundTransform;
 import com.example.huichuanyi.custom.dialog.CouponDialog;
 import com.example.huichuanyi.secondui.PayOrderActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
@@ -27,7 +28,6 @@ import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.ReminderUtils;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
-import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,7 +63,7 @@ public class GoDoorInfoActivity extends BaseActivity implements UtilsInternet.XC
     private TextView studioName;
 
     @ViewInject(R.id.sv_studio_info_logo)
-    private SimpleDraweeView studioLogo;
+    private ImageView studioLogo;
 
     @ViewInject(R.id.tv_studio_into_jianjie)
     private TextView studioJianjie;
@@ -113,7 +113,7 @@ public class GoDoorInfoActivity extends BaseActivity implements UtilsInternet.XC
         manager_name = bodyBean.getName();
         manager_photo = bodyBean.getPhoto_get();
         city = bodyBean.getCity();
-        studioLogo.setImageURI(bodyBean.getPhoto_get());
+        Glide.with(this).load(bodyBean.getPhoto_get()).transform(new GlideRoundTransform(this)).into(studioLogo);
         studioName.setText(bodyBean.getName());
         studioCity.setText(city);
         studioJianjie.setText(bodyBean.getIntroduction());

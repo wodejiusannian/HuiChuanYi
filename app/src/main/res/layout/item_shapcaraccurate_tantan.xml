@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_test"
+    android:layout_width="331dp"
+    android:layout_height="456dp">
+
+
+    <com.example.huichuanyi.custom.RoundImageView
+        android:id="@+id/image_view"
+        android:layout_width="331dp"
+        android:layout_height="456dp"
+        android:scaleType="centerCrop" />
+
+    <RelativeLayout
+        android:layout_width="331dp"
+        android:layout_height="456dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="11dp"
+            android:src="@mipmap/hm_shopcaraccurate_delete" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="11dp"
+            android:src="@mipmap/hm_shopcaraccurate_go" />
+
+        <TextView
+            android:layout_width="151dp"
+            android:layout_height="33dp"
+            android:layout_centerHorizontal="true"
+            android:background="@mipmap/hm_shopcarraccurate_month" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="85dp"
+            android:layout_alignParentBottom="true"
+            android:background="#1e000000"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:id="@+id/tv_shocaraccuratetantan_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/tv_shocaraccuratetantan_color"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_shocaraccuratetantan_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_shocaraccuratetantan_introduce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:ellipsize="end"
+                android:lines="2"
+                android:textColor="#fff"
+                android:textSize="13sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

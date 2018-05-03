@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context="com.example.huichuanyi.ui.activity.lanyang.LyShopCarActivity">
 
     <RelativeLayout
@@ -16,9 +16,9 @@
 
         <TextView
             android:id="@+id/tv_ly_shopcar_title"
-            android:layout_centerInParent="true"
             style="@style/ActivityTopTextTitleStyle"
-            android:text="购物车"/>
+            android:layout_centerInParent="true"
+            android:text="购物车" />
 
         <TextView
             android:id="@+id/tv_ly_shopcar_edit"
@@ -58,19 +58,19 @@
         android:layout_alignParentBottom="true"
         android:gravity="center_vertical">
 
-        <CheckBox
-            android:id="@+id/cb_ly_shopcar_allselct"
+        <ImageView
+            android:id="@+id/iv_shopcar_allselct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:button="@drawable/selector_item_shopcar" />
+            android:src="@mipmap/hm_shopcar_noselect" />
 
         <TextView
             android:id="@+id/tv_ly_shopcar_tipall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@+id/cb_ly_shopcar_allselct"
+            android:layout_toRightOf="@+id/iv_shopcar_allselct"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
             android:text="全选"

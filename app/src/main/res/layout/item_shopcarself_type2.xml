@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="104dp"
+    android:background="#fff">
+
+    <ImageView
+        android:id="@+id/iv_shopcartype2_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="47dp"
+        android:src="@mipmap/hm_shopcar_noselect" />
+
+
+    <ImageView
+        android:id="@+id/iv_shopcarselftype2_shoppic"
+        android:layout_width="103dp"
+        android:layout_height="92dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="12dp"
+        android:layout_toRightOf="@+id/iv_shopcartype2_select"
+        android:scaleType="centerCrop" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="104dp"
+        android:layout_toRightOf="@+id/iv_shopcarselftype2_shoppic"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:id="@+id/tv_shocarself_shoptitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="-----"
+            android:textColor="#2d3032"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_shocarself_shopspecification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_shocarself_shoptitle"
+            android:layout_marginTop="3dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="-----"
+            android:textColor="#666666"
+            android:textSize="9sp" />
+
+        <TextView
+            android:id="@+id/tv_shocarself_shopintroduce"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_shocarself_shopspecification"
+            android:layout_marginTop="3dp"
+            android:ellipsize="end"
+            android:lines="2"
+            android:text="-----"
+            android:textColor="#999999"
+            android:textSize="9sp" />
+
+        <TextView
+            android:id="@+id/tv_shocarself_shopprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="-----"
+            android:textColor="#ac0000"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:id="@+id/ll_shopcartype1_count"
+            android:layout_width="91dp"
+            android:visibility="gone"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:background="@mipmap/hm_main_shopcar_count"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_shocarself_delete"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_shocarself_count"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/tv_shocarself_add"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

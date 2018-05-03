@@ -297,5 +297,15 @@ public interface NetConfig {
     String OVER_SERVICE_ACARUS_KILLING = BASE_NEW_URL + "/admiral/app/hmyc/service/order/complete.htm";
 
     String PINGJIA_ACARUS_KILLING = BASE_NEW_URL + "/admiral/app/hmyc/service/evaluate/addEvaluate.htm";
+
+
+    //2.0改版后的接口
+    String TOKEN = "82D5FBD40259C743ADDEF14D0E22F347";
+    //用户信息获取接口
+    String USER_INFO = BASE_NEW_URL + "/admiral/app/hmyc/own/home/index.htm";
+    //获取当地天气的信息
+    String WEATHER_INFO = BASE_NEW_URL + "/admiral/common/weather/weatherInfo.htm";
+    //获取购物车信息
+    String SHOPCAR_LIST = BASE_NEW_URL + "/admiral/app/hmyc/order/info/listGwc.htm";
 }
 

@@ -20,7 +20,6 @@ import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.secondui.AtMyAcitivty;
 import com.example.huichuanyi.secondui.FanKuiActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
-import com.example.huichuanyi.utils.UpdateUtils;
 
 public class MineSettingActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     private RelativeLayout mRelativeLayoutFankui,
@@ -89,9 +88,6 @@ public class MineSettingActivity extends BaseActivity implements View.OnClickLis
             case R.id.tv_lianxi_phone:
                 Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:18210293536"));
                 startActivity(intent);
-                break;
-            case R.id.rl_setting_update:
-                UpdateUtils.getInstance(getApplicationContext()).update(true);
                 break;
         }
     }

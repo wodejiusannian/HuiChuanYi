@@ -9,72 +9,67 @@
         android:id="@+id/rl_main_show"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/rl_main_navigation">
+        android:layout_above="@+id/tv_line">
 
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/tv_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/rl_main_navigation"
+        android:background="#eeeeee" />
 
     <RelativeLayout
         android:id="@+id/rl_main_navigation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="43dp"
         android:layout_alignParentBottom="true">
 
         <RadioGroup
             android:id="@+id/rg_main_navigation"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/background"
+            android:layout_height="43dp"
+            android:background="#fff"
             android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/rb_main_home"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:button="@null"
                 android:checked="true"
-                android:drawableTop="@drawable/selector_home"
-                android:gravity="center"
-                android:padding="3dp"
-                android:text="@string/main_title_home"
-                android:textColor="@drawable/selector_ac_88" />
+                android:drawableTop="@drawable/hm_main_radiobutton_home" />
 
             <RadioButton
                 android:id="@+id/rb_main_order"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:button="@null"
-                android:drawableTop="@drawable/selector_order"
-                android:gravity="center"
-                android:padding="3dp"
-                android:text="@string/main_title_order"
-                android:textColor="@drawable/selector_ac_88" />
+                android:drawableTop="@drawable/hm_main_radiobutton_service" />
 
             <RadioButton
                 android:id="@+id/rb_main_365"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:button="@null"
-                android:drawableTop="@drawable/selector_365"
-                android:gravity="center"
-                android:padding="3dp"
-                android:text="@string/main_title_365"
-                android:textColor="@drawable/selector_ac_88" />
+                android:drawableTop="@drawable/hm_main_radiobutton_shopcar" />
 
             <RadioButton
                 android:id="@+id/rb_main_me"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:button="@null"
-                android:drawableTop="@drawable/selector_my"
-                android:gravity="center"
-                android:padding="3dp"
-                android:text="@string/main_title_me"
-                android:textColor="@drawable/selector_ac_88" />
+                android:drawableTop="@drawable/hm_main_radiobutton_mine" />
+
         </RadioGroup>
 
         <TextView
@@ -84,9 +79,9 @@
             android:layout_alignParentEnd="true"
             android:layout_marginRight="15dp"
             android:layout_marginTop="5dp"
-            android:visibility="gone"
             android:background="@drawable/shape_cicle"
-            android:gravity="end" />
+            android:gravity="end"
+            android:visibility="gone" />
 
     </RelativeLayout>
 
@@ -103,15 +98,13 @@
         android:orientation="vertical"
         android:visibility="gone">
 
-        <com.facebook.drawee.view.SimpleDraweeView
+        <ImageView
             android:id="@+id/sv_main_show_active"
             android:layout_width="match_parent"
             android:layout_height="360dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            fresco:actualImageScaleType="fitXY"
-            fresco:placeholderImage="@mipmap/hm_mask_active"
-            fresco:placeholderImageScaleType="fitXY" />
+            android:src="@mipmap/hm_mask_active" />
 
         <ImageView
             android:id="@+id/iv_main_mask_delete"

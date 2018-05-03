@@ -43,14 +43,12 @@
                 android:background="@drawable/hm_background"
                 android:padding="@dimen/distance_10">
 
-                <com.facebook.drawee.view.SimpleDraweeView
+                <ImageView
                     android:id="@+id/sv_user_photo"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    fresco:actualImageScaleType="fitXY"
-                    fresco:failureImage="@mipmap/stand"
-                    fresco:placeholderImage="@mipmap/stand"
-                    fresco:roundAsCircle="true" />
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/stand" />
 
                 <TextView
                     android:id="@+id/tv_user_name"
@@ -131,17 +129,15 @@
                     android:layout_marginRight="@dimen/distance_10"
                     android:lines="4" />
 
-                <com.facebook.drawee.view.SimpleDraweeView
+                <ImageView
                     android:id="@+id/sv_studio_logo"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignTop="@+id/tv_studio_name"
                     android:layout_marginLeft="@dimen/distance_10"
-                    fresco:actualImageScaleType="fitCenter"
-                    fresco:failureImage="@mipmap/stand"
-                    fresco:placeholderImage="@mipmap/stand"
-                    fresco:roundAsCircle="true" />
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/stand" />
 
             </RelativeLayout>
 
