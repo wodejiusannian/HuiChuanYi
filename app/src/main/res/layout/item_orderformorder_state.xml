@@ -8,12 +8,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="261dp"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="5dp"
         android:background="#fff"
         android:orientation="vertical"
-        android:paddingLeft="10dp">
+        android:paddingLeft="10dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -24,7 +23,7 @@
                 android:id="@+id/tv_orderformstate_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="订单编号：122454651546"
+                android:text="-----"
                 android:textColor="#ac0000"
                 android:textSize="12sp" />
 
@@ -34,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginRight="11dp"
-                android:text="已支付"
+                android:text="-----"
                 android:textColor="#ac0000"
                 android:textSize="15sp" />
         </RelativeLayout>
@@ -53,7 +52,7 @@
                 android:layout_width="91dp"
                 android:layout_height="91dp"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/stand" />
+                android:src="@mipmap/hm_stand_cicle" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -67,7 +66,7 @@
                     android:id="@+id/tv_orderformstate_servicetype"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="上门衣橱管理服务"
+                    android:text="-----"
                     android:textColor="#666666"
                     android:textSize="15sp" />
 
@@ -77,7 +76,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7dp"
-                    android:text="莉莉安工作室"
+                    android:text="-----"
                     android:textColor="#666666"
                     android:textSize="18dp" />
 
@@ -90,7 +89,7 @@
                         android:id="@+id/tv_orderformstate_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="498"
+                        android:text="-----"
                         android:textColor="#ac0000"
                         android:textSize="18sp" />
 
@@ -100,8 +99,8 @@
                         android:layout_height="match_parent"
                         android:layout_alignBaseline="@+id/tv_orderformstate_price"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginRight="74dp"
-                        android:text="未使用优惠券及折扣"
+                        android:layout_marginRight="34dp"
+                        android:text="-----"
                         android:textColor="#999999"
                         android:textSize="15sp" />
                 </RelativeLayout>
@@ -127,7 +126,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:text="预约时间：2018年4月4日"
+                android:text="-----"
                 android:textColor="#666666"
                 android:textSize="15sp" />
 
@@ -138,7 +137,7 @@
                 android:layout_marginTop="4dp"
                 android:ellipsize="end"
                 android:lines="2"
-                android:text="预约地址：2018年4月4日"
+                android:text="-----"
                 android:textColor="#666666"
                 android:textSize="15sp" />
         </LinearLayout>

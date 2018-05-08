@@ -32,14 +32,19 @@ public class OrderFormActivity extends BaseActivity {
     protected void initData() {
         Intent intent = getIntent();
         String title = intent.getStringExtra("title");
+        orderType = intent.getStringExtra("orderType");
         mTitle.setText(title);
     }
+
+    private String orderType;
 
     @BindView(R.id.tb_orderform_title)
     TabLayout tb;
 
     @BindView(R.id.vp_orderform_content)
     ViewPager pager;
+
+    private String[] deleteStatusPj = {"-1,0,1,3,4,5,6", "2"};
 
     @Override
     protected void setData() {
@@ -48,10 +53,15 @@ public class OrderFormActivity extends BaseActivity {
         ClosetAdapter adapter = new ClosetAdapter(getSupportFragmentManager(), mData, mTitles);
         pager.setAdapter(adapter);
         tb.setupWithViewPager(pager);
-        for (int i = 0; i < 2; i++) {
-            mData.add(new OrderFormFragment());
+        for (int i = 0; i < deleteStatusPj.length; i++) {
+            OrderFormFragment orderFormFragment = new OrderFormFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("orderType", orderType);
+            bundle.putString("deleteStatusPj", deleteStatusPj[i]);
+            orderFormFragment.setArguments(bundle);
+            mData.add(orderFormFragment);
         }
-        mTitles.add("未确认订单");
+        mTitles.add("未完成订单");
         mTitles.add("已完成订单");
         adapter.notifyDataSetChanged();
     }

@@ -26,13 +26,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="160dp">
 
+                    <ImageView
+                        android:id="@+id/iv_mainhome_banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
+
                     <TextView
                         android:id="@+id/tv_mainhomeweather_province"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="11dp"
-                        android:textColor="#323232"
                         android:layout_marginTop="51dp"
+                        android:textColor="#323232"
                         android:textSize="25sp" />
 
                     <LinearLayout
@@ -195,13 +201,13 @@
                         android:src="@mipmap/hm_main_up" />
                 </RelativeLayout>
 
-                <RelativeLayout
+                <com.jude.rollviewpager.RollPagerView
+                    android:id="@+id/rv_mainhome_banners"
                     android:layout_width="match_parent"
                     android:layout_height="51dp"
-                    android:layout_marginTop="3dp"
-                    android:background="#ac0000">
+                    android:layout_marginTop="3dp">
 
-                </RelativeLayout>
+                </com.jude.rollviewpager.RollPagerView>
 
                 <LinearLayout
                     android:layout_width="match_parent"

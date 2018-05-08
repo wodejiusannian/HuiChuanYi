@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base_2.BaseFragment;
+import com.example.huichuanyi.bean.Banner;
 import com.example.huichuanyi.common_view.adapter.MultiTypeAdapter;
 import com.example.huichuanyi.common_view.model.ShopCarButtonModel;
 import com.example.huichuanyi.common_view.model.ShopCarTopModel;
@@ -22,8 +23,10 @@ import com.example.huichuanyi.common_view.model.ShopCarType0Model;
 import com.example.huichuanyi.common_view.model.ShopCarType1Model;
 import com.example.huichuanyi.common_view.model.ShopCarType2Model;
 import com.example.huichuanyi.common_view.model.ShopCarType3Model;
+import com.example.huichuanyi.common_view.model.ShopCarType4Model;
 import com.example.huichuanyi.common_view.model.Visitable;
 import com.example.huichuanyi.config.NetConfig;
+import com.example.huichuanyi.ui.newpage.ShopCarOrderDetailsActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.AsyncHttpUtils;
 import com.example.huichuanyi.utils.HttpCallBack;
@@ -93,7 +96,42 @@ public class FragmentMainChildShopCarSelf extends BaseFragment {
                 shopCar = (FragmentMainShopCar) fragment;
             }
         }
-        initNet();
+        initBanner();
+
+    }
+
+    private void initBanner() {
+        Map<String, String> map = new HashMap<>();
+        map.put("bannerType", "3");
+        net.post(NetConfig.BANNER_TYPE, getContext(), map, new MUtilsInternet.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+                try {
+                    List<Banner> mBanner = new ArrayList<Banner>();
+                    JSONObject object = new JSONObject(result);
+                    JSONArray banners = object.getJSONArray("body");
+                    for (int i = 0; i < banners.length(); i++) {
+                        JSONObject jsonObject = banners.getJSONObject(i);
+                        Banner banner = new Banner();
+                        banner.setShare_name(jsonObject.getString("bannerName"));
+                        banner.setShare_url(jsonObject.getString("shareUrl"));
+                        banner.setWeb_url(jsonObject.getString("clickUrl"));
+                        banner.setType(jsonObject.getString("clickType"));
+                        banner.setPic_url(NetConfig.BASE_NEW_URL + jsonObject.getString("pictureUrl"));
+                        mBanner.add(banner);
+                    }
+                    mData.clear();
+                    refreshLayout.setRefreshing(false);
+                    rlDelete.setVisibility(View.GONE);
+                    mData.add(new ShopCarTopModel(mBanner));
+                    initNet();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
     }
 
     private FragmentMainShopCar shopCar;
@@ -105,6 +143,7 @@ public class FragmentMainChildShopCarSelf extends BaseFragment {
     @Override
     protected void initEvent() {
         super.initEvent();
+
         content.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -127,7 +166,7 @@ public class FragmentMainChildShopCarSelf extends BaseFragment {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                initNet();
+                initBanner();
                 refreshHandler.sendEmptyMessageDelayed(1, 5000);
             }
         });
@@ -186,10 +225,7 @@ public class FragmentMainChildShopCarSelf extends BaseFragment {
             @Override
             public void onResponse(String result) {
                 try {
-                    mData.clear();
-                    refreshLayout.setRefreshing(false);
-                    rlDelete.setVisibility(View.GONE);
-                    mData.add(new ShopCarTopModel());
+
                     mData.add(new ShopCarButtonModel());
                     mData.add(new ShopCarType0Model("管理", false));
                     JSONObject ret = new JSONObject(result);
@@ -454,7 +490,7 @@ public class FragmentMainChildShopCarSelf extends BaseFragment {
 
     private boolean all = true;
 
-    @OnClick({R.id.tv_mainshopcar_accurate, R.id.iv_mainchildshopcar_delete,R.id.ll_mainchildshopcar_money})
+    @OnClick({R.id.tv_mainshopcar_accurate, R.id.iv_mainchildshopcar_delete, R.id.ll_mainchildshopcar_money})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_mainshopcar_accurate:
@@ -484,7 +520,7 @@ public class FragmentMainChildShopCarSelf extends BaseFragment {
                     public void onResponse(String result) {
                         String ret = JsonUtils.getRet(result);
                         if ("0".equals(ret)) {
-                            initNet();
+                            initBanner();
                         } else {
                             Toast.makeText(getContext(), "删除失败", Toast.LENGTH_SHORT).show();
                         }
@@ -492,8 +528,31 @@ public class FragmentMainChildShopCarSelf extends BaseFragment {
                 });
                 break;
             case R.id.ll_mainchildshopcar_money:
-                Intent intent = new Intent();
-                startActivity(intent);
+                ArrayList<ShopCarType4Model> array = new ArrayList<>();
+                for (Visitable visitable : mData) {
+                    if (visitable instanceof ShopCarType2Model) {
+                        ShopCarType2Model shop2 = ((ShopCarType2Model) visitable);
+                        boolean check2 = shop2.isCheck;
+                        if (check2) {
+                            array.add(new ShopCarType4Model(shop2.goodsColor, shop2.goodsId, shop2.goodsName, shop2.goodsPicture,
+                                    shop2.goodsPrice, shop2.goodsSize, shop2.id, shop2.orderNumber, shop2.orderType));
+                        }
+                    } else if (visitable instanceof ShopCarType3Model) {
+                        ShopCarType3Model shop3 = ((ShopCarType3Model) visitable);
+                        boolean check3 = shop3.isCheck;
+                        if (check3) {
+                            array.add(new ShopCarType4Model(shop3.goodsColor, shop3.goodsId, shop3.goodsName, shop3.goodsPicture,
+                                    shop3.goodsPrice, shop3.goodsSize, shop3.id, shop3.orderNumber, shop3.orderType));
+                        }
+                    }
+                }
+                if (array.size() > 0) {
+                    Intent intent = new Intent(getActivity(), ShopCarOrderDetailsActivity.class);
+                    intent.putParcelableArrayListExtra("shoplist", array);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getContext(), "请选择商品", Toast.LENGTH_SHORT).show();
+                }
                 break;
             default:
                 break;

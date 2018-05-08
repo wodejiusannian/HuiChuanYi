@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.example.huichuanyi.R;
@@ -85,7 +84,6 @@ public class LyMainActivity extends BaseActivity implements SwipeRefreshLayout.O
 
     @Override
     public void onResponse(String result) {
-        Log.e("TAG", "onResponse: ------------" + result);
         mData.clear();
         if (sfRefresh.isRefreshing())
             sfRefresh.setRefreshing(false);

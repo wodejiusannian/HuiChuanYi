@@ -49,7 +49,7 @@ public class VideoPayActivity extends BaseActivity implements CompoundButton.OnC
     @ViewInject(R.id.tv_item_select_speech)
     private TextView videoName;
 
-    private int singlePrice;
+    private Double singlePrice;
 
     private List<Video.BodyBean> mList;
 
@@ -81,7 +81,7 @@ public class VideoPayActivity extends BaseActivity implements CompoundButton.OnC
         Video.BodyBean bodyBean = mList.get(pos);
         String video_price = bodyBean.getVideo_price();
         buffer.append(bodyBean.getVideo_id());
-        singlePrice = Integer.parseInt(video_price);
+        singlePrice = Double.parseDouble(video_price);
         videoName.setText(bodyBean.getVideo_name());
         videoPhoto.setImageURI(bodyBean.getVideo_pic());
         videoPay.setText(video_price);
@@ -121,7 +121,7 @@ public class VideoPayActivity extends BaseActivity implements CompoundButton.OnC
             @Override
             public void onChanged() {
                 super.onChanged();
-                int money = mAdapter.getMoney() + singlePrice;
+                double money = mAdapter.getMoney() + singlePrice;
                 if (money > 100) {
                     money -= 20;
                 }

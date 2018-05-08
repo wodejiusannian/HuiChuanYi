@@ -1,5 +1,6 @@
 package com.example.huichuanyi.ui.fragment;
 
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.webkit.WebView;
@@ -9,6 +10,10 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.base_2.BaseFragment;
 import com.example.huichuanyi.custom.VpSwipeRefreshLayout;
 import com.example.huichuanyi.emum.ServiceType;
+import com.example.huichuanyi.ui.activity.HomeVideoCoverActivity;
+import com.example.huichuanyi.ui.activity.lanyang.LyShopListActivity;
+import com.example.huichuanyi.ui.newpage.OrderStudioListActivity;
+import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.ServiceSingleUtils;
 import com.example.huichuanyi.utils.WebViewUtils;
 
@@ -50,22 +55,51 @@ public class FragmentMainService extends BaseFragment {
 
             @Override
             public void onResultTitle(String title) {
-                if ("hmyc365.net/hmyc/file/app-service/html/index.html#1".equals(title)) {
-                    ServiceSingleUtils.getInstance().setServiceType(ServiceType.SERVICE_THE_DOOR);
-                } else if ("hmyc365.net/hmyc/file/app-service/html/index.html#2".equals(title)) {
-                    ServiceSingleUtils.getInstance().setServiceType(ServiceType.SERVICE_ACARUS_KILLING);
-                }
+
             }
 
             @Override
             public void onResultUrl(String url) {
+                if (url.contains("yuyue?a=wardrobe_management")) {
+                    ServiceSingleUtils.getInstance().setServiceType(ServiceType.SERVICE_THE_DOOR);
+                    ActivityUtils.switchTo(getActivity(), OrderStudioListActivity.class);
+                } else if (url.contains("yuyue?a=mite_service")) {
+                    ServiceSingleUtils.getInstance().setServiceType(ServiceType.SERVICE_ACARUS_KILLING);
+                    ActivityUtils.switchTo(getActivity(), OrderStudioListActivity.class);
+                } else if (url.contains("yuyue?a=my_manager")) {
 
+                } else if (url.contains("yuyue?a=micro_Lesson")) {
+                    ActivityUtils.switchTo(getActivity(), HomeVideoCoverActivity.class);
+                } else if (url.contains("#yuyue?supplierId=")) {
+                    String supplierId = getInsideString(url, "#yuyue?supplierId=", "&brand");
+                    String brand = url.substring(url.indexOf("brand=") + "brand=".length(), url.length());
+                    Intent in = new Intent(getActivity(), LyShopListActivity.class);
+                    in.putExtra("supplier_id",supplierId);
+                    in.putExtra("brand",brand);
+                    startActivity(in);
+                } else if (url.contains("yuyue?a=mite_service")) {
+
+                } else if (url.contains("yuyue?a=mite_service")) {
+
+                } else if (url.contains("yuyue?a=mite_service")) {
+
+                }
             }
         });
         mWebViewUtils.LoadingUrl(webView, mUrl);
     }
 
     private WebViewUtils mWebViewUtils;
+
+    public String getInsideString(String str, String strStart, String strEnd) {
+        if (str.indexOf(strStart) < 0) {
+            return "";
+        }
+        if (str.indexOf(strEnd) < 0) {
+            return "";
+        }
+        return str.substring(str.indexOf(strStart) + strStart.length(), str.indexOf(strEnd));
+    }
 
     @Override
     protected void initEvent() {

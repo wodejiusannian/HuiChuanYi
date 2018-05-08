@@ -5,8 +5,8 @@
     android:background="#fff"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/iv_item_shopcar_ad"
+    <com.jude.rollviewpager.RollPagerView
+        android:id="@+id/rv_item_shopcar_ad"
         android:layout_width="match_parent"
         android:layout_height="226dp"
         android:src="@mipmap/ic_launcher" />
@@ -14,6 +14,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:layout_below="@+id/iv_item_shopcar_ad"
+        android:layout_below="@+id/rv_item_shopcar_ad"
         android:background="#eee" />
 </RelativeLayout>

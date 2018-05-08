@@ -39,19 +39,16 @@ public class WebViewUtils {
         this.mWebOnResult = mWebOnResult;
     }
 
-    public  void LoadingUrl(WebView webView, String url) {
+    public void LoadingUrl(WebView webView, String url) {
         WebSettings webSettings = webView.getSettings();
         webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient() {
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                // TODO Auto-generated method stub
-                //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
-                //view.loadUrl(url);
-                mWebOnResult.onResultUrl(url);
-                return true;
+            public void onPageFinished(WebView view, String url) {
+                mWebOnResult.onResultUrl(view.getTitle());
+                super.onPageFinished(view, url);
             }
         });
         WebChromeClient wvcc = new WebChromeClient() {

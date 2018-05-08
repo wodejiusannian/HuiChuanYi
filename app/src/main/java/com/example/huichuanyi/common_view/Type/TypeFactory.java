@@ -36,6 +36,7 @@ import com.example.huichuanyi.common_view.model.ShopCarType0Model;
 import com.example.huichuanyi.common_view.model.ShopCarType1Model;
 import com.example.huichuanyi.common_view.model.ShopCarType2Model;
 import com.example.huichuanyi.common_view.model.ShopCarType3Model;
+import com.example.huichuanyi.common_view.model.ShopCarType4Model;
 import com.example.huichuanyi.common_view.model.SlwEightModel;
 import com.example.huichuanyi.common_view.model.SlwFiveModel;
 import com.example.huichuanyi.common_view.model.SlwFourModel;
@@ -128,9 +129,11 @@ public interface TypeFactory {
 
     int type(ShopCarType3Model histotyZhenDuan);
 
-    int type(OrderFormOrder histotyZhenDuan);
+    int type(ShopCarType4Model histotyZhenDuan);
 
-    int type(OrderFormSLW histotyZhenDuan);
+    int type(OrderFormOrder.BodyBean histotyZhenDuan);
+
+    int type(OrderFormSLW.BodyBean histotyZhenDuan);
 
     int type(OrderFormVideo histotyZhenDuan);
     //int type(OrderStudioHoz histotyZhenDuan);

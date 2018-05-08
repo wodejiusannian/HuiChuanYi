@@ -1,14 +1,19 @@
 package com.example.huichuanyi.ui.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.huichuanyi.R;
+import com.example.huichuanyi.adapter.HomeAdapter;
 import com.example.huichuanyi.baidumap.GetCity;
 import com.example.huichuanyi.base.BaseFragment;
+import com.example.huichuanyi.bean.Banner;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.VpSwipeRefreshLayout;
 import com.example.huichuanyi.ui.activity.HomeDaPeiRiJiActivity;
@@ -19,12 +24,16 @@ import com.example.huichuanyi.ui.activity.MC_OldClothesActivity;
 import com.example.huichuanyi.ui.activity.MC_TripAndElseActivity;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
+import com.jude.rollviewpager.RollPagerView;
+import com.jude.rollviewpager.hintview.ColorPointHintView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -63,11 +72,8 @@ public class FragmentMainHome extends BaseFragment implements UtilsInternet.XCal
         initViewPager();
         if (map == null)
             map = new HashMap<>();
-
         map.put("banner_type", "1");
-
-        goNet();
-
+        map.put("bannerType", "2");
         mGetCity = new GetCity(getContext());
         mGetCity.startLocation();
         mGetCity.setGetCity(new GetCity.WillGetCity() {
@@ -86,6 +92,35 @@ public class FragmentMainHome extends BaseFragment implements UtilsInternet.XCal
 
     private void goNet() {
         internet.post(NetConfig.WEATHER_INFO, map, this);
+        internet.post(NetConfig.BANNER_TYPE, map, new UtilsInternet.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+                try {
+                    mBanner.clear();
+                    JSONObject object = new JSONObject(result);
+                    JSONArray banners = object.getJSONArray("body");
+                    for (int i = 0; i < banners.length(); i++) {
+                        JSONObject jsonObject = banners.getJSONObject(i);
+                        Banner banner = new Banner();
+                        banner.setShare_name(jsonObject.getString("bannerName"));
+                        banner.setShare_url(jsonObject.getString("shareUrl"));
+                        banner.setWeb_url(jsonObject.getString("clickUrl"));
+                        banner.setType(jsonObject.getString("clickType"));
+                        banner.setPic_url(NetConfig.BASE_NEW_URL + jsonObject.getString("pictureUrl"));
+                        mBanner.add(banner);
+                    }
+                    if (mBanner.size() == 1) {
+                        rvBanners.setHintView(new ColorPointHintView(getActivity(), Color.parseColor("#00ac0000"), Color.parseColor("#00ac0000")));
+                    } else {
+                        rvBanners.setHintView(new ColorPointHintView(getActivity(), Color.parseColor("#ac0000"), Color.WHITE));
+                        rvBanners.setPlayDelay(4000);
+                    }
+                    mAdapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override
@@ -94,7 +129,13 @@ public class FragmentMainHome extends BaseFragment implements UtilsInternet.XCal
         swipe.setOnRefreshListener(this);
     }
 
+    private HomeAdapter mAdapter;
+
+    private List<Banner> mBanner = new ArrayList<>();
+
     private void initViewPager() {
+        mAdapter = new HomeAdapter(rvBanners, mBanner, getContext());
+        rvBanners.setAdapter(mAdapter);
     }
 
 
@@ -161,6 +202,9 @@ public class FragmentMainHome extends BaseFragment implements UtilsInternet.XCal
                 weatherInfo[5].setText(dressingIndex);
                 weatherInfo[6].setText(exerciseIndex);
                 weatherInfo[7].setText(week);
+                String url = "http://hmyc365.net/hmyc/system/picture/weather/%s.jpg";
+                url = String.format(url, "晴");
+                Glide.with(getContext()).load(url).into(banner);
                 weatherInfo[8].setText(date);
                 swipe.setRefreshing(false);
             } catch (JSONException e) {
@@ -168,6 +212,13 @@ public class FragmentMainHome extends BaseFragment implements UtilsInternet.XCal
             }
         }
     }
+
+    @BindView(R.id.rv_mainhome_banners)
+    RollPagerView rvBanners;
+
+
+    @BindView(R.id.iv_mainhome_banner)
+    ImageView banner;
 
     @BindViews({R.id.tv_mainhomeweather_province, R.id.tv_mainhomeweather_city, R.id.tv_mainhomeweather_open,
             R.id.tv_mainhomeweather_centigrade, R.id.tv_mainhomeweather_atmosphere, R.id.tv_mainhomeweather_clothes

@@ -39,6 +39,7 @@ import com.example.huichuanyi.common_view.holder.ShopCarSelfType0Holder;
 import com.example.huichuanyi.common_view.holder.ShopCarSelfType1Holder;
 import com.example.huichuanyi.common_view.holder.ShopCarSelfType2Holder;
 import com.example.huichuanyi.common_view.holder.ShopCarSelfType3Holder;
+import com.example.huichuanyi.common_view.holder.ShopCarSelfType4Holder;
 import com.example.huichuanyi.common_view.holder.SlwEightHolder;
 import com.example.huichuanyi.common_view.holder.SlwFiveHolder;
 import com.example.huichuanyi.common_view.holder.SlwFourHolder;
@@ -78,6 +79,7 @@ import com.example.huichuanyi.common_view.model.ShopCarType0Model;
 import com.example.huichuanyi.common_view.model.ShopCarType1Model;
 import com.example.huichuanyi.common_view.model.ShopCarType2Model;
 import com.example.huichuanyi.common_view.model.ShopCarType3Model;
+import com.example.huichuanyi.common_view.model.ShopCarType4Model;
 import com.example.huichuanyi.common_view.model.SlwEightModel;
 import com.example.huichuanyi.common_view.model.SlwFiveModel;
 import com.example.huichuanyi.common_view.model.SlwFourModel;
@@ -161,12 +163,16 @@ public class TypeFactoryForList implements TypeFactory {
     private final int TYPE_RESOURCE_SHO_CAR_AD = R.layout.item_shopcarself_top;
 
     private final int TYPE_RESOURCE_SHO_CAR_BUTTON = R.layout.item_shopcarself_button;
+
     private final int TYPE_RESOURCE_SHO_CAR_TYPE0 = R.layout.item_shopcarself_type0;
+
     private final int TYPE_RESOURCE_SHO_CAR_TYPE1 = R.layout.item_shopcarself_type1;
 
     private final int TYPE_RESOURCE_SHO_CAR_TYPE2 = R.layout.item_shopcarself_type2;
 
     private final int TYPE_RESOURCE_SHO_CAR_TYPE3 = R.layout.item_shopcarself_type3;
+
+    private final int TYPE_RESOURCE_SHO_CAR_TYPE4 = R.layout.item_shopcarself_type4;
 
     private final int TYPE_RESOURCE_ORDER_FORM_ORDER = R.layout.item_orderformorder_state;
 
@@ -355,12 +361,17 @@ public class TypeFactoryForList implements TypeFactory {
     }
 
     @Override
-    public int type(OrderFormOrder histotyZhenDuan) {
+    public int type(ShopCarType4Model histotyZhenDuan) {
+        return TYPE_RESOURCE_SHO_CAR_TYPE4;
+    }
+
+    @Override
+    public int type(OrderFormOrder.BodyBean histotyZhenDuan) {
         return TYPE_RESOURCE_ORDER_FORM_ORDER;
     }
 
     @Override
-    public int type(OrderFormSLW histotyZhenDuan) {
+    public int type(OrderFormSLW.BodyBean histotyZhenDuan) {
         return TYPE_RESOURCE_ORDER_FORM_SLW;
     }
 
@@ -467,6 +478,8 @@ public class TypeFactoryForList implements TypeFactory {
                 return new OrderFormVideoHolder(itemView);
             case TYPE_RESOURCE_SHO_CAR_TYPE0:
                 return new ShopCarSelfType0Holder(itemView);
+            case TYPE_RESOURCE_SHO_CAR_TYPE4:
+                return new ShopCarSelfType4Holder(itemView);
             default:
                 return null;
         }

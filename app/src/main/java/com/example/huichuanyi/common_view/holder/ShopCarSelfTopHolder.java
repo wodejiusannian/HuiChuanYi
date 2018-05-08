@@ -1,13 +1,14 @@
 package com.example.huichuanyi.common_view.holder;
 
-import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.example.huichuanyi.R;
+import com.example.huichuanyi.adapter.HomeAdapter;
 import com.example.huichuanyi.common_view.adapter.MultiTypeAdapter;
 import com.example.huichuanyi.common_view.model.ShopCarTopModel;
+import com.jude.rollviewpager.RollPagerView;
+import com.jude.rollviewpager.hintview.ColorPointHintView;
 
 
 /**
@@ -22,6 +23,14 @@ public class ShopCarSelfTopHolder extends BaseViewHolder<ShopCarTopModel> {
 
     @Override
     public void setUpView(ShopCarTopModel model, int position, MultiTypeAdapter adapter) {
-
+        RollPagerView pager = (RollPagerView) getView(R.id.rv_item_shopcar_ad);
+        HomeAdapter adapter1 = new HomeAdapter(pager, model.mData, pager.getContext());
+        pager.setAdapter(adapter1);
+        if (model.mData.size() == 1) {
+            pager.setHintView(new ColorPointHintView(pager.getContext(), Color.parseColor("#00ac0000"), Color.parseColor("#00ac0000")));
+        } else {
+            pager.setHintView(new ColorPointHintView(pager.getContext(), Color.parseColor("#ac0000"), Color.WHITE));
+            pager.setPlayDelay(4000);
+        }
     }
 }

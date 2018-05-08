@@ -95,10 +95,10 @@ public class LyShopListActivity extends BaseActivity implements UtilsInternet.XC
     @Override
     protected void initData() {
         Intent intent = getIntent();
-        int supplier_id = intent.getIntExtra("supplier_id", 0);
+        String supplier_id = intent.getStringExtra("supplier_id");
         String brand = intent.getStringExtra("brand");
         title.setText(brand);
-        map.put("supplier_id", supplier_id + "");
+        map.put("supplier_id", supplier_id);
         map.put("user_id", SharedPreferenceUtils.getUserData(this, 1));
         adapter = new MultiTypeAdapter(mData);
         initNet();

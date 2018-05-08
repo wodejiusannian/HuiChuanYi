@@ -42,6 +42,13 @@
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:background="#f7f4f4" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignParentBottom="true"
+            android:background="#f7f4f4" />
+
     </RelativeLayout>
 
     <android.support.v4.view.ViewPager

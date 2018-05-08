@@ -25,6 +25,7 @@ import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.newui.activity.OrderFormActivity;
 import com.example.huichuanyi.newui.activity.OrderFormVideoActivity;
 import com.example.huichuanyi.secondui.FanKuiActivity;
+import com.example.huichuanyi.ui.activity.DatumActivity;
 import com.example.huichuanyi.ui.activity.MainActivity;
 import com.example.huichuanyi.ui.activity.MineSettingActivity;
 import com.example.huichuanyi.ui.activity.login.LoginByAuthCodeActivity;
@@ -39,6 +40,8 @@ import com.foamtrace.photopicker.SelectModel;
 import com.foamtrace.photopicker.intent.PhotoPickerIntent;
 import com.google.gson.Gson;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -51,16 +54,17 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.OnClick;
+import io.rong.imkit.RongIM;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class FragmentMainMine extends BaseFragment {
 
     @OnClick({R.id.iv_mainmine_photo, R.id.iv_mainmine_setting, R.id.tv_mainmine_orderform, R.id.tv_mainmine_clothesform,
             R.id.tv_mainmine_blackform, R.id.tv_mainmine_videoform, R.id.tv_mainmine_exit, R.id.tv_mainmine_refresh,
-            R.id.tv_mainmine_fankui})
+            R.id.tv_mainmine_fankui, R.id.rl_mainmine_info, R.id.rl_mainmine_openvip})
     public void onEvent(View v) {
         switch (v.getId()) {
-            case R.id.iv_mine_photo:
+            case R.id.iv_mainmine_photo:
                 upLoadingPhoto();
                 break;
             case R.id.iv_mainmine_setting:
@@ -69,20 +73,24 @@ public class FragmentMainMine extends BaseFragment {
             case R.id.tv_mainmine_orderform:
                 Intent orderIntent = new Intent(getActivity(), OrderFormActivity.class);
                 orderIntent.putExtra("title", "预约订单");
+                orderIntent.putExtra("orderType", "0");
                 startActivity(orderIntent);
                 break;
             case R.id.tv_mainmine_clothesform:
                 Intent clothesIntent = new Intent(getActivity(), OrderFormActivity.class);
                 clothesIntent.putExtra("title", "服饰订单");
+                clothesIntent.putExtra("orderType", "7");
                 startActivity(clothesIntent);
                 break;
             case R.id.tv_mainmine_blackform:
                 Intent blackIntent = new Intent(getActivity(), OrderFormActivity.class);
                 blackIntent.putExtra("title", "黑科技订单");
+                blackIntent.putExtra("orderType", "6");
                 startActivity(blackIntent);
                 break;
             case R.id.tv_mainmine_videoform:
                 Intent videoIntent = new Intent(getActivity(), OrderFormVideoActivity.class);
+                videoIntent.putExtra("orderType", "5");
                 startActivity(videoIntent);
                 break;
             case R.id.tv_mainmine_exit:
@@ -100,6 +108,50 @@ public class FragmentMainMine extends BaseFragment {
                 break;
             case R.id.tv_mainmine_fankui:
                 ActivityUtils.switchTo(getActivity(), FanKuiActivity.class);
+                break;
+            case R.id.rl_mainmine_info:
+                ActivityUtils.switchTo(getActivity(), DatumActivity.class);
+                break;
+            case R.id.rl_mainmine_openvip:
+                RequestParams params = new RequestParams(NetConfig.IS_BUY_365);
+                params.addBodyParameter("user_id", SharedPreferenceUtils.getUserData(getContext(), 1));
+                x.http().post(params, new Callback.CacheCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        try {
+                            JSONObject object = new JSONObject(result);
+                            JSONObject body = object.getJSONObject("body");
+                            String studio_name = body.getString("studio_name");
+                            String studio_id = body.getString("studio_id");
+                            RongIM im = RongIM.getInstance();
+                            if (im != null && studio_id != null) {
+                                im.startPrivateChat(getContext(), "hmgls_" + studio_id, studio_name);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+
+                    @Override
+                    public boolean onCache(String result) {
+                        return false;
+                    }
+                });
                 break;
         }
     }
@@ -182,8 +234,8 @@ public class FragmentMainMine extends BaseFragment {
                                 CustomToast.showToast(getContext(), "修改失败");
                                 return;
                             } else {
-                                Glide.with(getActivity()).load(SharedPreferenceUtils.getUserData(getContext(), 3)).transform(new GlideCircleTransform(getActivity())).into(ivInfo[1]);
-                                SharedPreferenceUtils.writeUserPhoto(getContext(), result);
+                                Glide.with(getContext()).load(result).centerCrop().bitmapTransform(new BlurTransformation(getContext())).into(ivInfo[0]);
+                                Glide.with(getContext()).load(result).transform(new GlideCircleTransform(getContext())).error(R.mipmap.stand).into(ivInfo[1]);
                                 CustomToast.showToast(getContext(), "修改成功");
                             }
 
@@ -292,41 +344,44 @@ public class FragmentMainMine extends BaseFragment {
                 Gson gson = new Gson();
                 UserInfo bean = gson.fromJson(result, UserInfo.class);
                 UserInfo.BodyBean body = bean.getBody();
-                tvInfo[0].setText(body.getUserName());
-                tvInfo[1].setText(body.getUserCity());
-                tvInfo[2].setText(body.getUserOccupation());
-                tvInfo[3].setText(body.getUserCharactor());
-                Glide.with(context).load(body.getUserPic()).centerCrop().bitmapTransform(new BlurTransformation(context)).into(ivInfo[0]);
-                Glide.with(context).load(body.getUserPic()).transform(new GlideCircleTransform(context)).error(R.mipmap.stand).into(ivInfo[1]);
-                Glide.with(context).load(body.getManagerUrl()).transform(new GlideCircleTransform(context)).error(R.mipmap.stand).into(managerPhoto);
-                String concessionCode = body.getConcessionCode();
-                String vipEndDate = body.getVipEndDate();
-                if (CommonUtils.isEmpty(vipEndDate)) {
-                    relativeLayout[1].setVisibility(View.VISIBLE);
-                    relativeLayout[0].setVisibility(View.GONE);
-                } else {
-                    relativeLayout[0].setVisibility(View.VISIBLE);
-                    relativeLayout[1].setVisibility(View.GONE);
-                    String managerName = body.getManagerName();
-                    managerInfo[0].setText(managerName);
-                    managerInfo[1].setText(vipEndDate + "到期");
-                }
-                if (CommonUtils.isEmpty(concessionCode)) {
-                    //为空的时候
-                    couponInfo[0].setText("无优惠券");
-                    couponInfo[1].setText("");
-                } else {
-                    //非空的时候
-                    couponInfo[0].setText(concessionCode);
-                    String deleteStatus = body.getDeleteStatus();
-                    if (deleteStatus.equals("1")) {
-                        couponInfo[1].setText("已使用");
+                try {
+                    tvInfo[0].setText(body.getUserName());
+                    tvInfo[1].setText(body.getUserCity());
+                    tvInfo[2].setText(body.getUserOccupation());
+                    tvInfo[3].setText(body.getUserCharactor());
+                    Glide.with(context).load(body.getUserPic()).centerCrop().bitmapTransform(new BlurTransformation(context)).into(ivInfo[0]);
+                    Glide.with(context).load(body.getUserPic()).transform(new GlideCircleTransform(context)).error(R.mipmap.stand).into(ivInfo[1]);
+                    Glide.with(context).load(body.getManagerUrl()).transform(new GlideCircleTransform(context)).error(R.mipmap.stand).into(managerPhoto);
+                    String concessionCode = body.getConcessionCode();
+                    String vipEndDate = body.getVipEndDate();
+                    if (CommonUtils.isEmpty(vipEndDate)) {
+                        relativeLayout[1].setVisibility(View.VISIBLE);
+                        relativeLayout[0].setVisibility(View.GONE);
                     } else {
-                        String concessionMoney = body.getConcessionMoney();
-                        couponInfo[1].setText(concessionMoney);
+                        relativeLayout[0].setVisibility(View.VISIBLE);
+                        relativeLayout[1].setVisibility(View.GONE);
+                        String managerName = body.getManagerName();
+                        managerInfo[0].setText(managerName);
+                        managerInfo[1].setText(vipEndDate + "到期");
                     }
+                    if (CommonUtils.isEmpty(concessionCode)) {
+                        //为空的时候
+                        couponInfo[0].setText("无优惠券");
+                        couponInfo[1].setText("");
+                    } else {
+                        //非空的时候
+                        couponInfo[0].setText(concessionCode);
+                        String deleteStatus = body.getDeleteStatus();
+                        if (deleteStatus.equals("1")) {
+                            couponInfo[1].setText("已使用");
+                        } else {
+                            String concessionMoney = body.getConcessionMoney();
+                            couponInfo[1].setText(concessionMoney);
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-
             }
         });
     }

@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -130,9 +129,9 @@ public class LyShopDetailsActivity extends BaseActivity implements UtilsInternet
                 intent.putExtra("stock_id", stock_id);
                 startActivity(intent);
                 break;
-            case R.id.rl_ly_shopdetails_gobuycar:
+           /* case R.id.rl_ly_shopdetails_gobuycar:
                 startActivity(new Intent(this, LyShopCarActivity.class));
-                break;
+                break;*/
             case R.id.iv_ly_shopdetails_delete:
                 if (count > 1)
                     count--;
@@ -159,11 +158,19 @@ public class LyShopDetailsActivity extends BaseActivity implements UtilsInternet
         final ProgressDialog dialog = new ProgressDialog(this);
         dialog.setCancelable(false);
         dialog.show();
-        RequestParams pa = new RequestParams(NetConfig.LY_SHOP_DETAILS_ADD_CAR);
-        pa.addBodyParameter("user_id", SharedPreferenceUtils.getUserData(this, 1));
-        pa.addBodyParameter("goods_id", goods_id + "");
-        pa.addBodyParameter("stock_id", stock_id + "");
-        pa.addBodyParameter("num", textViews[4].getText().toString());
+        RequestParams pa = new RequestParams(NetConfig.SHOPCAR_ADD);
+        pa.addBodyParameter("buyUserId", SharedPreferenceUtils.getUserData(this, 1));
+        pa.addBodyParameter("goodsId", goods_id + "");
+        pa.addBodyParameter("buyUserCity", SharedPreferenceUtils.getCity(this));
+        pa.addBodyParameter("buyUserName", SharedPreferenceUtils.getUserData(this, 2));
+        pa.addBodyParameter("orderRemarkBuyer", "");
+        for (int i = 0; i < changgui.size(); i++) {
+            if (i == 0) {
+                pa.addBodyParameter("orderRemarkBuyer", changgui.get(i));
+            } else if (i == 1) {
+                pa.addBodyParameter("goodsSize", changgui.get(i));
+            }
+        }
         x.http().post(pa, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -217,7 +224,6 @@ public class LyShopDetailsActivity extends BaseActivity implements UtilsInternet
 
     @Override
     public void onResponse(String result) {
-        Log.e(TAG, "onResponse: " + result);
         try {
             JSONObject object = new JSONObject(result);
             JSONObject body = object.getJSONObject("body");
