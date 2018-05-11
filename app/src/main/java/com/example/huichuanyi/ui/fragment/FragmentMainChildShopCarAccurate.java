@@ -1,5 +1,6 @@
 package com.example.huichuanyi.ui.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -14,10 +15,12 @@ import com.example.huichuanyi.common_view.adapter.MultiTypeAdapter;
 import com.example.huichuanyi.common_view.model.PrivateRecommendModel;
 import com.example.huichuanyi.common_view.model.Visitable;
 import com.example.huichuanyi.config.NetConfig;
+import com.example.huichuanyi.ui.activity.HMWebActivity;
 import com.example.huichuanyi.utils.MUtilsInternet;
 import com.example.huichuanyi.utils.OverLayCardLayoutManager;
 import com.example.huichuanyi.utils.RenRenCallback;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
+import com.jude.rollviewpager.OnItemClickListener;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
 
@@ -71,6 +74,26 @@ public class FragmentMainChildShopCarAccurate extends BaseFragment {
             @Override
             public void onClick(View v) {
                 int p = (int) v.getTag();
+            }
+        });
+
+        banner.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Banner banner = mBanner.get(position);
+                String type = banner.getType();
+                switch (type) {
+                    case "1":
+                        Intent intent = new Intent(getContext(), HMWebActivity.class);
+                        String web_url = banner.getWeb_url();
+                        String share_name = banner.getShare_name();
+                        String share_url = banner.getShare_url();
+                        intent.putExtra("hm_adpage_webview_url", web_url);
+                        intent.putExtra("hm_activity_name", share_name);
+                        intent.putExtra("hm_adpage_share_url", share_url);
+                        getContext().startActivity(intent);
+                        break;
+                }
             }
         });
         callback.setSwipeListener(new RenRenCallback.OnSwipeListener() {

@@ -38,7 +38,6 @@ public class MoveImageView extends ImageView {
                 .getSystemService(Context.WINDOW_SERVICE);
         screenWidth = wm.getDefaultDisplay().getWidth();
         screenHeight = wm.getDefaultDisplay().getHeight();
-        Log.e(TAG, "MoveImageView: " + screenWidth + screenHeight);
     }
 
 

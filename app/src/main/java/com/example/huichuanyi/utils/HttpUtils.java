@@ -142,7 +142,6 @@ public class HttpUtils {
                 Log.e(TAG, "response code:" + res);*/
                 // if(res==200)
                 // {
-                Log.e(TAG, "request success");
                 InputStream input = conn.getInputStream();
                 StringBuffer sb1 = new StringBuffer();
                 int ss;
@@ -150,7 +149,6 @@ public class HttpUtils {
                     sb1.append((char) ss);
                 }
                 result = sb1.toString();
-                Log.e(TAG, "result : " + result);
                 // }
                 // else{
                 // Log.e(TAG, "request error");

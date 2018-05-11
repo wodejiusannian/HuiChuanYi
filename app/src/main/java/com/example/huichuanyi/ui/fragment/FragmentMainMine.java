@@ -28,7 +28,9 @@ import com.example.huichuanyi.secondui.FanKuiActivity;
 import com.example.huichuanyi.ui.activity.DatumActivity;
 import com.example.huichuanyi.ui.activity.MainActivity;
 import com.example.huichuanyi.ui.activity.MineSettingActivity;
+import com.example.huichuanyi.ui.activity.RTCReportActivity;
 import com.example.huichuanyi.ui.activity.login.LoginByAuthCodeActivity;
+import com.example.huichuanyi.ui.newpage.HMURLActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.ImageUtils;
@@ -57,11 +59,13 @@ import butterknife.OnClick;
 import io.rong.imkit.RongIM;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
+import static com.example.huichuanyi.R.id.tv_mainmine_couponstate;
+
 public class FragmentMainMine extends BaseFragment {
 
     @OnClick({R.id.iv_mainmine_photo, R.id.iv_mainmine_setting, R.id.tv_mainmine_orderform, R.id.tv_mainmine_clothesform,
             R.id.tv_mainmine_blackform, R.id.tv_mainmine_videoform, R.id.tv_mainmine_exit, R.id.tv_mainmine_refresh,
-            R.id.tv_mainmine_fankui, R.id.rl_mainmine_info, R.id.rl_mainmine_openvip})
+            R.id.tv_mainmine_fankui, R.id.rl_mainmine_info, R.id.rl_mainmine_openvip, R.id.iv_mainmine_report, R.id.rl_mainmine_coupon})
     public void onEvent(View v) {
         switch (v.getId()) {
             case R.id.iv_mainmine_photo:
@@ -152,6 +156,27 @@ public class FragmentMainMine extends BaseFragment {
                         return false;
                     }
                 });
+                break;
+            case R.id.iv_mainmine_report:
+                ActivityUtils.switchTo(getActivity(), RTCReportActivity.class);
+                break;
+            case R.id.rl_mainmine_coupon:
+                String url;
+                String coupon = couponInfo[0].getText().toString();
+                if (coupon.contains("无")) {
+                    url = "http://hmyc365.net/hmyc/file/app/app-liangti-code/promoCode.html?deleteStatus=2";
+                } else {
+                    if ("已使用".equals(couponInfo[1].getText().toString())) {
+                        url = "http://hmyc365.net/hmyc/file/app/app-liangti-code/promoCode.html?deleteStatus=1&concessionCode=" + coupon;
+                    } else {
+                        url = "http://hmyc365.net/hmyc/file/app/app-liangti-code/promoCode.html?deleteStatus=0&concessionCode=" + coupon;
+                    }
+                }
+
+                Intent intent = new Intent(getContext(), HMURLActivity.class);
+                intent.putExtra("title", "优惠券");
+                intent.putExtra("url", url);
+                startActivity(intent);
                 break;
         }
     }
@@ -317,7 +342,7 @@ public class FragmentMainMine extends BaseFragment {
     @BindViews({R.id.tv_mine_name, R.id.tv_mine_city, R.id.tv_mine_occupation, R.id.tv_mine_charactor})
     TextView[] tvInfo;
 
-    @BindViews({R.id.tv_mainmine_couponid, R.id.tv_mainmine_couponstate})
+    @BindViews({R.id.tv_mainmine_couponid, tv_mainmine_couponstate})
     TextView[] couponInfo;
 
     @BindViews({R.id.tv_mainmine_managername, R.id.tv_mainmine_managerservicetime})

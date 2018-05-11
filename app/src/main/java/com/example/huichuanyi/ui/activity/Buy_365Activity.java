@@ -10,22 +10,22 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.baidumap.Location;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.bean.City;
+import com.example.huichuanyi.common_view.model.ShopCarType4Model;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.secondui.PayOrderActivity;
-import com.example.huichuanyi.utils.ActivityUtils;
+import com.example.huichuanyi.ui.newpage.ShopCarOrderDetailsActivity;
+import com.example.huichuanyi.utils.MUtilsInternet;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
-import com.example.huichuanyi.utils.Utils;
-import com.example.huichuanyi.utils.UtilsInternet;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Buy_365Activity extends BaseActivity implements UtilsInternet.XCallBack, View.OnClickListener {
-    private UtilsInternet instance = UtilsInternet.getInstance();
+public class Buy_365Activity extends BaseActivity implements MUtilsInternet.XCallBack, View.OnClickListener {
+    private MUtilsInternet instance = MUtilsInternet.getInstance();
     private TextView mCount, mStudioName, mPay, mWillPay;
     private Button mBtnPay;
     private Map<String, String> map = new HashMap<>();
@@ -56,7 +56,7 @@ public class Buy_365Activity extends BaseActivity implements UtilsInternet.XCall
     public void initData() {
         user_id = SharedPreferenceUtils.getUserData(this, 1);
         Intent intent = getIntent();
-        City.BodyBean bodyBean = (City.BodyBean) intent.getSerializableExtra("bodyBean");
+        bodyBean = (City.BodyBean) intent.getSerializableExtra("bodyBean");
         studioId = bodyBean.getId();
         studioLogo = bodyBean.getPhoto_get();
         studioName = bodyBean.getName();
@@ -67,8 +67,10 @@ public class Buy_365Activity extends BaseActivity implements UtilsInternet.XCall
         mStudioLogo.setImageURI(studioLogo);
         map.put("id", studioId);
         map.put("type", "1");
-        instance.post(NetConfig.GET_STUDIO_BUY_COUNT, map, this);
+        instance.post2(NetConfig.GET_STUDIO_BUY_COUNT, map, this);
     }
+
+    City.BodyBean bodyBean;
 
     @Override
     public void setData() {
@@ -100,20 +102,22 @@ public class Buy_365Activity extends BaseActivity implements UtilsInternet.XCall
                 }
                 break;
             case 1:
-                dismissLoading();
                 try {
+                    dismissLoading();
+                    ArrayList<ShopCarType4Model> array = new ArrayList<>();
                     JSONObject obj = new JSONObject(result);
                     JSONObject body = obj.getJSONObject("body");
                     String id = body.getString("id");
-                    Utils.Log(id);
-                    jumpMap.put("managerPhoto", studioLogo);
-                    jumpMap.put("orderid", studioId);
-                    jumpMap.put("managerName", studioName);
-                    jumpMap.put("nowMoney", nowMoney);
-                    jumpMap.put("type", "2");
-                    jumpMap.put("orderid", id);
-                    ActivityUtils.switchTo(Buy_365Activity.this, PayOrderActivity.class, jumpMap);
-                    finish();
+                    ShopCarType4Model shop = new ShopCarType4Model();
+                    shop.orderNumber = 1;
+                    shop.id = id;
+                    shop.goodsName = bodyBean.getName();
+                    shop.goodsPicture = bodyBean.getPhoto_get();
+                    shop.goodsPrice = nowMoney;
+                    array.add(shop);
+                    Intent in = new Intent(this, ShopCarOrderDetailsActivity.class);
+                    in.putExtra("shoplist", array);
+                    startActivity(in);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -149,9 +153,23 @@ public class Buy_365Activity extends BaseActivity implements UtilsInternet.XCall
         showLoading();
         flag = 1;
         map.clear();
-        map.put("user_id", user_id);
-        map.put("studio_id", studioId);
-        map.put("is_share", is_share);
-        instance.post(NetConfig.SUBMIT_ORDER_365, map, this);
+        String buyUserName = bodyBean.getUsername();
+        String sellerUserId = bodyBean.getId();
+        String sellerUserName = bodyBean.getName();
+        String sellerCityName = bodyBean.getCity();
+        String sellerPhone = bodyBean.getPhone();
+        map.put("buyUserId", user_id);
+        map.put("buyUserName", buyUserName);
+        map.put("sellerUserId", sellerUserId);
+        map.put("sellerUserName", sellerUserName);
+        map.put("sellerCityName", sellerCityName);
+        map.put("sellerPhone", sellerPhone);
+        /*private String buyUserId;// 用户
+        private String buyUserName;
+        private String sellerUserId;// 供应商-工作室
+        private String sellerUserName;
+        private String sellerCityName;
+        private String sellerPhone;*/
+        instance.post2(NetConfig.BUYVIP, map, this);
     }
 }

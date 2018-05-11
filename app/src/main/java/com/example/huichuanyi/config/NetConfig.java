@@ -315,9 +315,13 @@ public interface NetConfig {
     String SHOPCAR_SING_SHOP = BASE_NEW_URL + "/admiral/common/pay/gwc/sign.htm?token=82D5FBD40259C743ADDEF14D0E22F347";
     //三个页面BANNER获取  	传入bannerType;// 1-预约界面；2-主页；3-购物车；
     String BANNER_TYPE = BASE_NEW_URL + "/admiral/common/banner/getBanner.htm?token=82D5FBD40259C743ADDEF14D0E22F347";
-    //加入购物车
-    String SHOPCAR_ADD = BASE_NEW_URL + "/admiral/app/hmyc/order/hkj/addGwc.htm";
+    //黑科技和衣服加入购物车
+    String SHOPCAR_ADD = BASE_NEW_URL + "/admiral/app/hmyc/order/hkj/addGwc.htm?token=82D5FBD40259C743ADDEF14D0E22F347";
+    //视频加入购物车
+    String SHOPCAR_ADDVIDEO = BASE_NEW_URL + "/admiral/app/hmyc/order/video/addGwc.htm";
     //我的订单列表
-    String MINEORDER_LIST = BASE_NEW_URL + "/admiral/app/hmyc/order/info/listOrder.htm?token=token=82D5FBD40259C743ADDEF14D0E22F347";
+    String MINEORDER_LIST = BASE_NEW_URL + "/admiral/app/hmyc/order/info/listOrder.htm?token=82D5FBD40259C743ADDEF14D0E22F347";
+    //365VIP购买下单
+    String BUYVIP = BASE_NEW_URL + "/admiral/app/hmyc/order/vip/addOrder.htm?token=82D5FBD40259C743ADDEF14D0E22F347";
 }
 

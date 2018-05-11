@@ -119,7 +119,7 @@ public class SelectStudioTimeActivity extends BaseActivity implements UtilsInter
     private void tranData() {
         if (!CommonUtils.isEmpty(day) && !CommonUtils.isEmpty(am_pm)) {
             Intent in = new Intent();
-            in.putExtra("time", day + "  " + am_pm);
+            in.putExtra("time", day + " " + am_pm);
             this.setResult(2000, in);
             finish();
         }

@@ -96,14 +96,13 @@ public class FragmentMainChildShopCarSelf extends BaseFragment {
                 shopCar = (FragmentMainShopCar) fragment;
             }
         }
-        initBanner();
-
     }
 
     private void initBanner() {
+        refreshLayout.setRefreshing(true);
         Map<String, String> map = new HashMap<>();
         map.put("bannerType", "3");
-        net.post(NetConfig.BANNER_TYPE, getContext(), map, new MUtilsInternet.XCallBack() {
+        net.post2(NetConfig.BANNER_TYPE, map, new MUtilsInternet.XCallBack() {
             @Override
             public void onResponse(String result) {
                 try {
@@ -221,7 +220,7 @@ public class FragmentMainChildShopCarSelf extends BaseFragment {
         Map<String, String> map = new HashMap<>();
         map.put("token", NetConfig.TOKEN);
         map.put("buyUserId", SharedPreferenceUtils.getUserData(getContext(), 1));
-        net.post(NetConfig.SHOPCAR_LIST, getContext(), map, new MUtilsInternet.XCallBack() {
+        net.post2(NetConfig.SHOPCAR_LIST, map, new MUtilsInternet.XCallBack() {
             @Override
             public void onResponse(String result) {
                 try {
@@ -411,14 +410,15 @@ public class FragmentMainChildShopCarSelf extends BaseFragment {
                                         String ret = JsonUtils.getRet(result);
                                         if ("0".equals(ret)) {
                                             shop0.strManager = "管理";
-                                            for (Visitable visitable : mData) {
+                                            /*for (Visitable visitable : mData) {
                                                 if (visitable instanceof ShopCarType2Model) {
                                                     ((ShopCarType2Model) visitable).isShow = !((ShopCarType2Model) visitable).isShow;
                                                 } else if (visitable instanceof ShopCarType3Model) {
                                                     ((ShopCarType3Model) visitable).isShow = !((ShopCarType3Model) visitable).isShow;
                                                 }
-                                            }
+                                            }*/
                                             rlDelete.setVisibility(View.GONE);
+                                            initBanner();
                                         }
                                     }
                                 }, getActivity()).execute(NetConfig.SHOPCAR_REFRESH_SHOP, o.toString());
@@ -557,5 +557,11 @@ public class FragmentMainChildShopCarSelf extends BaseFragment {
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initBanner();
     }
 }

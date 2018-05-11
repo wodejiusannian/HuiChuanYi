@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,13 +14,14 @@ import android.widget.Toast;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.bean.PayState;
-import com.example.huichuanyi.bean.ServiceBean;
+import com.example.huichuanyi.common_view.model.OrderFormOrder;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.PayListView;
 import com.example.huichuanyi.ui.activity.pay.CMBPayActivity;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.IsSuccess;
 import com.example.huichuanyi.utils.PayUtilsCopy;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UtilsPay;
 
 import org.json.JSONArray;
@@ -70,15 +70,17 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtilsCopy.S
         setContentView(R.layout.activity_price_closing);
     }
 
-    private ServiceBean.BodyBean bean;
+    private OrderFormOrder.BodyBean bean;
+    private OrderFormOrder.BodyBean.OrderInfoBean orderInfoBean;
 
     @Override
     public void initView() {
         Intent in = getIntent();
         kind = in.getStringExtra("kind");
-        bean = (ServiceBean.BodyBean) in.getSerializableExtra("bean");
-        order_id = bean.getId();
-        if ("1".equals(bean.getOrderType())) {
+        bean = in.getParcelableExtra("bean");
+        orderInfoBean = bean.getOrderInfo().get(0);
+        order_id = bean.getOrderId();
+        if ("1".equals(orderInfoBean.getOrderType())) {
             cpKind.setText("除螨服务补差价");
             cpCount.setHint("请输入蓝氧空气机材料使用数量");
         } else {
@@ -124,7 +126,7 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtilsCopy.S
                     //这个是除螨补差价接口
                     switch (a_w_c) {
                         case "1":
-                            if ("1".equals(bean.getOrderType())) {
+                            if ("1".equals(orderInfoBean.getOrderType())) {
                                 acarusKill();
                             } else {
                                 String counts = cpCount.getText().toString().trim();
@@ -132,14 +134,14 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtilsCopy.S
                             }
                             break;
                         case "2":
-                            if ("1".equals(bean.getOrderType())) {
+                            if ("1".equals(orderInfoBean.getOrderType())) {
                                 acarusKill();
                             } else {
                                 pay.weChatSign("2", bean.getOrderId(), mmCount, this, kind);
                             }
                             break;
                         case "3":
-                            if ("1".equals(bean.getOrderType())) {
+                            if ("1".equals(orderInfoBean.getOrderType())) {
                                 Toast.makeText(this, "除螨服务现在不支持一网通支付", Toast.LENGTH_SHORT).show();
                             } else {
                                 RequestParams params;
@@ -198,8 +200,8 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtilsCopy.S
         p.addBodyParameter("token", "82D5FBD40259C743ADDEF14D0E22F347");
         p.addBodyParameter("orderId", bean.getOrderId());
         p.addBodyParameter("orderRemarkBuyer", "");
-        p.addBodyParameter("buyUserId", bean.getBuyUserId());
-        p.addBodyParameter("buyUserName", bean.getBuyUserName());
+        p.addBodyParameter("buyUserId", SharedPreferenceUtils.getUserData(this, 1));
+        p.addBodyParameter("buyUserName", orderInfoBean.getConsigneeName());
         p.addBodyParameter("orderNumber", mmCount);
         x.http().post(p, new Callback.CommonCallback<String>() {
             @Override
@@ -373,7 +375,7 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtilsCopy.S
         RequestParams pa = new RequestParams(NetConfig.PRICE_ACARUS_KILLING);
         pa.addBodyParameter("token", "82D5FBD40259C743ADDEF14D0E22F347");
         pa.addBodyParameter("priceType", "1");
-        pa.addBodyParameter("city", bean.getSellerCityName());
+        pa.addBodyParameter("city", orderInfoBean.getSellerCityName());
         x.http().post(pa, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -428,7 +430,7 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtilsCopy.S
 
         @Override
         public void run() {
-            if ("1".equals(bean.getOrderType())) {
+            if ("1".equals(orderInfoBean.getOrderType())) {
                 acarusKillClose();
             } else {
                 RequestParams pa;
@@ -443,7 +445,6 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtilsCopy.S
                 x.http().post(pa, new Callback.CacheCallback<String>() {
                     @Override
                     public void onSuccess(String result) {
-                        Log.e("TAG", "onSuccess: ----" + result);
                         try {
                             JSONObject object = new JSONObject(result);
                             JSONObject body = object.getJSONObject("body");

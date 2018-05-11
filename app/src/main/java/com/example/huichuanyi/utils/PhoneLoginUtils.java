@@ -50,7 +50,6 @@ public class PhoneLoginUtils {
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Log.e(TAG, "onSuccess: " + result);
             }
 
             @Override

@@ -101,7 +101,7 @@ public class FragmentMainMine2 extends BaseFragment {
                 ActivityUtils.switchTo(getActivity(), IndentActivity.class);
                 break;
             case R.id.ll_mine_rtc_report:
-                ActivityUtils.switchTo(getActivity(), RTCReportActivity.class);
+
                 break;
             case R.id.ll_mine_invite:
                 Share.inviteFriend(getContext());

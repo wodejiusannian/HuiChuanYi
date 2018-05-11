@@ -75,7 +75,7 @@ public class GetCity {
 
         @Override
         public void onReceiveLocation(BDLocation location) {
-            mWillGetCity.getWillGetCity(location.getCity(), location.getLatitude() + "", location.getLongitude() + "");
+            mWillGetCity.getWillGetCity(location.getProvince(),location.getCity(), location.getLatitude() + "", location.getLongitude() + "");
         }
 
         @Override
@@ -86,6 +86,6 @@ public class GetCity {
 
 
     public interface WillGetCity {
-        void getWillGetCity(String city, String lat, String lng);
+        void getWillGetCity(String province,String city, String lat, String lng);
     }
 }

@@ -32,12 +32,8 @@ public class ShopCarSelfType2Holder extends BaseViewHolder<ShopCarType2Model> {
         TextView shopcount = (TextView) getView(R.id.tv_shocarself_count);
         TextView delete = (TextView) getView(R.id.tv_shocarself_delete);
         TextView add = (TextView) getView(R.id.tv_shocarself_add);
+        TextView countShow = (TextView) getView(R.id.tv_count);
         LinearLayout count = (LinearLayout) getView(R.id.ll_shopcartype1_count);
-        if (model.isShow) {
-            count.setVisibility(View.VISIBLE);
-        } else {
-            count.setVisibility(View.GONE);
-        }
         shopcount.setText(model.orderNumber + "");
         shoptitle.setText(model.goodsName);
         shopspecification.setText(model.goodsSize);
@@ -55,5 +51,13 @@ public class ShopCarSelfType2Holder extends BaseViewHolder<ShopCarType2Model> {
         delete.setOnClickListener(adapter.getmOnclick());
         add.setOnClickListener(adapter.getmOnclick());
         ivSelect.setOnClickListener(adapter.getmOnclick());
+        if (model.isShow && !"5".equals(model.orderType)) {
+            count.setVisibility(View.VISIBLE);
+            countShow.setVisibility(View.GONE);
+        } else {
+            count.setVisibility(View.GONE);
+            countShow.setVisibility(View.VISIBLE);
+            countShow.setText("x" + model.orderNumber);
+        }
     }
 }

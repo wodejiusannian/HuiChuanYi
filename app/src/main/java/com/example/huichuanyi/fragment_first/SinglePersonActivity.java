@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +19,6 @@ import android.widget.Toast;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.baidumap.Fresh_365;
-import com.example.huichuanyi.base_2.BaseFragment;
 import com.example.huichuanyi.common_view.adapter.MultiTypeAdapter;
 import com.example.huichuanyi.common_view.model.SlwEightModel;
 import com.example.huichuanyi.common_view.model.SlwFiveModel;
@@ -33,9 +33,9 @@ import com.example.huichuanyi.custom.SlwWebView;
 import com.example.huichuanyi.ui.SlwGoActivity;
 import com.example.huichuanyi.ui.activity.DatumActivity;
 import com.example.huichuanyi.ui.activity.LiJiYuYueActivity;
-import com.example.huichuanyi.ui.activity.MainActivity;
 import com.example.huichuanyi.ui.activity.PrivateManagerActivity;
 import com.example.huichuanyi.ui.activity.video.HMWebSlwActivity;
+import com.example.huichuanyi.ui.base.BaseActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.AsyncHttpUtils;
 import com.example.huichuanyi.utils.CommonUtils;
@@ -79,7 +79,7 @@ import static android.webkit.WebSettings.LOAD_NO_CACHE;
 // ┗┓┓┏━┳┓┏┛
 // ┃┫┫　┃┫┫
 // ┗┻┛　┗┻┛
-public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesClickListener, Fresh_365 {
+public class SinglePersonActivity extends BaseActivity implements MySelfDialog.OnYesClickListener, Fresh_365 {
 
 
     @BindView(R.id.rv_fragment_365_content)
@@ -107,13 +107,11 @@ public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesC
     private String studio_id;
     private String studio_pic;
     String vip_endDate;
-    MainActivity activity;
 
     private HaveMsg haveMsg;
 
     @Override
     protected void setData() {
-        super.setData();
         sFresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -132,29 +130,58 @@ public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesC
             }
         });
 
-        activity = (MainActivity) getActivity();
-        activity.setFresh365(this);
-        if (activity.isHave()) {
-            count = 1;
-        }
         haveMsg = new HaveMsg();
-        activity.registerReceiver(haveMsg, new IntentFilter("action.have.msg"));
+        registerReceiver(haveMsg, new IntentFilter("action.have.msg"));
+    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_365_2);
     }
 
     @Override
-    protected int layoutInflaterId() {
-        return R.layout.fragment_365_2;
+    protected void setListener() {
+        RxBus.getDefault().toObservable(Integer.class).
+                subscribe(new Action1<Integer>() {
+                              @Override
+                              public void call(Integer userEvent) {
+                                  if (10081 == userEvent || 10082 == userEvent || 10087 == userEvent || 10088 == userEvent || 10000 == userEvent) {
+                                      Intent intent = new Intent(SinglePersonActivity.this, PrivateManagerActivity.class);
+                                      intent.putExtra("userEvent", userEvent);
+                                      intent.putExtra("vip_endDate", vip_endDate);
+                                      intent.putExtra("studio_name", studio_name);
+                                      intent.putExtra("studio_id", studio_id);
+                                      startActivity(intent);
+                                  } else if (100891 == userEvent || 100892 == userEvent || 100893 == userEvent || 100894 == userEvent) {
+                                      userEvent = userEvent - 10089;
+                                      showStudioDialog(userEvent);
+                                  } else if (10086111 == userEvent) {
+                                      Intent intent = new Intent(SinglePersonActivity.this, SlwGoActivity.class);
+                                      intent.putExtra("studio_name", studio_name);
+                                      intent.putExtra("studio_pic", studio_pic);
+                                      startActivity(intent);
+                                  } else {
+                                      chat();
+                                  }
+                              }
+                          },
+                        new Action1<Throwable>() {
+                            @Override
+                            public void call(Throwable throwable) {
+                                // TODO: 处理异常
+                            }
+                        });
     }
-
 
     @Override
     protected void initData() {
-        super.initData();
         if (mData == null)
             mData = new ArrayList<>();
 
         adapter = new MultiTypeAdapter(mData);
-        rvContent.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvContent.setLayoutManager(new LinearLayoutManager(this));
         rvContent.setAdapter(adapter);
 
         initNet();
@@ -165,14 +192,14 @@ public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesC
     * */
     private void initNet() {
         Map<String, String> map = new HashMap<>();
-        map.put("user_id", SharedPreferenceUtils.getUserData(getContext(), 1));
+        map.put("user_id", SharedPreferenceUtils.getUserData(this, 1));
         String json = HttpUtils.toJson(map);
         new AsyncHttpUtils(new HttpCallBack() {
             @Override
             public void onResponse(String result) {
                 showContent(result);
             }
-        }, getActivity()).execute(NetConfig.SLW_DATA, json);
+        }, this).execute(NetConfig.SLW_DATA, json);
     }
 
     /*
@@ -255,45 +282,10 @@ public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesC
             e.printStackTrace();
         } catch (NullPointerException e) {
             e.printStackTrace();
-            Toast.makeText(getContext(), "请检查网络连接", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "请检查网络连接", Toast.LENGTH_SHORT).show();
         }
     }
 
-
-    @Override
-    protected void initEvent() {
-        super.initEvent();
-        RxBus.getDefault().toObservable(Integer.class).
-                subscribe(new Action1<Integer>() {
-                              @Override
-                              public void call(Integer userEvent) {
-                                  if (10081 == userEvent || 10082 == userEvent || 10087 == userEvent || 10088 == userEvent || 10000 == userEvent) {
-                                      Intent intent = new Intent(getActivity(), PrivateManagerActivity.class);
-                                      intent.putExtra("userEvent", userEvent);
-                                      intent.putExtra("vip_endDate", vip_endDate);
-                                      intent.putExtra("studio_name", studio_name);
-                                      intent.putExtra("studio_id", studio_id);
-                                      startActivity(intent);
-                                  } else if (100891 == userEvent || 100892 == userEvent || 100893 == userEvent || 100894 == userEvent) {
-                                      userEvent = userEvent - 10089;
-                                      showStudioDialog(userEvent);
-                                  } else if (10086111 == userEvent) {
-                                      Intent intent = new Intent(getContext(), SlwGoActivity.class);
-                                      intent.putExtra("studio_name", studio_name);
-                                      intent.putExtra("studio_pic", studio_pic);
-                                      startActivity(intent);
-                                  } else {
-                                      chat();
-                                  }
-                              }
-                          },
-                        new Action1<Throwable>() {
-                            @Override
-                            public void call(Throwable throwable) {
-                                // TODO: 处理异常
-                            }
-                        });
-    }
 
     @OnClick({R.id.btn_fragment_365_go_pay})
     public void onEvent(View v) {
@@ -309,7 +301,7 @@ public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesC
 
     private void chat() {
         RequestParams params = new RequestParams(NetConfig.IS_BUY_365);
-        params.addBodyParameter("user_id", SharedPreferenceUtils.getUserData(getContext(), 1));
+        params.addBodyParameter("user_id", SharedPreferenceUtils.getUserData(this, 1));
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -320,7 +312,7 @@ public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesC
                     String studio_id = body.getString("studio_id");
                     RongIM im = RongIM.getInstance();
                     if (im != null && studio_id != null) {
-                        im.startPrivateChat(getContext(), "hmgls_" + studio_id, studio_name);
+                        im.startPrivateChat(SinglePersonActivity.this, "hmgls_" + studio_id, studio_name);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -351,7 +343,7 @@ public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesC
 
     public void goOpen() {
         RequestParams params = new RequestParams(NetConfig.GET_INFORMATION);
-        params.addBodyParameter("userid", SharedPreferenceUtils.getUserData(getContext(), 1));
+        params.addBodyParameter("userid", SharedPreferenceUtils.getUserData(this, 1));
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -392,7 +384,7 @@ public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesC
     }
 
     private void showDialog() {
-        MySelfDialog mySelfDialog = new MySelfDialog(getContext());
+        MySelfDialog mySelfDialog = new MySelfDialog(this);
         mySelfDialog.setTitle("温馨提示");
         mySelfDialog.setMessage("★  为了您更好的享受慧美衣橱各项服务，姓名，性别，城市，手机号四项为必填项，请您填写清楚");
         mySelfDialog.setOnNoListener("取消", null);
@@ -402,7 +394,7 @@ public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesC
 
 
    /* private void showDialogGo() {
-        MySelfDialog mySelfDialog = new MySelfDialog(getContext());
+        MySelfDialog mySelfDialog = new MySelfDialog(this);
         mySelfDialog.setTitle("温馨提示");
         mySelfDialog.setMessage("★  开通365服务后工作室将会看到您衣橱信息和个人资料信息");
         mySelfDialog.setOnNoListener("取消", null);
@@ -416,16 +408,16 @@ public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesC
     }*/
 
     private void goDredge() {
-        String city = SharedPreferenceUtils.getBuyCity(getContext());
+        String city = SharedPreferenceUtils.getBuyCity(this);
         Map<String, Object> map = new HashMap<>();
         map.put("location", city);
         map.put("order_365", "365");
-        ActivityUtils.switchTo(getActivity(), LiJiYuYueActivity.class, map);
+        ActivityUtils.switchTo(this, LiJiYuYueActivity.class, map);
     }
 
     @Override
     public void onClick() {
-        ActivityUtils.switchTo(getActivity(), DatumActivity.class);
+        ActivityUtils.switchTo(this, DatumActivity.class);
     }
 
     private void loadindUrl(WebView web, String url) {
@@ -440,7 +432,7 @@ public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesC
                 // TODO Auto-generated method stub
                 //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
                 if ("http://www.huimei.com/problem/normal".equals(url)) {
-                    Intent in = new Intent(getContext(), HMWebSlwActivity.class);
+                    Intent in = new Intent(SinglePersonActivity.this, HMWebSlwActivity.class);
                     startActivity(in);
                     return true;
                 }
@@ -477,7 +469,7 @@ public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesC
     public void showStudioDialog(int userEvent) {
         Map map = new HashMap();
         map.put("studio_id", studio_id);
-        map.put("user_id", SharedPreferenceUtils.getUserData(getContext(), 1));
+        map.put("user_id", SharedPreferenceUtils.getUserData(this, 1));
         map.put("demandType", "衣服推荐");
         String json = HttpUtils.toJson(map);
         new AsyncHttpUtils(new HttpCallBack() {
@@ -485,7 +477,7 @@ public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesC
             public void onResponse(String result) {
                 String msg = "提示：已向 %s 工作室发送短信通知，您还可以选择咨询 %s 工作室！";
                 msg = String.format(msg, studio_name, studio_name);
-                MySelfDialog mDialog = new MySelfDialog(getActivity());
+                MySelfDialog mDialog = new MySelfDialog(SinglePersonActivity.this);
                 mDialog.setMessage(msg);
                 mDialog.setOnNoListener("取消", null);
                 mDialog.setOnYesListener("去联系", new MySelfDialog.OnYesClickListener() {
@@ -496,7 +488,7 @@ public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesC
                 });
                 mDialog.show();
             }
-        }, getActivity()).execute("http://hmyc365.net/HM/bg/hmyc/vip/info/noticeStudio.do", json);
+        }, this).execute("http://hmyc365.net/HM/bg/hmyc/vip/info/noticeStudio.do", json);
     }
 
     @Override
@@ -550,7 +542,7 @@ public class MainFragment365 extends BaseFragment implements MySelfDialog.OnYesC
     @Override
     public void onDestroy() {
         super.onDestroy();
-        getActivity().unregisterReceiver(haveMsg);
+        unregisterReceiver(haveMsg);
     }
 
 

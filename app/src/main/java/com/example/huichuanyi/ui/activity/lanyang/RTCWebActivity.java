@@ -104,7 +104,6 @@ public class RTCWebActivity extends BaseActivity implements IsSuccess {
         webContent.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                Log.e("TAG", "shouldOverrideUrlLoading: ----" + url);
 
                 // TODO Auto-generated method stub
                 //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器

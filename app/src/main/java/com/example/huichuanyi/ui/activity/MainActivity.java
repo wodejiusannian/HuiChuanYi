@@ -30,6 +30,7 @@ import com.example.huichuanyi.ui.fragment.FragmentMainHome;
 import com.example.huichuanyi.ui.fragment.FragmentMainMine;
 import com.example.huichuanyi.ui.fragment.FragmentMainService;
 import com.example.huichuanyi.ui.fragment.FragmentMainShopCar;
+import com.example.huichuanyi.ui.newpage.TipActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.FragmentUtils;
@@ -110,6 +111,12 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     public void setListener() {
         mRadioGroup.setOnCheckedChangeListener(this);
         connect(SharedPreferenceUtils.getToken(MainActivity.this));
+        String home = SharedPreferenceUtils.getIsFirstOpen(this);
+        if (!home.contains("1")) {
+            Intent in = new Intent(this, TipActivity.class);
+            in.putExtra("first", "1");
+            startActivity(in);
+        }
     }
 
 
@@ -187,15 +194,34 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
             case R.id.rb_main_home:
+
                 fragmentUtils.showAndHide(R.id.rl_main_show, FragmentMainHome.class);
                 break;
             case R.id.rb_main_order:
+                String order = SharedPreferenceUtils.getIsFirstOpen(this);
+                if (!order.contains("2")) {
+                    Intent in = new Intent(this, TipActivity.class);
+                    in.putExtra("first", "2");
+                    startActivity(in);
+                }
                 fragmentUtils.showAndHide(R.id.rl_main_show, FragmentMainService.class);
                 break;
             case R.id.rb_main_365:
+                String slw = SharedPreferenceUtils.getIsFirstOpen(this);
+                if (!slw.contains("3")) {
+                    Intent in = new Intent(this, TipActivity.class);
+                    in.putExtra("first", "3");
+                    startActivity(in);
+                }
                 fragmentUtils.showAndHide(R.id.rl_main_show, FragmentMainShopCar.class);
                 break;
             case R.id.rb_main_me:
+                String me = SharedPreferenceUtils.getIsFirstOpen(this);
+                if (!me.contains("4")) {
+                    Intent in = new Intent(this, TipActivity.class);
+                    in.putExtra("first", "4");
+                    startActivity(in);
+                }
                 fragmentUtils.showAndHide(R.id.rl_main_show, FragmentMainMine.class);
                 break;
         }

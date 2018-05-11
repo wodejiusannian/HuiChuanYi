@@ -46,6 +46,9 @@ public class ShopCarType4Model implements Visitable, Parcelable {
         this.orderType = orderType;
     }
 
+    public ShopCarType4Model() {
+    }
+
     protected ShopCarType4Model(Parcel in) {
         goodsColor = in.readString();
         goodsId = in.readString();

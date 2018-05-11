@@ -214,7 +214,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_marginBottom="10dp"
                 android:gravity="center"
                 android:orientation="horizontal">
@@ -255,7 +255,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@color/line_color" />
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -264,10 +264,10 @@
 
                     <TextView
                         android:id="@+id/tv_ly_shopdetails_addcar"
-                        android:layout_width="0dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
                         android:layout_margin="10dp"
-                        android:layout_weight="1"
                         android:background="@drawable/shape_nofill_redline"
                         android:gravity="center"
                         android:paddingBottom="5dp"
@@ -275,7 +275,7 @@
                         android:text="加入购物车"
                         android:textColor="#ac0000" />
 
-                    <TextView
+                    <!--<TextView
                         android:id="@+id/tv_ly_shopdetails_buy"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -287,8 +287,8 @@
                         android:paddingBottom="5dp"
                         android:paddingTop="5dp"
                         android:text="立即购买"
-                        android:textColor="#fff" />
-                </LinearLayout>
+                        android:textColor="#fff" />-->
+                </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

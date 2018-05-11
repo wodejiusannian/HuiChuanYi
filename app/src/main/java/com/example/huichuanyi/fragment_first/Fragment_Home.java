@@ -100,7 +100,7 @@ public class Fragment_Home extends BaseFragment implements OnItemClickListener, 
         mGetCity.startLocation();
         mGetCity.setGetCity(new GetCity.WillGetCity() {
             @Override
-            public void getWillGetCity(String city, String lat, String lng) {
+            public void getWillGetCity(String province,String city, String lat, String lng) {
                 if (!CommonUtils.isEmpty(city)) {
                     map.put("city", city);
                     goNet();

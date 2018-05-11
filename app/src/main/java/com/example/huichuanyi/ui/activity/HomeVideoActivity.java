@@ -30,6 +30,7 @@ import com.example.huichuanyi.ui.activity.video.HomeVideoYouhuiquanActivity;
 import com.example.huichuanyi.ui.activity.video.widget.MediaHelp;
 import com.example.huichuanyi.ui.activity.video.widget.VideoSuperPlayer;
 import com.example.huichuanyi.utils.CommonUtils;
+import com.example.huichuanyi.utils.JsonUtils;
 import com.example.huichuanyi.utils.ReminderUtils;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
@@ -102,7 +103,7 @@ public class HomeVideoActivity extends BaseActivity implements UtilsInternet.XCa
     @Override
     public void initView() {
         cover_id = getIntent().getStringExtra("id");
-        user_id = SharedPreferenceUtils.getUserData(this,1);
+        user_id = SharedPreferenceUtils.getUserData(this, 1);
         loadData();
     }
 
@@ -283,7 +284,7 @@ public class HomeVideoActivity extends BaseActivity implements UtilsInternet.XCa
 
 
         @Override
-        public View getView(int position, View v, ViewGroup parent) {
+        public View getView(final int position, View v, ViewGroup parent) {
             GameVideoViewHolder holder = null;
             if (v == null) {
                 v = inflater.inflate(R.layout.video_item, parent, false);
@@ -295,7 +296,7 @@ public class HomeVideoActivity extends BaseActivity implements UtilsInternet.XCa
             Video.BodyBean listBean = mData.get(position);
             String user_id = listBean.getUser_id();
             if (CommonUtils.isEmpty(user_id)) {
-                holder.isPay.setText("未购买");
+                holder.isPay.setText("加入购物车");
             } else {
                 holder.isPay.setText("已购买");
             }
@@ -303,6 +304,17 @@ public class HomeVideoActivity extends BaseActivity implements UtilsInternet.XCa
             holder.pic.setImageURI(icon);
             holder.mPlayBtnView.setOnClickListener(new MyOnclick(
                     holder.mPlayBtnView, holder.mVideoViewLayout, position));
+            holder.isPay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Video.BodyBean bean = mData.get(position);
+                    if (CommonUtils.isEmpty(bean.getUser_id())) {
+                        addShopcar(bean.getVideo_id());
+                    } else {
+
+                    }
+                }
+            });
             if (indexPosition == position) {
                 holder.mVideoViewLayout.setVisibility(View.VISIBLE);
             } else {
@@ -336,7 +348,7 @@ public class HomeVideoActivity extends BaseActivity implements UtilsInternet.XCa
             @Override
             public void onClick(View v) {
                 if (CommonUtils.isEmpty(mData.get(position).getUser_id())) {
-                    indexPosition = -1;
+                    /*indexPosition = -1;
                     isPlaying = false;
                     notifyDataSetChanged();
                     MediaHelp.release();
@@ -344,7 +356,8 @@ public class HomeVideoActivity extends BaseActivity implements UtilsInternet.XCa
                     intent.putExtra("list", mData);
                     intent.putExtra("pos", position);
                     f = 1;
-                    startActivity(intent);
+                    startActivity(intent);*/
+                    Toast.makeText(context, "请加入购物车购买哦", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 MediaHelp.release();
@@ -423,5 +436,24 @@ public class HomeVideoActivity extends BaseActivity implements UtilsInternet.XCa
                 isPay = (TextView) view.findViewById(R.id.tv_video_isPay);
             }
         }
+    }
+
+    private void addShopcar(String goodsId) {
+        map.put("buyUserId", SharedPreferenceUtils.getUserData(this, 1));
+        map.put("goodsId", goodsId);
+        map.put("buyUserCity", SharedPreferenceUtils.getCity(this));
+        map.put("buyUserName", SharedPreferenceUtils.getUserData(this, 2));
+        map.put("orderRemarkBuyer", "");
+        net.post(NetConfig.SHOPCAR_ADDVIDEO, map, new UtilsInternet.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+                String ret = JsonUtils.getRet(result);
+                if ("0".equals(ret)) {
+                    Toast.makeText(HomeVideoActivity.this, "加入成功", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(HomeVideoActivity.this, "加入失败，亲，您是否已经购买或者加入购物车", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

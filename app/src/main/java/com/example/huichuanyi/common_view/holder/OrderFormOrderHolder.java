@@ -45,6 +45,71 @@ public class OrderFormOrderHolder extends BaseViewHolder<OrderFormOrder.BodyBean
         TextView coupon = (TextView) getView(R.id.tv_orderformstate_coupon);
         TextView time = (TextView) getView(R.id.tv_orderformstate_time);
         TextView address = (TextView) getView(R.id.tv_orderformstate_address);
+        TextView btn1 = (TextView) getView(R.id.tv_orderformstate_button1);
+        TextView btn2 = (TextView) getView(R.id.tv_orderformstate_button2);
+        TextView btn3 = (TextView) getView(R.id.tv_orderformstate_button3);
+        btn1.setText("申请退款");
+        btn2.setText("补差价");
+        OrderFormOrder.BodyBean.OrderInfoBean infoBean = model.getOrderInfo().get(0);
+        String type = infoBean.getDeleteStatus();
+        switch (type) {
+            case "0":
+                btn1.setVisibility(View.VISIBLE);
+                btn2.setVisibility(View.GONE);
+                btn3.setVisibility(View.VISIBLE);
+                btn3.setText("待确认");
+                state.setText("进行中");
+                break;
+            case "1":
+                btn1.setVisibility(View.VISIBLE);
+                btn2.setVisibility(View.VISIBLE);
+                btn3.setVisibility(View.VISIBLE);
+                btn3.setText("确认完成");
+                state.setText("进行中");
+                break;
+            case "2":
+                btn1.setVisibility(View.GONE);
+                btn2.setVisibility(View.GONE);
+                btn3.setVisibility(View.VISIBLE);
+                if ("0".equals(infoBean.getEvaluateState())) {
+                    btn3.setText("再来一单");
+                    state.setText("订单已完成");
+                } else {
+                    btn3.setText("去评价");
+                    state.setText("");
+                }
+                break;
+            case "14":
+                btn1.setVisibility(View.GONE);
+                btn2.setVisibility(View.GONE);
+                btn3.setVisibility(View.VISIBLE);
+                btn3.setText("待确认");
+                state.setText("进行中");
+                break;
+            case "3":
+            case "4":
+                btn1.setVisibility(View.GONE);
+                btn2.setVisibility(View.GONE);
+                btn3.setVisibility(View.VISIBLE);
+                btn3.setText("审核中");
+                state.setText("审核中");
+                break;
+            case "5":
+            case "6":
+                btn1.setVisibility(View.GONE);
+                btn2.setVisibility(View.GONE);
+                btn3.setVisibility(View.VISIBLE);
+                btn3.setText("再来一单");
+                state.setText("订单取消");
+                break;
+            default:
+                btn1.setVisibility(View.GONE);
+                btn2.setVisibility(View.GONE);
+                btn3.setVisibility(View.VISIBLE);
+                btn3.setText("再来一单");
+                state.setText("订单取消");
+                break;
+        }
         id.setText("订单编号:" + model.getOrderId());
         OrderFormOrder.BodyBean.OrderInfoBean bean = model.getOrderInfo().get(0);
         studioname.setText(bean.getSellerUserName());
@@ -66,6 +131,12 @@ public class OrderFormOrderHolder extends BaseViewHolder<OrderFormOrder.BodyBean
         }
         Glide.with(orderFrom.getContext()).load(bean.getGoodsPicture()).error(R.mipmap.hm_stand_cicle).transform(new GlideCircleTransform(orderFrom.getContext())).into(photo);
         orderFrom.setTag(position);
+        btn1.setTag(position);
+        btn1.setOnClickListener(adapter.getmOnclick());
+        btn2.setTag(position);
+        btn2.setOnClickListener(adapter.getmOnclick());
+        btn3.setTag(position);
+        btn3.setOnClickListener(adapter.getmOnclick());
         orderFrom.setOnClickListener(adapter.getmOnclick());
     }
 }

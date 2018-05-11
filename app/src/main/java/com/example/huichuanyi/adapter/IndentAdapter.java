@@ -2,7 +2,6 @@ package com.example.huichuanyi.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +69,6 @@ public class IndentAdapter extends BaseAdapter {
                 holder.mGoLook.setVisibility(View.VISIBLE);
             }
             String photoUrl = listBean.getPhotoUrl();
-            Log.e(TAG, "getView: " + photoUrl);
             if (photoUrl != null) {
                 holder.mMovie.setImageURI(photoUrl);
             }

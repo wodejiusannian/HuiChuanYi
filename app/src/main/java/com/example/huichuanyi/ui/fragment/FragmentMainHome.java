@@ -3,6 +3,7 @@ package com.example.huichuanyi.ui.fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,14 +17,20 @@ import com.example.huichuanyi.base.BaseFragment;
 import com.example.huichuanyi.bean.Banner;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.VpSwipeRefreshLayout;
+import com.example.huichuanyi.secondui.AtMyAcitivty;
+import com.example.huichuanyi.ui.activity.HMWebActivity;
 import com.example.huichuanyi.ui.activity.HomeDaPeiRiJiActivity;
 import com.example.huichuanyi.ui.activity.HomeStatisticsActivity;
 import com.example.huichuanyi.ui.activity.LabelsActivity;
 import com.example.huichuanyi.ui.activity.MC_HomeActivity;
 import com.example.huichuanyi.ui.activity.MC_OldClothesActivity;
 import com.example.huichuanyi.ui.activity.MC_TripAndElseActivity;
+import com.example.huichuanyi.ui.activity.MyOrderActivity;
+import com.example.huichuanyi.ui.newpage.HomeMeasureActivity;
+import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
+import com.jude.rollviewpager.OnItemClickListener;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
 
@@ -78,10 +85,12 @@ public class FragmentMainHome extends BaseFragment implements UtilsInternet.XCal
         mGetCity.startLocation();
         mGetCity.setGetCity(new GetCity.WillGetCity() {
             @Override
-            public void getWillGetCity(String city, String lat, String lng) {
+            public void getWillGetCity(String province, String city, String lat, String lng) {
                 if (!CommonUtils.isEmpty(city)) {
-                    map.put("city", "保定");
-                    map.put("province", "河北");
+                    city = city.substring(0, city.length() - 1);
+                    province = province.substring(0, province.length() - 1);
+                    map.put("city", city);
+                    map.put("province", province);
                     map.put("token", NetConfig.TOKEN);
                     goNet();
                     mGetCity.stopLocation();
@@ -95,6 +104,7 @@ public class FragmentMainHome extends BaseFragment implements UtilsInternet.XCal
         internet.post(NetConfig.BANNER_TYPE, map, new UtilsInternet.XCallBack() {
             @Override
             public void onResponse(String result) {
+
                 try {
                     mBanner.clear();
                     JSONObject object = new JSONObject(result);
@@ -136,6 +146,36 @@ public class FragmentMainHome extends BaseFragment implements UtilsInternet.XCal
     private void initViewPager() {
         mAdapter = new HomeAdapter(rvBanners, mBanner, getContext());
         rvBanners.setAdapter(mAdapter);
+        rvBanners.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Banner banner = mBanner.get(position);
+                String type = banner.getType();
+                switch (type) {
+                    case "1":
+                        Map<String, Object> map = new HashMap<>();
+                        String web_url = banner.getWeb_url();
+                        String share_name = banner.getShare_name();
+                        String share_url = banner.getShare_url();
+                        map.put("hm_adpage_webview_url", web_url);
+                        map.put("hm_activity_name", share_name);
+                        map.put("hm_adpage_share_url", share_url);
+                        ActivityUtils.switchTo(getActivity(), HMWebActivity.class, map);
+                        break;
+                    case "5":
+                        ActivityUtils.switchTo(getActivity(), MyOrderActivity.class);
+                        break;
+                    case "3":
+                        ActivityUtils.switchTo(getActivity(), HomeDaPeiRiJiActivity.class);
+                        break;
+                    case "4":
+                        ActivityUtils.switchTo(getActivity(), AtMyAcitivty.class);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
     }
 
 
@@ -148,7 +188,7 @@ public class FragmentMainHome extends BaseFragment implements UtilsInternet.XCal
                 intent = new Intent(getActivity(), HomeDaPeiRiJiActivity.class);
                 break;
             case R.id.iv_main_measure:
-                intent = new Intent(getActivity(), HomeDaPeiRiJiActivity.class);
+                intent = new Intent(getActivity(), HomeMeasureActivity.class);
                 break;
             case R.id.iv_main_statistics:
                 intent = new Intent(getActivity(), HomeStatisticsActivity.class);
@@ -202,15 +242,25 @@ public class FragmentMainHome extends BaseFragment implements UtilsInternet.XCal
                 weatherInfo[5].setText(dressingIndex);
                 weatherInfo[6].setText(exerciseIndex);
                 weatherInfo[7].setText(week);
-                String url = "http://hmyc365.net/hmyc/system/picture/weather/%s.jpg";
-                url = String.format(url, "晴");
-                Glide.with(getContext()).load(url).into(banner);
+                initBannner(weather);
                 weatherInfo[8].setText(date);
                 swipe.setRefreshing(false);
             } catch (JSONException e) {
                 e.printStackTrace();
+                swipe.setRefreshing(false);
             }
         }
+    }
+
+    private void initBannner(String weather) {
+        Map map = new HashMap();
+        map.put("weather", "晴");
+        internet.get("http://hmyc365.net/admiral/common/weather/weatherPic.htm?", map, new UtilsInternet.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+                Glide.with(getContext()).load(result).into(banner);
+            }
+        });
     }
 
     @BindView(R.id.rv_mainhome_banners)

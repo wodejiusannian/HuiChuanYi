@@ -93,7 +93,7 @@ public class LiJiYuYueActivity extends BaseActivity {
             mGetCity.startLocation();
             mGetCity.setGetCity(new GetCity.WillGetCity() {
                 @Override
-                public void getWillGetCity(String city, String lat, String lng) {
+                public void getWillGetCity(String province,String city, String lat, String lng) {
                     if (city != null) {
                         Location.lat = lat;
                         Location.lng = lng;

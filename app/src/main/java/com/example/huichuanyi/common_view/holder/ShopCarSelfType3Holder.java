@@ -34,10 +34,14 @@ public class ShopCarSelfType3Holder extends BaseViewHolder<ShopCarType3Model> {
         TextView delete = (TextView) getView(R.id.tv_shocarselftype3_delete);
         TextView add = (TextView) getView(R.id.tv_shocarselftype3_add);
         LinearLayout count = (LinearLayout) getView(R.id.ll_shopcartype3_count);
-        if (model.isShow){
+        TextView countShow = (TextView) getView(R.id.tv_count);
+        if (model.isShow && !"5".equals(model.orderType)) {
             count.setVisibility(View.VISIBLE);
-        }else {
+            countShow.setVisibility(View.GONE);
+        } else {
             count.setVisibility(View.GONE);
+            countShow.setVisibility(View.VISIBLE);
+            countShow.setText("x" + model.orderNumber);
         }
         delete.setTag(position);
         add.setTag(position);

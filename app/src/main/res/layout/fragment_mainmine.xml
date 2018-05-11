@@ -135,6 +135,7 @@
                     android:orientation="horizontal">
 
                     <RelativeLayout
+                        android:id="@+id/rl_mainmine_coupon"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -411,6 +412,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/iv_mainmine_report"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginBottom="50dp"

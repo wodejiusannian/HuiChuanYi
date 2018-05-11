@@ -191,7 +191,6 @@ public class CollocationDiaryActivity extends BaseActivity {
                 vpAdapter.notifyDataSetChanged();
                 break;
             case R.id.iv_collocation_share:
-                Log.e(TAG, "onEvent: " + sdPathShare);
                 Share.sdCardShare(this, sdPathShare, "快乐生活，来自慧美，让衣橱管理走进千万家");
                 break;
             default:

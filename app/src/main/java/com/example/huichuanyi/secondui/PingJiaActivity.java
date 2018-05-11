@@ -2,7 +2,6 @@ package com.example.huichuanyi.secondui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,7 +12,6 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.utils.JsonUtils;
-import com.example.huichuanyi.utils.SharedPreferenceUtils;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -23,7 +21,7 @@ public class PingJiaActivity extends BaseActivity implements View.OnClickListene
     private RatingBar mBarZhiLiang, mBarTaiDu, mBarTime;
     private EditText mEditTextPingJia;
     private Button mButtonTiJiao;
-    private String orderid, manager_id, user_name, manager_name;
+    private String orderid/*, *//*manager_id,*//* user_name, manager_name*/;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +42,9 @@ public class PingJiaActivity extends BaseActivity implements View.OnClickListene
     public void initData() {
         Intent intent = getIntent();
         orderid = intent.getStringExtra("orderid");
-        manager_id = intent.getStringExtra("manager_id");
+        /*manager_id = intent.getStringExtra("manager_id");*//*
         user_name = intent.getStringExtra("user_name");
-        manager_name = intent.getStringExtra("manager_name");
+        manager_name = intent.getStringExtra("manager_name");*/
         type = intent.getStringExtra("type");
     }
 
@@ -71,7 +69,7 @@ public class PingJiaActivity extends BaseActivity implements View.OnClickListene
                     Toast.makeText(this, "评价最少10个字哦", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if ("1".equals(type)) {
+                /*if ("1".equals(type)) {*/
                     float zhilaing = mBarZhiLiang.getRating();
                     float taidu = mBarTaiDu.getRating();
                     float shijian = mBarTime.getRating();
@@ -109,14 +107,14 @@ public class PingJiaActivity extends BaseActivity implements View.OnClickListene
 
                         }
                     });
-                } else {
+              /*  } else {
                     upPingJiaTo();
-                }
+                }*/
                 break;
         }
     }
 
-    private void upPingJiaTo() {
+    /*private void upPingJiaTo() {
         float zhilaing = mBarZhiLiang.getRating();
         float taidu = mBarTaiDu.getRating();
         float shijian = mBarTime.getRating();
@@ -157,7 +155,7 @@ public class PingJiaActivity extends BaseActivity implements View.OnClickListene
 
             }
         });
-    }
+    }*/
 
     public void back(View view) {
         finish();

@@ -17,6 +17,7 @@ public class SharedPreferenceUtils {
         String imtoken = mCity.getString("imtoken", "");
         return imtoken;
     }
+
     public static void saveToken(Context mContext, String token) {
         SharedPreferences mCity = mContext.getSharedPreferences("mCity", 1);
         SharedPreferences.Editor edit = mCity.edit();
@@ -132,5 +133,17 @@ public class SharedPreferenceUtils {
         SharedPreferences.Editor edit = user.edit();
         edit.putString("user_id", user_id);
         edit.commit();
+    }
+
+    public static void writeIsFirstOpen(Context context, String user_id) {
+        SharedPreferences user = context.getSharedPreferences("user", 1);
+        SharedPreferences.Editor edit = user.edit();
+        edit.putString("is", user_id);
+        edit.commit();
+    }
+
+    public static String getIsFirstOpen(Context context) {
+        SharedPreferences user = context.getSharedPreferences("user", 1);
+        return user.getString("is", "");
     }
 }

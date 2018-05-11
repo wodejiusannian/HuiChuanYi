@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
-import com.example.huichuanyi.bean.ServiceBean;
+import com.example.huichuanyi.common_view.model.OrderFormOrder;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
@@ -60,19 +60,22 @@ public class ShenQingTuiKuanActivity extends BaseActivity implements View.OnClic
         finish();
     }
 
-    private ServiceBean.BodyBean bean;
+    private OrderFormOrder.BodyBean bean;
 
     @Override
     public void initData() {
-        bean = (ServiceBean.BodyBean) getIntent().getSerializableExtra("bean");
+        bean = getIntent().getParcelableExtra("bean");
     }
+
+    OrderFormOrder.BodyBean.OrderInfoBean infoBean;
 
     @Override
     public void setData() {
-        mTextViewName.setText(bean.getSellerUserName());
-        mTextMoneyAll.setText(bean.getMoneyTotal());
-        textView6.setText(bean.getMoneyTotal());
-        allMoeny.setText(bean.getMoneyTotal());
+        infoBean = bean.getOrderInfo().get(0);
+        mTextViewName.setText(infoBean.getSellerUserName());
+        mTextMoneyAll.setText(infoBean.getMoneyTotal());
+        textView6.setText(infoBean.getMoneyTotal());
+        allMoeny.setText(infoBean.getMoneyTotal());
     }
 
     @Override
@@ -89,12 +92,12 @@ public class ShenQingTuiKuanActivity extends BaseActivity implements View.OnClic
                     Toast.makeText(this, "退款理由不能小于10个字哦", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if ("1".equals(bean.getOrderType())) {
+                if ("1".equals(infoBean.getOrderType())) {
                     RequestParams pa = new RequestParams(NetConfig.TUI_KUAN_ACARUS_KILLING);
                     pa.addBodyParameter("token", "82D5FBD40259C743ADDEF14D0E22F347");
                     pa.addBodyParameter("orderId", bean.getOrderId());
                     pa.addBodyParameter("orderType", "1");
-                    pa.addBodyParameter("deleteStatus", bean.getDeleteStatus());
+                    pa.addBodyParameter("deleteStatus", infoBean.getDeleteStatus());
                     pa.addBodyParameter("refundReason", refundReason);
                     x.http().post(pa, new Callback.CommonCallback<String>() {
                         @Override
@@ -139,7 +142,7 @@ public class ShenQingTuiKuanActivity extends BaseActivity implements View.OnClic
 
     private void isTime() {
         RequestParams pa = new RequestParams(NetConfig.TUI_KUAN_TIME_BOOLEAN);
-        pa.addBodyParameter("orderTime", bean.getConsigneeTime());
+        pa.addBodyParameter("orderTime", infoBean.getConsigneeTime());
         x.http().post(pa, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -181,7 +184,7 @@ public class ShenQingTuiKuanActivity extends BaseActivity implements View.OnClic
         RequestParams params = new RequestParams(NetConfig.TUI_KUAN);
         String userid = SharedPreferenceUtils.getUserData(this, 1);
         params.addBodyParameter("orderid", bean.getOrderId());
-        params.addBodyParameter("state", bean.getDeleteStatus());
+        params.addBodyParameter("state", infoBean.getDeleteStatus());
         params.addBodyParameter("userid", userid);
         params.addBodyParameter("reason", reason);
         params.addBodyParameter("orderTime", ordertime);

@@ -56,7 +56,7 @@ public class OrderFormActivity extends BaseActivity {
         for (int i = 0; i < deleteStatusPj.length; i++) {
             OrderFormFragment orderFormFragment = new OrderFormFragment();
             Bundle bundle = new Bundle();
-            bundle.putString("orderType", orderType);
+            bundle.putString("orderTypePj", orderType);
             bundle.putString("deleteStatusPj", deleteStatusPj[i]);
             orderFormFragment.setArguments(bundle);
             mData.add(orderFormFragment);

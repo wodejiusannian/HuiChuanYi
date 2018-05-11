@@ -5,10 +5,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,7 +21,6 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.ShopcarShowAdapter;
 import com.example.huichuanyi.common_view.model.ShopCarType4Model;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.custom.MyListView;
 import com.example.huichuanyi.custom.MySelfPayDialog;
 import com.example.huichuanyi.ui.activity.AddressListActivity;
 import com.example.huichuanyi.ui.activity.MyOrderActivity;
@@ -84,6 +88,8 @@ public class ShopCarOrderDetailsActivity extends BaseActivity implements IsSucce
 
     private UtilsPay mPay;
 
+    @BindView(R.id.sv)
+    ScrollView scrollView;
 
     private Handler handler = new Handler();
 
@@ -140,15 +146,22 @@ public class ShopCarOrderDetailsActivity extends BaseActivity implements IsSucce
                 break;
             case R.id.tv_order_studio_introduce_go_order:
                 if (!CommonUtils.isEmpty(payTag)) {
+                    String name = customerInfo[0].getText().toString();
+                    String phone = customerInfo[1].getText().toString();
+                    String address = customerInfo[2].getText().toString();
+                    if (CommonUtils.isEmpty(name) || CommonUtils.isEmpty(phone) || CommonUtils.isEmpty(address)) {
+                        Toast.makeText(this, "请填写完整个人信息", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     try {
                         JSONObject o1 = new JSONObject();
                         o1.put("token", NetConfig.TOKEN);
                         o1.put("payType", payTag);
                         o1.put("concessionCode", ets[0].getText().toString());
                         o1.put("orderRemarkBuyer", ets[1].getText().toString());
-                        o1.put("consigneeName", customerInfo[0].getText().toString());
-                        o1.put("consigneePhone", customerInfo[1].getText().toString());
-                        o1.put("consigneeAddress", customerInfo[2].getText().toString());
+                        o1.put("consigneeName", name);
+                        o1.put("consigneePhone", phone);
+                        o1.put("consigneeAddress", address);
                         JSONArray a = new JSONArray();
                         for (ShopCarType4Model shopCarType4Model : arrays) {
                             JSONObject O2 = new JSONObject();
@@ -322,8 +335,6 @@ public class ShopCarOrderDetailsActivity extends BaseActivity implements IsSucce
         });
     }
 
-    @BindView(R.id.mlw_show)
-    MyListView show;
 
     WXPayEntryActivity wxPay;
 
@@ -377,11 +388,24 @@ public class ShopCarOrderDetailsActivity extends BaseActivity implements IsSucce
         DecimalFormat df = new DecimalFormat("0.##");
         tvMoney.setText("¥" + df.format(money));
         tvMoneys.setText("¥" + df.format(money));
-        if (array.size() > 3) {
-            array = array.subList(0, 2);
+        ListView listView = (ListView) this.findViewById(R.id.mlw_show);
+        if (array.size() < 3) {
+            listView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, array.size() * 150));
+        } else {
+            listView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 450));
         }
-        ShopcarShowAdapter adapter = new ShopcarShowAdapter(array, this);
-        show.setAdapter(adapter);
+        listView.setAdapter(new ShopcarShowAdapter(array, this));
+        listView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    scrollView.requestDisallowInterceptTouchEvent(false);
+                } else {
+                    scrollView.requestDisallowInterceptTouchEvent(true);//屏蔽父控件的拦截事件
+                }
+                return false;
+            }
+        });
     }
 
 

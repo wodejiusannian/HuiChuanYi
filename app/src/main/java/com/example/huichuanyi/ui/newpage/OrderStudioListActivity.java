@@ -132,7 +132,7 @@ public class OrderStudioListActivity extends BaseActivity {
         mGetCity.startLocation();
         mGetCity.setGetCity(new GetCity.WillGetCity() {
             @Override
-            public void getWillGetCity(String city, String lat, String lng) {
+            public void getWillGetCity(String province,String city, String lat, String lng) {
                 Bundle bundle = new Bundle();
                 mLat = lat;
                 mLng = lng;

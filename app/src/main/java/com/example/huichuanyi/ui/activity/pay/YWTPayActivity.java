@@ -52,7 +52,6 @@ public class YWTPayActivity extends BaseActivity implements PayUtils.Sign {
 
     @Override
     public void getSign(String sign) {
-        Log.e("TAG", "getSign: " + sign);
         try {
             JSONObject object = new JSONObject(sign);
             JSONObject body = object.getJSONObject("body");

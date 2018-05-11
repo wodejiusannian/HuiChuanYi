@@ -12,10 +12,10 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.HomeLyDetailsAdapter;
 import com.example.huichuanyi.adapter.LyDetailsAdapter;
 import com.example.huichuanyi.common_view.model.LyBanner;
-import com.example.huichuanyi.common_view.model.LyShopCar;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.LineTextView;
 import com.example.huichuanyi.custom.MyListView;
+import com.example.huichuanyi.ui.activity.MainActivity;
 import com.example.huichuanyi.ui.base.BaseActivity;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
@@ -37,6 +37,8 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.OnClick;
+
+import static com.example.huichuanyi.utils.SharedPreferenceUtils.getUserData;
 
 public class LyShopDetailsActivity extends BaseActivity implements UtilsInternet.XCallBack {
     private static final String TAG = "LyShopDetailsActivity";
@@ -103,7 +105,7 @@ public class LyShopDetailsActivity extends BaseActivity implements UtilsInternet
     protected void initData() {
         goods_id = getIntent().getIntExtra("goods_id", 0);
         map.put("goods_id", goods_id + "");
-        map.put("user_id", SharedPreferenceUtils.getUserData(this, 1));
+        map.put("user_id", getUserData(this, 1));
     }
 
     private void initNet() {
@@ -117,10 +119,10 @@ public class LyShopDetailsActivity extends BaseActivity implements UtilsInternet
         initNet();
     }
 
-    @OnClick({R.id.tv_ly_shopdetails_buy, R.id.rl_ly_shopdetails_gobuycar, R.id.iv_ly_shopdetails_delete, R.id.tv_ly_shopdetails_addcar, R.id.iv_ly_shopdetails_add})
+    @OnClick({/*R.id.tv_ly_shopdetails_buy,*/ R.id.rl_ly_shopdetails_gobuycar, R.id.iv_ly_shopdetails_delete, R.id.tv_ly_shopdetails_addcar, R.id.iv_ly_shopdetails_add})
     public void onEvent(View v) {
         switch (v.getId()) {
-            case R.id.tv_ly_shopdetails_buy:
+           /* case R.id.tv_ly_shopdetails_buy:
                 ArrayList<LyShopCar.BodyBean> list = new ArrayList<>();
                 list.add(new LyShopCar.BodyBean(false, false, 0, price_one, Integer.parseInt(tvs[0].getText().toString()), goods_id, goods_name, shop_logo, pic_url, shop_name));
                 Intent intent = new Intent(this, LyBuyActivity.class);
@@ -128,10 +130,12 @@ public class LyShopDetailsActivity extends BaseActivity implements UtilsInternet
                 intent.putExtra("tag", "0");
                 intent.putExtra("stock_id", stock_id);
                 startActivity(intent);
-                break;
-           /* case R.id.rl_ly_shopdetails_gobuycar:
-                startActivity(new Intent(this, LyShopCarActivity.class));
                 break;*/
+            case R.id.rl_ly_shopdetails_gobuycar:
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.putExtra("page", 2);
+                startActivity(intent);
+                break;
             case R.id.iv_ly_shopdetails_delete:
                 if (count > 1)
                     count--;
@@ -159,14 +163,19 @@ public class LyShopDetailsActivity extends BaseActivity implements UtilsInternet
         dialog.setCancelable(false);
         dialog.show();
         RequestParams pa = new RequestParams(NetConfig.SHOPCAR_ADD);
-        pa.addBodyParameter("buyUserId", SharedPreferenceUtils.getUserData(this, 1));
+        String buyUserId = SharedPreferenceUtils.getUserData(this, 1);
+        String orderNumber = tvs[0].getText().toString();
+        String buyUserCity = SharedPreferenceUtils.getCity(this);
+        String buyUserName = SharedPreferenceUtils.getUserData(this, 2);
+        pa.addBodyParameter("buyUserId", buyUserId);
         pa.addBodyParameter("goodsId", goods_id + "");
-        pa.addBodyParameter("buyUserCity", SharedPreferenceUtils.getCity(this));
-        pa.addBodyParameter("buyUserName", SharedPreferenceUtils.getUserData(this, 2));
+        pa.addBodyParameter("orderNumber", orderNumber);
+        pa.addBodyParameter("buyUserCity", buyUserCity);
+        pa.addBodyParameter("buyUserName", buyUserName);
         pa.addBodyParameter("orderRemarkBuyer", "");
         for (int i = 0; i < changgui.size(); i++) {
             if (i == 0) {
-                pa.addBodyParameter("orderRemarkBuyer", changgui.get(i));
+                pa.addBodyParameter("goodsColor", changgui.get(i));
             } else if (i == 1) {
                 pa.addBodyParameter("goodsSize", changgui.get(i));
             }
@@ -249,7 +258,7 @@ public class LyShopDetailsActivity extends BaseActivity implements UtilsInternet
                 banner.setPic_url(p.getString("pic_url"));
                 mData.add(banner);
             }
-            shopchat = body.getInt("shopcart");
+           // shopchat = body.getInt("shopcart");
             final String color = stock.getJSONObject(0).getString("color");
             final JSONObject obj = main.getJSONObject(0);
             stock_id = stock.getJSONObject(0).getInt("stock_id");
@@ -273,8 +282,8 @@ public class LyShopDetailsActivity extends BaseActivity implements UtilsInternet
                         lineTextView.setText(price_init);
                     if (textViews[2] != null)
                         textViews[2].setText(color);
-                    if (textViews[3] != null)
-                        textViews[3].setText(shopchat + "");
+                    /*if (textViews[3] != null)
+                        textViews[3].setText(shopchat + "");*/
                 }
             });
             rvAdapter.notifyDataSetChanged();

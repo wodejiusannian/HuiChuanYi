@@ -137,7 +137,7 @@ public class LyCommendPeopleActivity extends BaseActivity implements UtilsIntern
     }
 
     @Override
-    public void getWillGetCity(final String city, String lat, String lng) {
+    public void getWillGetCity(String province,final String city, String lat, String lng) {
         map.put("city", city);
         if (!CommonUtils.isEmpty(city)) {
             mGetCity.stopLocation();

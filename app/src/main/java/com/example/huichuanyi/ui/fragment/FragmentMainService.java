@@ -10,8 +10,10 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.base_2.BaseFragment;
 import com.example.huichuanyi.custom.VpSwipeRefreshLayout;
 import com.example.huichuanyi.emum.ServiceType;
+import com.example.huichuanyi.fragment_first.SinglePersonActivity;
 import com.example.huichuanyi.ui.activity.HomeVideoCoverActivity;
 import com.example.huichuanyi.ui.activity.lanyang.LyShopListActivity;
+import com.example.huichuanyi.ui.newpage.HMURLActivity;
 import com.example.huichuanyi.ui.newpage.OrderStudioListActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.ServiceSingleUtils;
@@ -66,23 +68,25 @@ public class FragmentMainService extends BaseFragment {
                 } else if (url.contains("yuyue?a=mite_service")) {
                     ServiceSingleUtils.getInstance().setServiceType(ServiceType.SERVICE_ACARUS_KILLING);
                     ActivityUtils.switchTo(getActivity(), OrderStudioListActivity.class);
-                } else if (url.contains("yuyue?a=my_manager")) {
-
                 } else if (url.contains("yuyue?a=micro_Lesson")) {
                     ActivityUtils.switchTo(getActivity(), HomeVideoCoverActivity.class);
                 } else if (url.contains("#yuyue?supplierId=")) {
                     String supplierId = getInsideString(url, "#yuyue?supplierId=", "&brand");
                     String brand = url.substring(url.indexOf("brand=") + "brand=".length(), url.length());
                     Intent in = new Intent(getActivity(), LyShopListActivity.class);
-                    in.putExtra("supplier_id",supplierId);
-                    in.putExtra("brand",brand);
+                    in.putExtra("supplier_id", supplierId);
+                    in.putExtra("brand", brand);
                     startActivity(in);
-                } else if (url.contains("yuyue?a=mite_service")) {
-
-                } else if (url.contains("yuyue?a=mite_service")) {
-
-                } else if (url.contains("yuyue?a=mite_service")) {
-
+                } else if (url.contains("yuyue?a=my_manager")) {
+                    Intent in = new Intent(getActivity(), SinglePersonActivity.class);
+                    startActivity(in);
+                } else if (url.contains("yuyue?a=banner_click")) {
+                    if ("1".equals(url.substring(url.indexOf("clickType=") + "clickType=".length(), url.length()))) {
+                        Intent intent = new Intent(getContext(), HMURLActivity.class);
+                        intent.putExtra("title", "慧美衣橱");
+                        intent.putExtra("url", url);
+                        startActivity(intent);
+                    }
                 }
             }
         });

@@ -163,7 +163,7 @@
         <activity android:name=".ui.activity.VideoPayActivity" />
         <activity android:name=".ui.activity.MineStyleActivity" />
         <activity android:name=".ui.activity.ZhenDuanActivity" />
-        <activity android:name=".ui.newpage.ShopCarOrderDetailsActivity"></activity>
+        <activity android:name=".ui.newpage.ShopCarOrderDetailsActivity" />
 
         <receiver android:name=".wxapi.AppRegister">
             <intent-filter>
@@ -415,7 +415,13 @@
             android:name=".ui.newpage.OrderDetailsActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".newui.activity.OrderFormActivity" />
-        <activity android:name=".newui.activity.OrderFormVideoActivity"></activity>
+        <activity android:name=".newui.activity.OrderFormVideoActivity" />
+        <activity
+            android:name=".ui.newpage.TipActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity android:name=".ui.newpage.HomeMeasureActivity" />
+        <activity android:name=".fragment_first.SinglePersonActivity"></activity>
+        <activity android:name=".ui.newpage.HMURLActivity"></activity>
     </application>
 
 </manifest>

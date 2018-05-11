@@ -134,7 +134,6 @@ public class LyShopListActivity extends BaseActivity implements UtilsInternet.XC
 
     @Override
     public void onResponse(String result) {
-        Log.e("TAG", "onResponse: " + result);
         try {
             mData.clear();
             Gson gson = new Gson();

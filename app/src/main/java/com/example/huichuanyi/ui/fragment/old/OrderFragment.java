@@ -89,7 +89,7 @@ public class OrderFragment extends BaseFragment implements UtilsInternet.XCallBa
         mGetCity.startLocation();
         mGetCity.setGetCity(new GetCity.WillGetCity() {
             @Override
-            public void getWillGetCity(String city, String lat, String lng) {
+            public void getWillGetCity(String province,String city, String lat, String lng) {
                 if (!CommonUtils.isEmpty(city)) {
                     map.put("city", city);
                     goNet();
@@ -153,33 +153,7 @@ public class OrderFragment extends BaseFragment implements UtilsInternet.XCallBa
 
     @Override
     public void onItemClick(int position) {
-        Banner banner = mBanners.get(position);
-        String type = banner.getType();
-        switch (type) {
-            case "2":
-                Map<String, Object> map = new HashMap<>();
-                String web_url = banner.getWeb_url();
-                String share_name = banner.getShare_name();
-                String share_url = banner.getShare_url();
-                map.put("hm_adpage_webview_url", web_url);
-                map.put("hm_activity_name", share_name);
-                map.put("hm_adpage_share_url", share_url);
-                ActivityUtils.switchTo(getActivity(), HMWebActivity.class, map);
-                break;
-            case "5":
-                ActivityUtils.switchTo(getActivity(), MyOrderActivity.class);
-                break;
-            case "3":
-                ActivityUtils.switchTo(getActivity(), HomeDaPeiRiJiActivity.class);
-                break;
-            case "1":
-                break;
-            case "4":
-                ActivityUtils.switchTo(getActivity(), AtMyAcitivty.class);
-                break;
-            default:
-                break;
-        }
+
     }
 
     @Override

@@ -195,7 +195,6 @@ public class ServiceGoDoorFragment extends BaseFragment implements SwipeRefreshL
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Log.e(TAG, "onSuccess: ---" + result);
                 if (TextUtils.equals("1", result)) {
                     initNet();
                 }
