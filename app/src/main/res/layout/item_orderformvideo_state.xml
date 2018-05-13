@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rl_orderformslw_state"
+    android:id="@+id/rl_orderformvideo_state"
     android:layout_width="match_parent"
     android:layout_height="266dp"
     android:background="#f7f4f4">
@@ -17,11 +17,11 @@
 
 
         <TextView
-            android:id="@+id/tv_orderformslw_id"
+            android:id="@+id/tv_orderformvideo_id"
             android:layout_width="match_parent"
             android:layout_height="37dp"
             android:gravity="center_vertical"
-            android:text="订单号：12454654645"
+            android:text="----"
             android:textColor="#ac0000"
             android:textSize="12sp" />
 
@@ -32,11 +32,12 @@
             android:background="#979494" />
 
         <TextView
+            android:id="@+id/tv_orderformvideo_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:gravity="center_horizontal"
-            android:text="30sp"
+            android:text="----"
             android:textSize="30sp" />
 
         <LinearLayout
@@ -54,44 +55,45 @@
                     android:id="@+id/tv_orderformvideo_realmoney"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="25sp"
+                    android:text="----"
                     android:textColor="#ac0000"
                     android:textSize="25sp" />
 
                 <TextView
+                    android:id="@+id/tv_orderformvideo_conpon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/tv_orderformvideo_realmoney"
                     android:layout_marginLeft="15dp"
                     android:layout_toRightOf="@+id/tv_orderformvideo_realmoney"
-                    android:text="25sp"
+                    android:text="----"
                     android:textColor="#666666"
                     android:textSize="15sp" />
             </RelativeLayout>
 
             <TextView
-                android:id="@+id/tv_orderformslw_time"
+                android:id="@+id/tv_orderformvideo_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:text="预约时间：2018年4月4日"
+                android:text="----"
                 android:textColor="#666666"
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/tv_orderformslw_address"
+                android:id="@+id/tv_orderformvideo_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:ellipsize="end"
                 android:lines="1"
-                android:text="预约地址：2018年4月4日"
+                android:text="----"
                 android:textColor="#666666"
                 android:textSize="15sp" />
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_orderformslw_button3"
+            android:id="@+id/tv_orderformvideo_button3"
             android:layout_width="105dp"
             android:layout_height="33dp"
             android:layout_gravity="end"

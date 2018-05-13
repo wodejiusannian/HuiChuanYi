@@ -99,7 +99,8 @@
         android:layout_width="match_parent"
         android:layout_height="51dp"
         android:layout_alignParentBottom="true"
-        android:background="#fff">
+        android:background="#fff"
+        android:visibility="gone">
 
         <CheckBox
             android:id="@+id/cb_ly_shopcar_allselct"

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -214,7 +213,7 @@ public class OrderFormFragment extends BaseFragment {
     private void initNet() {
         Map<String, String> map = new HashMap<>();
         map.put("buyUserId", SharedPreferenceUtils.getUserData(getContext(), 1));
-        map.put("orderType", orderType);
+        map.put("orderTypePj", orderType);
         map.put("deleteStatusPj", deleteStatusPj);
         net.post(NetConfig.MINEORDER_LIST, getContext(), map, new MUtilsInternet.XCallBack() {
             @Override

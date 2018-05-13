@@ -5,7 +5,9 @@ import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.HomeAdapter;
@@ -157,28 +159,28 @@ public class FragmentMainChildShopCarAccurate extends BaseFragment {
         super.setData();
         ada = new HomeAdapter(banner, mBanner, getContext());
         banner.setAdapter(ada);
-        RequestParams pa = new RequestParams(NetConfig.GET_RECOMMEND_NEW);
-        pa.addBodyParameter("user_id", SharedPreferenceUtils.getUserData(getContext(), 1));
+        RequestParams pa = new RequestParams(NetConfig.SHOPCAR_MANAGER_RECOMMEND);
+        pa.addBodyParameter("buyUserId", SharedPreferenceUtils.getUserData(getContext(), 1));
         x.http().post(pa, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                Log.e("TAG", "onSuccess: -------" + result);
                 try {
                     JSONObject object = new JSONObject(result);
                     JSONArray body = object.getJSONArray("body");
                     for (int i = 0; i < body.length(); i++) {
                         JSONObject obj = body.getJSONObject(i);
                         PrivateRecommendModel privateRecommendModel = new PrivateRecommendModel();
-                        privateRecommendModel.setSize_name(obj.getString("size_name"));
-                        privateRecommendModel.setReason(obj.getString("reason"));
-                        privateRecommendModel.setRecommend_time(obj.getString("recommend_time"));
-                        privateRecommendModel.setPrice_dj(obj.getString("price_dj"));
-                        privateRecommendModel.setSize_get(obj.getString("size_get"));
-                        privateRecommendModel.setClothes_get(obj.getString("clothes_get"));
-                        privateRecommendModel.setColor_name(obj.getString("color_name"));
-                        privateRecommendModel.setIntroduction(obj.getString("introduction"));
+                        privateRecommendModel.setColor_name(obj.getString("goodsColor"));
+                        privateRecommendModel.setClothes_name(obj.getString("goodsName"));
+                        privateRecommendModel.setClothes_get(obj.getString("goodsPicture"));
+                        privateRecommendModel.setPrice_dj(obj.getString("goodsPrice"));
+                        privateRecommendModel.setSize_name(obj.getString("goodsSize"));
+                        privateRecommendModel.setSize_get(obj.getString("goodsSize"));
                         privateRecommendModel.setId(obj.getString("id"));
-                        privateRecommendModel.setClothes_name(obj.getString("clothes_name"));
-                        privateRecommendModel.setRecommend_id(obj.getString("recommend_id"));
+                        privateRecommendModel.setRecommend_time(obj.getString("recommendDate"));
+                        privateRecommendModel.setReason(obj.getString("recommendReason"));
+                        privateRecommendModel.setRecommend_id(obj.getString("recommendUserName"));
                         mData.add(i, privateRecommendModel);
                     }
                     initBanner();
@@ -204,6 +206,9 @@ public class FragmentMainChildShopCarAccurate extends BaseFragment {
             }
         });
     }
+
+    @BindView(R.id.relative_all)
+    RelativeLayout all;
 
     @BindView(R.id.rv_shopcar_advertisement)
     RollPagerView banner;

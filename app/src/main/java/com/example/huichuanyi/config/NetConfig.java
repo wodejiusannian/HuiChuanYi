@@ -319,6 +319,8 @@ public interface NetConfig {
     String SHOPCAR_ADD = BASE_NEW_URL + "/admiral/app/hmyc/order/hkj/addGwc.htm?token=82D5FBD40259C743ADDEF14D0E22F347";
     //视频加入购物车
     String SHOPCAR_ADDVIDEO = BASE_NEW_URL + "/admiral/app/hmyc/order/video/addGwc.htm";
+    //购物车中的管理师精推
+    String SHOPCAR_MANAGER_RECOMMEND = BASE_NEW_URL + "/admiral/app/hmyc/order/info/listGwcGls.htm?token=82D5FBD40259C743ADDEF14D0E22F347";
     //我的订单列表
     String MINEORDER_LIST = BASE_NEW_URL + "/admiral/app/hmyc/order/info/listOrder.htm?token=82D5FBD40259C743ADDEF14D0E22F347";
     //365VIP购买下单

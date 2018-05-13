@@ -135,7 +135,7 @@ public interface TypeFactory {
 
     int type(OrderFormSLW.BodyBean histotyZhenDuan);
 
-    int type(OrderFormVideo histotyZhenDuan);
+    int type(OrderFormVideo.BodyBean histotyZhenDuan);
     //int type(OrderStudioHoz histotyZhenDuan);
 
     BaseViewHolder createViewHolder(int type, View itemView);

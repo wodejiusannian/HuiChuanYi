@@ -376,7 +376,7 @@ public class TypeFactoryForList implements TypeFactory {
     }
 
     @Override
-    public int type(OrderFormVideo histotyZhenDuan) {
+    public int type(OrderFormVideo.BodyBean histotyZhenDuan) {
         return TYPE_RESOURCE_ORDER_FORM_VIDEO;
     }
 
