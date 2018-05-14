@@ -32,11 +32,11 @@ public class OrderFormActivity extends BaseActivity {
     protected void initData() {
         Intent intent = getIntent();
         String title = intent.getStringExtra("title");
-        orderType = intent.getStringExtra("orderType");
+        orderTypePj = intent.getStringExtra("orderTypePj");
         mTitle.setText(title);
     }
 
-    private String orderType;
+    private String orderTypePj;
 
     @BindView(R.id.tb_orderform_title)
     TabLayout tb;
@@ -56,7 +56,7 @@ public class OrderFormActivity extends BaseActivity {
         for (int i = 0; i < deleteStatusPj.length; i++) {
             OrderFormFragment orderFormFragment = new OrderFormFragment();
             Bundle bundle = new Bundle();
-            bundle.putString("orderTypePj", orderType);
+            bundle.putString("orderTypePj", orderTypePj);
             bundle.putString("deleteStatusPj", deleteStatusPj[i]);
             orderFormFragment.setArguments(bundle);
             mData.add(orderFormFragment);

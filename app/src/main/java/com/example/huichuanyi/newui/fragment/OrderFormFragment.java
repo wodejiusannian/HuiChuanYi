@@ -25,7 +25,6 @@ import com.example.huichuanyi.ui.newpage.OrderStudioListActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.MUtilsInternet;
 import com.example.huichuanyi.utils.ServiceSingleUtils;
-import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -195,11 +194,11 @@ public class OrderFormFragment extends BaseFragment {
         super.initData();
         adapter = new MultiTypeAdapter(mData);
         Bundle bundle = getArguments();
-        orderType = bundle.getString("orderType");
+        orderTypePj = bundle.getString("orderTypePj");
         deleteStatusPj = bundle.getString("deleteStatusPj");
     }
 
-    private String orderType;
+    private String orderTypePj;
 
     private String deleteStatusPj;
 
@@ -212,8 +211,8 @@ public class OrderFormFragment extends BaseFragment {
 
     private void initNet() {
         Map<String, String> map = new HashMap<>();
-        map.put("buyUserId", SharedPreferenceUtils.getUserData(getContext(), 1));
-        map.put("orderTypePj", orderType);
+        map.put("buyUserId", "81");
+        map.put("orderTypePj", orderTypePj);
         map.put("deleteStatusPj", deleteStatusPj);
         net.post(NetConfig.MINEORDER_LIST, getContext(), map, new MUtilsInternet.XCallBack() {
             @Override
@@ -221,7 +220,7 @@ public class OrderFormFragment extends BaseFragment {
                 try {
                     mData.clear();
                     refreshLayout.setRefreshing(false);
-                    if ("0".equals(orderType)) {
+                    if (orderTypePj.contains("1")) {
                         Gson gson = new Gson();
                         OrderFormOrder orderFormOrder = gson.fromJson(result, OrderFormOrder.class);
                         mData.addAll(orderFormOrder.getBody());

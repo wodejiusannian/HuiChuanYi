@@ -77,24 +77,24 @@ public class FragmentMainMine extends BaseFragment {
             case R.id.tv_mainmine_orderform:
                 Intent orderIntent = new Intent(getActivity(), OrderFormActivity.class);
                 orderIntent.putExtra("title", "预约订单");
-                orderIntent.putExtra("orderType", "0");
+                orderIntent.putExtra("orderTypePj", "1,2,3,4");
                 startActivity(orderIntent);
                 break;
             case R.id.tv_mainmine_clothesform:
                 Intent clothesIntent = new Intent(getActivity(), OrderFormActivity.class);
                 clothesIntent.putExtra("title", "服饰订单");
-                clothesIntent.putExtra("orderType", "7");
+                clothesIntent.putExtra("orderTypePj", "7");
                 startActivity(clothesIntent);
                 break;
             case R.id.tv_mainmine_blackform:
                 Intent blackIntent = new Intent(getActivity(), OrderFormActivity.class);
                 blackIntent.putExtra("title", "黑科技订单");
-                blackIntent.putExtra("orderType", "6");
+                blackIntent.putExtra("orderTypePj", "6");
                 startActivity(blackIntent);
                 break;
             case R.id.tv_mainmine_videoform:
                 Intent videoIntent = new Intent(getActivity(), OrderFormVideoActivity.class);
-                videoIntent.putExtra("orderType", "5");
+                videoIntent.putExtra("deleteStatusPj", "5");
                 startActivity(videoIntent);
                 break;
             case R.id.tv_mainmine_exit:

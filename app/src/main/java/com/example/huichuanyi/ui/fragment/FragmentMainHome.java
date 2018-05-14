@@ -3,7 +3,6 @@ package com.example.huichuanyi.ui.fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -255,10 +254,17 @@ public class FragmentMainHome extends BaseFragment implements UtilsInternet.XCal
     private void initBannner(String weather) {
         Map map = new HashMap();
         map.put("weather", "晴");
-        internet.get("http://hmyc365.net/admiral/common/weather/weatherPic.htm?", map, new UtilsInternet.XCallBack() {
+        internet.post("http://hmyc365.net/admiral/common/weather/weatherPic.htm?", map, new UtilsInternet.XCallBack() {
             @Override
             public void onResponse(String result) {
-                Glide.with(getContext()).load(result).into(banner);
+                try {
+                    JSONObject obj = new JSONObject(result);
+                    JSONObject body = obj.getJSONObject("body");
+                    String picUrl = body.getString("picUrl");
+                    Glide.with(getContext()).load(picUrl).error(R.mipmap.nonepic).into(banner);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

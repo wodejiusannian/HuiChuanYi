@@ -75,12 +75,16 @@ public class OrderFormDetailsActivity extends BaseActivity {
                 ListView listView = (ListView) this.findViewById(R.id.lv_orderfrom_show);
                 info.setVisibility(View.GONE);
                 listView.setVisibility(View.VISIBLE);
+                OrderFormShowAdapter adapter = new OrderFormShowAdapter(orderInfoBeen, this);
+                listView.setAdapter(adapter);
+                View view = adapter.getView(0, null, listView);
+                view.measure(0, 0);
+                int height = view.getMeasuredHeight();
                 if (orderInfoBeen.size() < 3) {
-                    listView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, orderInfoBeen.size() * 150));
+                    listView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, orderInfoBeen.size() * height));
                 } else {
-                    listView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 450));
+                    listView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3 * height));
                 }
-                listView.setAdapter(new OrderFormShowAdapter(orderInfoBeen, this));
                 listView.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {

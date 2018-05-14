@@ -176,7 +176,9 @@
         <activity android:name=".ui.activity.LiJiYuYueActivity" />
         <activity android:name=".ui.activity.ComplainActivity" />
         <activity android:name=".ui.activity.LabelsActivity" />
-        <activity android:name=".ui.activity.Item_DetailsActivity" />
+        <activity
+            android:name=".ui.activity.Item_DetailsActivity"
+            android:launchMode="singleTop" />
         <activity
             android:name=".ui.activity.SLWRecordActivity"
             android:launchMode="singleTask" />

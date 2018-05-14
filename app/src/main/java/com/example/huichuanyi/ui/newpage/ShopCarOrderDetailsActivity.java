@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -389,12 +388,16 @@ public class ShopCarOrderDetailsActivity extends BaseActivity implements IsSucce
         tvMoney.setText("¥" + df.format(money));
         tvMoneys.setText("¥" + df.format(money));
         ListView listView = (ListView) this.findViewById(R.id.mlw_show);
+        ShopcarShowAdapter adapter = new ShopcarShowAdapter(array, this);
+        listView.setAdapter(adapter);
+        View view = adapter.getView(0, null, listView);
+        view.measure(0, 0);
+        int height = view.getMeasuredHeight();
         if (array.size() < 3) {
-            listView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, array.size() * 150));
+            listView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, array.size() * height));
         } else {
-            listView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 450));
+            listView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3 * height));
         }
-        listView.setAdapter(new ShopcarShowAdapter(array, this));
         listView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

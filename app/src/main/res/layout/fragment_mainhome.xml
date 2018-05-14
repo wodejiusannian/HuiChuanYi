@@ -30,7 +30,8 @@
                         android:id="@+id/iv_mainhome_banner"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="centerCrop" />
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/nonepic" />
 
                     <TextView
                         android:id="@+id/tv_mainhomeweather_province"
@@ -205,7 +206,8 @@
                     android:id="@+id/rv_mainhome_banners"
                     android:layout_width="match_parent"
                     android:layout_height="51dp"
-                    android:layout_marginTop="3dp">
+                    android:layout_marginTop="3dp"
+                    android:background="@mipmap/nonepic">
 
                 </com.jude.rollviewpager.RollPagerView>
 

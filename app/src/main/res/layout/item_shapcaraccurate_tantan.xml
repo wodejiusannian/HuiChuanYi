@@ -16,6 +16,7 @@
         android:layout_height="456dp">
 
         <ImageView
+            android:id="@+id/iv_shocaraccuratetantan_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
@@ -23,6 +24,7 @@
             android:src="@mipmap/hm_shopcaraccurate_delete" />
 
         <ImageView
+            android:id="@+id/iv_shocaraccuratetantan_go"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -31,10 +33,13 @@
             android:src="@mipmap/hm_shopcaraccurate_go" />
 
         <TextView
+            android:id="@+id/tv_shocaraccuratetantan_time"
             android:layout_width="151dp"
             android:layout_height="33dp"
             android:layout_centerHorizontal="true"
-            android:background="@mipmap/hm_shopcarraccurate_month" />
+            android:background="@mipmap/hm_shopcarraccurate_month"
+            android:gravity="center"
+            android:textColor="#fff" />
 
         <RelativeLayout
             android:layout_width="match_parent"

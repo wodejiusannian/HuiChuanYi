@@ -5,9 +5,11 @@ import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.HomeAdapter;
@@ -18,6 +20,8 @@ import com.example.huichuanyi.common_view.model.PrivateRecommendModel;
 import com.example.huichuanyi.common_view.model.Visitable;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.ui.activity.HMWebActivity;
+import com.example.huichuanyi.ui.activity.Item_DetailsActivity;
+import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.MUtilsInternet;
 import com.example.huichuanyi.utils.OverLayCardLayoutManager;
 import com.example.huichuanyi.utils.RenRenCallback;
@@ -39,6 +43,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.OnClick;
 
 // ┏┓　　　┏┓
@@ -69,6 +74,12 @@ public class FragmentMainChildShopCarAccurate extends BaseFragment {
 
     private RenRenCallback callback = new RenRenCallback();
 
+
+    @BindViews({R.id.tv_mainchildshopcar_money_one, R.id.tv_mainchildshopcar_money_two})
+    TextView[] moneys;
+
+    private boolean canGo = true;
+
     @Override
     protected void initEvent() {
         super.initEvent();
@@ -76,9 +87,47 @@ public class FragmentMainChildShopCarAccurate extends BaseFragment {
             @Override
             public void onClick(View v) {
                 int p = (int) v.getTag();
+                switch (v.getId()) {
+                    case R.id.rl_test:
+                        goNext();
+                        break;
+                    case R.id.iv_shocaraccuratetantan_delete:
+
+                        break;
+                    case R.id.iv_shocaraccuratetantan_go:
+                        PrivateRecommendModel model = (PrivateRecommendModel) mData.get(p);
+                        model.setSelect(!model.isSelect());
+                        mAdapter.notifyDataSetChanged();
+                        all.setVisibility(View.VISIBLE);
+                        break;
+                    default:
+                        break;
+                }
             }
         });
-
+        scrollView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // 判断scrollview 滑动到底部
+                // scrollY 的值和子view的高度一样，这人物滑动到了底部
+                float down;
+                if (scrollView.getChildAt(0).getHeight() - scrollView.getHeight()
+                        == scrollView.getScrollY()) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_MOVE:
+                            down = event.getY();
+                            if ((event.getY() - down) < 100 && canGo) {
+                                canGo = false;
+                                goNext();
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                return false;
+            }
+        });
         banner.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -98,9 +147,12 @@ public class FragmentMainChildShopCarAccurate extends BaseFragment {
                 }
             }
         });
-        callback.setSwipeListener(new RenRenCallback.OnSwipeListener() {
+        callback.setSwipeListener(new RenRenCallback.OnSwipeListener()
+
+        {
             @Override
             public void onSwiped(int adapterPosition, int direction) {
+
 
               /*  if (direction == ItemTouchHelper.DOWN || direction == ItemTouchHelper.UP) {
                     mData.add(0, mData.remove(adapterPosition));
@@ -132,7 +184,31 @@ public class FragmentMainChildShopCarAccurate extends BaseFragment {
             }
         });
         new ItemTouchHelper(callback).attachToRecyclerView(content);
+
     }
+
+    private void goNext() {
+        PrivateRecommendModel privateRecommendModel = (PrivateRecommendModel) mData.get(mData.size() - 1);
+        String id = privateRecommendModel.getId();
+        if (!CommonUtils.isEmpty(id)) {
+            Intent intent = new Intent(getContext(), Item_DetailsActivity.class);
+            intent.putExtra("color_name", privateRecommendModel.getColor_name());
+            intent.putExtra("name", privateRecommendModel.getColor_name());
+            intent.putExtra("clothes_get", privateRecommendModel.getClothes_get());
+            intent.putExtra("price_dj", privateRecommendModel.getPrice_dj());
+            intent.putExtra("size_name", privateRecommendModel.getSize_name());
+            intent.putExtra("id", privateRecommendModel.getId());
+            intent.putExtra("type", "3");
+            intent.putExtra("reason", privateRecommendModel.getReason());
+            intent.putExtra("recommend_id", privateRecommendModel.getRecommend_id());
+            startActivity(intent);
+            canGo = true;
+        }
+    }
+
+    private static final String TAG = "Main";
+
+    private int p;
 
     @Override
     protected void initData() {
@@ -164,7 +240,6 @@ public class FragmentMainChildShopCarAccurate extends BaseFragment {
         x.http().post(pa, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Log.e("TAG", "onSuccess: -------" + result);
                 try {
                     JSONObject object = new JSONObject(result);
                     JSONArray body = object.getJSONArray("body");
@@ -261,6 +336,8 @@ public class FragmentMainChildShopCarAccurate extends BaseFragment {
         }
     }
 
+    @BindView(R.id.scrollView)
+    ScrollView scrollView;
 
     @Override
     protected int layoutInflaterId() {
