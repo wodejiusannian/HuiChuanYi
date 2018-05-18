@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,9 +18,11 @@ import com.example.huichuanyi.bean.PayState;
 import com.example.huichuanyi.common_view.model.OrderFormOrder;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.PayListView;
-import com.example.huichuanyi.ui.activity.pay.CMBPayActivity;
+import com.example.huichuanyi.utils.AsyncHttpUtils;
 import com.example.huichuanyi.utils.CommonUtils;
+import com.example.huichuanyi.utils.HttpCallBack;
 import com.example.huichuanyi.utils.IsSuccess;
+import com.example.huichuanyi.utils.MUtilsInternet;
 import com.example.huichuanyi.utils.PayUtilsCopy;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UtilsPay;
@@ -34,7 +37,9 @@ import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ClosingPriceActivity extends BaseActivity implements PayUtilsCopy.Sign, IsSuccess, PayListView.PayState {
 
@@ -71,6 +76,7 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtilsCopy.S
     }
 
     private OrderFormOrder.BodyBean bean;
+
     private OrderFormOrder.BodyBean.OrderInfoBean orderInfoBean;
 
     @Override
@@ -118,6 +124,36 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtilsCopy.S
             return 0;
     }
 
+    private MUtilsInternet net = MUtilsInternet.getInstance();
+
+    /*获取到补差价订单的签名*/
+    private void goDoorGetPrice() {
+        Map<String, String> map = new HashMap<>();
+        map.put("orderId", bean.getOrderId());
+        map.put("buyUserId", SharedPreferenceUtils.getUserData(this, 1));
+        map.put("buyUserName", SharedPreferenceUtils.getUserData(this, 2));
+        map.put("sellerUserId", orderInfoBean.getSellerUserId());
+        map.put("sellerUserGrade", orderInfoBean.getSellerUserGrade());
+        map.put("sellerUserName", orderInfoBean.getSellerUserName());
+        map.put("sellerCityName", orderInfoBean.getSellerCityName());
+        map.put("sellerPhone", orderInfoBean.getSellerPhone());
+        map.put("consigneeTime", orderInfoBean.getConsigneeTime());
+        map.put("clothesNumber", mmCount);
+        net.post(NetConfig.GOODOOR_CLOSERPRICE_GETSIGN, this, map, new MUtilsInternet.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+                try {
+                    JSONObject obj = new JSONObject(result);
+                    JSONObject body = obj.getJSONObject("body");
+                    goPayID(body.getString("id"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+    }
+
     @Event(R.id.btn_cp_pay)
     private void onEvent(View v) {
         if (getDouble(mmCount) > 1) {
@@ -129,59 +165,21 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtilsCopy.S
                             if ("1".equals(orderInfoBean.getOrderType())) {
                                 acarusKill();
                             } else {
-                                String counts = cpCount.getText().toString().trim();
-                                pay.aLiSign("1", bean.getOrderId(), mmCount, this, kind);
+                                goDoorGetPrice();
+                               /* String counts = cpCount.getText().toString().trim();
+                                pay.aLiSign("1", bean.getOrderId(), mmCount, this, kind);*/
                             }
                             break;
                         case "2":
                             if ("1".equals(orderInfoBean.getOrderType())) {
                                 acarusKill();
                             } else {
-                                pay.weChatSign("2", bean.getOrderId(), mmCount, this, kind);
+                                goDoorGetPrice();
+                                // pay.weChatSign("2", bean.getOrderId(), mmCount, this, kind);
                             }
                             break;
                         case "3":
-                            if ("1".equals(orderInfoBean.getOrderType())) {
-                                Toast.makeText(this, "除螨服务现在不支持一网通支付", Toast.LENGTH_SHORT).show();
-                            } else {
-                                RequestParams params;
-                                if (TextUtils.equals("6", kind)) {
-                                    params = new RequestParams("http://hmyc365.net:8081/HM/app/doorToDoorService/pay/supplementaryPriceDifference/box/getSign.do");
-                                } else {
-                                    params = new RequestParams("http://hmyc365.net:8081/HM/app/doorToDoorService/pay/supplementaryPriceDifference/clothes/getSign_new.do");
-                                }
-                                params.addBodyParameter("order_id", bean.getOrderId());
-                                params.addBodyParameter("pay_type", "3");
-                                params.addBodyParameter("num", mmCount);
-                                x.http().post(params, new Callback.CacheCallback<String>() {
-                                    @Override
-                                    public void onSuccess(String result) {
-                                        Intent it = new Intent(ClosingPriceActivity.this, CMBPayActivity.class);
-                                        it.putExtra("order_id", result);
-                                        startActivity(it);
-                                    }
-
-                                    @Override
-                                    public void onError(Throwable ex, boolean isOnCallback) {
-
-                                    }
-
-                                    @Override
-                                    public void onCancelled(CancelledException cex) {
-
-                                    }
-
-                                    @Override
-                                    public void onFinished() {
-
-                                    }
-
-                                    @Override
-                                    public boolean onCache(String result) {
-                                        return false;
-                                    }
-                                });
-                            }
+                            Toast.makeText(this, "一网通支付暂未开通", Toast.LENGTH_SHORT).show();
                             break;
                         default:
                             break;
@@ -437,11 +435,17 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtilsCopy.S
                 if (TextUtils.equals("6", kind)) {
                     pa = new RequestParams("http://hmyc365.net:8081/HM/app/doorToDoorService/order/price/getBcjBoxPrice.do");
                     pa.addBodyParameter("box_num", mmCount);
+                    pa.addBodyParameter("order_id", bean.getOrderId());
                 } else {
-                    pa = new RequestParams("http://hmyc365.net:8081/HM/app/doorToDoorService/order/price/getBcjCloPriceNew.do");
-                    pa.addBodyParameter("clothes_num", mmCount);
+                    String orderId = bean.getOrderId();
+                    String sellerUserId = orderInfoBean.getSellerUserId();
+                    String sellerUserGrade = orderInfoBean.getSellerUserGrade();
+                    pa = new RequestParams(NetConfig.GODOOR_CLOSEPRICE_GETPRICE);
+                    pa.addBodyParameter("orderId", orderId);
+                    pa.addBodyParameter("sellerUserId", sellerUserId);
+                    pa.addBodyParameter("clothesNumber", mmCount);
+                    pa.addBodyParameter("sellerUserGrade", sellerUserGrade);
                 }
-                pa.addBodyParameter("order_id", bean.getOrderId());
                 x.http().post(pa, new Callback.CacheCallback<String>() {
                     @Override
                     public void onSuccess(String result) {
@@ -509,4 +513,47 @@ public class ClosingPriceActivity extends BaseActivity implements PayUtilsCopy.S
             handler.postDelayed(delayRun, 800);
         }
     };
+
+
+    private void goPayID(String id) {
+        try {
+            JSONObject o1 = new JSONObject();
+            o1.put("token", NetConfig.TOKEN);
+            o1.put("payType", a_w_c);
+            o1.put("concessionCode", "");
+            o1.put("orderRemarkBuyer", "");
+            o1.put("consigneeName", "");
+            o1.put("consigneePhone", "");
+            o1.put("consigneeAddress", "");
+            JSONArray a = new JSONArray();
+            JSONObject O2 = new JSONObject();
+            O2.put("id", id);
+            a.put(O2);
+            o1.put("ids", a);
+            new AsyncHttpUtils(new HttpCallBack() {
+                @Override
+                public void onResponse(String result) {
+                    switch (a_w_c) {
+                        case "1":
+                            try {
+                                JSONObject object = new JSONObject(result);
+                                JSONObject body = object.getJSONObject("body");
+                                String sign = body.getString("sign");
+                                mPay.aliPay(sign);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                        case "2":
+                            mPay.weChatPay(result);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }, this).execute(NetConfig.SHOPCAR_SING_SHOP, o1.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }

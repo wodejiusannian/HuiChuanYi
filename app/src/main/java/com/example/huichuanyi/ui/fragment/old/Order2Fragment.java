@@ -52,7 +52,7 @@ public class Order2Fragment extends BaseFragment {
             }
 
             @Override
-            public void onResultUrl(String url) {
+            public void onResultUrl(String url,String u) {
 
             }
         });

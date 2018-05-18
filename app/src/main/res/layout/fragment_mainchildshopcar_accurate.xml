@@ -88,7 +88,7 @@
                 android:layout_marginBottom="23dp"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text="★左右滑动查看其他推荐，点击或上划查看服饰详情"
+                android:text="★左右滑动查看其他推荐，点击查看服饰详情"
                 android:textColor="#ac0000"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -109,7 +109,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:button="@drawable/selector_item_shopcar">
+            android:button="@drawable/selector_item_shopcar"
+            android:src="@mipmap/hm_shopcar_noselect">
 
         </ImageView>
 
@@ -159,19 +160,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="结账: ¥"
+                android:text="立即下单"
                 android:textColor="#fff"
                 android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/tv_mainchildshopcar_money_two"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
-                android:text="0"
-                android:textColor="#fff"
-                android:textSize="18sp" />
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

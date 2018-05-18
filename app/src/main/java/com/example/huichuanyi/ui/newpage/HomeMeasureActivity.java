@@ -1,7 +1,6 @@
 package com.example.huichuanyi.ui.newpage;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
@@ -58,7 +57,7 @@ public class HomeMeasureActivity extends BaseActivity {
             }
 
             @Override
-            public void onResultUrl(String url) {
+            public void onResultUrl(String url,String u) {
 
             }
         });

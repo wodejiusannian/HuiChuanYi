@@ -47,13 +47,13 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
         for (int i = 0; i < 3; i++) {
             ImageView mImageView = new ImageView(this);
             if (i == 0) {
-                mImageView.setImageResource(R.drawable.yindao1);
+                mImageView.setImageResource(R.drawable.welcomehmo);
             }
             if (i == 1) {
-                mImageView.setImageResource(R.drawable.yindao2);
+                mImageView.setImageResource(R.drawable.welcomehmt);
             }
             if (i == 2) {
-                mImageView.setImageResource(R.drawable.yindao3);
+                mImageView.setImageResource(R.drawable.welcometh);
             }
             mImageView.setScaleType(ImageView.ScaleType.FIT_XY);
             mData.add(mImageView);

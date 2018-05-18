@@ -2,7 +2,6 @@ package com.example.huichuanyi.share;
 
 import android.content.Context;
 
-import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
 public class Share {
@@ -14,10 +13,10 @@ public class Share {
         oks.disableSSOWhenAuthorize();
         oks.setTitle(content);
         oks.setTitleUrl(titleUrl);
-        oks.setText(content + titleUrl);
+        oks.setText(content);
         oks.setUrl(titleUrl);
         oks.setComment(content);
-        oks.setImageUrl("http://hmyc365.net:8081/file/hm_app_logopp_logo.png");
+        oks.setImageUrl("http://a3.qpic.cn/psb?/V11lmX863WzFHp/Rskh0qCA9tZK2xgBiJZhcSjYUdkoPov0UKwa3p2ac44!/c/dCIBAAAAAAAA&ek=1&kp=1&pt=0&bo=JgImAgAAAAARFyA!&t=5&vuin=513946844&tm=1526634000&sce=60-2-2&rf=0-0");
         oks.show(context);
     }
 

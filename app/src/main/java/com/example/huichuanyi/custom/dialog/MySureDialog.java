@@ -39,6 +39,7 @@ public class MySureDialog extends Dialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_sure);
         setCanceledOnTouchOutside(false);
+        this.setCancelable(false);
         initView();
         initData();
         setListener();
@@ -46,7 +47,7 @@ public class MySureDialog extends Dialog {
 
     private void initView() {
         mmButtonYes = (TextView) findViewById(R.id.my_self_yes);
-        mTextViewMessage = (TextView) findViewById(R.id.my_self_message);
+        mTextViewMessage = (TextView) findViewById(R.id.iv_payorder_wechatname);
     }
 
     private void initData() {
@@ -64,7 +65,6 @@ public class MySureDialog extends Dialog {
                 if (mYesListener != null) {
                     mYesListener.onClick();
                 }
-                dismiss();
             }
         });
 

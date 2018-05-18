@@ -5,6 +5,8 @@ import android.text.TextUtils;
 
 import com.example.huichuanyi.custom.CustomToast;
 
+import java.text.DecimalFormat;
+
 /**
  * Created by 小五 on 2017/3/8.
  */
@@ -53,5 +55,10 @@ public class CommonUtils {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static String strDoubleTwo(Double d) {
+        DecimalFormat df = new java.text.DecimalFormat("0.00");
+        return df.format(d);
     }
 }

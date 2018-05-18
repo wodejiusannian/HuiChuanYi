@@ -18,6 +18,7 @@ import com.example.huichuanyi.base_2.BaseFragment;
 import com.example.huichuanyi.bean.Banner;
 import com.example.huichuanyi.common_view.adapter.MultiTypeAdapter;
 import com.example.huichuanyi.common_view.model.ShopCarButtonModel;
+import com.example.huichuanyi.common_view.model.ShopCarNoBodyModel;
 import com.example.huichuanyi.common_view.model.ShopCarTopModel;
 import com.example.huichuanyi.common_view.model.ShopCarType0Model;
 import com.example.huichuanyi.common_view.model.ShopCarType1Model;
@@ -224,26 +225,31 @@ public class FragmentMainChildShopCarSelf extends BaseFragment {
             @Override
             public void onResponse(String result) {
                 try {
-
                     mData.add(new ShopCarButtonModel());
                     mData.add(new ShopCarType0Model("管理", false));
                     JSONObject ret = new JSONObject(result);
                     JSONArray bodyArray = ret.getJSONArray("body");
-                    for (int i = 0; i < bodyArray.length(); i++) {
-                        JSONObject goodInfoObj = bodyArray.getJSONObject(i);
-                        ShopCarType1Model shop = new ShopCarType1Model(goodInfoObj.getString("sellerPicture"), goodInfoObj.getString("sellerUserId"), goodInfoObj.getString("sellerUserName"), i);
-                        mData.add(shop);
-                        JSONArray goodInfoArray = goodInfoObj.getJSONArray("goodsInfo");
-                        for (int j = 0; j < goodInfoArray.length(); j++) {
-                            JSONObject o = goodInfoArray.getJSONObject(j);
-                            if (j == goodInfoArray.length() - 1) {
-                                mData.add(new ShopCarType3Model(o.getString("goodsColor"), o.getString("goodsId"), o.getString("goodsName"),
-                                        o.getString("goodsPicture"), o.getString("goodsPrice"), o.getString("goodsSize"), o.getString("id"),
-                                        Integer.parseInt(o.getString("orderNumber")), o.getString("orderType"), i, false));
-                            } else {
-                                mData.add(new ShopCarType2Model(o.getString("goodsColor"), o.getString("goodsId"), o.getString("goodsName"),
-                                        o.getString("goodsPicture"), o.getString("goodsPrice"), o.getString("goodsSize"), o.getString("id"),
-                                        Integer.parseInt(o.getString("orderNumber")), o.getString("orderType"), i, false));
+                    if (0 == bodyArray.length()) {
+                        rlAll.setVisibility(View.GONE);
+                        mData.add(new ShopCarNoBodyModel());
+                    } else {
+                        rlAll.setVisibility(View.VISIBLE);
+                        for (int i = 0; i < bodyArray.length(); i++) {
+                            JSONObject goodInfoObj = bodyArray.getJSONObject(i);
+                            ShopCarType1Model shop = new ShopCarType1Model(goodInfoObj.getString("sellerPicture"), goodInfoObj.getString("sellerUserId"), goodInfoObj.getString("sellerUserName"), i);
+                            mData.add(shop);
+                            JSONArray goodInfoArray = goodInfoObj.getJSONArray("goodsInfo");
+                            for (int j = 0; j < goodInfoArray.length(); j++) {
+                                JSONObject o = goodInfoArray.getJSONObject(j);
+                                if (j == goodInfoArray.length() - 1) {
+                                    mData.add(new ShopCarType3Model(o.getString("goodsColor"), o.getString("goodsId"), o.getString("goodsName"),
+                                            o.getString("goodsPicture"), o.getString("goodsPrice"), o.getString("goodsSize"), o.getString("id"),
+                                            Integer.parseInt(o.getString("orderNumber")), o.getString("orderType"), i, false));
+                                } else {
+                                    mData.add(new ShopCarType2Model(o.getString("goodsColor"), o.getString("goodsId"), o.getString("goodsName"),
+                                            o.getString("goodsPicture"), o.getString("goodsPrice"), o.getString("goodsSize"), o.getString("id"),
+                                            Integer.parseInt(o.getString("orderNumber")), o.getString("orderType"), i, false));
+                                }
                             }
                         }
                     }
@@ -322,7 +328,6 @@ public class FragmentMainChildShopCarSelf extends BaseFragment {
                         } else {
                             type2Model.isCheck = true;
                         }
-                        adapter.notifyDataSetChanged();
                         adapter.notifyDataSetChanged();
                         break;
                     case R.id.iv_shopcartype3_select:
@@ -558,6 +563,9 @@ public class FragmentMainChildShopCarSelf extends BaseFragment {
                 break;
         }
     }
+
+    @BindView(R.id.relative_all)
+    RelativeLayout rlAll;
 
     @Override
     public void onResume() {

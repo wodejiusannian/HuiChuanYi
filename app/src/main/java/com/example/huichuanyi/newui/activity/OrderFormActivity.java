@@ -44,7 +44,7 @@ public class OrderFormActivity extends BaseActivity {
     @BindView(R.id.vp_orderform_content)
     ViewPager pager;
 
-    private String[] deleteStatusPj = {"-1,0,1,3,4,5,6", "2"};
+    private String[] deleteStatusPj = {"0,1,3,4", "2,5,6,7"};
 
     @Override
     protected void setData() {

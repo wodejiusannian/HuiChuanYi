@@ -29,8 +29,10 @@ import com.example.huichuanyi.common_view.model.OrderStudioIntroduceTopModel;
 import com.example.huichuanyi.common_view.model.OrderStudioOne;
 import com.example.huichuanyi.common_view.model.OrderStudioThree;
 import com.example.huichuanyi.common_view.model.PrivateRecommendModel;
+import com.example.huichuanyi.common_view.model.PrivateRecommendModel2;
 import com.example.huichuanyi.common_view.model.RTCReport;
 import com.example.huichuanyi.common_view.model.ShopCarButtonModel;
+import com.example.huichuanyi.common_view.model.ShopCarNoBodyModel;
 import com.example.huichuanyi.common_view.model.ShopCarTopModel;
 import com.example.huichuanyi.common_view.model.ShopCarType0Model;
 import com.example.huichuanyi.common_view.model.ShopCarType1Model;
@@ -136,6 +138,11 @@ public interface TypeFactory {
     int type(OrderFormSLW.BodyBean histotyZhenDuan);
 
     int type(OrderFormVideo.BodyBean histotyZhenDuan);
+
+    int type(ShopCarNoBodyModel histotyZhenDuan);
+
+    int type(PrivateRecommendModel2 histotyZhenDuan);
+
     //int type(OrderStudioHoz histotyZhenDuan);
 
     BaseViewHolder createViewHolder(int type, View itemView);

@@ -46,6 +46,7 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/relative_all"
         android:layout_width="match_parent"
         android:layout_height="51dp"

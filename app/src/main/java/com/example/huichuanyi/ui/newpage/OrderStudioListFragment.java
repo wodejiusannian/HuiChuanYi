@@ -269,6 +269,7 @@ public class OrderStudioListFragment extends BaseFragment {
                             bean.setPhoto_get(photo_get);
                             bean.setCity(city);
                             bean.setArea(CommonUtils.area(address));
+                            bean.setMonthStar(latelyStudioList.getString("monthStar"));
                             mData.add(bean);
                         }
                         if (lately) {
@@ -303,6 +304,7 @@ public class OrderStudioListFragment extends BaseFragment {
                             bean.setCity(city);
                             bean.setArea(CommonUtils.area(address));
                             bean.setImgPath(imgPath);
+                            bean.setMonthStar(latelyStudioList.getString("monthStar"));
                             mData.add(bean);
                         }
                         if (mData != null && mData.size() != 0)
@@ -339,6 +341,7 @@ public class OrderStudioListFragment extends BaseFragment {
                             bean.setIntroduction(introduction);
                             bean.setPhoto_get(photo_get);
                             bean.setArea(CommonUtils.area(address));
+                            bean.setMonthStar(object.getString("monthStar"));
                             mData.add(bean);
                         }
                         int mHeight = windowsHeight - (dip2px(getContext(), 110) * mData.size());

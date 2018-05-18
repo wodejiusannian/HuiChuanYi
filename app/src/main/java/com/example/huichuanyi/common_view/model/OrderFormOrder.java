@@ -30,13 +30,12 @@ public class OrderFormOrder {
     /**
      * ret : 0
      * msg : SUCCESS
-     * body : [{"concessionCode":"","discountExplain":"","moneyDiscount":"0.00","orderId":"sm_152575857415","orderInfo":[{"acceptTime":"","applyRefuseTime":"","completeTime":"","consigneeAddress":"北京市,北京市,大兴区亦庄大族广场","consigneeName":"午餐","consigneePhone":"18363833181","consigneeTime":"2018-05-18 下午","deleteStatus":"20","deliveryTime":"","evaluateAverage":"","evaluateContent":"","evaluateState":"0","evaluateTime":"","goodsColor":"","goodsIntroduction":"","goodsName":"预约服务","goodsPicture":"http://hmyc365.net/hmyc/file/hm-system/logo-app.png","goodsPrice":"","goodsSize":"","id":"1886","moneyPay":"998.0","moneyTotal":"998","orderNumber":"600","orderRemarkBuyer":"","orderType":"3","payTime":"","payType":"","recommendDate":"","recommendUserId":"","recommendUserName":"","refundReason":"","refuseTime":"","sellerCityName":"","sellerPhone":"","sellerPicture":"","sellerUserName":"熊宝宝工作室","wayCode":"","wayNo":""}]}]
+     * body : [{"concessionCode":"","discountExplain":"","moneyDiscount":"0.00","orderId":"sm_152646601315","orderInfo":[{"acceptTime":"","applyRefuseTime":"","completeTime":"","consigneeAddress":"重庆市重庆市南岸区 茶园南山庆隆高尔夫一组团56\u20144","consigneeName":"信空海","consigneePhone":"18623398277","consigneeTime":"2018-05-17 上午","deleteStatus":"1","deliveryTime":"","evaluateAverage":"","evaluateContent":"","evaluateState":"-1","evaluateTime":"","goodsColor":"","goodsIntroduction":"","goodsName":"上门衣橱管理服务","goodsPicture":"","goodsPrice":"1998","goodsSize":"","id":"2874","moneyPay":"1998.0","moneyTotal":"1998","orderNumber":"1","orderRemarkBuyer":"","orderType":"3","payTime":"2018-05-16 18:20:24","payType":"1","recommendDate":"","recommendUserId":"","recommendUserName":"","refundReason":"","refuseTime":"","sellerCityName":"重庆市","sellerPhone":"18680824822","sellerPicture":"http://hmyc365.net:8084/file/pic/156/15199835249101.jpg","sellerUserGrade":"3","sellerUserId":"156","sellerUserName":"耿巧玲工作室","wayCode":"","wayCompany":"","wayNo":"","wayPhone":""}]}]
      */
 
     private String ret;
     private String msg;
     private List<BodyBean> body;
-
 
     public String getRet() {
         return ret;
@@ -62,13 +61,13 @@ public class OrderFormOrder {
         this.body = body;
     }
 
-    public static class BodyBean implements Visitable, Parcelable {
+    public static class BodyBean implements Visitable,Parcelable {
         /**
          * concessionCode :
          * discountExplain :
          * moneyDiscount : 0.00
-         * orderId : sm_152575857415
-         * orderInfo : [{"acceptTime":"","applyRefuseTime":"","completeTime":"","consigneeAddress":"北京市,北京市,大兴区亦庄大族广场","consigneeName":"午餐","consigneePhone":"18363833181","consigneeTime":"2018-05-18 下午","deleteStatus":"20","deliveryTime":"","evaluateAverage":"","evaluateContent":"","evaluateState":"0","evaluateTime":"","goodsColor":"","goodsIntroduction":"","goodsName":"预约服务","goodsPicture":"http://hmyc365.net/hmyc/file/hm-system/logo-app.png","goodsPrice":"","goodsSize":"","id":"1886","moneyPay":"998.0","moneyTotal":"998","orderNumber":"600","orderRemarkBuyer":"","orderType":"3","payTime":"","payType":"","recommendDate":"","recommendUserId":"","recommendUserName":"","refundReason":"","refuseTime":"","sellerCityName":"","sellerPhone":"","sellerPicture":"","sellerUserName":"熊宝宝工作室","wayCode":"","wayNo":""}]
+         * orderId : sm_152646601315
+         * orderInfo : [{"acceptTime":"","applyRefuseTime":"","completeTime":"","consigneeAddress":"重庆市重庆市南岸区 茶园南山庆隆高尔夫一组团56\u20144","consigneeName":"信空海","consigneePhone":"18623398277","consigneeTime":"2018-05-17 上午","deleteStatus":"1","deliveryTime":"","evaluateAverage":"","evaluateContent":"","evaluateState":"-1","evaluateTime":"","goodsColor":"","goodsIntroduction":"","goodsName":"上门衣橱管理服务","goodsPicture":"","goodsPrice":"1998","goodsSize":"","id":"2874","moneyPay":"1998.0","moneyTotal":"1998","orderNumber":"1","orderRemarkBuyer":"","orderType":"3","payTime":"2018-05-16 18:20:24","payType":"1","recommendDate":"","recommendUserId":"","recommendUserName":"","refundReason":"","refuseTime":"","sellerCityName":"重庆市","sellerPhone":"18680824822","sellerPicture":"http://hmyc365.net:8084/file/pic/156/15199835249101.jpg","sellerUserGrade":"3","sellerUserId":"156","sellerUserName":"耿巧玲工作室","wayCode":"","wayCompany":"","wayNo":"","wayPhone":""}]
          */
 
         private String concessionCode;
@@ -156,46 +155,50 @@ public class OrderFormOrder {
             dest.writeTypedList(orderInfo);
         }
 
-        public static class OrderInfoBean implements Parcelable {
+        public static class OrderInfoBean implements Parcelable{
             /**
              * acceptTime :
              * applyRefuseTime :
              * completeTime :
-             * consigneeAddress : 北京市,北京市,大兴区亦庄大族广场
-             * consigneeName : 午餐
-             * consigneePhone : 18363833181
-             * consigneeTime : 2018-05-18 下午
-             * deleteStatus : 20
+             * consigneeAddress : 重庆市重庆市南岸区 茶园南山庆隆高尔夫一组团56—4
+             * consigneeName : 信空海
+             * consigneePhone : 18623398277
+             * consigneeTime : 2018-05-17 上午
+             * deleteStatus : 1
              * deliveryTime :
              * evaluateAverage :
              * evaluateContent :
-             * evaluateState : 0
+             * evaluateState : -1
              * evaluateTime :
              * goodsColor :
              * goodsIntroduction :
-             * goodsName : 预约服务
-             * goodsPicture : http://hmyc365.net/hmyc/file/hm-system/logo-app.png
-             * goodsPrice :
+             * goodsName : 上门衣橱管理服务
+             * goodsPicture :
+             * goodsPrice : 1998
              * goodsSize :
-             * id : 1886
-             * moneyPay : 998.0
-             * moneyTotal : 998
-             * orderNumber : 600
+             * id : 2874
+             * moneyPay : 1998.0
+             * moneyTotal : 1998
+             * orderNumber : 1
              * orderRemarkBuyer :
              * orderType : 3
-             * payTime :
-             * payType :
+             * payTime : 2018-05-16 18:20:24
+             * payType : 1
              * recommendDate :
              * recommendUserId :
              * recommendUserName :
              * refundReason :
              * refuseTime :
-             * sellerCityName :
-             * sellerPhone :
-             * sellerPicture :
-             * sellerUserName : 熊宝宝工作室
+             * sellerCityName : 重庆市
+             * sellerPhone : 18680824822
+             * sellerPicture : http://hmyc365.net:8084/file/pic/156/15199835249101.jpg
+             * sellerUserGrade : 3
+             * sellerUserId : 156
+             * sellerUserName : 耿巧玲工作室
              * wayCode :
+             * wayCompany :
              * wayNo :
+             * wayPhone :
              */
 
             private String acceptTime;
@@ -233,9 +236,13 @@ public class OrderFormOrder {
             private String sellerCityName;
             private String sellerPhone;
             private String sellerPicture;
+            private String sellerUserGrade;
+            private String sellerUserId;
             private String sellerUserName;
             private String wayCode;
+            private String wayCompany;
             private String wayNo;
+            private String wayPhone;
 
             protected OrderInfoBean(Parcel in) {
                 acceptTime = in.readString();
@@ -273,56 +280,13 @@ public class OrderFormOrder {
                 sellerCityName = in.readString();
                 sellerPhone = in.readString();
                 sellerPicture = in.readString();
+                sellerUserGrade = in.readString();
+                sellerUserId = in.readString();
                 sellerUserName = in.readString();
                 wayCode = in.readString();
+                wayCompany = in.readString();
                 wayNo = in.readString();
-            }
-
-            @Override
-            public void writeToParcel(Parcel dest, int flags) {
-                dest.writeString(acceptTime);
-                dest.writeString(applyRefuseTime);
-                dest.writeString(completeTime);
-                dest.writeString(consigneeAddress);
-                dest.writeString(consigneeName);
-                dest.writeString(consigneePhone);
-                dest.writeString(consigneeTime);
-                dest.writeString(deleteStatus);
-                dest.writeString(deliveryTime);
-                dest.writeString(evaluateAverage);
-                dest.writeString(evaluateContent);
-                dest.writeString(evaluateState);
-                dest.writeString(evaluateTime);
-                dest.writeString(goodsColor);
-                dest.writeString(goodsIntroduction);
-                dest.writeString(goodsName);
-                dest.writeString(goodsPicture);
-                dest.writeString(goodsPrice);
-                dest.writeString(goodsSize);
-                dest.writeString(id);
-                dest.writeString(moneyPay);
-                dest.writeString(moneyTotal);
-                dest.writeString(orderNumber);
-                dest.writeString(orderRemarkBuyer);
-                dest.writeString(orderType);
-                dest.writeString(payTime);
-                dest.writeString(payType);
-                dest.writeString(recommendDate);
-                dest.writeString(recommendUserId);
-                dest.writeString(recommendUserName);
-                dest.writeString(refundReason);
-                dest.writeString(refuseTime);
-                dest.writeString(sellerCityName);
-                dest.writeString(sellerPhone);
-                dest.writeString(sellerPicture);
-                dest.writeString(sellerUserName);
-                dest.writeString(wayCode);
-                dest.writeString(wayNo);
-            }
-
-            @Override
-            public int describeContents() {
-                return 0;
+                wayPhone = in.readString();
             }
 
             public static final Creator<OrderInfoBean> CREATOR = new Creator<OrderInfoBean>() {
@@ -617,6 +581,22 @@ public class OrderFormOrder {
                 this.sellerPicture = sellerPicture;
             }
 
+            public String getSellerUserGrade() {
+                return sellerUserGrade;
+            }
+
+            public void setSellerUserGrade(String sellerUserGrade) {
+                this.sellerUserGrade = sellerUserGrade;
+            }
+
+            public String getSellerUserId() {
+                return sellerUserId;
+            }
+
+            public void setSellerUserId(String sellerUserId) {
+                this.sellerUserId = sellerUserId;
+            }
+
             public String getSellerUserName() {
                 return sellerUserName;
             }
@@ -633,12 +613,79 @@ public class OrderFormOrder {
                 this.wayCode = wayCode;
             }
 
+            public String getWayCompany() {
+                return wayCompany;
+            }
+
+            public void setWayCompany(String wayCompany) {
+                this.wayCompany = wayCompany;
+            }
+
             public String getWayNo() {
                 return wayNo;
             }
 
             public void setWayNo(String wayNo) {
                 this.wayNo = wayNo;
+            }
+
+            public String getWayPhone() {
+                return wayPhone;
+            }
+
+            public void setWayPhone(String wayPhone) {
+                this.wayPhone = wayPhone;
+            }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(acceptTime);
+                dest.writeString(applyRefuseTime);
+                dest.writeString(completeTime);
+                dest.writeString(consigneeAddress);
+                dest.writeString(consigneeName);
+                dest.writeString(consigneePhone);
+                dest.writeString(consigneeTime);
+                dest.writeString(deleteStatus);
+                dest.writeString(deliveryTime);
+                dest.writeString(evaluateAverage);
+                dest.writeString(evaluateContent);
+                dest.writeString(evaluateState);
+                dest.writeString(evaluateTime);
+                dest.writeString(goodsColor);
+                dest.writeString(goodsIntroduction);
+                dest.writeString(goodsName);
+                dest.writeString(goodsPicture);
+                dest.writeString(goodsPrice);
+                dest.writeString(goodsSize);
+                dest.writeString(id);
+                dest.writeString(moneyPay);
+                dest.writeString(moneyTotal);
+                dest.writeString(orderNumber);
+                dest.writeString(orderRemarkBuyer);
+                dest.writeString(orderType);
+                dest.writeString(payTime);
+                dest.writeString(payType);
+                dest.writeString(recommendDate);
+                dest.writeString(recommendUserId);
+                dest.writeString(recommendUserName);
+                dest.writeString(refundReason);
+                dest.writeString(refuseTime);
+                dest.writeString(sellerCityName);
+                dest.writeString(sellerPhone);
+                dest.writeString(sellerPicture);
+                dest.writeString(sellerUserGrade);
+                dest.writeString(sellerUserId);
+                dest.writeString(sellerUserName);
+                dest.writeString(wayCode);
+                dest.writeString(wayCompany);
+                dest.writeString(wayNo);
+                dest.writeString(wayPhone);
             }
         }
     }

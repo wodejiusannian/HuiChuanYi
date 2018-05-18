@@ -30,7 +30,7 @@ public class WebViewUtils {
 
         void onResultTitle(String title);
 
-        void onResultUrl(String url);
+        void onResultUrl(String title,String url);
     }
 
     private WebOnResult mWebOnResult;
@@ -47,7 +47,7 @@ public class WebViewUtils {
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
-                mWebOnResult.onResultUrl(view.getTitle());
+                mWebOnResult.onResultUrl(view.getTitle(),url);
                 super.onPageFinished(view, url);
             }
         });

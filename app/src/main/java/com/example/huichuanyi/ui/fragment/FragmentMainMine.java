@@ -22,6 +22,7 @@ import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.CustomToast;
 import com.example.huichuanyi.custom.GlideCircleTransform;
 import com.example.huichuanyi.custom.MySelfDialog;
+import com.example.huichuanyi.emum.OrderType;
 import com.example.huichuanyi.newui.activity.OrderFormActivity;
 import com.example.huichuanyi.newui.activity.OrderFormVideoActivity;
 import com.example.huichuanyi.secondui.FanKuiActivity;
@@ -35,6 +36,7 @@ import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.ImageUtils;
 import com.example.huichuanyi.utils.MUtilsInternet;
+import com.example.huichuanyi.utils.ServiceSingleUtils;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UpdateUtils;
 import com.foamtrace.photopicker.PhotoPickerActivity;
@@ -84,10 +86,12 @@ public class FragmentMainMine extends BaseFragment {
                 Intent clothesIntent = new Intent(getActivity(), OrderFormActivity.class);
                 clothesIntent.putExtra("title", "服饰订单");
                 clothesIntent.putExtra("orderTypePj", "7");
+                ServiceSingleUtils.getInstance().setOrderType(OrderType.ORDER_CLOTHES);
                 startActivity(clothesIntent);
                 break;
             case R.id.tv_mainmine_blackform:
                 Intent blackIntent = new Intent(getActivity(), OrderFormActivity.class);
+                ServiceSingleUtils.getInstance().setOrderType(OrderType.ORDER_BLACK);
                 blackIntent.putExtra("title", "黑科技订单");
                 blackIntent.putExtra("orderTypePj", "6");
                 startActivity(blackIntent);
@@ -370,6 +374,8 @@ public class FragmentMainMine extends BaseFragment {
                 UserInfo bean = gson.fromJson(result, UserInfo.class);
                 UserInfo.BodyBean body = bean.getBody();
                 try {
+                    SharedPreferenceUtils.writeUserPhoto(getContext(), body.getUserPic());
+                    SharedPreferenceUtils.writeUserName(getContext(), body.getUserName());
                     tvInfo[0].setText(body.getUserName());
                     tvInfo[1].setText(body.getUserCity());
                     tvInfo[2].setText(body.getUserOccupation());

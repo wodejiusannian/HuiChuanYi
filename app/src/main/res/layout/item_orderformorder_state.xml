@@ -6,14 +6,14 @@
     android:background="#f7f4f4">
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="261dp"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:background="#fff"
         android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:id="@+id/linearLayout2">
+        android:paddingLeft="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginRight="11dp"
-                android:text="-----"
+                android:text=""
                 android:textColor="#ac0000"
                 android:textSize="15sp" />
         </RelativeLayout>
@@ -44,76 +44,104 @@
             android:layout_height="1dp"
             android:background="#979494" />
 
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="100dp">
 
-            <ImageView
-                android:id="@+id/iv_orderformstate_photo"
-                android:layout_width="91dp"
-                android:layout_height="91dp"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/hm_stand_cicle" />
+            <RelativeLayout
+                android:id="@+id/rl_orderfromorder_show"
+                android:layout_width="match_parent"
+                android:layout_height="100dp">
 
-            <LinearLayout
+                <ImageView
+                    android:id="@+id/iv_orderformstate_photo"
+                    android:layout_width="91dp"
+                    android:layout_height="91dp"
+                    android:layout_centerVertical="true"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/hm_stand_cicle" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_toRightOf="@+id/iv_orderformstate_photo"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_orderformstate_servicetype"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:lines="1"
+                        android:text="-----"
+                        android:textColor="#666666"
+                        android:textSize="15sp" />
+
+
+                    <TextView
+                        android:id="@+id/tv_orderformstate_studioname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:text="-----"
+                        android:textColor="#666666"
+                        android:textSize="18dp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:id="@+id/tv_orderformstate_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-----"
+                            android:textColor="#ac0000"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tv_orderformstate_coupon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignBaseline="@+id/tv_orderformstate_price"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="34dp"
+                            android:text="-----"
+                            android:textColor="#999999"
+                            android:textSize="15sp" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toRightOf="@+id/iv_orderformstate_photo"
+                    android:background="#979494" />
+
+
+            </RelativeLayout>
+
+            <HorizontalScrollView
+                android:id="@+id/hs_ofderformorder_show"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="11dp"
-                android:layout_marginTop="13dp"
-                android:layout_toRightOf="@+id/iv_orderformstate_photo"
-                android:orientation="vertical">
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true">
 
-                <TextView
-                    android:id="@+id/tv_orderformstate_servicetype"
+                <LinearLayout
+                    android:id="@+id/ll_ofderformorder_show"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="-----"
-                    android:textColor="#666666"
-                    android:textSize="15sp" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-
-                <TextView
-                    android:id="@+id/tv_orderformstate_studioname"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:text="-----"
-                    android:textColor="#666666"
-                    android:textSize="18dp" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp">
-
-                    <TextView
-                        android:id="@+id/tv_orderformstate_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="-----"
-                        android:textColor="#ac0000"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/tv_orderformstate_coupon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignBaseline="@+id/tv_orderformstate_price"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginRight="34dp"
-                        android:text="-----"
-                        android:textColor="#999999"
-                        android:textSize="15sp" />
-                </RelativeLayout>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:layout_toRightOf="@+id/iv_orderformstate_photo"
-                android:background="#979494" />
+                </LinearLayout>
+            </HorizontalScrollView>
         </RelativeLayout>
 
         <LinearLayout
@@ -147,20 +175,20 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="46dp"
-        android:paddingBottom="12dp"
+        android:layout_alignBottom="@+id/linearLayout2"
+        android:layout_alignParentStart="true"
         android:orientation="horizontal"
+        android:paddingBottom="12dp"
         android:paddingLeft="10dp"
         android:paddingRight="11dp"
-        android:weightSum="3"
-        android:layout_alignBottom="@+id/linearLayout2"
-        android:layout_alignParentStart="true">
+        android:weightSum="3">
 
         <TextView
             android:id="@+id/tv_orderformstate_button1"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/shape_buttonround_red"
+            android:background="@drawable/shape_buttonround_gray"
             android:gravity="center"
             android:textColor="#fff" />
 
@@ -168,10 +196,10 @@
             android:id="@+id/tv_orderformstate_button2"
             android:layout_width="100dp"
             android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:layout_weight="1"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/shape_buttonround_red"
+            android:background="@drawable/shape_buttonround_yellow"
             android:gravity="center"
             android:textColor="#fff" />
 

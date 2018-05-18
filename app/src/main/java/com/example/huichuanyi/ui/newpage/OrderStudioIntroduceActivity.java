@@ -25,6 +25,7 @@ import com.example.huichuanyi.common_view.model.OrderStudioIntroduceThirdModel;
 import com.example.huichuanyi.common_view.model.OrderStudioIntroduceTopModel;
 import com.example.huichuanyi.common_view.model.OrderStudioOne;
 import com.example.huichuanyi.common_view.model.Visitable;
+import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.dialog.SelectClothesCountDialog;
 import com.example.huichuanyi.emum.ServiceType;
 import com.example.huichuanyi.ui.activity.LiJiYuYueWhatActivity;
@@ -36,8 +37,10 @@ import com.example.huichuanyi.utils.ActivityCacheUtils;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.MUtilsInternet;
 import com.example.huichuanyi.utils.ServiceSingleUtils;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -453,37 +456,103 @@ public class OrderStudioIntroduceActivity extends BaseActivity {
     public void onEvent(View v) {
         switch (v.getId()) {
             case R.id.tv_order_studio_introduce_go_order:
-                String count = null;
-                for (int i = 0; i < mData.size(); i++) {
-                    Visitable visitable = mData.get(i);
-                    if (visitable instanceof OrderStudioIntroduceSecondModel) {
-                        count = ((OrderStudioIntroduceSecondModel) visitable).text;
-                        break;
+                if (ServiceSingleUtils.getInstance().getServiceType() == ServiceType.SERVICE_THE_DOOR) {
+                    String count = null;
+                    for (int i = 0; i < mData.size(); i++) {
+                        Visitable visitable = mData.get(i);
+                        if (visitable instanceof OrderStudioIntroduceSecondModel) {
+                            count = ((OrderStudioIntroduceSecondModel) visitable).text;
+                            break;
+                        }
                     }
-                }
-                String time = null;
-                for (int i = 0; i < mData.size(); i++) {
-                    Visitable visitable = mData.get(i);
-                    if (visitable instanceof OrderStudioIntroduceSecondModel) {
-                        time = ((OrderStudioIntroduceSecondModel) visitable).text;
+                    final String count1 = count;
+                    String time = null;
+                    for (int i = 0; i < mData.size(); i++) {
+                        Visitable visitable = mData.get(i);
+                        if (visitable instanceof OrderStudioIntroduceSecondModel) {
+                            time = ((OrderStudioIntroduceSecondModel) visitable).text;
+                        }
                     }
+                    final String time1 = time;
+                    if (CommonUtils.isEmpty(count) || count.contains("请")) {
+                        Toast.makeText(this, "亲，请选择衣服数量", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (CommonUtils.isEmpty(time) || time.contains("请")) {
+                        Toast.makeText(this, "亲，请选择预约时间", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    count = count.split("-")[1];
+                    count = count.substring(0, count.length() - 3);
+                    String buyUserId = SharedPreferenceUtils.getUserData(this, 1);
+                    String buyUserName = SharedPreferenceUtils.getUserData(this, 2);
+                    String sellerUserId = model.getId();
+                    String sellerUserName = model.getUsername();
+                    String sellerCityName = model.getCity();
+                    String sellerPhone = model.getPhone();
+                    String sellerPicture = model.getPhoto_get();
+                    map.put("buyUserId", buyUserId);
+                    map.put("buyUserName", buyUserName);
+                    map.put("sellerUserId", sellerUserId);
+                    map.put("sellerUserName", sellerUserName);
+                    map.put("sellerCityName", sellerCityName);
+                    map.put("sellerPhone", sellerPhone);
+                    map.put("consigneeTime", time);
+                    map.put("clothesNumber", count);
+                    map.put("sellerPicture", sellerPicture);
+                    net.post(NetConfig.SERVICE_GOORDER_GO_GO, this, map, new MUtilsInternet.XCallBack() {
+                        @Override
+                        public void onResponse(String result) {
+                            try {
+                                JSONObject obj = new JSONObject(result);
+                                JSONObject body = obj.getJSONObject("body");
+                                Intent intent = new Intent(OrderStudioIntroduceActivity.this, OrderDetailsActivity.class);
+                                intent.putExtra("model", model);
+                                intent.putExtra("money", money.getText().toString());
+                                intent.putExtra("addGrade", addGrade);
+                                intent.putExtra("count", count1);
+                                intent.putExtra("time", time1);
+                                intent.putExtra("defaultNum", defaultNum);
+                                intent.putExtra("id", body.getString("id"));
+                                startActivity(intent);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                } else {
+                    String count = null;
+                    for (int i = 0; i < mData.size(); i++) {
+                        Visitable visitable = mData.get(i);
+                        if (visitable instanceof OrderStudioIntroduceSecondModel) {
+                            count = ((OrderStudioIntroduceSecondModel) visitable).text;
+                            break;
+                        }
+                    }
+                    String time = null;
+                    for (int i = 0; i < mData.size(); i++) {
+                        Visitable visitable = mData.get(i);
+                        if (visitable instanceof OrderStudioIntroduceSecondModel) {
+                            time = ((OrderStudioIntroduceSecondModel) visitable).text;
+                        }
+                    }
+                    if (CommonUtils.isEmpty(count) || count.contains("请")) {
+                        Toast.makeText(this, "亲，请选择衣服数量", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (CommonUtils.isEmpty(time) || time.contains("请")) {
+                        Toast.makeText(this, "亲，请选择预约时间", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    Intent intent = new Intent(this, OrderDetailsActivity.class);
+                    intent.putExtra("model", model);
+                    intent.putExtra("count", count);
+                    intent.putExtra("time", time);
+                    intent.putExtra("money", money.getText().toString());
+                    intent.putExtra("addGrade", addGrade);
+                    intent.putExtra("defaultNum", defaultNum);
+                    startActivity(intent);
                 }
-                if (CommonUtils.isEmpty(count) || count.contains("请")) {
-                    Toast.makeText(this, "亲，请选择衣服数量", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (CommonUtils.isEmpty(time) || time.contains("请")) {
-                    Toast.makeText(this, "亲，请选择预约时间", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                Intent intent = new Intent(this, OrderDetailsActivity.class);
-                intent.putExtra("model", model);
-                intent.putExtra("count", count);
-                intent.putExtra("time", time);
-                intent.putExtra("money", money.getText().toString());
-                intent.putExtra("addGrade", addGrade);
-                intent.putExtra("defaultNum", defaultNum);
-                startActivity(intent);
                 break;
             case R.id.ll_order_studio_introduce_what:
                 Intent in = new Intent(this, LiJiYuYueWhatActivity.class);

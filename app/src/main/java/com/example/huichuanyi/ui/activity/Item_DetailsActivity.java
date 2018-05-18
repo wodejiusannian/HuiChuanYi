@@ -3,28 +3,40 @@ package com.example.huichuanyi.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base.BaseActivity;
+import com.example.huichuanyi.common_view.model.PrivateRecommendModel;
+import com.example.huichuanyi.common_view.model.ShopCarType4Model;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.utils.ActivityUtils;
+import com.example.huichuanyi.ui.newpage.ShopCarOrderDetailsActivity;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
+import com.example.huichuanyi.utils.WebViewUtils;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
+import java.util.ArrayList;
+
+import io.rong.imkit.RongIM;
 
 public class Item_DetailsActivity extends BaseActivity implements View.OnClickListener {
+
     private RelativeLayout mJump;
-    private Map<String, Object> map = new HashMap<>();
+
     private WebView mShow;
-    private String loadUrl;
+
     private ProgressBar mLoading;
+
     public static Item_DetailsActivity item_detailsActivity;
+
+    private WebViewUtils webViewUtils;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,10 +53,72 @@ public class Item_DetailsActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void initData() {
-        getUpActivityData();
-        loadindUrl(loadUrl);
+        bean = (PrivateRecommendModel) getIntent().getSerializableExtra("bean");
+        String url = String.format("http://hmyc365.net/hmyc/file/app/app-clothes-info/index.html?token=%s&id=%s&userPicture=%s&userName=%s", NetConfig.TOKEN, bean.getId(), SharedPreferenceUtils.getUserData(this, 3), SharedPreferenceUtils.getUserData(this, 2));
+        webViewUtils = new WebViewUtils(new WebViewUtils.WebOnResult() {
+            @Override
+            public void onResultProgress(int progress) {
+                if (progress == 100) {
+                    mLoading.setVisibility(View.GONE);//加载完网页进度条消失
+                } else {
+                    mLoading.setVisibility(View.VISIBLE);//开始加载网页时显示进度条
+                    mLoading.setProgress(progress);//设置进度值
+                }
+            }
+
+            @Override
+            public void onResultTitle(String title) {
+            }
+
+            @Override
+            public void onResultUrl(String url, String u) {
+                if (u.contains("a=chatWithManager")) {
+                    RequestParams params = new RequestParams(NetConfig.IS_BUY_365);
+                    params.addBodyParameter("user_id", SharedPreferenceUtils.getUserData(Item_DetailsActivity.this, 1));
+                    x.http().post(params, new Callback.CacheCallback<String>() {
+                        @Override
+                        public void onSuccess(String result) {
+                            try {
+                                JSONObject object = new JSONObject(result);
+                                JSONObject body = object.getJSONObject("body");
+                                String studio_name = body.getString("studio_name");
+                                String studio_id = body.getString("studio_id");
+                                RongIM im = RongIM.getInstance();
+                                if (im != null && studio_id != null) {
+                                    im.startPrivateChat(Item_DetailsActivity.this, "hmgls_" + studio_id, studio_name);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable ex, boolean isOnCallback) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(CancelledException cex) {
+
+                        }
+
+                        @Override
+                        public void onFinished() {
+
+                        }
+
+                        @Override
+                        public boolean onCache(String result) {
+                            return false;
+                        }
+                    });
+                }
+            }
+        });
+        webViewUtils.LoadingUrl(mShow, url);
     }
 
+    PrivateRecommendModel bean;
     /*
     * 初始化webview
     * */
@@ -64,67 +138,18 @@ public class Item_DetailsActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl_item_details_select:
-                ActivityUtils.switchTo(this, SLWWriteInfoActivity.class, map);
+                ArrayList<ShopCarType4Model> array = new ArrayList<>();
+                array.add(new ShopCarType4Model(bean.getColor_name(), bean.getId(), bean.getClothes_name(), bean.getClothes_get(),
+                        bean.getPrice_dj(), bean.getSize_name(), bean.getId(), 1, bean.getId()));
+                Intent intent = new Intent(this, ShopCarOrderDetailsActivity.class);
+                intent.putParcelableArrayListExtra("shoplist", array);
+                startActivity(intent);
                 break;
             default:
                 break;
         }
     }
 
-
-    private void getUpActivityData() {
-     /*   Intent intent = getIntent();
-        PrivateRecommendModel cardItem = (PrivateRecommendModel) intent.getSerializableExtra("cardItem");
-        String recommend_id = cardItem.getRecommend_id();
-        loadUrl = String.format(NetConfig.SHOP_DETAILS, recommend_id);
-        String clothes_get = cardItem.getClothes_get();
-        String color = cardItem.getColor();
-        String color_name = cardItem.getColor_name();
-        String id = cardItem.getId();
-        String introduction = cardItem.getIntroduction();
-        String name = cardItem.getClothes_name();
-        String price_dj = cardItem.getPrice_dj();
-        String reason = cardItem.getReason();
-        String size_name = cardItem.getSize_name();
-        String type = intent.getStringExtra("type");
-        map.put("clothes_get", clothes_get);
-        map.put("color", color);
-        map.put("color_name", color_name);
-        map.put("id", id);
-        map.put("introduction", introduction);
-        map.put("name", name);
-        map.put("price_dj", price_dj);
-        map.put("reason", reason);
-        map.put("size_name", size_name);
-        map.put("type", type);
-        map.put("recommend_id", recommend_id);
-*/
-
-        Intent intent = getIntent();
-        String recommend_id = intent.getStringExtra("recommend_id");
-        loadUrl = String.format(NetConfig.SHOP_DETAILS, recommend_id);
-        String clothes_get = intent.getStringExtra("clothes_get");
-        String color = intent.getStringExtra("color");
-        String color_name = intent.getStringExtra("color_name");
-        String id = intent.getStringExtra("id");
-        String introduction = intent.getStringExtra("introduction");
-        String name = intent.getStringExtra("name");
-        String price_dj = intent.getStringExtra("price_dj");
-        String reason = intent.getStringExtra("reason");
-        String size_name = intent.getStringExtra("size_name");
-        String type = intent.getStringExtra("type");
-        map.put("clothes_get", clothes_get);
-        map.put("color", color);
-        map.put("color_name", color_name);
-        map.put("id", id);
-        map.put("introduction", introduction);
-        map.put("name", name);
-        map.put("price_dj", price_dj);
-        map.put("reason", reason);
-        map.put("size_name", size_name);
-        map.put("type", type);
-        map.put("recommend_id", recommend_id);
-    }
 
     public void back(View view) {
         finish();
@@ -137,43 +162,4 @@ public class Item_DetailsActivity extends BaseActivity implements View.OnClickLi
         item_detailsActivity = null;
     }
 
-    private void loadindUrl(String url) {
-        WebSettings webSettings = mShow.getSettings();
-        webSettings.setUseWideViewPort(true);
-        webSettings.setLoadWithOverviewMode(true);
-        webSettings.setJavaScriptEnabled(true);
-        mShow.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                // TODO Auto-generated method stub
-                //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
-                view.loadUrl(url);
-                return true;
-            }
-        });
-        WebChromeClient wvcc = new WebChromeClient() {
-
-            @Override
-            public void onReceivedTitle(WebView view, String title) {
-                super.onReceivedTitle(view, title);
-            }
-
-            @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-
-                if (newProgress == 100) {
-                    mLoading.setVisibility(View.GONE);//加载完网页进度条消失
-                } else {
-                    mLoading.setVisibility(View.VISIBLE);//开始加载网页时显示进度条
-                    mLoading.setProgress(newProgress);//设置进度值
-                }
-
-            }
-
-        };
-        mShow.setWebChromeClient(wvcc);
-        if (url != null) {
-            mShow.loadUrl(url);
-        }
-    }
 }

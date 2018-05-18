@@ -23,8 +23,11 @@ import com.example.huichuanyi.secondui.ShenQingTuiKuanActivity;
 import com.example.huichuanyi.ui.activity.ClosingPriceActivity;
 import com.example.huichuanyi.ui.newpage.OrderStudioListActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
+import com.example.huichuanyi.utils.ItemDecorationUtils;
+import com.example.huichuanyi.utils.JsonUtils;
 import com.example.huichuanyi.utils.MUtilsInternet;
 import com.example.huichuanyi.utils.ServiceSingleUtils;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -51,6 +54,7 @@ public class OrderFormFragment extends BaseFragment {
         super.setData();
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.addItemDecoration(new ItemDecorationUtils(0, 5, 0, 5));
         adapter.setOnItemClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +80,8 @@ public class OrderFormFragment extends BaseFragment {
                             if (!"3".equals(type) && !"4".equals(type)) {
                                 switch (type) {
                                     case "1":
-                                        Toast.makeText(getContext(), "确认收货", Toast.LENGTH_SHORT).show();
+                                        //服饰订单和黑科技确认收货
+                                        sureGet(infoBean.getId(), pos);
                                         break;
                                     case "0":
                                     case "14":
@@ -89,10 +94,14 @@ public class OrderFormFragment extends BaseFragment {
                                         } else {
                                             //去评价
                                             Intent intent3 = new Intent(getContext(), PingJiaActivity.class);
-                                            intent3.putExtra("orderid", bean.getOrderId());
-                                            intent3.putExtra("type", infoBean.getOrderType());
+                                            intent3.putExtra("bean", bean);
                                             startActivity(intent3);
                                         }
+                                        break;
+                                    case "5":
+                                    case "6":
+                                    case "7":
+                                        goAgain(infoBean.getOrderType());
                                         break;
                                     default:
                                         goAgain(infoBean.getOrderType());
@@ -107,16 +116,13 @@ public class OrderFormFragment extends BaseFragment {
                             break;
                     }
                 } else if (visitable instanceof OrderFormSLW.BodyBean) {
+                    //服饰订单和黑科技中的数据处理
                     OrderFormSLW.BodyBean bean = (OrderFormSLW.BodyBean) visitable;
                     switch (v.getId()) {
-                        case R.id.tv_orderformslw_button1:
-                            //这个按钮不显示
-                            break;
                         case R.id.tv_orderformslw_button2:
                             OrderFormSLW.BodyBean.OrderInfoBean infoBean1 = bean.getOrderInfo().get(0);
                             Intent intent = new Intent(getActivity(), SeeCarActivity.class);
-                            intent.putExtra("wayNo", infoBean1.getWayNo());
-                            intent.putExtra("wayCode", infoBean1.getWayCode());
+                            intent.putExtra("bean", infoBean1);
                             startActivity(intent);
                             break;
                         case R.id.tv_orderformslw_button3:
@@ -125,34 +131,21 @@ public class OrderFormFragment extends BaseFragment {
                             if (!"3".equals(type) && !"4".equals(type)) {
                                 switch (type) {
                                     case "1":
-                                        Toast.makeText(getContext(), "确认收货", Toast.LENGTH_SHORT).show();
-                                        break;
-                                    case "0":
-                                    case "14":
-                                        //去确认
-                                        Toast.makeText(getContext(), "工作室还未确认接单", Toast.LENGTH_SHORT).show();
-                                        break;
-                                    case "2":
-                                        if ("0".equals(infoBean.getEvaluateState())) {
-                                            //goAgain(infoBean.getOrderType());
-                                            //改成加购物车
-                                        } else {
-                                            //去评价
-                                            Intent intent3 = new Intent(getContext(), PingJiaActivity.class);
-                                            intent3.putExtra("orderid", bean.getOrderId());
-                                            intent3.putExtra("type", infoBean.getOrderType());
-                                            startActivity(intent3);
-                                        }
+                                        //服饰订单和黑科技确认收货
+                                        sureGet(infoBean.getId(), pos);
                                         break;
                                     default:
-                                        ////改成加购物车
-                                        //goAgain(infoBean.getOrderType());
+                                        Intent intent5 = new Intent(getContext(), OrderFormDetailsActivity.class);
+                                        intent5.putExtra("orderTypePj", orderTypePj);
+                                        intent5.putExtra("bean", bean);
+                                        startActivity(intent5);
                                         break;
                                 }
                             }
                             break;
                         default:
                             Intent intent5 = new Intent(getContext(), OrderFormDetailsActivity.class);
+                            intent5.putExtra("orderTypePj", orderTypePj);
                             intent5.putExtra("bean", bean);
                             startActivity(intent5);
                             break;
@@ -161,6 +154,25 @@ public class OrderFormFragment extends BaseFragment {
             }
         });
         initNet();
+    }
+
+    private void sureGet(String id, final int position) {
+        Map<String, String> map = new HashMap<>();
+        map.put("buyUserId", SharedPreferenceUtils.getUserData(getContext(), 1));
+        map.put("idPj", id);
+        net.post(NetConfig.ORDER_SUREGET, getContext(), map, new MUtilsInternet.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+                String ret = JsonUtils.getRet(result);
+                if ("0".equals(ret)) {
+                    mData.remove(position);
+                    adapter.notifyDataSetChanged();
+                    Toast.makeText(getContext(), "确认收货成功", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "请重试", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void goAgain(String type) {
@@ -211,7 +223,7 @@ public class OrderFormFragment extends BaseFragment {
 
     private void initNet() {
         Map<String, String> map = new HashMap<>();
-        map.put("buyUserId", "81");
+        map.put("buyUserId", SharedPreferenceUtils.getUserData(getContext(), 1));
         map.put("orderTypePj", orderTypePj);
         map.put("deleteStatusPj", deleteStatusPj);
         net.post(NetConfig.MINEORDER_LIST, getContext(), map, new MUtilsInternet.XCallBack() {

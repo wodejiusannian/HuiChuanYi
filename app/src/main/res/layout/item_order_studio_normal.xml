@@ -37,6 +37,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/top_line"
@@ -156,9 +157,19 @@
 
     <ImageView
         android:id="@+id/iv_item_order_studio_level_big"
-        android:layout_width="62dp"
+        android:layout_width="58dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/top_line"
         android:layout_marginRight="20dp" />
+
+    <ImageView
+        android:id="@+id/iv_item_order_studio_level_star"
+        android:layout_width="65dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="20dp"
+        android:paddingBottom="5dp"
+        android:src="@mipmap/hm_studio_star" />
 </RelativeLayout>

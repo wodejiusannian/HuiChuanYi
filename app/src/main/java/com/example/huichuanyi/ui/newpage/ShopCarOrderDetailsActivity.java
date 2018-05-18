@@ -30,6 +30,7 @@ import com.example.huichuanyi.utils.AsyncHttpUtils;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.HttpCallBack;
 import com.example.huichuanyi.utils.IsSuccess;
+import com.example.huichuanyi.utils.JsonUtils;
 import com.example.huichuanyi.utils.MUtilsInternet;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UtilsPay;
@@ -171,25 +172,34 @@ public class ShopCarOrderDetailsActivity extends BaseActivity implements IsSucce
                         new AsyncHttpUtils(new HttpCallBack() {
                             @Override
                             public void onResponse(String result) {
-                                switch (payTag) {
-                                    case "0":
-                                        Toast.makeText(ShopCarOrderDetailsActivity.this, "亲，此次消费还没有开通一网通支付哦", Toast.LENGTH_SHORT).show();
-                                        break;
-                                    case "1":
-                                        try {
-                                            JSONObject object = new JSONObject(result);
-                                            JSONObject body = object.getJSONObject("body");
-                                            String sign = body.getString("sign");
-                                            mPay.aliPay(sign);
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                        break;
-                                    case "2":
-                                        mPay.weChatPay(result);
-                                        break;
-                                    default:
-                                        break;
+                                String ret = JsonUtils.getRet(result);
+                                if ("0".equals(ret)) {
+                                    switch (payTag) {
+                                        case "0":
+                                            Toast.makeText(ShopCarOrderDetailsActivity.this, "亲，此次消费还没有开通一网通支付哦", Toast.LENGTH_SHORT).show();
+                                            break;
+                                        case "1":
+                                            try {
+                                                JSONObject object = new JSONObject(result);
+                                                JSONObject body = object.getJSONObject("body");
+                                                String sign = body.getString("sign");
+                                                mPay.aliPay(sign);
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                            break;
+                                        case "2":
+                                            mPay.weChatPay(result);
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                } else if ("1".equals(ret)) {
+                                    Toast.makeText(ShopCarOrderDetailsActivity.this, "下单成功", Toast.LENGTH_SHORT).show();
+                                } else if ("3011".equals(ret)) {
+                                    Toast.makeText(ShopCarOrderDetailsActivity.this, "优惠码不能多订单合并支付", Toast.LENGTH_SHORT).show();
+                                } else if ("3008".equals(ret)) {
+                                    Toast.makeText(ShopCarOrderDetailsActivity.this, "请检查优惠码是否正确", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }, this).execute(NetConfig.SHOPCAR_SING_SHOP, o1.toString());

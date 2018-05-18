@@ -44,11 +44,11 @@ public class City {
     public static class BodyBean implements Serializable, Visitable {
 
 
-
         @Override
         public int type(TypeFactory typeFactory) {
             return typeFactory.type(this);
         }
+
         /**
          * phone :
          * base_price1 :
@@ -97,6 +97,15 @@ public class City {
         private String grade;
         private String area;
         private String imgPath;
+        private String monthStar;
+
+        public String getMonthStar() {
+            return monthStar;
+        }
+
+        public void setMonthStar(String monthStar) {
+            this.monthStar = monthStar;
+        }
 
         public String getImgPath() {
             return imgPath;

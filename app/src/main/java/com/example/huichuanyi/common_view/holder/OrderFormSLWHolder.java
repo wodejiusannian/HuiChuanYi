@@ -13,7 +13,10 @@ import com.bumptech.glide.Glide;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.common_view.adapter.MultiTypeAdapter;
 import com.example.huichuanyi.common_view.model.OrderFormSLW;
+import com.example.huichuanyi.custom.GlideCircleTransform;
 import com.example.huichuanyi.custom.GlideRoundTransform;
+import com.example.huichuanyi.emum.OrderType;
+import com.example.huichuanyi.utils.ServiceSingleUtils;
 
 import java.util.List;
 
@@ -45,6 +48,7 @@ public class OrderFormSLWHolder extends BaseViewHolder<OrderFormSLW.BodyBean> {
         HorizontalScrollView scrollView = (HorizontalScrollView) getView(R.id.hs_ofderformslw_show);
         RelativeLayout relativeLayout = (RelativeLayout) getView(R.id.rl_orderfromslw_show);
         LinearLayout linearLayout = (LinearLayout) getView(R.id.ll_ofderformslw_show);
+        ImageView iv = (ImageView) getView(R.id.iv_orderformslw_photo);
         Context context = orderFrom.getContext();
         TextView id = (TextView) getView(R.id.tv_orderformslw_id);
         TextView state = (TextView) getView(R.id.tv_orderformslw_state);
@@ -62,14 +66,20 @@ public class OrderFormSLWHolder extends BaseViewHolder<OrderFormSLW.BodyBean> {
         btn1.setText("申请退款");
         btn2.setText("查看物流");
         OrderFormSLW.BodyBean.OrderInfoBean infoBean = model.getOrderInfo().get(0);
-        address.setText(infoBean.getConsigneeAddress());
-        time.setText(infoBean.getCompleteTime());
+        if (ServiceSingleUtils.getInstance().getOrderType() == OrderType.ORDER_BLACK) {
+            address.setText(infoBean.getPayTime());
+            time.setText("来源 ：" + infoBean.getSellerUserName());
+        } else {
+            address.setText(infoBean.getPayTime());
+            time.setText("推荐工作室：" + infoBean.getRecommendUserName());
+        }
         String moneyDiscount = model.getMoneyDiscount();
         Double douMoneyDiscount = Double.parseDouble(moneyDiscount);
         price.setText(infoBean.getMoneyPay());
         servicetype.setText(infoBean.getGoodsName());
         color.setText(infoBean.getGoodsColor());
         size.setText(infoBean.getGoodsSize());
+        Glide.with(context).load(infoBean.getGoodsPicture()).error(R.mipmap.stand).transform(new GlideCircleTransform(context)).into(iv);
         if (douMoneyDiscount > 0) {
             coupon.setText("已优惠" + moneyDiscount);
         } else {
@@ -81,8 +91,8 @@ public class OrderFormSLWHolder extends BaseViewHolder<OrderFormSLW.BodyBean> {
                 btn1.setVisibility(View.GONE);
                 btn2.setVisibility(View.GONE);
                 btn3.setVisibility(View.VISIBLE);
-                btn3.setText("待确认");
-                state.setText("待发货");
+                state.setText("进行中");
+                btn3.setText("待发货");
                 break;
             case "1":
                 btn1.setVisibility(View.GONE);
@@ -95,15 +105,8 @@ public class OrderFormSLWHolder extends BaseViewHolder<OrderFormSLW.BodyBean> {
                 btn1.setVisibility(View.GONE);
                 btn2.setVisibility(View.GONE);
                 btn3.setVisibility(View.VISIBLE);
-                btn3.setText("再来一单");
+                btn3.setText("已完成");
                 state.setText("订单已完成");
-                break;
-            case "14":
-                btn1.setVisibility(View.GONE);
-                btn2.setVisibility(View.GONE);
-                btn3.setVisibility(View.VISIBLE);
-                btn3.setText("待确认");
-                state.setText("进行中");
                 break;
             case "3":
             case "4":
@@ -118,14 +121,21 @@ public class OrderFormSLWHolder extends BaseViewHolder<OrderFormSLW.BodyBean> {
                 btn1.setVisibility(View.GONE);
                 btn2.setVisibility(View.GONE);
                 btn3.setVisibility(View.VISIBLE);
-                btn3.setText("再来一单");
+                btn3.setText("已完成");
                 state.setText("订单取消");
+                break;
+            case "7":
+                btn1.setVisibility(View.GONE);
+                btn2.setVisibility(View.GONE);
+                btn3.setVisibility(View.VISIBLE);
+                btn3.setText("已完成");
+                state.setText("订单已完成");
                 break;
             default:
                 btn1.setVisibility(View.GONE);
                 btn2.setVisibility(View.GONE);
                 btn3.setVisibility(View.VISIBLE);
-                btn3.setText("再来一单");
+                btn3.setText("已完成");
                 state.setText("订单取消");
                 break;
         }

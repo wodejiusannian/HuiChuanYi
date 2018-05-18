@@ -58,8 +58,8 @@
         android:layout_alignParentBottom="true"
         android:gravity="center_vertical">
 
-        <ImageView
-            android:id="@+id/iv_shopcar_allselct"
+        <CheckBox
+            android:id="@+id/cb_ly_shopcar_allselct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@+id/iv_shopcar_allselct"
+            android:layout_toRightOf="@+id/cb_ly_shopcar_allselct"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
             android:text="全选"

@@ -7,8 +7,8 @@ android {
         applicationId "com.example.huichuanyi"
         minSdkVersion 18
         targetSdkVersion 22
-        versionCode 43
-        versionName "2.2.9"
+        versionCode 44
+        versionName "2.3"
         multiDexEnabled true
         ndk {
             //选择要添加的对应cpu类型的.so库。

@@ -27,8 +27,11 @@ import com.example.huichuanyi.ui.activity.pay.YWTPayActivity;
 import com.example.huichuanyi.ui.base.BaseActivity;
 import com.example.huichuanyi.utils.ActivityCacheUtils;
 import com.example.huichuanyi.utils.ActivityUtils;
+import com.example.huichuanyi.utils.AsyncHttpUtils;
 import com.example.huichuanyi.utils.CommonUtils;
+import com.example.huichuanyi.utils.HttpCallBack;
 import com.example.huichuanyi.utils.IsSuccess;
+import com.example.huichuanyi.utils.JsonUtils;
 import com.example.huichuanyi.utils.MUtilsInternet;
 import com.example.huichuanyi.utils.ServiceSingleUtils;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
@@ -296,78 +299,74 @@ public class OrderDetailsActivity extends BaseActivity implements IsSuccess {
     TextView deleteMoney;
 
     private void goPay() {
-        String invitation_code = ets[0].getText().toString();
-        String time = tvTime.getText().toString().trim();
-        String user_name = customerInfo[0].getText().toString().trim();
-        String userCity = customerInfo[2].getText().toString().trim();
-        String userPhone = customerInfo[1].getText().toString().trim();
-        String clothes_num = tvCount.getText().toString();
-        final String remarks = ets[1].getText().toString();
-        String user_id = SharedPreferenceUtils.getUserData(this, 1);
-        String studio_id = model.getId();
-        if (CommonUtils.isEmpty(user_name) || CommonUtils.isEmpty(userCity) || CommonUtils.isEmpty(userPhone)) {
-            Toast.makeText(this, "请输入完整信息", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        //RequestParams pa = new RequestParams(NetConfig.UPLOADING_COM_DETAILS);
-        if (CommonUtils.isEmpty(invitation_code)) {
-            map.put("type", "0");
-            //pa.addBodyParameter("type", "0");
-        } else {
-            map.put("type", "1");
-            //pa.addBodyParameter("type", "1");
-        }
-        map.put("user_id", user_id);
-        //pa.addBodyParameter("user_id", user_id);
-        map.put("studio_id", studio_id);
-        //pa.addBodyParameter("studio_id", studio_id);
-        String s = clothes_num.split("-")[1];
-        map.put("clothes_num", s.substring(0, s.length() - 3));
-        //pa.addBodyParameter("clothes_num", clothes_num.split("-")[1]);
-        map.put("address_id", address_id);
-        //pa.addBodyParameter("address_id", address_id);
-        map.put("shr_address", userCity);
-        //pa.addBodyParameter("shr_address", userCity);
-        map.put("shr_phone", userPhone.replace(" ", ""));
-        //pa.addBodyParameter("shr_phone", userPhone.replace(" ", ""));
-        map.put("shr_name", user_name);
-        //pa.addBodyParameter("shr_name", user_name);
-        map.put("invitation_code", invitation_code);
-        //pa.addBodyParameter("invitation_code", invitation_code);
-        map.put("order_date", time.substring(0, 10));
-        //pa.addBodyParameter("order_date", time.substring(0, 10));
-        map.put("order_time", time);
-        //pa.addBodyParameter("order_time", time);
-        map.put("remarks", remarks);
-        //pa.addBodyParameter("remarks", remarks);
-        String substring = time.substring(10, time.length());
-        if (TextUtils.equals("上午", substring)) {
-            map.put("order_date_tag", "AM_BUSY");
-            //pa.addBodyParameter("order_date_tag", "AM_BUSY");
-        } else {
-            map.put("order_date_tag", "PM_BUSY");
-            // pa.addBodyParameter("order_date_tag", "PM_BUSY");
-        }
-        //String url = "http://192.168.1.160:8081/HM/app/stu/order/service/order/addServiceOrder_new.do";
-        net.post(NetConfig.UPLOADING_COM_DETAILS, this, map, new MUtilsInternet.XCallBack() {
-            @Override
-            public void onResponse(String result) {
-                try {
-                    JSONObject obj = new JSONObject(result);
-                    String ret = obj.getString("ret");
-                    if ("0".equals(ret)) {
-                        JSONObject body = obj.getJSONObject("body");
-                        order_id = body.getString("order_id");
-                        payGo();
-                    } else {
-                        String msg = obj.getString("msg");
-                        Toast.makeText(OrderDetailsActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+        if (!CommonUtils.isEmpty(payTag) || "3".equals(payTag)) {
+            String invitation_code = ets[0].getText().toString();
+            final String remarks = ets[1].getText().toString();
+            String name = customerInfo[0].getText().toString();
+            String phone = customerInfo[1].getText().toString();
+            String address = customerInfo[2].getText().toString();
+            if (CommonUtils.isEmpty(name) || CommonUtils.isEmpty(phone) || CommonUtils.isEmpty(address)) {
+                Toast.makeText(this, "请填写完整个人信息", Toast.LENGTH_SHORT).show();
+                return;
             }
-        });
+            try {
+                JSONObject o1 = new JSONObject();
+                o1.put("token", NetConfig.TOKEN);
+                o1.put("payType", payTag);
+                o1.put("concessionCode", invitation_code);
+                o1.put("orderRemarkBuyer", remarks);
+                o1.put("consigneeName", name);
+                o1.put("consigneePhone", phone);
+                o1.put("consigneeAddress", address);
+                JSONArray a = new JSONArray();
+                JSONObject O2 = new JSONObject();
+                O2.put("id", id);
+                a.put(O2);
+                o1.put("ids", a);
+                new AsyncHttpUtils(new HttpCallBack() {
+                    @Override
+                    public void onResponse(String result) {
+                        String ret = JsonUtils.getRet(result);
+                        if ("0".equals(ret)) {
+                            switch (payTag) {
+                                case "3":
+                                    Toast.makeText(OrderDetailsActivity.this, "亲，此次消费还没有开通一网通支付哦", Toast.LENGTH_SHORT).show();
+                                    break;
+                                case "1":
+                                    try {
+                                        JSONObject object = new JSONObject(result);
+                                        JSONObject body = object.getJSONObject("body");
+                                        String sign = body.getString("sign");
+                                        mPay.aliPay(sign);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    break;
+                                case "2":
+                                    mPay.weChatPay(result);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        } else if ("1".equals(ret)) {
+                            Toast.makeText(OrderDetailsActivity.this, "下单成功", Toast.LENGTH_SHORT).show();
+                        } else if ("3011".equals(ret)) {
+                            Toast.makeText(OrderDetailsActivity.this, "优惠码不能多订单合并支付", Toast.LENGTH_SHORT).show();
+                        } else if ("3008".equals(ret)) {
+                            Toast.makeText(OrderDetailsActivity.this, "请检查优惠码是否正确", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }, this).execute(NetConfig.SHOPCAR_SING_SHOP, o1.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else {
+            if ("3".equals(payTag)) {
+                Toast.makeText(this, "亲，此次消费还没有开通一网通支付哦", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "请选择支付方式", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private String money;
@@ -382,7 +381,7 @@ public class OrderDetailsActivity extends BaseActivity implements IsSuccess {
                 RequestParams pa = new RequestParams("http://hmyc365.net/admiral/common/concession/code/getPrice.htm");
                 pa.addBodyParameter("token", "82D5FBD40259C743ADDEF14D0E22F347");
                 pa.addBodyParameter("concessionCode", invitation_code);
-                pa.addBodyParameter("orderType","1");
+                pa.addBodyParameter("orderType", "1");
                 x.http().post(pa, new Callback.CommonCallback<String>() {
                     @Override
                     public void onSuccess(String result) {
@@ -456,16 +455,16 @@ public class OrderDetailsActivity extends BaseActivity implements IsSuccess {
                             JSONObject object = new JSONObject(result);
                             JSONObject body = object.getJSONObject("body");
                             final String price = body.getString("price");
-                            double v = Double.parseDouble(price);
-                            double v1 = Double.parseDouble(money);
+                            final double v = Double.parseDouble(price);
+                            final double v1 = Double.parseDouble(money);
                             final double v2 = v1 - v;
                             if (v2 > 0) {
                                 new Handler().post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        tvMoney.setText("¥" + price);
-                                        tvMoneys.setText("¥" + price);
-                                        deleteMoney.setText("- ¥" + v2);
+                                        tvMoney.setText("¥" + CommonUtils.strDoubleTwo(v));
+                                        tvMoneys.setText("¥" + CommonUtils.strDoubleTwo(v));
+                                        deleteMoney.setText("- ¥" + CommonUtils.strDoubleTwo(v2));
                                     }
                                 });
                             } else {
@@ -473,8 +472,8 @@ public class OrderDetailsActivity extends BaseActivity implements IsSuccess {
                                     @Override
                                     public void run() {
                                         deleteMoney.setText("不可用");
-                                        tvMoney.setText("¥" + money);
-                                        tvMoneys.setText("¥" + money);
+                                        tvMoney.setText("¥" + CommonUtils.strDoubleTwo(v1));
+                                        tvMoneys.setText("¥" + CommonUtils.strDoubleTwo(v1));
                                     }
                                 });
                             }
@@ -691,6 +690,7 @@ public class OrderDetailsActivity extends BaseActivity implements IsSuccess {
         String time = intent.getStringExtra("time");
         money = intent.getStringExtra("money");
         addGrade = intent.getStringExtra("addGrade");
+        id = intent.getStringExtra("id");
         tvMoney.setText("¥" + money);
         tvCount.setText(count);
         tvTime.setText(time);
@@ -708,6 +708,7 @@ public class OrderDetailsActivity extends BaseActivity implements IsSuccess {
 
     }
 
+    private String id;
     private City.BodyBean model;
 
     @Override

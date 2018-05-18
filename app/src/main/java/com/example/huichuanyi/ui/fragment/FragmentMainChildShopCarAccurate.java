@@ -5,11 +5,12 @@ import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.HomeAdapter;
@@ -17,11 +18,14 @@ import com.example.huichuanyi.base_2.BaseFragment;
 import com.example.huichuanyi.bean.Banner;
 import com.example.huichuanyi.common_view.adapter.MultiTypeAdapter;
 import com.example.huichuanyi.common_view.model.PrivateRecommendModel;
+import com.example.huichuanyi.common_view.model.ShopCarType4Model;
 import com.example.huichuanyi.common_view.model.Visitable;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.ui.activity.HMWebActivity;
 import com.example.huichuanyi.ui.activity.Item_DetailsActivity;
+import com.example.huichuanyi.ui.newpage.ShopCarOrderDetailsActivity;
 import com.example.huichuanyi.utils.CommonUtils;
+import com.example.huichuanyi.utils.JsonUtils;
 import com.example.huichuanyi.utils.MUtilsInternet;
 import com.example.huichuanyi.utils.OverLayCardLayoutManager;
 import com.example.huichuanyi.utils.RenRenCallback;
@@ -43,7 +47,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.OnClick;
 
 // ┏┓　　　┏┓
@@ -75,24 +78,62 @@ public class FragmentMainChildShopCarAccurate extends BaseFragment {
     private RenRenCallback callback = new RenRenCallback();
 
 
-    @BindViews({R.id.tv_mainchildshopcar_money_one, R.id.tv_mainchildshopcar_money_two})
-    TextView[] moneys;
+    @BindView(R.id.tv_mainchildshopcar_money_one)
+    TextView money;
 
-    private boolean canGo = true;
 
     @Override
     protected void initEvent() {
         super.initEvent();
+        mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                double totelMoney = 0;
+                ArrayList<Boolean> list = new ArrayList<Boolean>();
+                for (int i = 0; i < mData.size(); i++) {
+                    PrivateRecommendModel model = (PrivateRecommendModel) mData.get(i);
+                    if (model.isSelect())
+                        totelMoney += Double.parseDouble(model.getPrice_dj());
+                    list.add(model.isSelect());
+                }
+                if (list.contains(false)) {
+                    ivAllSelect.setImageResource(R.mipmap.hm_shopcar_noselect);
+                } else {
+                    ivAllSelect.setImageResource(R.mipmap.hm_shopcar_select);
+                }
+                money.setText(totelMoney + "");
+            }
+        });
         mAdapter.setOnItemClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int p = (int) v.getTag();
+                final int p = (int) v.getTag();
                 switch (v.getId()) {
                     case R.id.rl_test:
                         goNext();
                         break;
                     case R.id.iv_shocaraccuratetantan_delete:
-
+                        PrivateRecommendModel model1 = (PrivateRecommendModel) mData.get(p);
+                        String id = model1.getId();
+                        if (!CommonUtils.isEmpty(id)) {
+                            Map<String, String> map = new HashMap<>();
+                            map.put("buyUserId", SharedPreferenceUtils.getUserData(getContext(), 1));
+                            map.put("token", NetConfig.TOKEN);
+                            map.put("idPj", model1.getId());
+                            net.post(NetConfig.SHOPCAR_DELETE_SHOP, getContext(), map, new MUtilsInternet.XCallBack() {
+                                @Override
+                                public void onResponse(String result) {
+                                    String ret = JsonUtils.getRet(result);
+                                    if ("0".equals(ret)) {
+                                        mData.remove(p);
+                                        mAdapter.notifyDataSetChanged();
+                                    } else {
+                                        Toast.makeText(getContext(), "删除失败", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                        }
                         break;
                     case R.id.iv_shocaraccuratetantan_go:
                         PrivateRecommendModel model = (PrivateRecommendModel) mData.get(p);
@@ -105,18 +146,21 @@ public class FragmentMainChildShopCarAccurate extends BaseFragment {
                 }
             }
         });
-        scrollView.setOnTouchListener(new View.OnTouchListener() {
+      /*  scrollView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                // 判断scrollview 滑动到底部
-                // scrollY 的值和子view的高度一样，这人物滑动到了底部
-                float down;
                 if (scrollView.getChildAt(0).getHeight() - scrollView.getHeight()
                         == scrollView.getScrollY()) {
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_MOVE:
                             down = event.getY();
-                            if ((event.getY() - down) < 100 && canGo) {
+                            Log.e("TAG", "onTouch: ----down" + down);
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            Log.e("TAG", "onTouch: ----yDOWN" + down);
+                            float y = event.getY() - down;
+                            Log.e("TAG", "onTouch: ----y" + y);
+                            if (y > 10 && canGo) {
                                 canGo = false;
                                 goNext();
                             }
@@ -127,7 +171,8 @@ public class FragmentMainChildShopCarAccurate extends BaseFragment {
                 }
                 return false;
             }
-        });
+        });*/
+
         banner.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -187,28 +232,17 @@ public class FragmentMainChildShopCarAccurate extends BaseFragment {
 
     }
 
+
     private void goNext() {
         PrivateRecommendModel privateRecommendModel = (PrivateRecommendModel) mData.get(mData.size() - 1);
         String id = privateRecommendModel.getId();
         if (!CommonUtils.isEmpty(id)) {
             Intent intent = new Intent(getContext(), Item_DetailsActivity.class);
-            intent.putExtra("color_name", privateRecommendModel.getColor_name());
-            intent.putExtra("name", privateRecommendModel.getColor_name());
-            intent.putExtra("clothes_get", privateRecommendModel.getClothes_get());
-            intent.putExtra("price_dj", privateRecommendModel.getPrice_dj());
-            intent.putExtra("size_name", privateRecommendModel.getSize_name());
-            intent.putExtra("id", privateRecommendModel.getId());
-            intent.putExtra("type", "3");
-            intent.putExtra("reason", privateRecommendModel.getReason());
-            intent.putExtra("recommend_id", privateRecommendModel.getRecommend_id());
+            intent.putExtra("bean", privateRecommendModel);
             startActivity(intent);
-            canGo = true;
         }
     }
 
-    private static final String TAG = "Main";
-
-    private int p;
 
     @Override
     protected void initData() {
@@ -325,16 +359,57 @@ public class FragmentMainChildShopCarAccurate extends BaseFragment {
 
     List<Banner> mBanner = new ArrayList<Banner>();
 
-    @OnClick({R.id.tv_mainshopcar_self})
+    @OnClick({R.id.tv_mainshopcar_self, R.id.iv_ly_shopcar_allselct, R.id.ll_mainchildshopcar_money})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_mainshopcar_self:
                 shopCar.setChange();
                 break;
+            case R.id.iv_ly_shopcar_allselct:
+                ArrayList<Boolean> list = new ArrayList<>();
+                for (int i = 0; i < mData.size(); i++) {
+                    PrivateRecommendModel model = (PrivateRecommendModel) mData.get(i);
+                    list.add(model.isSelect());
+                }
+                if (list.contains(false)) {
+                    for (int i = 0; i < mData.size(); i++) {
+                        PrivateRecommendModel model = (PrivateRecommendModel) mData.get(i);
+                        model.setSelect(true);
+                    }
+                } else {
+                    for (int i = 0; i < mData.size(); i++) {
+                        PrivateRecommendModel model = (PrivateRecommendModel) mData.get(i);
+                        model.setSelect(false);
+                    }
+                }
+                mAdapter.notifyDataSetChanged();
+                break;
+            case R.id.ll_mainchildshopcar_money:
+                ArrayList<ShopCarType4Model> array = new ArrayList<>();
+                for (Visitable visitable : mData) {
+                    PrivateRecommendModel model = (PrivateRecommendModel) visitable;
+                    boolean check2 = model.isSelect();
+                    if (check2) {
+                        array.add(new ShopCarType4Model(model.getColor_name(), model.getId(), model.getClothes_name(), model.getClothes_get(),
+                                model.getPrice_dj(), model.getSize_name(), model.getId(), 1, model.getId()));
+                    }
+                }
+                if (array.size() > 0) {
+                    Intent intent = new Intent(getActivity(), ShopCarOrderDetailsActivity.class);
+                    intent.putParcelableArrayListExtra("shoplist", array);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getContext(), "请选择商品", Toast.LENGTH_SHORT).show();
+                }
+                break;
             default:
                 break;
         }
     }
+
+    @BindView(R.id.iv_ly_shopcar_allselct)
+    ImageView ivAllSelect;
+
 
     @BindView(R.id.scrollView)
     ScrollView scrollView;

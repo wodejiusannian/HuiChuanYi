@@ -253,7 +253,7 @@ public class FragmentMainHome extends BaseFragment implements UtilsInternet.XCal
 
     private void initBannner(String weather) {
         Map map = new HashMap();
-        map.put("weather", "晴");
+        map.put("weather", weather);
         internet.post("http://hmyc365.net/admiral/common/weather/weatherPic.htm?", map, new UtilsInternet.XCallBack() {
             @Override
             public void onResponse(String result) {

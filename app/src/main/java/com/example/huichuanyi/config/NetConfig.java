@@ -298,7 +298,6 @@ public interface NetConfig {
 
     String PINGJIA_ACARUS_KILLING = BASE_NEW_URL + "/admiral/app/hmyc/service/evaluate/addEvaluate.htm";
 
-
     //2.0改版后的接口
     String TOKEN = "82D5FBD40259C743ADDEF14D0E22F347";
     //用户信息获取接口
@@ -323,7 +322,19 @@ public interface NetConfig {
     String SHOPCAR_MANAGER_RECOMMEND = BASE_NEW_URL + "/admiral/app/hmyc/order/info/listGwcGls.htm?token=82D5FBD40259C743ADDEF14D0E22F347";
     //我的订单列表
     String MINEORDER_LIST = BASE_NEW_URL + "/admiral/app/hmyc/order/info/listOrder.htm?token=82D5FBD40259C743ADDEF14D0E22F347";
+    //我的订单列表
+    String SEECAR_LIST = BASE_NEW_URL + "/admiral/common/express/expressKdn.htm?token=token=82D5FBD40259C743ADDEF14D0E22F347";
     //365VIP购买下单
     String BUYVIP = BASE_NEW_URL + "/admiral/app/hmyc/order/vip/addOrder.htm?token=82D5FBD40259C743ADDEF14D0E22F347";
+    //订单中订单确认收货
+    String ORDER_SUREGET = BASE_NEW_URL + "/admiral/app/hmyc/order/info/orderComplete.htm?token=82D5FBD40259C743ADDEF14D0E22F347";
+    //上门服务中下单的接口
+    String SERVICE_GOORDER_GO_GO = BASE_NEW_URL + "/admiral/app/hmyc/order/service/addOrder.htm?token=82D5FBD40259C743ADDEF14D0E22F347";
+    //上门服务补差价的接口
+    String GODOOR_CLOSEPRICE_GETPRICE = BASE_NEW_URL + "/admiral/app/hmyc/order/service/getOrdPriceBcj.htm?token=82D5FBD40259C743ADDEF14D0E22F347";
+    //上门服务补差价下单接口
+    String GOODOOR_CLOSERPRICE_GETSIGN = BASE_NEW_URL + "/admiral/app/hmyc/order/service/addOrderBcj.htm?token=82D5FBD40259C743ADDEF14D0E22F347";
+    //APP更新接口
+    String APP_ISHAVEFRESH = BASE_NEW_URL + "/admiral/system/version/versionCheck.htm?token=82D5FBD40259C743ADDEF14D0E22F347";
 }
 

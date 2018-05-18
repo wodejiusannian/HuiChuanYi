@@ -1,5 +1,6 @@
 package com.example.huichuanyi.utils;
 
+import com.example.huichuanyi.emum.OrderType;
 import com.example.huichuanyi.emum.ServiceType;
 
 // ┏┓　　　┏┓
@@ -25,6 +26,8 @@ public class ServiceSingleUtils {
 
     public ServiceType serviceType;
 
+    public OrderType orderType;
+
     public ServiceType getServiceType() {
         return serviceType;
     }
@@ -35,6 +38,14 @@ public class ServiceSingleUtils {
 
     private ServiceSingleUtils() {
         //do something
+    }
+
+    public OrderType getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(OrderType orderType) {
+        this.orderType = orderType;
     }
 
     public static ServiceSingleUtils getInstance() {

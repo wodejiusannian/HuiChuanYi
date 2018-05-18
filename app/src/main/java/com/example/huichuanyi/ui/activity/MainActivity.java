@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -24,6 +25,7 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.baidumap.Fresh_365;
 import com.example.huichuanyi.baidumap.Location;
 import com.example.huichuanyi.config.NetConfig;
+import com.example.huichuanyi.custom.dialog.MySureDialog;
 import com.example.huichuanyi.ui.activity.login.LoginByAuthCodeActivity;
 import com.example.huichuanyi.ui.base.BaseActivity;
 import com.example.huichuanyi.ui.fragment.FragmentMainHome;
@@ -105,7 +107,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("action.refreshFriend");
         registerReceiver(mRefreshBroadcastReceiver, intentFilter);
-        UpdateUtils.getInstance(this).update(true);
     }
 
     public void setListener() {
@@ -117,6 +118,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             in.putExtra("first", "1");
             startActivity(in);
         }
+        isFresh();
     }
 
 
@@ -350,5 +352,40 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         int page = intent.getIntExtra("page", 0);
         RadioButton but = (RadioButton) mRadioGroup.getChildAt(page);
         but.setChecked(true);
+    }
+
+    private void isFresh() {
+        Map<String, String> map = new HashMap<>();
+        map.put("appType", "1");
+        map.put("version", "5");
+        net.post(NetConfig.APP_ISHAVEFRESH, map, new UtilsInternet.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+                try {
+                    JSONObject obj = new JSONObject(result);
+                    JSONObject body = obj.getJSONObject("body");
+                    String newVersionTag = body.getString("newVersionTag");
+                    if ("0".equals(newVersionTag)) {
+                        UpdateUtils.getInstance(MainActivity.this).update(true);
+                    } else {
+                        MySureDialog dialog = new MySureDialog(MainActivity.this);
+                        dialog.setMessage("亲，版本升级，请立即更新");
+                        dialog.setOnYesListener(new MySureDialog.OnYesClickListener() {
+                            @Override
+                            public void onClick() {
+                                Intent intent = new Intent();
+                                intent.setAction("android.intent.action.VIEW");
+                                Uri content_url = Uri.parse("http://hmyc365.net/hmyc/file/hm-system/html/download-app.html");
+                                intent.setData(content_url);
+                                startActivity(intent);
+                            }
+                        });
+                        dialog.show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }

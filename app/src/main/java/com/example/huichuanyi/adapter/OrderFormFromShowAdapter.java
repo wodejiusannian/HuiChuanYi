@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.huichuanyi.R;
-import com.example.huichuanyi.common_view.model.OrderFormSLW;
+import com.example.huichuanyi.common_view.model.OrderFormOrder;
 import com.example.huichuanyi.custom.GlideCircleTransform;
 
 import java.util.List;
@@ -33,12 +33,12 @@ import java.util.List;
 // ┗┓┓┏━┳┓┏┛
 // ┃┫┫　┃┫┫
 // ┗┻┛　┗┻┛
-public class OrderFormShowAdapter extends BaseAdapter {
+public class OrderFormFromShowAdapter extends BaseAdapter {
 
-    private List<OrderFormSLW.BodyBean.OrderInfoBean> mData;
+    private List<OrderFormOrder.BodyBean.OrderInfoBean> mData;
     private Context context;
 
-    public OrderFormShowAdapter(List<OrderFormSLW.BodyBean.OrderInfoBean> mData, Context context) {
+    public OrderFormFromShowAdapter(List<OrderFormOrder.BodyBean.OrderInfoBean> mData, Context context) {
         this.mData = mData;
         this.context = context;
     }
@@ -68,7 +68,7 @@ public class OrderFormShowAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        OrderFormSLW.BodyBean.OrderInfoBean bean = mData.get(position);
+        OrderFormOrder.BodyBean.OrderInfoBean bean = mData.get(position);
         holder.name.setText(bean.getGoodsName());
         holder.introduce.setText(bean.getMoneyTotal());
         Glide.with(context).load(bean.getGoodsPicture()).error(R.mipmap.stand).transform(new GlideCircleTransform(context)).into(holder.photo);

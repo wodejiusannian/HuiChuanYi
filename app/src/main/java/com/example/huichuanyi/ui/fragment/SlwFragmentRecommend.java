@@ -9,20 +9,24 @@ import android.text.Html;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base_2.BaseFragment;
 import com.example.huichuanyi.common_view.adapter.MultiTypeAdapter;
 import com.example.huichuanyi.common_view.model.PrivateRecommendModel;
+import com.example.huichuanyi.common_view.model.PrivateRecommendModel2;
 import com.example.huichuanyi.common_view.model.Visitable;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.ui.activity.Item_DetailsActivity;
 import com.example.huichuanyi.ui.activity.SLWRecordActivity;
 import com.example.huichuanyi.utils.AsyncHttpUtils;
+import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.HttpCallBack;
 import com.example.huichuanyi.utils.HttpUtils;
 import com.example.huichuanyi.utils.JsonUtils;
+import com.example.huichuanyi.utils.MUtilsInternet;
 import com.example.huichuanyi.utils.OverLayCardLayoutManager;
 import com.example.huichuanyi.utils.RenRenCallback;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
@@ -112,8 +116,8 @@ public class SlwFragmentRecommend extends BaseFragment {
     @Override
     protected void setData() {
         super.setData();
-        RequestParams pa = new RequestParams(NetConfig.GET_RECOMMEND_NEW);
-        pa.addBodyParameter("user_id", SharedPreferenceUtils.getUserData(getContext(), 1));
+        RequestParams pa = new RequestParams(NetConfig.SHOPCAR_MANAGER_RECOMMEND);
+        pa.addBodyParameter("buyUserId", SharedPreferenceUtils.getUserData(getContext(), 1));
         x.http().post(pa, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -122,18 +126,17 @@ public class SlwFragmentRecommend extends BaseFragment {
                     JSONArray body = object.getJSONArray("body");
                     for (int i = 0; i < body.length(); i++) {
                         JSONObject obj = body.getJSONObject(i);
-                        PrivateRecommendModel privateRecommendModel = new PrivateRecommendModel();
-                        privateRecommendModel.setSize_name(obj.getString("size_name"));
-                        privateRecommendModel.setReason(obj.getString("reason"));
-                        privateRecommendModel.setRecommend_time(obj.getString("recommend_time"));
-                        privateRecommendModel.setPrice_dj(obj.getString("price_dj"));
-                        privateRecommendModel.setSize_get(obj.getString("size_get"));
-                        privateRecommendModel.setClothes_get(obj.getString("clothes_get"));
-                        privateRecommendModel.setColor_name(obj.getString("color_name"));
-                        privateRecommendModel.setIntroduction(obj.getString("introduction"));
+                        PrivateRecommendModel2 privateRecommendModel = new PrivateRecommendModel2();
+                        privateRecommendModel.setColor_name(obj.getString("goodsColor"));
+                        privateRecommendModel.setClothes_name(obj.getString("goodsName"));
+                        privateRecommendModel.setClothes_get(obj.getString("goodsPicture"));
+                        privateRecommendModel.setPrice_dj(obj.getString("goodsPrice"));
+                        privateRecommendModel.setSize_name(obj.getString("goodsSize"));
+                        privateRecommendModel.setSize_get(obj.getString("goodsSize"));
                         privateRecommendModel.setId(obj.getString("id"));
-                        privateRecommendModel.setClothes_name(obj.getString("clothes_name"));
-                        privateRecommendModel.setRecommend_id(obj.getString("recommend_id"));
+                        privateRecommendModel.setRecommend_time(obj.getString("recommendDate"));
+                        privateRecommendModel.setReason(obj.getString("recommendReason"));
+                        privateRecommendModel.setRecommend_id(obj.getString("recommendUserName"));
                         mData.add(i, privateRecommendModel);
                     }
                     if (mData != null && mData.size() == 0) {
@@ -212,33 +215,27 @@ public class SlwFragmentRecommend extends BaseFragment {
     public void onEvent(View v) {
         switch (v.getId()) {
             case R.id.hm_365_clothes_dislike:
-                if (mData != null && mData.size() > 0) {
-                    final int i = content.getAdapter().getItemCount() - 1;
-                    PrivateRecommendModel privateRecommendModel = (PrivateRecommendModel) mData.get(i);
-                    Map<String, String> map = new HashMap<String, String>();
-                    map.put("user_id", SharedPreferenceUtils.getUserData(getContext(), 1));
-                    map.put("rec_id", privateRecommendModel.getRecommend_id());
-                    String json = HttpUtils.toJson(map);
-                    new AsyncHttpUtils(new HttpCallBack() {
+                final int p = content.getAdapter().getItemCount() - 1;
+                PrivateRecommendModel2 model1 = (PrivateRecommendModel2) mData.get(p);
+                String id = model1.getId();
+                if (!CommonUtils.isEmpty(id)) {
+                    Map<String, String> map = new HashMap<>();
+                    map.put("buyUserId", SharedPreferenceUtils.getUserData(getContext(), 1));
+                    map.put("token", NetConfig.TOKEN);
+                    map.put("idPj", model1.getId());
+                    net.post(NetConfig.SHOPCAR_DELETE_SHOP, getContext(), map, new MUtilsInternet.XCallBack() {
                         @Override
                         public void onResponse(String result) {
                             String ret = JsonUtils.getRet(result);
                             if ("0".equals(ret)) {
-                                mData.remove(i);
+                                mData.remove(p);
                                 mAdapter.notifyDataSetChanged();
-                                if (mData != null && mData.size() == 0) {
-                                    mHandler.sendEmptyMessage(0);
-                                }
+                            } else {
+                                Toast.makeText(getContext(), "删除失败", Toast.LENGTH_SHORT).show();
                             }
                         }
-                    }, getActivity()).execute("http://hmyc365.net/HM/bg/hmyc/vip/info/deleteRecClo.do", json);
+                    });
                 }
-              /*  callback.toLeft(content, new RenRenCallback.SwipePosition() {
-                    @Override
-                    public void swipePosition(final int p) {
-
-                    }
-                });*/
                 break;
             case R.id.btn_365_seven_refuse_data:
                 showStudioDialog(4);
@@ -247,7 +244,6 @@ public class SlwFragmentRecommend extends BaseFragment {
                 if (mData != null && mData.size() > 0) {
                     int i11 = content.getAdapter().getItemCount() - 1;
                     goNext(i11);
-
                 }
                 break;
             case R.id.tv_slw_private_recommend_history:
@@ -260,30 +256,25 @@ public class SlwFragmentRecommend extends BaseFragment {
     }
 
     private void goNext(int i11) {
-        PrivateRecommendModel item = (PrivateRecommendModel) mData.get(i11);
-        Intent in = new Intent(getContext(), Item_DetailsActivity.class);
-        String clothes_get = item.getClothes_get();
-        String color = item.getColor();
-        String color_name = item.getColor_name();
-        String id = item.getId();
-        String introduction = item.getIntroduction();
-        String price_dj = item.getPrice_dj();
-        String reason = item.getReason();
-        String size_name = item.getSize_name();
-        String clothes_name = item.getClothes_name();
-        String recommend_id = item.getRecommend_id();
-        in.putExtra("clothes_get", clothes_get);
-        in.putExtra("color", color);
-        in.putExtra("color_name", color_name);
-        in.putExtra("id", id);
-        in.putExtra("type", "3");
-        in.putExtra("introduction", introduction);
-        in.putExtra("price_dj", price_dj);
-        in.putExtra("name", clothes_name);
-        in.putExtra("reason", reason);
-        in.putExtra("size_name", size_name);
-        in.putExtra("recommend_id", recommend_id);
-        startActivity(in);
+        PrivateRecommendModel2 item = (PrivateRecommendModel2) mData.get(i11);
+        if (!CommonUtils.isEmpty(item.getId())) {
+            PrivateRecommendModel bean = new PrivateRecommendModel();
+            bean.setId(item.getId());
+            bean.setClothes_get(item.getClothes_get());
+            bean.setClothes_name(item.getColor_name());
+            bean.setColor(item.getColor());
+            bean.setColor_name(item.getColor_name());
+            bean.setIntroduction(item.getIntroduction());
+            bean.setPrice_dj(item.getPrice_dj());
+            bean.setReason(item.getReason());
+            bean.setRecommend_id(item.getRecommend_id());
+            bean.setRecommend_time(item.getRecommend_time());
+            bean.setSize_get(item.getSize_get());
+            bean.setSize_name(item.getSize_name());
+            Intent in = new Intent(getContext(), Item_DetailsActivity.class);
+            in.putExtra("bean", bean);
+            startActivity(in);
+        }
     }
 
     public void showStudioDialog(int userEvent) {
@@ -352,4 +343,6 @@ public class SlwFragmentRecommend extends BaseFragment {
             }
         });
     }
+
+    private MUtilsInternet net = MUtilsInternet.getInstance();
 }

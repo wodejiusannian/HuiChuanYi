@@ -49,6 +49,7 @@ public class OrderStudioTwoHolder extends BaseViewHolder<City.BodyBean> {
         TextView distance = (TextView) getView(R.id.tv_item_order_studio_distance);
         TextView ranking = (TextView) getView(R.id.tv_item_order_studio_ranking);
         TextView score = (TextView) getView(R.id.tv_item_order_studio_score);
+        ImageView star = (ImageView) getView(R.id.iv_item_order_studio_level_star);
         final Context context = rl.getContext();
         Glide.with(context).load(model.getPhoto_get()).error(R.mipmap.hm_stand_cicle).transform(new GlideCircleTransform(context)).into(logo);
         String pf1 = model.getPf();
@@ -77,6 +78,11 @@ public class OrderStudioTwoHolder extends BaseViewHolder<City.BodyBean> {
         Glide.with(context).load(imgPath + grade + "_grade.png")
                 .signature(new StringSignature(updateTime))
                 .into(level_big);
+        if ("1".equals(model.getMonthStar())) {
+            star.setVisibility(View.VISIBLE);
+        } else {
+            star.setVisibility(View.GONE);
+        }
         /*if ("1".equals(grade)) {
             level_small.setImageResource(R.mipmap.hm_studio_trainee_small);
             level_big.setImageResource(R.mipmap.hm_studio_trainee_big);

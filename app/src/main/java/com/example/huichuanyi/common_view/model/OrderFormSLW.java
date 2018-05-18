@@ -234,6 +234,24 @@ public class OrderFormSLW {
             private String sellerUserName;
             private String wayCode;
             private String wayNo;
+            private String wayPhone;
+            private String wayCompany;
+
+            public String getWayPhone() {
+                return wayPhone;
+            }
+
+            public void setWayPhone(String wayPhone) {
+                this.wayPhone = wayPhone;
+            }
+
+            public String getWayCompany() {
+                return wayCompany;
+            }
+
+            public void setWayCompany(String wayCompany) {
+                this.wayCompany = wayCompany;
+            }
 
             protected OrderInfoBean(Parcel in) {
                 acceptTime = in.readString();
@@ -274,6 +292,9 @@ public class OrderFormSLW {
                 sellerUserName = in.readString();
                 wayCode = in.readString();
                 wayNo = in.readString();
+                wayPhone = in.readString();
+                wayCompany = in.readString();
+
             }
 
             @Override
@@ -316,6 +337,8 @@ public class OrderFormSLW {
                 dest.writeString(sellerUserName);
                 dest.writeString(wayCode);
                 dest.writeString(wayNo);
+                dest.writeString(wayPhone);
+                dest.writeString(wayCompany);
             }
 
             @Override

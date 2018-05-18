@@ -9,6 +9,7 @@ import android.widget.ProgressBar;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base_2.BaseFragment;
+import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.VpSwipeRefreshLayout;
 import com.example.huichuanyi.emum.ServiceType;
 import com.example.huichuanyi.fragment_first.SinglePersonActivity;
@@ -19,6 +20,7 @@ import com.example.huichuanyi.ui.newpage.HMURLActivity;
 import com.example.huichuanyi.ui.newpage.OrderStudioListActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.ServiceSingleUtils;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.WebViewUtils;
 
 import butterknife.BindView;
@@ -42,7 +44,7 @@ public class FragmentMainService extends BaseFragment {
         return R.layout.fragment_mainservice;
     }
 
-    private static final String mUrl = "http://hmyc365.net/hmyc/file/app-service/html/index-v1.html";
+    private static final String mUrl = "http://hmyc365.net/hmyc/file/app-service/html/index-v1.html?token=" + NetConfig.TOKEN + "&userId=";
 
     @Override
     protected void initData() {
@@ -63,8 +65,8 @@ public class FragmentMainService extends BaseFragment {
             }
 
             @Override
-            public void onResultUrl(String url) {
-                Log.e("TAG", "onResultUrl: -----" + url);
+            public void onResultUrl(String url, String u) {
+                Log.e("TAG", "onResultUrl: -------" + url);
                 if (url.contains("yuyue?a=wardrobe_management")) {
                     ServiceSingleUtils.getInstance().setServiceType(ServiceType.SERVICE_THE_DOOR);
                     ActivityUtils.switchTo(getActivity(), OrderStudioListActivity.class);
@@ -87,7 +89,7 @@ public class FragmentMainService extends BaseFragment {
                         in.putExtra("brand", brand);
                         startActivity(in);
                     }
-                } else if (url.contains("yuyue?a=my_manager")) {
+                } else if (url.contains("yuyue?a=my_manager") || url.contains("#yuyue?a=365state")) {
                     Intent in = new Intent(getActivity(), SinglePersonActivity.class);
                     startActivity(in);
                 } else if (url.contains("yuyue?a=banner_click")) {
@@ -101,7 +103,7 @@ public class FragmentMainService extends BaseFragment {
                 }
             }
         });
-        mWebViewUtils.LoadingUrl(webView, mUrl);
+        mWebViewUtils.LoadingUrl(webView, mUrl + SharedPreferenceUtils.getUserData(getContext(), 1));
     }
 
     private WebViewUtils mWebViewUtils;
