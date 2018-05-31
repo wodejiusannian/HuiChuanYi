@@ -5,16 +5,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.huichuanyi.R;
-import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.common_view.model.OrderFormOrder;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MySelfDialog;
+import com.example.huichuanyi.ui.base.BaseActivity;
+import com.example.huichuanyi.utils.JsonUtils;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
 
 import org.json.JSONException;
@@ -23,19 +23,18 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
-public class ShenQingTuiKuanActivity extends BaseActivity implements View.OnClickListener {
+import butterknife.BindView;
+import butterknife.BindViews;
+import butterknife.OnClick;
 
-    //private RoundImageView mImagePhoto;
-    private TextView mTextViewName, mTextMoneyAll, allMoeny;
-    private Button mButtonSure;
-    private EditText mEditText;
+public class GoBackMoneyActivity extends BaseActivity {
 
-    private TextView textView6;
-    private String ordertime;
+    @BindViews({R.id.tv_shenqing_name, R.id.tv_shenqing_moneyall,
+            R.id.tv_shenqing_allmoney, R.id.textView6})
+    TextView[] tvs;
 
-    private String managernumber;
-
-    private String mResult;
+    @BindView(R.id.et_shenqing_write)
+    EditText mEditText;
 
     private String retMsg;
 
@@ -43,16 +42,6 @@ public class ShenQingTuiKuanActivity extends BaseActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shen_qing_tui_kuan);
-    }
-
-    @Override
-    public void initView() {
-        mTextViewName = (TextView) findViewById(R.id.tv_shenqing_name);
-        mTextMoneyAll = (TextView) findViewById(R.id.tv_shenqing_moneyall);
-        mButtonSure = (Button) findViewById(R.id.btn_shenqingtuikuan_sure);
-        mEditText = (EditText) findViewById(R.id.et_shenqing_write);
-        textView6 = (TextView) this.findViewById(R.id.textView6);
-        allMoeny = (TextView) this.findViewById(R.id.tv_shenqing_allmoney);
 
     }
 
@@ -72,20 +61,20 @@ public class ShenQingTuiKuanActivity extends BaseActivity implements View.OnClic
     @Override
     public void setData() {
         infoBean = bean.getOrderInfo().get(0);
-        mTextViewName.setText(infoBean.getSellerUserName());
-        mTextMoneyAll.setText(infoBean.getMoneyTotal());
-        textView6.setText(infoBean.getMoneyTotal());
-        allMoeny.setText(infoBean.getMoneyTotal());
+        tvs[0].setText(infoBean.getSellerUserName());
+        tvs[1].setText(infoBean.getMoneyTotal());
+        tvs[2].setText(infoBean.getMoneyTotal());
+        tvs[3].setText(infoBean.getMoneyTotal());
     }
 
     @Override
     public void setListener() {
-        mButtonSure.setOnClickListener(this);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+
+    @OnClick(R.id.btn_shenqingtuikuan_sure)
+    public void onEvent(View view) {
+        switch (view.getId()) {
             case R.id.btn_shenqingtuikuan_sure:
                 String refundReason = mEditText.getText().toString();
                 if (refundReason.length() < 10) {
@@ -106,12 +95,12 @@ public class ShenQingTuiKuanActivity extends BaseActivity implements View.OnClic
                                 JSONObject object = new JSONObject(result);
                                 String ret = object.getString("ret");
                                 if (TextUtils.equals(ret, "0")) {
-                                    Toast.makeText(ShenQingTuiKuanActivity.this, "正在申请中，亲，请耐心等待哦", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(GoBackMoneyActivity.this, "正在申请中，亲，请耐心等待哦", Toast.LENGTH_SHORT).show();
                                     finish();
                                 } else if (TextUtils.equals(result, "2")) {
-                                    Toast.makeText(ShenQingTuiKuanActivity.this, "退款订单已经申请，请勿重复提交", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(GoBackMoneyActivity.this, "退款订单已经申请，请勿重复提交", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(ShenQingTuiKuanActivity.this, "申请退款失败", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(GoBackMoneyActivity.this, "申请退款失败", Toast.LENGTH_SHORT).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -137,12 +126,14 @@ public class ShenQingTuiKuanActivity extends BaseActivity implements View.OnClic
                     isTime();
                 }
                 break;
+            default:
+                break;
         }
     }
 
     private void isTime() {
         RequestParams pa = new RequestParams(NetConfig.TUI_KUAN_TIME_BOOLEAN);
-        pa.addBodyParameter("orderTime", infoBean.getConsigneeTime());
+        pa.addBodyParameter("orderTime", infoBean.getPayTime());
         x.http().post(pa, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -155,7 +146,7 @@ public class ShenQingTuiKuanActivity extends BaseActivity implements View.OnClic
                     } else if ("2".equals(retCode)) {
                         upTuiKuanData();
                     } else {
-                        Toast.makeText(ShenQingTuiKuanActivity.this, "申请退款失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(GoBackMoneyActivity.this, "申请退款失败", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -181,17 +172,16 @@ public class ShenQingTuiKuanActivity extends BaseActivity implements View.OnClic
 
     private void upTuiKuanData() {
         String reason = mEditText.getText().toString().trim();
-        RequestParams params = new RequestParams(NetConfig.TUI_KUAN);
+        RequestParams params = new RequestParams(NetConfig.GOBACKMONEY_GODOOR);
         String userid = SharedPreferenceUtils.getUserData(this, 1);
-        params.addBodyParameter("orderid", bean.getOrderId());
-        params.addBodyParameter("state", infoBean.getDeleteStatus());
-        params.addBodyParameter("userid", userid);
-        params.addBodyParameter("reason", reason);
-        params.addBodyParameter("orderTime", ordertime);
+        params.addBodyParameter("buyUserId", userid);
+        params.addBodyParameter("orderType", infoBean.getOrderType());
+        params.addBodyParameter("deleteStatus", infoBean.getDeleteStatus());
+        params.addBodyParameter("orderId", bean.getOrderId());
+        params.addBodyParameter("refundReason", reason);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                mResult = result;
                 go(result);
             }
 
@@ -213,13 +203,12 @@ public class ShenQingTuiKuanActivity extends BaseActivity implements View.OnClic
     }
 
     private void go(String result) {
-        if (TextUtils.equals(result, "1")) {
-            Toast.makeText(ShenQingTuiKuanActivity.this, "正在申请中，亲，请耐心等待哦", Toast.LENGTH_SHORT).show();
+        String ret = JsonUtils.getRet(result);
+        if (TextUtils.equals(ret, "0")) {
+            Toast.makeText(GoBackMoneyActivity.this, "正在申请中，亲，请耐心等待哦", Toast.LENGTH_SHORT).show();
             finish();
-        } else if (TextUtils.equals(result, "2")) {
-            Toast.makeText(ShenQingTuiKuanActivity.this, "退款订单已经申请，请勿重复提交", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(ShenQingTuiKuanActivity.this, "申请退款失败", Toast.LENGTH_SHORT).show();
+            Toast.makeText(GoBackMoneyActivity.this, "退款订单已经申请，请勿重复提交", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -231,7 +220,7 @@ public class ShenQingTuiKuanActivity extends BaseActivity implements View.OnClic
             @Override
             public void onClick() {
                 upTuiKuanData();
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + managernumber));
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + infoBean.getSellerPhone()));
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }

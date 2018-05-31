@@ -16,6 +16,7 @@ import com.example.huichuanyi.base.BaseFragment;
 import com.example.huichuanyi.bean.Banner;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.VpSwipeRefreshLayout;
+import com.example.huichuanyi.newui.activity.OrderFormActivity;
 import com.example.huichuanyi.secondui.AtMyAcitivty;
 import com.example.huichuanyi.ui.activity.HMWebActivity;
 import com.example.huichuanyi.ui.activity.HomeDaPeiRiJiActivity;
@@ -24,7 +25,6 @@ import com.example.huichuanyi.ui.activity.LabelsActivity;
 import com.example.huichuanyi.ui.activity.MC_HomeActivity;
 import com.example.huichuanyi.ui.activity.MC_OldClothesActivity;
 import com.example.huichuanyi.ui.activity.MC_TripAndElseActivity;
-import com.example.huichuanyi.ui.activity.MyOrderActivity;
 import com.example.huichuanyi.ui.newpage.HomeMeasureActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonUtils;
@@ -162,7 +162,10 @@ public class FragmentMainHome extends BaseFragment implements UtilsInternet.XCal
                         ActivityUtils.switchTo(getActivity(), HMWebActivity.class, map);
                         break;
                     case "5":
-                        ActivityUtils.switchTo(getActivity(), MyOrderActivity.class);
+                        Intent orderIntent = new Intent(getActivity(), OrderFormActivity.class);
+                        orderIntent.putExtra("title", "预约订单");
+                        orderIntent.putExtra("orderTypePj", "1,2,3,4");
+                        startActivity(orderIntent);
                         break;
                     case "3":
                         ActivityUtils.switchTo(getActivity(), HomeDaPeiRiJiActivity.class);
@@ -236,10 +239,10 @@ public class FragmentMainHome extends BaseFragment implements UtilsInternet.XCal
                 weatherInfo[0].setText(province);
                 weatherInfo[1].setText(city);
                 weatherInfo[2].setText(weather);
-                weatherInfo[3].setText(temperature);
-                weatherInfo[4].setText(airCondition);
-                weatherInfo[5].setText(dressingIndex);
-                weatherInfo[6].setText(exerciseIndex);
+                weatherInfo[3].setText("当前气温：" + temperature);
+                weatherInfo[4].setText("空气质量：" + airCondition);
+                weatherInfo[5].setText("适宜服饰：" + dressingIndex);
+                weatherInfo[6].setText("运动指数：" + exerciseIndex);
                 weatherInfo[7].setText(week);
                 initBannner(weather);
                 weatherInfo[8].setText(date);

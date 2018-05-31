@@ -1,15 +1,16 @@
 package com.example.huichuanyi.ui.activity.custom;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.example.huichuanyi.newui.activity.OrderFormActivity;
 import com.example.huichuanyi.ui.activity.IndentActivity;
 import com.example.huichuanyi.ui.activity.MainActivity;
-import com.example.huichuanyi.ui.activity.MyOrderActivity;
 import com.example.huichuanyi.ui.activity.SLWRecordActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonStatic;
@@ -43,7 +44,10 @@ public class YWTWebViewClient extends WebViewClient {
             Activity context = (Activity) view.getContext();
             switch (CommonStatic.wechatType) {
                 case "1":
-                    ActivityUtils.switchTo(context, MyOrderActivity.class);
+                    Intent orderIntent = new Intent(context, OrderFormActivity.class);
+                    orderIntent.putExtra("title", "预约订单");
+                    orderIntent.putExtra("orderTypePj", "1,2,3,4");
+                    context.startActivity(orderIntent);
                     break;
                 case "2":
                     ActivityUtils.switchTo(context, MainActivity.class);

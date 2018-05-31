@@ -147,10 +147,7 @@
             android:exported="false"
             android:screenOrientation="behind" />
         <activity android:name=".secondui.ForgetPWDAcitity" />
-        <activity
-            android:name=".ui.activity.MyOrderActivity"
-            android:launchMode="singleTask" />
-        <activity android:name=".secondui.ShenQingTuiKuanActivity" />
+        <activity android:name=".secondui.GoBackMoneyActivity" />
         <activity android:name=".secondui.PingJiaActivity" />
         <activity
             android:name=".wxapi.WXPayEntryActivity"
@@ -252,6 +249,7 @@
             android:name="com.iflytek.autoupdate.IFlytekDownloadService"
             android:enabled="true"
             android:process=":IFlytekDownloadService" />
+
         ///融云从这里开始
         <meta-data
             android:name="RONG_CLOUD_APP_KEY"
@@ -269,7 +267,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/rc_file_path" />
         </provider>
-
         <receiver
             android:name=".im.SealNotificationReceiver"
             android:exported="true">
@@ -407,6 +404,7 @@
         <activity
             android:name=".ui.activity.PrivateManagerActivity"
             android:launchMode="singleTask" />
+        <activity android:name=".ui.newpage.HMURL2Activity"></activity>
         <activity android:name=".ui.SlwGoActivity" />
         <activity android:name=".ui.activity.HistoryZhenDuanActivity" />
         <activity android:name=".ui.newpage.OrderStudioListActivity" />

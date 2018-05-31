@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
@@ -17,7 +16,7 @@ import com.example.huichuanyi.bean.ServiceBean;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.emum.ServiceType;
 import com.example.huichuanyi.secondui.PingJiaActivity;
-import com.example.huichuanyi.secondui.ShenQingTuiKuanActivity;
+import com.example.huichuanyi.secondui.GoBackMoneyActivity;
 import com.example.huichuanyi.ui.activity.ClosingPriceActivity;
 import com.example.huichuanyi.ui.newpage.OrderStudioListActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
@@ -37,8 +36,6 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static android.content.ContentValues.TAG;
 
 public class ServiceGoDoorFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, ProgressAdapter.OnOrderClickListener {
 
@@ -134,7 +131,7 @@ public class ServiceGoDoorFragment extends BaseFragment implements SwipeRefreshL
             String city = mPosition2.getCity();*/
             switch (view.getId()) {
                 case R.id.iv_progress_item_shenqingtuikuan:
-                    Intent in = new Intent(getActivity(), ShenQingTuiKuanActivity.class);
+                    Intent in = new Intent(getActivity(), GoBackMoneyActivity.class);
                     Bundle bun = new Bundle();
                     bun.putSerializable("bean", bean);
                     in.putExtras(bun);

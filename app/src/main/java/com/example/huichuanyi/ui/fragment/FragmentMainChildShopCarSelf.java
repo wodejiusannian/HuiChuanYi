@@ -27,6 +27,7 @@ import com.example.huichuanyi.common_view.model.ShopCarType3Model;
 import com.example.huichuanyi.common_view.model.ShopCarType4Model;
 import com.example.huichuanyi.common_view.model.Visitable;
 import com.example.huichuanyi.config.NetConfig;
+import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.ui.newpage.ShopCarOrderDetailsActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.AsyncHttpUtils;
@@ -502,35 +503,44 @@ public class FragmentMainChildShopCarSelf extends BaseFragment {
                 shopCar.setChange();
                 break;
             case R.id.iv_mainchildshopcar_delete:
-                Map<String, String> map = new HashMap<>();
-                map.put("buyUserId", SharedPreferenceUtils.getUserData(getContext(), 1));
-                map.put("token", NetConfig.TOKEN);
-                String idPj = "";
-                for (Visitable visitable : mData) {
-                    if (visitable instanceof ShopCarType2Model) {
-                        ShopCarType2Model shopCarType2Model = ((ShopCarType2Model) visitable);
-                        if (shopCarType2Model.isCheck) {
-                            idPj = idPj + "," + shopCarType2Model.id;
-                        }
-                    } else if (visitable instanceof ShopCarType3Model) {
-                        ShopCarType3Model shopCarType3Model = ((ShopCarType3Model) visitable);
-                        if (shopCarType3Model.isCheck) {
-                            idPj = idPj + "," + shopCarType3Model.id;
-                        }
-                    }
-                }
-                map.put("idPj", idPj);
-                net.post(NetConfig.SHOPCAR_DELETE_SHOP, getContext(), map, new MUtilsInternet.XCallBack() {
+                MySelfDialog dialog = new MySelfDialog(getContext());
+                dialog.setMessage("确认要删除吗");
+                dialog.setOnYesListener("取认", new MySelfDialog.OnYesClickListener() {
                     @Override
-                    public void onResponse(String result) {
-                        String ret = JsonUtils.getRet(result);
-                        if ("0".equals(ret)) {
-                            initBanner();
-                        } else {
-                            Toast.makeText(getContext(), "删除失败", Toast.LENGTH_SHORT).show();
+                    public void onClick() {
+                        Map<String, String> map = new HashMap<>();
+                        map.put("buyUserId", SharedPreferenceUtils.getUserData(getContext(), 1));
+                        map.put("token", NetConfig.TOKEN);
+                        String idPj = "";
+                        for (Visitable visitable : mData) {
+                            if (visitable instanceof ShopCarType2Model) {
+                                ShopCarType2Model shopCarType2Model = ((ShopCarType2Model) visitable);
+                                if (shopCarType2Model.isCheck) {
+                                    idPj = idPj + "," + shopCarType2Model.id;
+                                }
+                            } else if (visitable instanceof ShopCarType3Model) {
+                                ShopCarType3Model shopCarType3Model = ((ShopCarType3Model) visitable);
+                                if (shopCarType3Model.isCheck) {
+                                    idPj = idPj + "," + shopCarType3Model.id;
+                                }
+                            }
                         }
+                        map.put("idPj", idPj);
+                        net.post(NetConfig.SHOPCAR_DELETE_SHOP, getContext(), map, new MUtilsInternet.XCallBack() {
+                            @Override
+                            public void onResponse(String result) {
+                                String ret = JsonUtils.getRet(result);
+                                if ("0".equals(ret)) {
+                                    initBanner();
+                                } else {
+                                    Toast.makeText(getContext(), "删除失败", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
                     }
                 });
+                dialog.setOnNoListener("取消", null);
+                dialog.show();
                 break;
             case R.id.ll_mainchildshopcar_money:
                 ArrayList<ShopCarType4Model> array = new ArrayList<>();

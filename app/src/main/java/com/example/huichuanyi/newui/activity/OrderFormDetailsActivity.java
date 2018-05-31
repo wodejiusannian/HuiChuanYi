@@ -23,11 +23,12 @@ import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.GlideCircleTransform;
 import com.example.huichuanyi.fragment_second.SeeCarActivity;
 import com.example.huichuanyi.secondui.PingJiaActivity;
-import com.example.huichuanyi.secondui.ShenQingTuiKuanActivity;
+import com.example.huichuanyi.secondui.GoBackMoneyActivity;
 import com.example.huichuanyi.ui.activity.ClosingPriceActivity;
 import com.example.huichuanyi.ui.base.BaseActivity;
 import com.example.huichuanyi.ui.newpage.OrderStudioListActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
+import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.JsonUtils;
 import com.example.huichuanyi.utils.MUtilsInternet;
 import com.example.huichuanyi.utils.ServiceSingleUtils;
@@ -76,16 +77,20 @@ public class OrderFormDetailsActivity extends BaseActivity {
                 formInfo[2].setText("上门衣橱管理服务");
             }
             formInfo[3].setText(infoBean.getSellerUserName());
-            formInfo[4].setText(infoBean.getMoneyTotal());
-            if (Double.parseDouble(bodyBean.getMoneyDiscount()) > 0) {
+            formInfo[4].setText("¥" + infoBean.getMoneyTotal());
+            String moneyDicount = bodyBean.getMoneyDiscount();
+            if (!CommonUtils.isEmpty(moneyDicount) && Double.parseDouble(moneyDicount) > 0) {
                 formInfo[5].setText("优惠" + bodyBean.getMoneyDiscount());
             }
 
             if (beanList.size() == 1) {
-                formInfo[8].setText(infoBean.getMoneyPay());
-                formInfo[6].setText(infoBean.getMoneyTotal());
-
-                Glide.with(this).load(infoBean.getGoodsPicture()).transform(new GlideCircleTransform(this)).error(R.mipmap.hm_stand_cicle).into(iv);
+                String str = infoBean.getMoneyPay();
+                if (!CommonUtils.isEmpty(str))
+                    formInfo[8].setText("¥" + str);
+                else
+                    formInfo[8].setText("¥0.00");
+                formInfo[6].setText("¥" + infoBean.getMoneyTotal());
+                Glide.with(this).load(infoBean.getSellerPicture()).transform(new GlideCircleTransform(this)).error(R.mipmap.hm_stand_cicle).into(iv);
             } else {
                 ListView listView = (ListView) this.findViewById(R.id.lv_orderfrom_show);
                 info.setVisibility(View.GONE);
@@ -118,7 +123,7 @@ public class OrderFormDetailsActivity extends BaseActivity {
                     }
                 });
             }
-            formInfo[7].setText("优惠" + bodyBean.getMoneyDiscount());
+            formInfo[7].setText("优惠¥" + bodyBean.getMoneyDiscount());
             formInfo[9].setText("订单编号:" + bodyBean.getOrderId());
             formInfo[10].setText("下单时间:" + infoBean.getPayTime());
             formInfo[11].setText("预约时间:" + infoBean.getConsigneeTime());
@@ -126,7 +131,6 @@ public class OrderFormDetailsActivity extends BaseActivity {
             formInfo[13].setText("客户姓名:" + infoBean.getConsigneeName());
             formInfo[14].setText("客户电话:" + infoBean.getConsigneePhone());
             formInfo[15].setText("管理师电话:" + infoBean.getSellerPhone());
-            Glide.with(this).load(infoBean.getGoodsPicture()).transform(new GlideCircleTransform(this)).error(R.mipmap.hm_stand_cicle).into(iv);
             buttons[0].setText("申请退款");
             buttons[1].setText("补差价");
             String type = infoBean.getDeleteStatus();
@@ -218,17 +222,18 @@ public class OrderFormDetailsActivity extends BaseActivity {
             formInfo[0].setText("订单编号:" + bodyBean.getOrderId());
             formInfo[2].setText(infoBean.getGoodsName());
             formInfo[3].setText(infoBean.getRecommendUserName());
-            formInfo[4].setText(infoBean.getMoneyTotal());
-            if (Double.parseDouble(bodyBean.getMoneyDiscount()) > 0) {
-                formInfo[5].setText("优惠" + bodyBean.getMoneyDiscount());
+            formInfo[4].setText("¥" + infoBean.getMoneyTotal());
+            String moneyDiascount = bodyBean.getMoneyDiscount();
+            if (!CommonUtils.isEmpty(moneyDiascount) && Double.parseDouble(moneyDiascount) > 0) {
+                formInfo[5].setText("优惠¥" + moneyDiascount);
             }
             float total = 0;
             for (int i = 0; i < orderInfoBeen.size(); i++) {
                 total += Double.parseDouble(orderInfoBeen.get(i).getMoneyTotal());
             }
-            formInfo[6].setText(total + "");
-            formInfo[7].setText("优惠" + bodyBean.getMoneyDiscount());
-            formInfo[8].setText(total + "");
+            formInfo[6].setText("¥" + total);
+            formInfo[7].setText("优惠¥" + bodyBean.getMoneyDiscount());
+            formInfo[8].setText("¥" + total);
             formInfo[9].setText("订单编号:" + bodyBean.getOrderId());
             formInfo[10].setText("下单时间:" + infoBean.getPayTime());
             if ("6".equals(orderTypePj)) {
@@ -326,7 +331,7 @@ public class OrderFormDetailsActivity extends BaseActivity {
     }
 
     private void btn1OnClick() {
-        Intent intent1 = new Intent(this, ShenQingTuiKuanActivity.class);
+        Intent intent1 = new Intent(this, GoBackMoneyActivity.class);
         intent1.putExtra("bean", bean);
         startActivity(intent1);
     }

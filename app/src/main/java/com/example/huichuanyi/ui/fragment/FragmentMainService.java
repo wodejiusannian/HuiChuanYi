@@ -2,7 +2,6 @@ package com.example.huichuanyi.ui.fragment;
 
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
@@ -16,14 +15,21 @@ import com.example.huichuanyi.fragment_first.SinglePersonActivity;
 import com.example.huichuanyi.ui.activity.HomeVideoCoverActivity;
 import com.example.huichuanyi.ui.activity.lanyang.LyShopListActivity;
 import com.example.huichuanyi.ui.activity.lanyang.RTCWebActivity;
+import com.example.huichuanyi.ui.newpage.HMURL2Activity;
 import com.example.huichuanyi.ui.newpage.HMURLActivity;
-import com.example.huichuanyi.ui.newpage.OrderStudioListActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.ServiceSingleUtils;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.WebViewUtils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
 import butterknife.BindView;
+import io.rong.imkit.RongIM;
 
 /**
  * Created by 小五 on 2017/3/23.
@@ -44,11 +50,12 @@ public class FragmentMainService extends BaseFragment {
         return R.layout.fragment_mainservice;
     }
 
-    private static final String mUrl = "http://hmyc365.net/hmyc/file/app-service/html/index-v1.html?token=" + NetConfig.TOKEN + "&userId=";
+    private static String mUrl = "http://hmyc365.net/hmyc/file/app-service/html/index-v1.html?token=%s&userId=%s";
 
     @Override
     protected void initData() {
         super.initData();
+        mUrl = String.format(mUrl, NetConfig.TOKEN, SharedPreferenceUtils.getUserData(getContext(), 1));
         mWebViewUtils = new WebViewUtils(new WebViewUtils.WebOnResult() {
             @Override
             public void onResultProgress(int progress) {
@@ -66,13 +73,18 @@ public class FragmentMainService extends BaseFragment {
 
             @Override
             public void onResultUrl(String url, String u) {
-                Log.e("TAG", "onResultUrl: -------" + url);
                 if (url.contains("yuyue?a=wardrobe_management")) {
                     ServiceSingleUtils.getInstance().setServiceType(ServiceType.SERVICE_THE_DOOR);
-                    ActivityUtils.switchTo(getActivity(), OrderStudioListActivity.class);
+                    Intent intent = new Intent(getContext(), HMURL2Activity.class);
+                    intent.putExtra("url", "http://hmyc365.net/hmyc/file/app/app-reservation-service/order.html");
+                    intent.putExtra("title", "上门衣橱管理服务");
+                    startActivity(intent);
                 } else if (url.contains("yuyue?a=mite_service")) {
                     ServiceSingleUtils.getInstance().setServiceType(ServiceType.SERVICE_ACARUS_KILLING);
-                    ActivityUtils.switchTo(getActivity(), OrderStudioListActivity.class);
+                    Intent intent = new Intent(getContext(), HMURL2Activity.class);
+                    intent.putExtra("title", "上门除螨服务");
+                    intent.putExtra("url", "http://hmyc365.net/hmyc/file/app/app-reservation-service/acarus.html");
+                    startActivity(intent);
                 } else if (url.contains("yuyue?a=micro_Lesson")) {
                     ActivityUtils.switchTo(getActivity(), HomeVideoCoverActivity.class);
                 } else if (url.contains("#yuyue?supplierId=")) {
@@ -86,7 +98,7 @@ public class FragmentMainService extends BaseFragment {
                     } else {
                         Intent in = new Intent(getActivity(), LyShopListActivity.class);
                         in.putExtra("supplier_id", supplierId);
-                        in.putExtra("brand", brand);
+                        in.putExtra("title", brand.toString());
                         startActivity(in);
                     }
                 } else if (url.contains("yuyue?a=my_manager") || url.contains("#yuyue?a=365state")) {
@@ -100,10 +112,50 @@ public class FragmentMainService extends BaseFragment {
                         intent.putExtra("url", url);
                         startActivity(intent);
                     }
+                } else if (url.contains("yuyue?a=chat_with_manager")) {
+                    RequestParams params = new RequestParams(NetConfig.IS_BUY_365);
+                    params.addBodyParameter("user_id", SharedPreferenceUtils.getUserData(getContext(), 1));
+                    x.http().post(params, new Callback.CacheCallback<String>() {
+                        @Override
+                        public void onSuccess(String result) {
+                            try {
+                                JSONObject object = new JSONObject(result);
+                                JSONObject body = object.getJSONObject("body");
+                                String studio_name = body.getString("studio_name");
+                                String studio_id = body.getString("studio_id");
+                                RongIM im = RongIM.getInstance();
+                                if (im != null && studio_id != null) {
+                                    im.startPrivateChat(getContext(), "hmgls_" + studio_id, studio_name);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable ex, boolean isOnCallback) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(CancelledException cex) {
+
+                        }
+
+                        @Override
+                        public void onFinished() {
+
+                        }
+
+                        @Override
+                        public boolean onCache(String result) {
+                            return false;
+                        }
+                    });
                 }
             }
         });
-        mWebViewUtils.LoadingUrl(webView, mUrl + SharedPreferenceUtils.getUserData(getContext(), 1));
+        mWebViewUtils.LoadingUrl2(webView, mUrl);
     }
 
     private WebViewUtils mWebViewUtils;
@@ -126,7 +178,7 @@ public class FragmentMainService extends BaseFragment {
             public void onRefresh() {
                 loading.setVisibility(View.VISIBLE);
                 refreshLayout.setRefreshing(false);
-                mWebViewUtils.LoadingUrl(webView, mUrl);
+                mWebViewUtils.LoadingUrl2(webView, mUrl);
             }
         });
     }

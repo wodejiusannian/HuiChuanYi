@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -69,7 +68,7 @@ public class LyShopListActivity extends BaseActivity implements UtilsInternet.XC
 
 
     @BindView(R.id.tv_main_ly_list_title)
-    TextView title;
+    TextView mTitle;
 
 
     private List<Visitable> mData = new ArrayList<>();
@@ -96,8 +95,8 @@ public class LyShopListActivity extends BaseActivity implements UtilsInternet.XC
     protected void initData() {
         Intent intent = getIntent();
         String supplier_id = intent.getStringExtra("supplier_id");
-        String brand = intent.getStringExtra("brand");
-        title.setText(brand);
+        String title = getIntent().getStringExtra("title");
+        // mTitle.setText(title);
         map.put("supplier_id", supplier_id);
         map.put("user_id", SharedPreferenceUtils.getUserData(this, 1));
         adapter = new MultiTypeAdapter(mData);

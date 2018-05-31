@@ -78,7 +78,7 @@ public class LyShopDetailsActivity extends BaseActivity implements UtilsInternet
 
     private double price_one;
 
-    private String goods_name, shop_logo, pic_url, shop_name, details_page;
+    private String goods_name, shop_logo, pic_url, shop_name, details_page, sellerPicture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +104,7 @@ public class LyShopDetailsActivity extends BaseActivity implements UtilsInternet
     @Override
     protected void initData() {
         goods_id = getIntent().getIntExtra("goods_id", 0);
+        sellerPicture = getIntent().getStringExtra("sellerPicture");
         map.put("goods_id", goods_id + "");
         map.put("user_id", getUserData(this, 1));
     }
@@ -171,6 +172,8 @@ public class LyShopDetailsActivity extends BaseActivity implements UtilsInternet
         pa.addBodyParameter("goodsId", goods_id + "");
         pa.addBodyParameter("orderNumber", orderNumber);
         pa.addBodyParameter("buyUserCity", buyUserCity);
+        pa.addBodyParameter("buyUserCity", buyUserCity);
+        pa.addBodyParameter("sellerPicture", sellerPicture);
         pa.addBodyParameter("buyUserName", buyUserName);
         pa.addBodyParameter("orderRemarkBuyer", "");
         for (int i = 0; i < changgui.size(); i++) {
@@ -258,7 +261,7 @@ public class LyShopDetailsActivity extends BaseActivity implements UtilsInternet
                 banner.setPic_url(p.getString("pic_url"));
                 mData.add(banner);
             }
-           // shopchat = body.getInt("shopcart");
+            // shopchat = body.getInt("shopcart");
             final String color = stock.getJSONObject(0).getString("color");
             final JSONObject obj = main.getJSONObject(0);
             stock_id = stock.getJSONObject(0).getInt("stock_id");

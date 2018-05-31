@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/hm_gary"
     android:fitsSystemWindows="true"
-    tools:context=".secondui.ShenQingTuiKuanActivity">
+    tools:context=".secondui.GoBackMoneyActivity">
 
     <RelativeLayout
         android:id="@+id/tl_shenqingtuikuan_show"
@@ -206,6 +206,7 @@
             android:paddingLeft="5dp"
             android:textCursorDrawable="@null"
             android:textSize="14sp" />
+
     </LinearLayout>
 
     <Button

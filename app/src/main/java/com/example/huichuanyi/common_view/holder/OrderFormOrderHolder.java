@@ -59,13 +59,12 @@ public class OrderFormOrderHolder extends BaseViewHolder<OrderFormOrder.BodyBean
         TextView btn1 = (TextView) getView(R.id.tv_orderformstate_button1);
         TextView btn2 = (TextView) getView(R.id.tv_orderformstate_button2);
         TextView btn3 = (TextView) getView(R.id.tv_orderformstate_button3);
-        ImageView iv = (ImageView) getView(R.id.iv_orderformstate_photo);
         btn1.setText("申请退款");
         btn2.setText("补差价");
         OrderFormOrder.BodyBean.OrderInfoBean infoBean = model.getOrderInfo().get(0);
         String type = infoBean.getDeleteStatus();
         Context context = orderFrom.getContext();
-        Glide.with(context).load(infoBean.getGoodsPicture()).error(R.mipmap.stand).transform(new GlideCircleTransform(context)).into(iv);
+        String sellPic = infoBean.getSellerPicture();
         switch (type) {
             case "0":
                 btn1.setVisibility(View.VISIBLE);
@@ -127,12 +126,16 @@ public class OrderFormOrderHolder extends BaseViewHolder<OrderFormOrder.BodyBean
         id.setText("订单编号:" + model.getOrderId());
         OrderFormOrder.BodyBean.OrderInfoBean bean = model.getOrderInfo().get(0);
         studioname.setText(bean.getSellerUserName());
-        price.setText(bean.getMoneyPay());
+        String moneyPay = bean.getMoneyPay();
+        if (!CommonUtils.isEmpty(moneyPay))
+            price.setText("¥" + moneyPay);
+        else
+            price.setText("¥0.00");
         String moneyDiscount = model.getMoneyDiscount();
         if (!CommonUtils.isEmpty(moneyDiscount)) {
             Double douMoneyDiscount = Double.parseDouble(moneyDiscount);
             if (douMoneyDiscount > 0) {
-                coupon.setText("优惠" + moneyDiscount);
+                coupon.setText("优惠¥" + moneyDiscount);
             } else {
                 coupon.setText("未使用优惠券及折扣");
             }
@@ -140,7 +143,7 @@ public class OrderFormOrderHolder extends BaseViewHolder<OrderFormOrder.BodyBean
             coupon.setText("未使用优惠券及折扣");
         }
         time.setText("预约时间：" + bean.getConsigneeTime());
-        address.setText("服务地址："+bean.getConsigneeAddress());
+        address.setText("服务地址：" + bean.getConsigneeAddress());
         String orderType = bean.getOrderType();
         if ("1".equals(orderType)) {
             servicetype.setText("上门除螨管理服务");
@@ -160,14 +163,14 @@ public class OrderFormOrderHolder extends BaseViewHolder<OrderFormOrder.BodyBean
                 ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) imageView.getLayoutParams();
                 p.setMargins(5, 5, 5, 5);
                 imageView.requestLayout();
-                Glide.with(context).load(list.get(i).getGoodsPicture()).error(R.mipmap.stand).transform(new GlideRoundTransform(context)).into(imageView);
+                Glide.with(context).load(list.get(i).getSellerPicture()).error(R.mipmap.stand).transform(new GlideRoundTransform(context)).into(imageView);
                 linearLayout.addView(imageView);
             }
         } else {
             scrollView.setVisibility(View.GONE);
             relativeLayout.setVisibility(View.VISIBLE);
         }
-        Glide.with(orderFrom.getContext()).load(bean.getGoodsPicture()).error(R.mipmap.hm_stand_cicle).transform(new GlideCircleTransform(orderFrom.getContext())).into(photo);
+        Glide.with(orderFrom.getContext()).load(sellPic).error(R.mipmap.hm_stand_cicle).transform(new GlideCircleTransform(orderFrom.getContext())).into(photo);
         orderFrom.setTag(position);
         btn1.setTag(position);
         btn1.setOnClickListener(adapter.getmOnclick());

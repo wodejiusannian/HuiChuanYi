@@ -50,6 +50,7 @@ public class LyListShopHolder extends BaseViewHolder<LyShopList.BodyBean> {
                 Context context = root.getContext();
                 Intent intent = new Intent(context, LyShopDetailsActivity.class);
                 intent.putExtra("goods_id", model.getGoods_id());
+                intent.putExtra("sellerPicture", model.getPic_url());
                 context.startActivity(intent);
             }
         });

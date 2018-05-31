@@ -16,7 +16,7 @@ import com.example.huichuanyi.bean.ServiceBean;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.emum.ServiceType;
 import com.example.huichuanyi.secondui.PingJiaActivity;
-import com.example.huichuanyi.secondui.ShenQingTuiKuanActivity;
+import com.example.huichuanyi.secondui.GoBackMoneyActivity;
 import com.example.huichuanyi.ui.activity.ClosingPriceActivity;
 import com.example.huichuanyi.ui.newpage.OrderStudioListActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
@@ -115,7 +115,7 @@ public class ServiceAcarusKillFragment extends BaseFragment implements SwipeRefr
         ServiceBean.BodyBean bean = mData.get(position);
         switch (view.getId()) {
             case R.id.iv_progress_item_shenqingtuikuan:
-                Intent in = new Intent(getActivity(), ShenQingTuiKuanActivity.class);
+                Intent in = new Intent(getActivity(), GoBackMoneyActivity.class);
                 Bundle bun = new Bundle();
                 bun.putSerializable("bean", bean);
                 in.putExtras(bun);

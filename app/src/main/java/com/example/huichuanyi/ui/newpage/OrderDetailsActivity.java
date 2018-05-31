@@ -20,13 +20,12 @@ import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.GlideCircleTransform;
 import com.example.huichuanyi.custom.MySelfPayDialog;
 import com.example.huichuanyi.emum.ServiceType;
+import com.example.huichuanyi.newui.activity.OrderFormActivity;
 import com.example.huichuanyi.ui.activity.AddressListActivity;
 import com.example.huichuanyi.ui.activity.LiJiYuYueWhatActivity;
-import com.example.huichuanyi.ui.activity.MyOrderActivity;
 import com.example.huichuanyi.ui.activity.pay.YWTPayActivity;
 import com.example.huichuanyi.ui.base.BaseActivity;
 import com.example.huichuanyi.utils.ActivityCacheUtils;
-import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.AsyncHttpUtils;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.HttpCallBack;
@@ -148,20 +147,22 @@ public class OrderDetailsActivity extends BaseActivity implements IsSuccess {
                 dialog.setOnYesListener("确定", new MySelfPayDialog.OnYesClickListener() {
                     @Override
                     public void onClick(String tag) {
-                        payTag = tag;
-                        ivWhat.setVisibility(View.GONE);
-                        switch (tag) {
-                            case "1":
-                                what.setText("支付宝支付");
-                                break;
-                            case "2":
-                                what.setText("微信支付");
-                                break;
-                            case "3":
-                                what.setText("一网通支付");
-                                break;
-                            default:
-                                break;
+                        if (!CommonUtils.isEmpty(tag)) {
+                            payTag = tag;
+                            ivWhat.setVisibility(View.GONE);
+                            switch (tag) {
+                                case "1":
+                                    what.setText("支付宝支付");
+                                    break;
+                                case "2":
+                                    what.setText("微信支付");
+                                    break;
+                                case "3":
+                                    what.setText("一网通支付");
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                     }
                 });
@@ -592,8 +593,10 @@ public class OrderDetailsActivity extends BaseActivity implements IsSuccess {
             public void onCallBack(int errCode) {
                 if (0 == errCode) {
                     CommonUtils.Toast(OrderDetailsActivity.this, "支付成功");
-                    mPay.showNotation();
-                    ActivityUtils.switchTo(OrderDetailsActivity.this, MyOrderActivity.class);
+                    Intent orderIntent = new Intent(OrderDetailsActivity.this, OrderFormActivity.class);
+                    orderIntent.putExtra("title", "预约订单");
+                    orderIntent.putExtra("orderTypePj", "1,2,3,4");
+                    startActivity(orderIntent);
                 } else {
                     CommonUtils.Toast(OrderDetailsActivity.this, "支付失败");
                 }
@@ -716,8 +719,10 @@ public class OrderDetailsActivity extends BaseActivity implements IsSuccess {
         switch (success) {
             case 9000:
                 CommonUtils.Toast(this, "支付成功");
-                mPay.showNotation();
-                ActivityUtils.switchTo(this, MyOrderActivity.class);
+                Intent orderIntent = new Intent(OrderDetailsActivity.this, OrderFormActivity.class);
+                orderIntent.putExtra("title", "预约订单");
+                orderIntent.putExtra("orderTypePj", "1,2,3,4");
+                startActivity(orderIntent);
                 break;
             case 9001:
                 CommonUtils.Toast(this, "支付失败");

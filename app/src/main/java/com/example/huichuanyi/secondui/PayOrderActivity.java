@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,8 +12,8 @@ import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.bean.PayState;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.PayListView;
+import com.example.huichuanyi.newui.activity.OrderFormActivity;
 import com.example.huichuanyi.ui.activity.Item_DetailsActivity;
-import com.example.huichuanyi.ui.activity.MyOrderActivity;
 import com.example.huichuanyi.ui.activity.My_365Activity;
 import com.example.huichuanyi.ui.activity.SLWWriteInfoActivity;
 import com.example.huichuanyi.ui.activity.pay.YWTPayActivity;
@@ -267,9 +266,12 @@ public class PayOrderActivity extends BaseActivity implements UtilsInternet.XCal
                 CommonUtils.Toast(this, "支付成功");
                 switch (type) {
                     case "1":
-                        mPay.showNotation();
+                        //mPay.showNotation();
                         closeActivity();
-                        ActivityUtils.switchTo(this, MyOrderActivity.class);
+                        Intent orderIntent = new Intent(this, OrderFormActivity.class);
+                        orderIntent.putExtra("title", "预约订单");
+                        orderIntent.putExtra("orderTypePj", "1,2,3,4");
+                        startActivity(orderIntent);
                         break;
                     case "2":
                         SharedPreferenceUtils.save365(this, "365");

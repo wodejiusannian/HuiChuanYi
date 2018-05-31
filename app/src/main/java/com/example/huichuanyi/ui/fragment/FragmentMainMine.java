@@ -23,6 +23,7 @@ import com.example.huichuanyi.custom.CustomToast;
 import com.example.huichuanyi.custom.GlideCircleTransform;
 import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.emum.OrderType;
+import com.example.huichuanyi.fragment_first.SinglePersonActivity;
 import com.example.huichuanyi.newui.activity.OrderFormActivity;
 import com.example.huichuanyi.newui.activity.OrderFormVideoActivity;
 import com.example.huichuanyi.secondui.FanKuiActivity;
@@ -67,7 +68,8 @@ public class FragmentMainMine extends BaseFragment {
 
     @OnClick({R.id.iv_mainmine_photo, R.id.iv_mainmine_setting, R.id.tv_mainmine_orderform, R.id.tv_mainmine_clothesform,
             R.id.tv_mainmine_blackform, R.id.tv_mainmine_videoform, R.id.tv_mainmine_exit, R.id.tv_mainmine_refresh,
-            R.id.tv_mainmine_fankui, R.id.rl_mainmine_info, R.id.rl_mainmine_openvip, R.id.iv_mainmine_report, R.id.rl_mainmine_coupon})
+            R.id.tv_mainmine_fankui, R.id.rl_mainmine_info, R.id.rl_mainmine_openvip, R.id.iv_mainmine_report, R.id.rl_mainmine_coupon,
+            R.id.tl_mainmine_noopenvip})
     public void onEvent(View v) {
         switch (v.getId()) {
             case R.id.iv_mainmine_photo:
@@ -181,6 +183,10 @@ public class FragmentMainMine extends BaseFragment {
                 intent.putExtra("title", "优惠券");
                 intent.putExtra("url", url);
                 startActivity(intent);
+                break;
+            case R.id.tl_mainmine_noopenvip:
+                Intent in = new Intent(getActivity(), SinglePersonActivity.class);
+                startActivity(in);
                 break;
         }
     }

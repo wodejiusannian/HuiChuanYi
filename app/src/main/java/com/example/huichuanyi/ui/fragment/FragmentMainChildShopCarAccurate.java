@@ -21,6 +21,7 @@ import com.example.huichuanyi.common_view.model.PrivateRecommendModel;
 import com.example.huichuanyi.common_view.model.ShopCarType4Model;
 import com.example.huichuanyi.common_view.model.Visitable;
 import com.example.huichuanyi.config.NetConfig;
+import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.ui.activity.HMWebActivity;
 import com.example.huichuanyi.ui.activity.Item_DetailsActivity;
 import com.example.huichuanyi.ui.newpage.ShopCarOrderDetailsActivity;
@@ -114,26 +115,35 @@ public class FragmentMainChildShopCarAccurate extends BaseFragment {
                         goNext();
                         break;
                     case R.id.iv_shocaraccuratetantan_delete:
-                        PrivateRecommendModel model1 = (PrivateRecommendModel) mData.get(p);
-                        String id = model1.getId();
-                        if (!CommonUtils.isEmpty(id)) {
-                            Map<String, String> map = new HashMap<>();
-                            map.put("buyUserId", SharedPreferenceUtils.getUserData(getContext(), 1));
-                            map.put("token", NetConfig.TOKEN);
-                            map.put("idPj", model1.getId());
-                            net.post(NetConfig.SHOPCAR_DELETE_SHOP, getContext(), map, new MUtilsInternet.XCallBack() {
-                                @Override
-                                public void onResponse(String result) {
-                                    String ret = JsonUtils.getRet(result);
-                                    if ("0".equals(ret)) {
-                                        mData.remove(p);
-                                        mAdapter.notifyDataSetChanged();
-                                    } else {
-                                        Toast.makeText(getContext(), "删除失败", Toast.LENGTH_SHORT).show();
-                                    }
+                        MySelfDialog dialog = new MySelfDialog(getContext());
+                        dialog.setMessage("确认要删除吗");
+                        dialog.setOnYesListener("取认", new MySelfDialog.OnYesClickListener() {
+                            @Override
+                            public void onClick() {
+                                PrivateRecommendModel model1 = (PrivateRecommendModel) mData.get(p);
+                                String id = model1.getId();
+                                if (!CommonUtils.isEmpty(id)) {
+                                    Map<String, String> map = new HashMap<>();
+                                    map.put("buyUserId", SharedPreferenceUtils.getUserData(getContext(), 1));
+                                    map.put("token", NetConfig.TOKEN);
+                                    map.put("idPj", model1.getId());
+                                    net.post(NetConfig.SHOPCAR_DELETE_SHOP, getContext(), map, new MUtilsInternet.XCallBack() {
+                                        @Override
+                                        public void onResponse(String result) {
+                                            String ret = JsonUtils.getRet(result);
+                                            if ("0".equals(ret)) {
+                                                mData.remove(p);
+                                                mAdapter.notifyDataSetChanged();
+                                            } else {
+                                                Toast.makeText(getContext(), "删除失败", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
                                 }
-                            });
-                        }
+                            }
+                        });
+                        dialog.setOnNoListener("取消", null);
+                        dialog.show();
                         break;
                     case R.id.iv_shocaraccuratetantan_go:
                         PrivateRecommendModel model = (PrivateRecommendModel) mData.get(p);

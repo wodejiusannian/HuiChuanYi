@@ -22,6 +22,7 @@ import com.example.huichuanyi.bean.City;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.GlideRoundTransform;
 import com.example.huichuanyi.custom.dialog.CouponDialog;
+import com.example.huichuanyi.newui.activity.OrderFormActivity;
 import com.example.huichuanyi.secondui.PayOrderActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonUtils;
@@ -403,7 +404,10 @@ public class GoDoorInfoActivity extends BaseActivity implements UtilsInternet.XC
                         Toast.makeText(this, "优惠码错误", Toast.LENGTH_SHORT).show();
                     } else if (TextUtils.equals("5000", ret)) {
                         Toast.makeText(this, "购买成功", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(this, MyOrderActivity.class));
+                        Intent orderIntent = new Intent(this, OrderFormActivity.class);
+                        orderIntent.putExtra("title", "预约订单");
+                        orderIntent.putExtra("orderTypePj", "1,2,3,4");
+                        startActivity(orderIntent);
                         finish();
                     } else {
                         JSONObject body = object.getJSONObject("body");

@@ -8,10 +8,11 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.example.huichuanyi.R;
-import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.common_view.model.PrivateRecommendModel;
 import com.example.huichuanyi.common_view.model.ShopCarType4Model;
 import com.example.huichuanyi.config.NetConfig;
+import com.example.huichuanyi.share.Share;
+import com.example.huichuanyi.ui.base.BaseActivity;
 import com.example.huichuanyi.ui.newpage.ShopCarOrderDetailsActivity;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.WebViewUtils;
@@ -24,15 +25,20 @@ import org.xutils.x;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.OnClick;
 import io.rong.imkit.RongIM;
 
-public class Item_DetailsActivity extends BaseActivity implements View.OnClickListener {
+public class Item_DetailsActivity extends BaseActivity {
 
-    private RelativeLayout mJump;
+    @BindView(R.id.rl_item_details_select)
+    RelativeLayout mJump;
 
-    private WebView mShow;
+    @BindView(R.id.wb_item_show)
+    WebView mShow;
 
-    private ProgressBar mLoading;
+    @BindView(R.id.pb_buy_loading)
+    ProgressBar mLoading;
 
     public static Item_DetailsActivity item_detailsActivity;
 
@@ -44,17 +50,13 @@ public class Item_DetailsActivity extends BaseActivity implements View.OnClickLi
         item_detailsActivity = this;
     }
 
-    @Override
-    public void initView() {
-        mJump = (RelativeLayout) findViewById(R.id.rl_item_details_select);
-        mShow = (WebView) findViewById(R.id.wb_item_show);
-        mLoading = (ProgressBar) findViewById(R.id.pb_buy_loading);
-    }
+
+    private String url;
 
     @Override
     public void initData() {
         bean = (PrivateRecommendModel) getIntent().getSerializableExtra("bean");
-        String url = String.format("http://hmyc365.net/hmyc/file/app/app-clothes-info/index.html?token=%s&id=%s&userPicture=%s&userName=%s", NetConfig.TOKEN, bean.getId(), SharedPreferenceUtils.getUserData(this, 3), SharedPreferenceUtils.getUserData(this, 2));
+        url = String.format("http://hmyc365.net/hmyc/file/app/app-clothes-info/index.html?token=%s&id=%s&userPicture=%s&userName=%s", NetConfig.TOKEN, bean.getId(), SharedPreferenceUtils.getUserData(this, 3), SharedPreferenceUtils.getUserData(this, 2));
         webViewUtils = new WebViewUtils(new WebViewUtils.WebOnResult() {
             @Override
             public void onResultProgress(int progress) {
@@ -131,11 +133,10 @@ public class Item_DetailsActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void setListener() {
-        mJump.setOnClickListener(this);
     }
 
-    @Override
-    public void onClick(View v) {
+    @OnClick({R.id.rl_item_details_select, R.id.iv_web_share})
+    public void onEvent(View v) {
         switch (v.getId()) {
             case R.id.rl_item_details_select:
                 ArrayList<ShopCarType4Model> array = new ArrayList<>();
@@ -144,6 +145,10 @@ public class Item_DetailsActivity extends BaseActivity implements View.OnClickLi
                 Intent intent = new Intent(this, ShopCarOrderDetailsActivity.class);
                 intent.putParcelableArrayListExtra("shoplist", array);
                 startActivity(intent);
+                break;
+            case R.id.iv_web_share:
+                String str = String.format("http://hmyc365.net/hmyc/file/app/app-clothes-info/index.html?token=82D5FBD40259C743ADDEF14D0E22F347&id=%s", bean.getId());
+                Share.showShare1(this, str, bean.getClothes_name(), bean.getClothes_get());
                 break;
             default:
                 break;

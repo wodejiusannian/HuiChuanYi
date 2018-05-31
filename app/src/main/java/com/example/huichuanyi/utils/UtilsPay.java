@@ -2,20 +2,13 @@ package com.example.huichuanyi.utils;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.view.View;
 
 import com.alipay.sdk.app.PayTask;
-import com.example.huichuanyi.R;
 import com.example.huichuanyi.alipay.PayResult;
-import com.example.huichuanyi.ui.activity.MyOrderActivity;
 import com.example.huichuanyi.wxapi.Constants;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
@@ -114,20 +107,6 @@ public class UtilsPay {
         }
     }
 
-
-    //支付成功，通知
-    public void showNotation() {
-        NotificationManager manager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-        PendingIntent pendingIntent3 = PendingIntent.getActivity(mContext, 0,
-                new Intent(mContext, MyOrderActivity.class), 0);
-        Notification notify3 = new Notification.Builder(mContext)
-                .setSmallIcon(R.mipmap.logo)
-                .setContentTitle("温馨提示")
-                .setContentText("支付成功，衣橱管理师会尽快和您联系")
-                .setContentIntent(pendingIntent3).build();
-        notify3.flags |= Notification.FLAG_AUTO_CANCEL;
-        manager.notify(1, notify3);
-    }
 
 
 

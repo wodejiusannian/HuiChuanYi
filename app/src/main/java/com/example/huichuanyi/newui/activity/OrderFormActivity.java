@@ -12,6 +12,7 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.ClosetAdapter;
 import com.example.huichuanyi.newui.fragment.OrderFormFragment;
 import com.example.huichuanyi.ui.base.BaseActivity;
+import com.example.huichuanyi.utils.ActivityCacheUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ public class OrderFormActivity extends BaseActivity {
 
     @Override
     protected void setListener() {
-
+        ActivityCacheUtils.finishActivity();
     }
 
     @Override

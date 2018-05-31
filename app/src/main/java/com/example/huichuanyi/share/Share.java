@@ -20,6 +20,19 @@ public class Share {
         oks.show(context);
     }
 
+    public static void showShare1(final Context context, String titleUrl,
+                                 String content,String picUrl) {
+        OnekeyShare oks = new OnekeyShare();
+        oks.disableSSOWhenAuthorize();
+        oks.setTitle(content);
+        oks.setTitleUrl(titleUrl);
+        oks.setText(content);
+        oks.setUrl(titleUrl);
+        oks.setComment(content);
+        oks.setImageUrl(picUrl);
+        oks.show(context);
+    }
+
 
     public static void sdCardShare(final Context context, String sdUrl,
                                    String content) {

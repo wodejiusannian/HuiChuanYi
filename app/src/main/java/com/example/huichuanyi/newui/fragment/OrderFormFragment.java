@@ -19,7 +19,7 @@ import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.fragment_second.SeeCarActivity;
 import com.example.huichuanyi.newui.activity.OrderFormDetailsActivity;
 import com.example.huichuanyi.secondui.PingJiaActivity;
-import com.example.huichuanyi.secondui.ShenQingTuiKuanActivity;
+import com.example.huichuanyi.secondui.GoBackMoneyActivity;
 import com.example.huichuanyi.ui.activity.ClosingPriceActivity;
 import com.example.huichuanyi.ui.newpage.OrderStudioListActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
@@ -64,7 +64,7 @@ public class OrderFormFragment extends BaseFragment {
                     OrderFormOrder.BodyBean bean = (OrderFormOrder.BodyBean) visitable;
                     switch (v.getId()) {
                         case R.id.tv_orderformstate_button1:
-                            Intent intent1 = new Intent(getContext(), ShenQingTuiKuanActivity.class);
+                            Intent intent1 = new Intent(getContext(), GoBackMoneyActivity.class);
                             intent1.putExtra("bean", bean);
                             startActivity(intent1);
                             break;

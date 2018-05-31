@@ -52,7 +52,6 @@ import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 
 public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener, UtilsInternet.XCallBack {
-    private static final String TAG = "MainActivity";
 
     @BindView(R.id.tv_messager_is_have)
     TextView tDian;
@@ -357,7 +356,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private void isFresh() {
         Map<String, String> map = new HashMap<>();
         map.put("appType", "1");
-        map.put("version", "5");
+        map.put("version", CommonUtils.getVersionCode(this) + "");
         net.post(NetConfig.APP_ISHAVEFRESH, map, new UtilsInternet.XCallBack() {
             @Override
             public void onResponse(String result) {

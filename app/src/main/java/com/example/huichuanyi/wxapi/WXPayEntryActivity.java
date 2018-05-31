@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.huichuanyi.newui.activity.OrderFormActivity;
 import com.example.huichuanyi.secondui.PayOrderActivity;
 import com.example.huichuanyi.ui.activity.Item_DetailsActivity;
-import com.example.huichuanyi.ui.activity.MyOrderActivity;
 import com.example.huichuanyi.ui.activity.My_365Activity;
 import com.example.huichuanyi.ui.activity.SLWWriteInfoActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
@@ -58,7 +58,10 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                             switch (CommonStatic.wechatType) {
                                 case "1":
                                     closeActivity();
-                                    ActivityUtils.switchTo(this, MyOrderActivity.class);
+                                    Intent orderIntent = new Intent(this, OrderFormActivity.class);
+                                    orderIntent.putExtra("title", "预约订单");
+                                    orderIntent.putExtra("orderTypePj", "1,2,3,4");
+                                    startActivity(orderIntent);
                                     break;
                                 case "2":
                                     SharedPreferenceUtils.save365(this, "365");

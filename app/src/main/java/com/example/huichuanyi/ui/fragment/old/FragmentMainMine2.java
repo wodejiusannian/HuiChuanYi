@@ -16,15 +16,14 @@ import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.CustomToast;
 import com.example.huichuanyi.custom.GlideCircleTransform;
 import com.example.huichuanyi.custom.MySelfDialog;
+import com.example.huichuanyi.newui.activity.OrderFormActivity;
 import com.example.huichuanyi.share.Share;
 import com.example.huichuanyi.ui.activity.DatumActivity;
 import com.example.huichuanyi.ui.activity.IndentActivity;
 import com.example.huichuanyi.ui.activity.MainActivity;
 import com.example.huichuanyi.ui.activity.MineSettingActivity;
 import com.example.huichuanyi.ui.activity.MineStyleActivity;
-import com.example.huichuanyi.ui.activity.MyOrderActivity;
 import com.example.huichuanyi.ui.activity.My_365Activity;
-import com.example.huichuanyi.ui.activity.RTCReportActivity;
 import com.example.huichuanyi.ui.activity.ZhenDuanActivity;
 import com.example.huichuanyi.ui.activity.login.LoginByAuthCodeActivity;
 import com.example.huichuanyi.ui.base.BaseFragment;
@@ -92,7 +91,10 @@ public class FragmentMainMine2 extends BaseFragment {
                 ActivityUtils.switchTo(getActivity(), ZhenDuanActivity.class);
                 break;
             case R.id.ll_mine_order:
-                ActivityUtils.switchTo(getActivity(), MyOrderActivity.class);
+                Intent orderIntent = new Intent(getActivity(), OrderFormActivity.class);
+                orderIntent.putExtra("title", "预约订单");
+                orderIntent.putExtra("orderTypePj", "1,2,3,4");
+                startActivity(orderIntent);
                 break;
             case R.id.ll_mine_365:
                 ActivityUtils.switchTo(getActivity(), My_365Activity.class, map);

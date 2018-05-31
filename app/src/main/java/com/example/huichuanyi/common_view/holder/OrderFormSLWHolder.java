@@ -16,6 +16,7 @@ import com.example.huichuanyi.common_view.model.OrderFormSLW;
 import com.example.huichuanyi.custom.GlideCircleTransform;
 import com.example.huichuanyi.custom.GlideRoundTransform;
 import com.example.huichuanyi.emum.OrderType;
+import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.ServiceSingleUtils;
 
 import java.util.List;
@@ -74,14 +75,24 @@ public class OrderFormSLWHolder extends BaseViewHolder<OrderFormSLW.BodyBean> {
             time.setText("推荐工作室：" + infoBean.getRecommendUserName());
         }
         String moneyDiscount = model.getMoneyDiscount();
-        Double douMoneyDiscount = Double.parseDouble(moneyDiscount);
-        price.setText(infoBean.getMoneyPay());
+        Double douMoneyDiscount;
+        if (!CommonUtils.isEmpty(moneyDiscount)) {
+            douMoneyDiscount = Double.parseDouble(moneyDiscount);
+        } else {
+            douMoneyDiscount = 0.00;
+        }
+        String moneyPay = infoBean.getMoneyPay();
+        if (!CommonUtils.isEmpty(moneyPay))
+            price.setText("¥" + moneyPay);
+        else {
+            price.setText("¥" + 0.00);
+        }
         servicetype.setText(infoBean.getGoodsName());
         color.setText(infoBean.getGoodsColor());
         size.setText(infoBean.getGoodsSize());
         Glide.with(context).load(infoBean.getGoodsPicture()).error(R.mipmap.stand).transform(new GlideCircleTransform(context)).into(iv);
         if (douMoneyDiscount > 0) {
-            coupon.setText("已优惠" + moneyDiscount);
+            coupon.setText("已优惠¥" + moneyDiscount);
         } else {
             coupon.setText("未使用优惠券及折扣");
         }

@@ -336,5 +336,7 @@ public interface NetConfig {
     String GOODOOR_CLOSERPRICE_GETSIGN = BASE_NEW_URL + "/admiral/app/hmyc/order/service/addOrderBcj.htm?token=82D5FBD40259C743ADDEF14D0E22F347";
     //APP更新接口
     String APP_ISHAVEFRESH = BASE_NEW_URL + "/admiral/system/version/versionCheck.htm?token=82D5FBD40259C743ADDEF14D0E22F347";
+    String GOBACKMONEY_GODOOR = BASE_NEW_URL + "/admiral/app/hmyc/order/info/refund.htm?token=82D5FBD40259C743ADDEF14D0E22F347";
+
 }
 

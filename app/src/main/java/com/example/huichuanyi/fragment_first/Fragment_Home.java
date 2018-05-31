@@ -1,5 +1,6 @@
 package com.example.huichuanyi.fragment_first;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
@@ -15,13 +16,13 @@ import com.example.huichuanyi.baidumap.GetCity;
 import com.example.huichuanyi.base.BaseFragment;
 import com.example.huichuanyi.bean.Banner;
 import com.example.huichuanyi.config.NetConfig;
+import com.example.huichuanyi.newui.activity.OrderFormActivity;
 import com.example.huichuanyi.secondui.AtMyAcitivty;
 import com.example.huichuanyi.ui.activity.HMWebActivity;
 import com.example.huichuanyi.ui.activity.HomeDaPeiRiJiActivity;
 import com.example.huichuanyi.ui.activity.HomeStatisticsActivity;
 import com.example.huichuanyi.ui.activity.HomeVideoCoverActivity;
 import com.example.huichuanyi.ui.activity.HomeWoDeYiChuActivity;
-import com.example.huichuanyi.ui.activity.MyOrderActivity;
 import com.example.huichuanyi.ui.activity.lanyang.LyMainActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonUtils;
@@ -142,7 +143,10 @@ public class Fragment_Home extends BaseFragment implements OnItemClickListener, 
                 ActivityUtils.switchTo(getActivity(), HMWebActivity.class, map);
                 break;
             case "5":
-                ActivityUtils.switchTo(getActivity(), MyOrderActivity.class);
+                Intent orderIntent = new Intent(getActivity(), OrderFormActivity.class);
+                orderIntent.putExtra("title", "预约订单");
+                orderIntent.putExtra("orderTypePj", "1,2,3,4");
+                startActivity(orderIntent);
                 break;
             case "3":
                 ActivityUtils.switchTo(getActivity(), HomeDaPeiRiJiActivity.class);

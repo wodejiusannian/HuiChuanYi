@@ -20,7 +20,6 @@ import com.example.huichuanyi.common_view.model.Visitable;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.ui.activity.Item_DetailsActivity;
-import com.example.huichuanyi.ui.activity.SLWRecordActivity;
 import com.example.huichuanyi.utils.AsyncHttpUtils;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.HttpCallBack;
@@ -211,7 +210,7 @@ public class SlwFragmentRecommend extends BaseFragment {
         new ItemTouchHelper(callback).attachToRecyclerView(content);
     }
 
-    @OnClick({R.id.hm_365_clothes_dislike, R.id.hm_365_clothes_like, R.id.tv_slw_private_recommend_history, R.id.btn_365_seven_refuse_data})
+    @OnClick({R.id.hm_365_clothes_dislike, R.id.hm_365_clothes_like, R.id.btn_365_seven_refuse_data})
     public void onEvent(View v) {
         switch (v.getId()) {
             case R.id.hm_365_clothes_dislike:
@@ -245,10 +244,6 @@ public class SlwFragmentRecommend extends BaseFragment {
                     int i11 = content.getAdapter().getItemCount() - 1;
                     goNext(i11);
                 }
-                break;
-            case R.id.tv_slw_private_recommend_history:
-                Intent intent = new Intent(getContext(), SLWRecordActivity.class);
-                startActivity(intent);
                 break;
             default:
                 break;

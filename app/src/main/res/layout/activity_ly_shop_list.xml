@@ -16,6 +16,7 @@
         <include layout="@layout/btn_back"></include>
 
         <TextView
+            android:text="慧美衣橱"
             android:id="@+id/tv_main_ly_list_title"
             style="@style/ActivityTopTextTitleStyle"
             android:layout_centerInParent="true" />

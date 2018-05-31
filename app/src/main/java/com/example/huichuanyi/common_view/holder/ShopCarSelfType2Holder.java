@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.common_view.adapter.MultiTypeAdapter;
 import com.example.huichuanyi.common_view.model.ShopCarType2Model;
+import com.example.huichuanyi.utils.CommonUtils;
 
 
 /**
@@ -38,7 +39,7 @@ public class ShopCarSelfType2Holder extends BaseViewHolder<ShopCarType2Model> {
         shoptitle.setText(model.goodsName);
         shopspecification.setText(model.goodsSize);
         shopintroduce.setText(model.goodsColor);
-        shopprice.setText(model.goodsPrice);
+        shopprice.setText("¥" + CommonUtils.strDoubleString(model.goodsPrice));
         Glide.with(shoppic.getContext()).load(model.goodsPicture).into(shoppic);
         ivSelect.setTag(position);
         if (model.isCheck) {
