@@ -1,25 +1,24 @@
 package com.example.huichuanyi.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.bean.RecordRefresh;
+import com.example.huichuanyi.common_view.model.PrivateRecommendModel;
+import com.example.huichuanyi.custom.GlideRoundTransform;
 import com.example.huichuanyi.ui.activity.Item_DetailsActivity;
-import com.example.huichuanyi.utils.ActivityUtils;
-import com.facebook.drawee.generic.GenericDraweeHierarchy;
-import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
-import com.facebook.drawee.generic.RoundingParams;
-import com.facebook.drawee.view.SimpleDraweeView;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -68,52 +67,52 @@ public class RefreshRecordAdapter extends BaseAdapter {
         holder.mDate.setText(split[2]);
         if (position == 0) {
             holder.line.setVisibility(View.VISIBLE);
-            holder.mYear.setText("2017");
+            holder.mYear.setText("2018");
         } else {
             holder.line.setVisibility(View.GONE);
         }
         final List<RecordRefresh.RefreshBean> list = recordRefresh.getList();
         if (list.size() != 0) {
             for (int i = 0; i < list.size(); i++) {
-                SimpleDraweeView pic = new SimpleDraweeView(mActivity);
-                pic.setMinimumWidth(200);
-                pic.setMinimumHeight(200);
-                pic.setPaddingRelative(10, 10, 10, 10);
-                GenericDraweeHierarchy build = GenericDraweeHierarchyBuilder.newInstance(mActivity.getResources()).
-                        setRoundingParams(RoundingParams.fromCornersRadius(20)).build();
-                pic.setHierarchy(build);
-                pic.setTag(i);
+                RelativeLayout relativeLayout = new RelativeLayout(mActivity);
+                relativeLayout.setLayoutParams(new RelativeLayout.LayoutParams(150, 150));
+                relativeLayout.setPadding(5, 5, 5, 5);
+                ImageView pic = new ImageView(mActivity);
+                pic.setLayoutParams(new LinearLayout.LayoutParams(150, 150));
+                pic.setScaleType(ImageView.ScaleType.FIT_XY);
+                relativeLayout.addView(pic);
+                relativeLayout.setTag(i);
                 RecordRefresh.RefreshBean bean = list.get(i);
                 final String clothes_get = bean.getClothes_get();
                 final String id = bean.getId();
                 final String color = bean.getColor();
-                final String introduction = bean.getIntroduction();
+                final String deleteStatus = bean.getDeleteStatus();
                 final String reason = bean.getReason();
                 final String price_dj = bean.getPrice_dj();
                 final String size_name = bean.getSize_name();
                 final String name = bean.getName();
-                pic.setOnClickListener(new View.OnClickListener() {
+                final String recommend_id = bean.getRecommend_id();
+                Glide.with(mActivity).load(clothes_get).transform(new GlideRoundTransform(mActivity)).into(pic);
+                relativeLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Map<String, Object> map = new HashMap<String, Object>();
-                        int tag = (int) v.getTag();
-                        String recommend_id = list.get(tag).getRecommend_id();
-                        map.put("recommend_id", recommend_id);
-                        map.put("clothes_get", clothes_get);
-                        map.put("id", id);
-                        map.put("introduction", introduction);
-                        map.put("clothes_get", clothes_get);
-                        map.put("price_dj", price_dj);
-                        map.put("name", name);
-                        map.put("color_name", color);
-                        map.put("reason", reason);
-                        map.put("size_name", size_name);
-                        map.put("type", "3");
-                        ActivityUtils.switchTo(mActivity, Item_DetailsActivity.class, map);
+                        if (deleteStatus.contains("-")) {
+                            PrivateRecommendModel bean = new PrivateRecommendModel();
+                            bean.setId(id);
+                            bean.setColor(color);
+                            bean.setClothes_name(name);
+                            bean.setClothes_get(clothes_get);
+                            bean.setPrice_dj(price_dj);
+                            bean.setSize_name(size_name);
+                            bean.setReason(reason);
+                            bean.setRecommend_id(recommend_id);
+                            Intent in = new Intent(mActivity, Item_DetailsActivity.class);
+                            in.putExtra("bean", bean);
+                            mActivity.startActivity(in);
+                        }
                     }
                 });
-                pic.setImageURI(clothes_get);
-                holder.pics.addView(pic);
+                holder.pics.addView(relativeLayout);
             }
         } else {
         }

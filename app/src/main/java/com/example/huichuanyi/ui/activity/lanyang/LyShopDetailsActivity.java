@@ -74,11 +74,10 @@ public class LyShopDetailsActivity extends BaseActivity implements UtilsInternet
 
     private LyDetailsAdapter rvAdapter;
 
-    private int stock_id, goods_id;
+    private int goods_id;
 
-    private double price_one;
 
-    private String goods_name, shop_logo, pic_url, shop_name, details_page, sellerPicture;
+    private String  details_page, sellerPicture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,18 +119,9 @@ public class LyShopDetailsActivity extends BaseActivity implements UtilsInternet
         initNet();
     }
 
-    @OnClick({/*R.id.tv_ly_shopdetails_buy,*/ R.id.rl_ly_shopdetails_gobuycar, R.id.iv_ly_shopdetails_delete, R.id.tv_ly_shopdetails_addcar, R.id.iv_ly_shopdetails_add})
+    @OnClick({ R.id.rl_ly_shopdetails_gobuycar, R.id.iv_ly_shopdetails_delete, R.id.tv_ly_shopdetails_addcar, R.id.iv_ly_shopdetails_add})
     public void onEvent(View v) {
         switch (v.getId()) {
-           /* case R.id.tv_ly_shopdetails_buy:
-                ArrayList<LyShopCar.BodyBean> list = new ArrayList<>();
-                list.add(new LyShopCar.BodyBean(false, false, 0, price_one, Integer.parseInt(tvs[0].getText().toString()), goods_id, goods_name, shop_logo, pic_url, shop_name));
-                Intent intent = new Intent(this, LyBuyActivity.class);
-                intent.putParcelableArrayListExtra("buying", list);
-                intent.putExtra("tag", "0");
-                intent.putExtra("stock_id", stock_id);
-                startActivity(intent);
-                break;*/
             case R.id.rl_ly_shopdetails_gobuycar:
                 Intent intent = new Intent(this, MainActivity.class);
                 intent.putExtra("page", 2);
@@ -261,17 +251,10 @@ public class LyShopDetailsActivity extends BaseActivity implements UtilsInternet
                 banner.setPic_url(p.getString("pic_url"));
                 mData.add(banner);
             }
-            // shopchat = body.getInt("shopcart");
             final String color = stock.getJSONObject(0).getString("color");
             final JSONObject obj = main.getJSONObject(0);
-            stock_id = stock.getJSONObject(0).getInt("stock_id");
-            price_one = obj.getInt("price");
-            goods_name = obj.getString("name");
-            shop_logo = obj.getString("shop_logo");
             details_page = obj.getString("details_page");
             final String price_init = obj.getString("price_init");
-            pic_url = obj.getString("pic_url");
-            shop_name = obj.getString("shop_name");
             final String name = obj.getString("name");
             final double price = obj.getDouble("price");
             new Handler().post(new Runnable() {
@@ -285,8 +268,6 @@ public class LyShopDetailsActivity extends BaseActivity implements UtilsInternet
                         lineTextView.setText(price_init);
                     if (textViews[2] != null)
                         textViews[2].setText(color);
-                    /*if (textViews[3] != null)
-                        textViews[3].setText(shopchat + "");*/
                 }
             });
             rvAdapter.notifyDataSetChanged();

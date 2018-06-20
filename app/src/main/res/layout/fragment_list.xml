@@ -3,8 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/hm_gary"
-    android:orientation="vertical"
-    android:padding="@dimen/distance_10">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_list_address_top"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/activityTop">
+
+        <include layout="@layout/btn_back"></include>
+
+        <TextView
+            style="@style/ActivityTopTextTitleStyle"
+            android:layout_centerInParent="true"
+            android:text="推荐记录" />
+
+    </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/sf_buy_record_refresh"

@@ -1,6 +1,7 @@
 package com.example.huichuanyi.im;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,19 +11,22 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.huichuanyi.R;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.gyf.barlibrary.ImmersionBar;
 
 import java.util.Collection;
 import java.util.Iterator;
 
+import io.rong.imkit.RongIM;
 import io.rong.imlib.MessageTag;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.TypingMessage.TypingStatus;
 import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.UserInfo;
 import io.rong.message.TextMessage;
 import io.rong.message.VoiceMessage;
 
-public class ConversationActivity extends FragmentActivity {
+public class ConversationActivity extends FragmentActivity implements RongIM.UserInfoProvider {
     private static final String TAG = "ConversationActivity";
     private TextView tvTitle;
 
@@ -68,11 +72,11 @@ public class ConversationActivity extends FragmentActivity {
         } else {
             tvTitle.setText("私人衣橱管理师");
         }
+        RongIM.setUserInfoProvider(this, true);
 
         Intent broadcast = new Intent("action.have.msg");
         broadcast.putExtra("isRead", "yes");
         sendOrderedBroadcast(broadcast, null);
-
         RongIMClient.setTypingStatusListener(new RongIMClient.TypingStatusListener() {
             @Override
             public void onTypingStatusChanged(Conversation.ConversationType type, String targetId, Collection<TypingStatus> typingStatusSet) {
@@ -104,5 +108,14 @@ public class ConversationActivity extends FragmentActivity {
     public void back(View view) {
         if (view != null)
             finish();
+    }
+
+    @Override
+    public UserInfo getUserInfo(String s) {
+        if (s.contains("hmgls_")) {
+            return new UserInfo(s, SharedPreferenceUtils.getUserData(ConversationActivity.this, 4), Uri.parse(SharedPreferenceUtils.getUserData(ConversationActivity.this, 5)));
+        } else {
+            return new UserInfo(s, SharedPreferenceUtils.getUserData(ConversationActivity.this, 2), Uri.parse(SharedPreferenceUtils.getUserData(ConversationActivity.this, 3)));
+        }
     }
 }

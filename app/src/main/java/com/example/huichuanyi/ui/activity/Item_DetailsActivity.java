@@ -2,6 +2,7 @@ package com.example.huichuanyi.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
@@ -57,6 +58,7 @@ public class Item_DetailsActivity extends BaseActivity {
     public void initData() {
         bean = (PrivateRecommendModel) getIntent().getSerializableExtra("bean");
         url = String.format("http://hmyc365.net/hmyc/file/app/app-clothes-info/index.html?token=%s&id=%s&userPicture=%s&userName=%s", NetConfig.TOKEN, bean.getId(), SharedPreferenceUtils.getUserData(this, 3), SharedPreferenceUtils.getUserData(this, 2));
+        Log.e("TAG", "initData: ----" + url);
         webViewUtils = new WebViewUtils(new WebViewUtils.WebOnResult() {
             @Override
             public void onResultProgress(int progress) {

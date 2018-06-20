@@ -33,6 +33,15 @@ public class RecordRefresh {
         private String introduction;
         private String price_dj;
         private String name;
+        private String deleteStatus;
+
+        public String getDeleteStatus() {
+            return deleteStatus;
+        }
+
+        public void setDeleteStatus(String deleteStatus) {
+            this.deleteStatus = deleteStatus;
+        }
 
         public String getName() {
             return name;

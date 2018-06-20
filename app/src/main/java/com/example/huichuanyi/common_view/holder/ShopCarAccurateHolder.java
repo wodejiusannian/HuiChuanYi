@@ -55,6 +55,8 @@ public class ShopCarAccurateHolder extends BaseViewHolder<PrivateRecommendModel>
             rl.setTag(position);
             rl.setOnClickListener(onClickListener);
         }
+        time.setTag(position);
+        time.setOnClickListener(onClickListener);
         go.setTag(position);
         delete.setTag(position);
         go.setOnClickListener(onClickListener);

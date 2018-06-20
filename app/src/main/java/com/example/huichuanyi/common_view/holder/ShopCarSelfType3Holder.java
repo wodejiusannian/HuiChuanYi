@@ -3,6 +3,7 @@ package com.example.huichuanyi.common_view.holder;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -44,6 +45,9 @@ public class ShopCarSelfType3Holder extends BaseViewHolder<ShopCarType3Model> {
             countShow.setVisibility(View.VISIBLE);
             countShow.setText("x" + model.orderNumber);
         }
+        RelativeLayout details = (RelativeLayout) getView(R.id.rl_shopcarselftype3_detials);
+        details.setTag(position);
+        details.setOnClickListener(adapter.getmOnclick());
         delete.setTag(position);
         add.setTag(position);
         shopcount.setText(model.orderNumber + "");

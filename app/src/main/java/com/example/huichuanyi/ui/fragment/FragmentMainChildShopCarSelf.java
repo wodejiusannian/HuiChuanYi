@@ -28,6 +28,7 @@ import com.example.huichuanyi.common_view.model.ShopCarType4Model;
 import com.example.huichuanyi.common_view.model.Visitable;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MySelfDialog;
+import com.example.huichuanyi.ui.activity.lanyang.LyDetailsWebActivity;
 import com.example.huichuanyi.ui.newpage.ShopCarOrderDetailsActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.AsyncHttpUtils;
@@ -104,7 +105,7 @@ public class FragmentMainChildShopCarSelf extends BaseFragment {
         refreshLayout.setRefreshing(true);
         Map<String, String> map = new HashMap<>();
         map.put("bannerType", "3");
-        net.post2(NetConfig.BANNER_TYPE, map, new MUtilsInternet.XCallBack() {
+        net.post(NetConfig.BANNER_TYPE, getContext(), map, new MUtilsInternet.XCallBack() {
             @Override
             public void onResponse(String result) {
                 try {
@@ -122,6 +123,8 @@ public class FragmentMainChildShopCarSelf extends BaseFragment {
                         mBanner.add(banner);
                     }
                     mData.clear();
+                    mButton.setVisibility(View.GONE);
+                    y = 0;
                     refreshLayout.setRefreshing(false);
                     rlDelete.setVisibility(View.GONE);
                     mData.add(new ShopCarTopModel(mBanner));
@@ -469,9 +472,55 @@ public class FragmentMainChildShopCarSelf extends BaseFragment {
                         shopCarType3Model4.orderNumber++;
                         adapter.notifyDataSetChanged();
                         break;
-
+                    case R.id.rl_shopcarselftype2_detials:
+                        int p = (int) v.getTag();
+                        goDetails(p);
+                        break;
+                    case R.id.rl_shopcarselftype3_detials:
+                        int p1 = (int) v.getTag();
+                        goDetails(p1);
+                        break;
+                    case R.id.rl_shopcarselftype4_detials:
+                        int p2 = (int) v.getTag();
+                        goDetails(p2);
+                        break;
                     default:
                         break;
+                }
+            }
+        });
+    }
+
+    private void goDetails(int p) {
+        String goods_id = null;
+        Visitable visitable = mData.get(p);
+        if (visitable instanceof ShopCarType2Model) {
+            ShopCarType2Model shop2 = ((ShopCarType2Model) visitable);
+            goods_id = shop2.goodsId;
+        } else if (visitable instanceof ShopCarType3Model) {
+            ShopCarType3Model shop3 = ((ShopCarType3Model) visitable);
+            goods_id = shop3.goodsId;
+        }
+        Map<String, String> map = new HashMap<>();
+        map.put("goods_id", goods_id + "");
+        map.put("user_id", SharedPreferenceUtils.getUserData(getContext(), 1));
+        net.post2(NetConfig.LY_GOOD_DETAILS, map, new MUtilsInternet.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+                String details_page;
+                try {
+                    JSONObject object = new JSONObject(result);
+                    JSONObject body = object.getJSONObject("body");
+                    JSONArray main = body.getJSONArray("main");
+                    final JSONObject obj = main.getJSONObject(0);
+                    details_page = obj.getString("details_page");
+                    Intent intent = new Intent(getContext(), LyDetailsWebActivity.class);
+                    intent.putExtra("details_page", details_page);
+                    startActivity(intent);
+                    getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "请重试", Toast.LENGTH_SHORT).show();
                 }
             }
         });

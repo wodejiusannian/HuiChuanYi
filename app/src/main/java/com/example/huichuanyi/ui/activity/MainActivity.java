@@ -1,7 +1,5 @@
 package com.example.huichuanyi.ui.activity;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
@@ -22,7 +20,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.huichuanyi.R;
-import com.example.huichuanyi.baidumap.Fresh_365;
 import com.example.huichuanyi.baidumap.Location;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.dialog.MySureDialog;
@@ -72,8 +69,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
     private boolean have = false;
 
-    private Fresh_365 mFresh_365;
-
     private UtilsInternet net = UtilsInternet.getInstance();
 
     private String hm_adpage_share_url, hm_adpage_webview_url, hm_activity_name;
@@ -105,7 +100,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     public void setData() {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("action.refreshFriend");
-        registerReceiver(mRefreshBroadcastReceiver, intentFilter);
     }
 
     public void setListener() {
@@ -141,28 +135,14 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     }
 
 
-    private BroadcastReceiver mRefreshBroadcastReceiver = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (action.equals("action.refreshFriend")) {
-                if (mFresh_365 != null) {
-                    mFresh_365.reFresh365();
-                }
-            }
-        }
-    };
 
 
-    public void setFresh365(Fresh_365 fresh365) {
-        mFresh_365 = fresh365;
-    }
+
+
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(mRefreshBroadcastReceiver);
     }
 
 
@@ -195,7 +175,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
             case R.id.rb_main_home:
-
                 fragmentUtils.showAndHide(R.id.rl_main_show, FragmentMainHome.class);
                 break;
             case R.id.rb_main_order:

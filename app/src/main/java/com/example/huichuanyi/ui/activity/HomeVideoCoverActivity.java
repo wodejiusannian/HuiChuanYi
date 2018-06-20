@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -136,10 +138,27 @@ public class HomeVideoCoverActivity extends BaseActivity implements UtilsInterne
             }
             adapter.notifyDataSetChanged();
             refreshLayout.setRefreshing(false);
+            mHandler.sendEmptyMessageDelayed(1, 500);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            int what = msg.what;
+            switch (what) {
+                case 1:
+                    ImageView play = (ImageView) videos.getChildAt(0).findViewById(R.id.play_btn_type_one);
+                    play.performClick();
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
     @Override
     public void onRefresh() {
@@ -211,6 +230,9 @@ public class HomeVideoCoverActivity extends BaseActivity implements UtilsInterne
                 viewHolder1.pic.setImageURI(pic_get);
                 viewHolder1.mPlayBtnView.setOnClickListener(new MyOnclick(
                         viewHolder1.mPlayBtnView, viewHolder1.mVideoViewLayout, position));
+                /*if (position == 0) {
+                    viewHolder1.mPlayBtnView.performClick();
+                }*/
                 if (indexPostion == position) {
                     viewHolder1.mVideoViewLayout.setVisibility(View.VISIBLE);
                 } else {

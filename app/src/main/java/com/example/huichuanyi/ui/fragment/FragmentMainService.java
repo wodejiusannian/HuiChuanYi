@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base_2.BaseFragment;
@@ -12,6 +13,7 @@ import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.VpSwipeRefreshLayout;
 import com.example.huichuanyi.emum.ServiceType;
 import com.example.huichuanyi.fragment_first.SinglePersonActivity;
+import com.example.huichuanyi.ui.activity.HomeVideoActivity;
 import com.example.huichuanyi.ui.activity.HomeVideoCoverActivity;
 import com.example.huichuanyi.ui.activity.lanyang.LyShopListActivity;
 import com.example.huichuanyi.ui.activity.lanyang.RTCWebActivity;
@@ -86,7 +88,15 @@ public class FragmentMainService extends BaseFragment {
                     intent.putExtra("url", "http://hmyc365.net/hmyc/file/app/app-reservation-service/acarus.html");
                     startActivity(intent);
                 } else if (url.contains("yuyue?a=micro_Lesson")) {
-                    ActivityUtils.switchTo(getActivity(), HomeVideoCoverActivity.class);
+                    if (url.contains("Big_Cafe_class")) {
+                        Intent intent = new Intent(getContext(), HomeVideoActivity.class);
+                        intent.putExtra("id", "2");
+                        startActivity(intent);
+                    } else if (url.contains("HM_About_info")) {
+                        ActivityUtils.switchTo(getActivity(), HomeVideoCoverActivity.class);
+                    } else if (url.contains("HM_grand_meeting")) {
+                        Toast.makeText(getContext(), getContext().getResources().getString(R.string.videonocontenttip), Toast.LENGTH_SHORT).show();
+                    }
                 } else if (url.contains("#yuyue?supplierId=")) {
                     String supplierId = getInsideString(url, "#yuyue?supplierId=", "&brand");
                     String brand = getInsideString(url, "brand=", "&clickUrl=");

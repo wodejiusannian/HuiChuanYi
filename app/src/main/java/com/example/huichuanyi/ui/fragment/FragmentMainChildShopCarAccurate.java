@@ -24,6 +24,7 @@ import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.ui.activity.HMWebActivity;
 import com.example.huichuanyi.ui.activity.Item_DetailsActivity;
+import com.example.huichuanyi.ui.activity.SLWRecordActivity;
 import com.example.huichuanyi.ui.newpage.ShopCarOrderDetailsActivity;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.JsonUtils;
@@ -113,6 +114,9 @@ public class FragmentMainChildShopCarAccurate extends BaseFragment {
                 switch (v.getId()) {
                     case R.id.rl_test:
                         goNext();
+                        break;
+                    case R.id.tv_shocaraccuratetantan_time:
+                        startActivity(new Intent(getContext(), SLWRecordActivity.class));
                         break;
                     case R.id.iv_shocaraccuratetantan_delete:
                         MySelfDialog dialog = new MySelfDialog(getContext());

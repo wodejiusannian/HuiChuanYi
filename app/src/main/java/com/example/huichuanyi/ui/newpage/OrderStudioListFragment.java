@@ -146,12 +146,15 @@ public class OrderStudioListFragment extends BaseFragment {
             public void onClick(View v) {
                 int position = (int) v.getTag();
                 City.BodyBean bodyBean = (City.BodyBean) mData.get(position);
-                if (ServiceSingleUtils.getInstance().getServiceType() == ServiceType.SERVICE_ACARUS_KILLING) {
-                    acausKilling(bodyBean.getCity(), position);
-                } else {
-                    Intent intent = new Intent(getContext(), OrderStudioIntroduceActivity.class);
-                    intent.putExtra("model", bodyBean);
-                    startActivity(intent);
+                String service = bodyBean.getService();
+                if ("已开通".equals(service)) {
+                    if (ServiceSingleUtils.getInstance().getServiceType() == ServiceType.SERVICE_ACARUS_KILLING) {
+                        acausKilling(bodyBean.getCity(), position);
+                    } else {
+                        Intent intent = new Intent(getContext(), OrderStudioIntroduceActivity.class);
+                        intent.putExtra("model", bodyBean);
+                        startActivity(intent);
+                    }
                 }
             }
         });
@@ -225,7 +228,7 @@ public class OrderStudioListFragment extends BaseFragment {
         } else {
             map.put("cmfw", "0");
         }
-        net.post("http://hmyc365.net:8081/HM/app/studio/userinfo/getStudioListNew.do", map, new UtilsInternet.XCallBack() {
+        net.post("http://hmyc365.net/admiral/old/wx/service/stuList.htm?token=82D5FBD40259C743ADDEF14D0E22F347", map, new UtilsInternet.XCallBack() {
             @Override
             public void onResponse(String result) {
                 try {
@@ -240,7 +243,8 @@ public class OrderStudioListFragment extends BaseFragment {
                         if (vip) {
                             mData.add(new OrderStudioOne("已购买365服务工作室"));
                             City.BodyBean bean = new City.BodyBean();
-                            JSONObject latelyStudioList = body.getJSONObject("vipStudioList");
+                            JSONArray latelyStudioLists = body.getJSONArray("vipStudioList");
+                            JSONObject latelyStudioList = latelyStudioLists.getJSONObject(0);
                             String id = latelyStudioList.getString("id");
                             Double pf = latelyStudioList.getDouble("pf");
                             String phone = latelyStudioList.getString("phone");
@@ -275,7 +279,8 @@ public class OrderStudioListFragment extends BaseFragment {
                         if (lately) {
                             mData.add(new OrderStudioOne("最近选择的工作室"));
                             City.BodyBean bean = new City.BodyBean();
-                            JSONObject latelyStudioList = body.getJSONObject("latelyStudioList");
+                            JSONArray latelyStudioLists = body.getJSONArray("latelyStudioList");
+                            JSONObject latelyStudioList = latelyStudioLists.getJSONObject(0);
                             String id = latelyStudioList.getString("id");
                             Double pf = latelyStudioList.getDouble("pf");
                             String phone = latelyStudioList.getString("phone");

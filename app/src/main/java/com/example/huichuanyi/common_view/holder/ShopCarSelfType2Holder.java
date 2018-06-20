@@ -3,6 +3,7 @@ package com.example.huichuanyi.common_view.holder;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -47,6 +48,9 @@ public class ShopCarSelfType2Holder extends BaseViewHolder<ShopCarType2Model> {
         } else {
             ivSelect.setImageResource(R.mipmap.hm_shopcar_noselect);
         }
+        RelativeLayout details = (RelativeLayout) getView(R.id.rl_shopcarselftype2_detials);
+        details.setTag(position);
+        details.setOnClickListener(adapter.getmOnclick());
         delete.setTag(position);
         add.setTag(position);
         delete.setOnClickListener(adapter.getmOnclick());

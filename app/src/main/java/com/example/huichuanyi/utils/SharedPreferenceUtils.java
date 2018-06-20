@@ -99,6 +99,10 @@ public class SharedPreferenceUtils {
             return user.getString("name", "");
         } else if (3 == type) {
             return user.getString("photo_url", "");
+        } else if (4 == type) {
+            return user.getString("studioName", "");
+        } else if (5 == type) {
+            return user.getString("studioLogo", "");
         }
         return null;
     }
@@ -132,6 +136,20 @@ public class SharedPreferenceUtils {
         SharedPreferences user = context.getSharedPreferences("user", 1);
         SharedPreferences.Editor edit = user.edit();
         edit.putString("user_id", user_id);
+        edit.commit();
+    }
+
+    public static void writeStudioName(Context context, String studioName) {
+        SharedPreferences user = context.getSharedPreferences("user", 1);
+        SharedPreferences.Editor edit = user.edit();
+        edit.putString("studioName", studioName);
+        edit.commit();
+    }
+
+    public static void writeStudioLogo(Context context, String studioLogo) {
+        SharedPreferences user = context.getSharedPreferences("user", 1);
+        SharedPreferences.Editor edit = user.edit();
+        edit.putString("studioLogo", studioLogo);
         edit.commit();
     }
 

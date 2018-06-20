@@ -129,6 +129,7 @@ public class FragmentMainMine extends BaseFragment {
                     @Override
                     public void onSuccess(String result) {
                         try {
+                            activity.hideDian();
                             JSONObject object = new JSONObject(result);
                             JSONObject body = object.getJSONObject("body");
                             String studio_name = body.getString("studio_name");
@@ -207,21 +208,10 @@ public class FragmentMainMine extends BaseFragment {
     protected void initData() {
         super.initData();
         activity = (MainActivity) getActivity();
-        /*if (activity.isHave()) {
-            tDian.setVisibility(View.VISIBLE);
-        }*/
         haveMsg = new HaveMsg();
         activity.registerReceiver(haveMsg, new IntentFilter("action.have.msg"));
     }
 
-    /*private void getUserPhoto() {
-        String m365 = SharedPreferenceUtils.get365(getContext());
-        if (!TextUtils.equals("365", m365)) {
-            mVip.setVisibility(View.GONE);
-        } else {
-            mVip.setVisibility(View.VISIBLE);
-        }
-    }*/
 
     @BindView(R.id.refresh_view)
     SwipeRefreshLayout refreshLayout;
@@ -248,6 +238,9 @@ public class FragmentMainMine extends BaseFragment {
         startActivityForResult(intent, REQUEST_CAMERA_CODE);
     }
 
+
+    @BindView(R.id.tv_mainmine_dian)
+    TextView dian;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -327,22 +320,32 @@ public class FragmentMainMine extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        // mName.setText(SharedPreferenceUtils.getUserData(getContext(), 2));
-        //Glide.with(this).load(SharedPreferenceUtils.getUserData(getContext(), 3)).transform(new GlideCircleTransform(getActivity())).into(mPhoto);
-        //getUserPhoto();
+
     }
+
+    private int mRead;
 
     private class HaveMsg extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            /*int read = intent.getIntExtra("isRead", 0);
+            int read = intent.getIntExtra("isRead", 0);
             if (read > 0) {
-                tDian.setVisibility(View.VISIBLE);
+                mRead += read;
+                dian.setText(intToString(mRead));
             } else {
-                tDian.setVisibility(View.GONE);
+                mRead = 0;
+                dian.setText("");
                 activity.hideDian();
-            }*/
+            }
+        }
+    }
+
+    private String intToString(int mRead) {
+        if (mRead > 99) {
+            return "99+";
+        } else {
+            return mRead + "";
         }
     }
 
@@ -382,6 +385,8 @@ public class FragmentMainMine extends BaseFragment {
                 try {
                     SharedPreferenceUtils.writeUserPhoto(getContext(), body.getUserPic());
                     SharedPreferenceUtils.writeUserName(getContext(), body.getUserName());
+                    SharedPreferenceUtils.writeStudioLogo(getContext(), body.getManagerUrl());
+                    SharedPreferenceUtils.writeStudioName(getContext(), body.getManagerName());
                     tvInfo[0].setText(body.getUserName());
                     tvInfo[1].setText(body.getUserCity());
                     tvInfo[2].setText(body.getUserOccupation());

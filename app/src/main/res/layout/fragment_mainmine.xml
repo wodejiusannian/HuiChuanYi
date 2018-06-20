@@ -224,8 +224,8 @@
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:layout_marginLeft="-10dp"
-                                android:src="@mipmap/stand"
-                                android:layout_marginTop="-10dp" />
+                                android:layout_marginTop="-10dp"
+                                android:src="@mipmap/stand" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -270,11 +270,26 @@
                                     android:textColor="#fff"
                                     android:textSize="18sp" />
 
-                                <ImageView
-                                    android:layout_width="28dp"
-                                    android:layout_height="25dp"
-                                    android:layout_toRightOf="@+id/tv_mainmine_chat"
-                                    android:src="@mipmap/hm_365_guidance_chat" />
+                                <RelativeLayout
+                                    android:layout_width="30dp"
+                                    android:layout_height="28dp"
+                                    android:layout_toRightOf="@+id/tv_mainmine_chat">
+
+                                    <ImageView
+                                        android:layout_width="28dp"
+                                        android:layout_height="28dp"
+                                        android:layout_marginTop="3dp"
+                                        android:src="@mipmap/hm_365_guidance_chat" />
+
+                                    <TextView
+                                        android:id="@+id/tv_mainmine_dian"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_marginRight="5dp"
+                                        android:textColor="#ac0000"
+                                        android:textSize="10sp" />
+                                </RelativeLayout>
                             </RelativeLayout>
                         </RelativeLayout>
                     </RelativeLayout>

@@ -337,6 +337,7 @@ public interface NetConfig {
     //APP更新接口
     String APP_ISHAVEFRESH = BASE_NEW_URL + "/admiral/system/version/versionCheck.htm?token=82D5FBD40259C743ADDEF14D0E22F347";
     String GOBACKMONEY_GODOOR = BASE_NEW_URL + "/admiral/app/hmyc/order/info/refund.htm?token=82D5FBD40259C743ADDEF14D0E22F347";
-
+    //推荐记录
+    String RECOMMEND_STORY = "http://hmyc365.net/admiral/app/hmyc/order/info/listLstjGls.htm?token=82D5FBD40259C743ADDEF14D0E22F347";
 }
 
