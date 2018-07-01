@@ -615,8 +615,8 @@ public class FragmentMainChildShopCarSelf extends BaseFragment {
                     intent.putParcelableArrayListExtra("shoplist", array);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(getContext(), "请选择商品", Toast.LENGTH_SHORT).show();
-                }
+                Toast.makeText(getContext(), "请选择商品", Toast.LENGTH_SHORT).show();
+            }
                 break;
             default:
                 break;

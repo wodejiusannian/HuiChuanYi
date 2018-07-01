@@ -7,21 +7,27 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.WindowManager;
 
 import com.example.huichuanyi.R;
+import com.example.huichuanyi.bean.ShopTag;
 import com.example.huichuanyi.config.NetConfig;
+import com.example.huichuanyi.sql.SQLCLODao;
 import com.example.huichuanyi.ui.activity.MainActivity;
 import com.example.huichuanyi.ui.activity.login.LoginByAuthCodeActivity;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.JsonUtils;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
+
+import java.util.List;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -139,8 +145,46 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public void setListener() {
+        haha();
         mHandler.sendEmptyMessageDelayed(1, 2000);
     }
 
+
+    private void haha() {
+        final SQLCLODao dao = new SQLCLODao(SplashActivity.this);
+        List<ShopTag.BodyBean> bean = dao.selectSort();
+        Log.e("TAG", "onSuccess: -----bean" + bean);
+        if (bean != null && !(bean.size() > 0)) {
+            Log.e("TAG", "onSuccess: -----" + "hahahah");
+            RequestParams params = new RequestParams("http://hmyc365.net:8084/HM/stu/tag/fac/clothes/getClothesTag.do");
+            x.http().post(params, new Callback.CommonCallback<String>() {
+                @Override
+                public void onSuccess(String result) {
+                    Log.e("TAG", "onSuccess: -----" + result);
+                    Gson gson = new Gson();
+                    ShopTag shopTag = gson.fromJson(result, ShopTag.class);
+                    List<ShopTag.BodyBean> body = shopTag.getBody();
+                    for (ShopTag.BodyBean sh : body) {
+                        dao.addCloTAG(sh);
+                    }
+                }
+
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+
+                }
+
+                @Override
+                public void onCancelled(CancelledException cex) {
+
+                }
+
+                @Override
+                public void onFinished() {
+
+                }
+            });
+        }
+    }
 
 }

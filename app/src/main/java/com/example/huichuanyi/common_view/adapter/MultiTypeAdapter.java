@@ -33,9 +33,7 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
-
         View itemView = View.inflate(context, viewType, null);
-
         return typeFactory.createViewHolder(viewType, itemView);
     }
 

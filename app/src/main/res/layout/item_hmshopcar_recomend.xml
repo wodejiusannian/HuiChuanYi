@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingRight="15dp"
+    android:paddingTop="17dp">
+
+    <TextView
+        android:id="@+id/tv_itemshopcarrecommend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="衣/橱/管/理/师/精/荐"
+        android:textColor="#323232"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_itemshopcarrecommend"
+        android:layout_alignParentEnd="true"
+        android:text="更多"
+        android:textColor="#ac0000"
+        android:textSize="14sp" />
+</RelativeLayout>

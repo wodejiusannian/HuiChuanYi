@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="186dp"
+    android:background="@color/colorHmAppBg">
+
+    <TextView
+        android:id="@+id/tv_hmmian_kind"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/colorHmAppBg" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_hmmain_kind"
+        android:layout_width="match_parent"
+        android:layout_height="176dp"
+        android:layout_below="@+id/tv_hmmian_kind"
+        android:background="#fff" />
+
+    <LinearLayout
+        android:id="@+id/ll_hmmiankind_dots"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:paddingBottom="6dp">
+
+    </LinearLayout>
+</RelativeLayout>

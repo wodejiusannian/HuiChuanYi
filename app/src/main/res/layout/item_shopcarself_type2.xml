@@ -14,15 +14,6 @@
         android:src="@mipmap/hm_shopcar_noselect" />
 
 
-    <ImageView
-        android:id="@+id/iv_shopcarselftype2_shoppic"
-        android:layout_width="103dp"
-        android:layout_height="92dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="12dp"
-        android:layout_toRightOf="@+id/iv_shopcartype2_select"
-        android:scaleType="centerCrop" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="104dp"
@@ -117,5 +108,15 @@
         </RelativeLayout>
 
     </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_shopcarselftype2_shoppic"
+        android:layout_width="103dp"
+        android:layout_height="92dp"
+        android:layout_marginLeft="10dp"
+        android:scaleType="centerCrop"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/iv_shopcartype2_select"
+        android:layout_marginStart="9dp" />
 
 </RelativeLayout>

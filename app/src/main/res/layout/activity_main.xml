@@ -43,14 +43,14 @@
                 android:checked="true"
                 android:drawableTop="@drawable/hm_main_radiobutton_home" />
 
-            <RadioButton
+           <!-- <RadioButton
                 android:id="@+id/rb_main_order"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:button="@null"
-                android:drawableTop="@drawable/hm_main_radiobutton_service" />
+                android:drawableTop="@drawable/hm_main_radiobutton_service" />-->
 
             <RadioButton
                 android:id="@+id/rb_main_365"

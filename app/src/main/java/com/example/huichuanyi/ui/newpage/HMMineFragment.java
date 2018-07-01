@@ -1,4 +1,4 @@
-package com.example.huichuanyi.ui.fragment;
+package com.example.huichuanyi.ui.newpage;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,7 +10,6 @@ import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,18 +22,13 @@ import com.example.huichuanyi.custom.CustomToast;
 import com.example.huichuanyi.custom.GlideCircleTransform;
 import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.emum.OrderType;
-import com.example.huichuanyi.fragment_first.SinglePersonActivity;
 import com.example.huichuanyi.newui.activity.OrderFormActivity;
-import com.example.huichuanyi.newui.activity.OrderFormVideoActivity;
 import com.example.huichuanyi.secondui.FanKuiActivity;
 import com.example.huichuanyi.ui.activity.DatumActivity;
 import com.example.huichuanyi.ui.activity.MainActivity;
 import com.example.huichuanyi.ui.activity.MineSettingActivity;
-import com.example.huichuanyi.ui.activity.RTCReportActivity;
 import com.example.huichuanyi.ui.activity.login.LoginByAuthCodeActivity;
-import com.example.huichuanyi.ui.newpage.HMURLActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
-import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.ImageUtils;
 import com.example.huichuanyi.utils.MUtilsInternet;
 import com.example.huichuanyi.utils.ServiceSingleUtils;
@@ -45,8 +39,6 @@ import com.foamtrace.photopicker.SelectModel;
 import com.foamtrace.photopicker.intent.PhotoPickerIntent;
 import com.google.gson.Gson;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -59,17 +51,13 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.OnClick;
-import io.rong.imkit.RongIM;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
-import static com.example.huichuanyi.R.id.tv_mainmine_couponstate;
+public class HMMineFragment extends BaseFragment {
 
-public class FragmentMainMine extends BaseFragment {
-
-    @OnClick({R.id.iv_mainmine_photo, R.id.iv_mainmine_setting, R.id.tv_mainmine_orderform, R.id.tv_mainmine_clothesform,
-            R.id.tv_mainmine_blackform, R.id.tv_mainmine_videoform, R.id.tv_mainmine_exit, R.id.tv_mainmine_refresh,
-            R.id.tv_mainmine_fankui, R.id.rl_mainmine_info, R.id.rl_mainmine_openvip, R.id.iv_mainmine_report, R.id.rl_mainmine_coupon,
-            R.id.tl_mainmine_noopenvip})
+    @OnClick({R.id.iv_mainmine_photo, R.id.iv_mainmine_setting, R.id.tv_all_orderform, R.id.tv_service_orderform,
+            R.id.tv_shop_orderform, R.id.tv_mainmine_exit, R.id.ll_mainmine_refresh,
+            R.id.btn_mainmine_fankui, R.id.ll_mainmine_personinfo, R.id.btn_mainmine_coupon})
     public void onEvent(View v) {
         switch (v.getId()) {
             case R.id.iv_mainmine_photo:
@@ -78,35 +66,30 @@ public class FragmentMainMine extends BaseFragment {
             case R.id.iv_mainmine_setting:
                 ActivityUtils.switchTo(getActivity(), MineSettingActivity.class);
                 break;
-            case R.id.tv_mainmine_orderform:
+            case R.id.tv_all_orderform:
                 Intent orderIntent = new Intent(getActivity(), OrderFormActivity.class);
                 orderIntent.putExtra("title", "预约订单");
                 orderIntent.putExtra("orderTypePj", "1,2,3,4");
                 startActivity(orderIntent);
                 break;
-            case R.id.tv_mainmine_clothesform:
+            case R.id.tv_service_orderform:
                 Intent clothesIntent = new Intent(getActivity(), OrderFormActivity.class);
                 clothesIntent.putExtra("title", "服饰订单");
                 clothesIntent.putExtra("orderTypePj", "7");
                 ServiceSingleUtils.getInstance().setOrderType(OrderType.ORDER_CLOTHES);
                 startActivity(clothesIntent);
                 break;
-            case R.id.tv_mainmine_blackform:
+            case R.id.tv_shop_orderform:
                 Intent blackIntent = new Intent(getActivity(), OrderFormActivity.class);
                 ServiceSingleUtils.getInstance().setOrderType(OrderType.ORDER_BLACK);
                 blackIntent.putExtra("title", "黑科技订单");
                 blackIntent.putExtra("orderTypePj", "6");
                 startActivity(blackIntent);
                 break;
-            case R.id.tv_mainmine_videoform:
-                Intent videoIntent = new Intent(getActivity(), OrderFormVideoActivity.class);
-                videoIntent.putExtra("deleteStatusPj", "5");
-                startActivity(videoIntent);
-                break;
             case R.id.tv_mainmine_exit:
                 goExit();
                 break;
-            case R.id.tv_mainmine_refresh:
+            case R.id.ll_mainmine_refresh:
                 UpdateUtils up = UpdateUtils.getInstance(getContext());
                 up.update(true);
                 up.setOnUpListener(new UpdateUtils.Update() {
@@ -116,59 +99,14 @@ public class FragmentMainMine extends BaseFragment {
                     }
                 });
                 break;
-            case R.id.tv_mainmine_fankui:
+            case R.id.btn_mainmine_fankui:
                 ActivityUtils.switchTo(getActivity(), FanKuiActivity.class);
                 break;
-            case R.id.rl_mainmine_info:
+            case R.id.ll_mainmine_personinfo:
                 ActivityUtils.switchTo(getActivity(), DatumActivity.class);
                 break;
-            case R.id.rl_mainmine_openvip:
-                RequestParams params = new RequestParams(NetConfig.IS_BUY_365);
-                params.addBodyParameter("user_id", SharedPreferenceUtils.getUserData(getContext(), 1));
-                x.http().post(params, new Callback.CacheCallback<String>() {
-                    @Override
-                    public void onSuccess(String result) {
-                        try {
-                            activity.hideDian();
-                            JSONObject object = new JSONObject(result);
-                            JSONObject body = object.getJSONObject("body");
-                            String studio_name = body.getString("studio_name");
-                            String studio_id = body.getString("studio_id");
-                            RongIM im = RongIM.getInstance();
-                            if (im != null && studio_id != null) {
-                                im.startPrivateChat(getContext(), "hmgls_" + studio_id, studio_name);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable ex, boolean isOnCallback) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(CancelledException cex) {
-
-                    }
-
-                    @Override
-                    public void onFinished() {
-
-                    }
-
-                    @Override
-                    public boolean onCache(String result) {
-                        return false;
-                    }
-                });
-                break;
-            case R.id.iv_mainmine_report:
-                ActivityUtils.switchTo(getActivity(), RTCReportActivity.class);
-                break;
-            case R.id.rl_mainmine_coupon:
-                String url;
+            case R.id.btn_mainmine_coupon:
+                /*String url;
                 String coupon = couponInfo[0].getText().toString();
                 if (coupon.contains("无")) {
                     url = "http://hmyc365.net/hmyc/file/app/app-liangti-code/promoCode.html?deleteStatus=2";
@@ -179,15 +117,10 @@ public class FragmentMainMine extends BaseFragment {
                         url = "http://hmyc365.net/hmyc/file/app/app-liangti-code/promoCode.html?deleteStatus=0&concessionCode=" + coupon;
                     }
                 }
-
                 Intent intent = new Intent(getContext(), HMURLActivity.class);
                 intent.putExtra("title", "优惠券");
                 intent.putExtra("url", url);
-                startActivity(intent);
-                break;
-            case R.id.tl_mainmine_noopenvip:
-                Intent in = new Intent(getActivity(), SinglePersonActivity.class);
-                startActivity(in);
+                startActivity(intent);*/
                 break;
         }
     }
@@ -199,10 +132,6 @@ public class FragmentMainMine extends BaseFragment {
 
     private HaveMsg haveMsg;
 
-    @Override
-    protected int layoutInflaterId() {
-        return R.layout.fragment_mainmine;
-    }
 
     @Override
     protected void initData() {
@@ -238,9 +167,6 @@ public class FragmentMainMine extends BaseFragment {
         startActivityForResult(intent, REQUEST_CAMERA_CODE);
     }
 
-
-    @BindView(R.id.tv_mainmine_dian)
-    TextView dian;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -330,14 +256,14 @@ public class FragmentMainMine extends BaseFragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             int read = intent.getIntExtra("isRead", 0);
-            if (read > 0) {
+           /* if (read > 0) {
                 mRead += read;
                 dian.setText(intToString(mRead));
             } else {
                 mRead = 0;
                 dian.setText("");
                 activity.hideDian();
-            }
+            }*/
         }
     }
 
@@ -355,20 +281,10 @@ public class FragmentMainMine extends BaseFragment {
     @BindViews({R.id.tv_mine_name, R.id.tv_mine_city, R.id.tv_mine_occupation, R.id.tv_mine_charactor})
     TextView[] tvInfo;
 
-    @BindViews({R.id.tv_mainmine_couponid, tv_mainmine_couponstate})
-    TextView[] couponInfo;
-
-    @BindViews({R.id.tv_mainmine_managername, R.id.tv_mainmine_managerservicetime})
-    TextView[] managerInfo;
 
     @BindViews({R.id.iv_mainmine_photobg, R.id.iv_mainmine_photo})
     ImageView[] ivInfo;
 
-    @BindViews({R.id.rl_mainmine_openvip, R.id.tl_mainmine_noopenvip})
-    RelativeLayout[] relativeLayout;
-
-    @BindView(R.id.iv_mainmine_managerphoto)
-    ImageView managerPhoto;
 
     private void getInfo() {
         final Context context = getContext();
@@ -393,41 +309,12 @@ public class FragmentMainMine extends BaseFragment {
                     tvInfo[3].setText(body.getUserCharactor());
                     Glide.with(context).load(body.getUserPic()).centerCrop().bitmapTransform(new BlurTransformation(context)).into(ivInfo[0]);
                     Glide.with(context).load(body.getUserPic()).transform(new GlideCircleTransform(context)).error(R.mipmap.stand).into(ivInfo[1]);
-                    Glide.with(context).load(body.getManagerUrl()).transform(new GlideCircleTransform(context)).error(R.mipmap.stand).into(managerPhoto);
-                    String concessionCode = body.getConcessionCode();
-                    String vipEndDate = body.getVipEndDate();
-                    if (CommonUtils.isEmpty(vipEndDate)) {
-                        relativeLayout[1].setVisibility(View.VISIBLE);
-                        relativeLayout[0].setVisibility(View.GONE);
-                    } else {
-                        relativeLayout[0].setVisibility(View.VISIBLE);
-                        relativeLayout[1].setVisibility(View.GONE);
-                        String managerName = body.getManagerName();
-                        managerInfo[0].setText(managerName);
-                        managerInfo[1].setText(vipEndDate + "到期");
-                    }
-                    if (CommonUtils.isEmpty(concessionCode)) {
-                        //为空的时候
-                        couponInfo[0].setText("无优惠券");
-                        couponInfo[1].setText("");
-                    } else {
-                        //非空的时候
-                        couponInfo[0].setText(concessionCode);
-                        String deleteStatus = body.getDeleteStatus();
-                        if (deleteStatus.equals("1")) {
-                            couponInfo[1].setText("已使用");
-                        } else {
-                            String concessionMoney = body.getConcessionMoney();
-                            couponInfo[1].setText(concessionMoney);
-                        }
-                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
     }
-
 
     private Handler mHandler = new Handler() {
         @Override
@@ -442,4 +329,9 @@ public class FragmentMainMine extends BaseFragment {
             }
         }
     };
+
+    @Override
+    protected int layoutInflaterId() {
+        return R.layout.fragment_mainmine;
+    }
 }

@@ -7,6 +7,18 @@ import com.example.huichuanyi.bean.City;
 import com.example.huichuanyi.bean.HistotyZhenDuan;
 import com.example.huichuanyi.common_view.holder.BaseViewHolder;
 import com.example.huichuanyi.common_view.holder.HistoryHolder;
+import com.example.huichuanyi.common_view.holder.HmMainItemBannerHolder;
+import com.example.huichuanyi.common_view.holder.HmMainItemInformationHolder;
+import com.example.huichuanyi.common_view.holder.HmMainItemKindHolder;
+import com.example.huichuanyi.common_view.holder.HmMainItemRecommendStudioHolder;
+import com.example.huichuanyi.common_view.holder.HmMainItemStarStudioHolder;
+import com.example.huichuanyi.common_view.holder.HmMainItemSubRecommendStudioHolder;
+import com.example.huichuanyi.common_view.holder.HmShopCarBusinessHolder;
+import com.example.huichuanyi.common_view.holder.HmShopCarKindHolder;
+import com.example.huichuanyi.common_view.holder.HmShopCarRecommendHolder;
+import com.example.huichuanyi.common_view.holder.HmShopCarRecommendShopHolder;
+import com.example.huichuanyi.common_view.holder.HmShopCarShops2Holder;
+import com.example.huichuanyi.common_view.holder.HmShopCarShopsHolder;
 import com.example.huichuanyi.common_view.holder.LyBanerHolder;
 import com.example.huichuanyi.common_view.holder.LyCommendPeopleHolder;
 import com.example.huichuanyi.common_view.holder.LyIndentOverHolder;
@@ -50,6 +62,17 @@ import com.example.huichuanyi.common_view.holder.SlwSevenHolder;
 import com.example.huichuanyi.common_view.holder.SlwSixHolder;
 import com.example.huichuanyi.common_view.holder.SlwThreeHolder;
 import com.example.huichuanyi.common_view.holder.SlwTwoHolder;
+import com.example.huichuanyi.common_view.model.ItemHmMainBanner;
+import com.example.huichuanyi.common_view.model.ItemHmMainInformation;
+import com.example.huichuanyi.common_view.model.ItemHmMainKind;
+import com.example.huichuanyi.common_view.model.ItemHmMainRecommendStudio;
+import com.example.huichuanyi.common_view.model.ItemHmMainStarStudio;
+import com.example.huichuanyi.common_view.model.ItemHmShopCarBusiness;
+import com.example.huichuanyi.common_view.model.ItemHmShopCarKind;
+import com.example.huichuanyi.common_view.model.ItemHmShopCarRecommend;
+import com.example.huichuanyi.common_view.model.ItemHmShopCarRecommendShop;
+import com.example.huichuanyi.common_view.model.ItemHmShopCarShops;
+import com.example.huichuanyi.common_view.model.ItemHmShopCarShops2;
 import com.example.huichuanyi.common_view.model.LyBanner;
 import com.example.huichuanyi.common_view.model.LyCommendPeople;
 import com.example.huichuanyi.common_view.model.LyItemShop;
@@ -188,6 +211,29 @@ public class TypeFactoryForList implements TypeFactory {
 
     private final int TYPE_RESOURCE_ORDER_FORM_VIDEO = R.layout.item_orderformvideo_state;
 
+    private final int TYPE_RESOURCE_HMMAIN_BANNER = R.layout.item_hmmain_banner;
+
+    private final int TYPE_RESOURCE_HMMAIN_KIND = R.layout.item_hmmain_kind;
+
+    private final int TYPE_RESOURCE_HMMAIN_INFORMATION = R.layout.item_hmmain_information;
+
+    private final int TYPE_RESOURCE_HMMAIN_RECOMMEND_STUDIO = R.layout.item_hmmain_recommendstudio;
+
+    private final int TYPE_RESOURCE_HMMAIN_SUBRECOMMEND_STUDIO = R.layout.item_hmmain_subrecommendstudio;
+
+    private final int TYPE_RESOURCE_HMMAIN_STAR_STUDIO = R.layout.item_hmmain_studiostar;
+
+    private final int TYPE_RESOURCE_HMSHOPCAR_RECOMMEND = R.layout.item_hmshopcar_recomend;
+
+    private final int TYPE_RESOURCE_HMSHOPCAR_RECOMMENDSHOP = R.layout.item_hmshopcar_recomendshop;
+
+    private final int TYPE_RESOURCE_HMSHOPCAR_KIND = R.layout.item_hmshopcar_kind;
+
+    private final int TYPE_RESOURCE_HMSHOPCAR_BUSINESS = R.layout.item_hmshopcar_business;
+
+    private final int TYPE_RESOURCE_HMSHOPCAR_SHOPS = R.layout.item_hmshopcar_shops;
+
+    private final int TYPE_RESOURCE_HMSHOPCAR_SHOPS2 = R.layout.item_hmshopcar_shops2;
     @Override
     public int type(LyBanner one) {
         return TYPE_RESOURCE_BANNER;
@@ -398,6 +444,65 @@ public class TypeFactoryForList implements TypeFactory {
         return TYPE_RESOURCE_PRIVATE_RECOMMEND_TWO;
     }
 
+    @Override
+    public int type(ItemHmMainBanner histotyZhenDuan) {
+        return TYPE_RESOURCE_HMMAIN_BANNER;
+    }
+
+    @Override
+    public int type(ItemHmMainInformation histotyZhenDuan) {
+        return TYPE_RESOURCE_HMMAIN_INFORMATION;
+    }
+
+    @Override
+    public int type(ItemHmMainKind histotyZhenDuan) {
+        return TYPE_RESOURCE_HMMAIN_KIND;
+    }
+
+    @Override
+    public int type(ItemHmMainRecommendStudio histotyZhenDuan) {
+        return TYPE_RESOURCE_HMMAIN_RECOMMEND_STUDIO;
+    }
+
+    @Override
+    public int type(ItemHmMainStarStudio histotyZhenDuan) {
+        return TYPE_RESOURCE_HMMAIN_STAR_STUDIO;
+    }
+
+    @Override
+    public int type(ItemHmMainRecommendStudio.DataBean histotyZhenDuan) {
+        return TYPE_RESOURCE_HMMAIN_SUBRECOMMEND_STUDIO;
+    }
+
+    @Override
+    public int type(ItemHmShopCarRecommend itemHmShopCarRecommend) {
+        return TYPE_RESOURCE_HMSHOPCAR_RECOMMEND;
+    }
+
+    @Override
+    public int type(ItemHmShopCarRecommendShop itemHmShopCarRecommend) {
+        return TYPE_RESOURCE_HMSHOPCAR_RECOMMENDSHOP;
+    }
+
+    @Override
+    public int type(ItemHmShopCarKind itemHmShopCarKind) {
+        return TYPE_RESOURCE_HMSHOPCAR_KIND;
+    }
+
+    @Override
+    public int type(ItemHmShopCarBusiness itemHmShopCarKind) {
+        return TYPE_RESOURCE_HMSHOPCAR_BUSINESS;
+    }
+
+    @Override
+    public int type(ItemHmShopCarShops itemHmShopCarShops) {
+        return TYPE_RESOURCE_HMSHOPCAR_SHOPS;
+    }
+
+    @Override
+    public int type(ItemHmShopCarShops2 itemHmShopCarShops) {
+        return TYPE_RESOURCE_HMSHOPCAR_SHOPS2;
+    }
 
     @Override
     public int type(LyShopCar.BodyBean lyShopCar) {
@@ -502,6 +607,30 @@ public class TypeFactoryForList implements TypeFactory {
                 return new ShopCarSelfType4Holder(itemView);
             case TYPE_RESOURCE_SHO_CAR_NOBODY:
                 return new ShopCarSelfNobodyHolder(itemView);
+            case TYPE_RESOURCE_HMMAIN_BANNER:
+                return new HmMainItemBannerHolder(itemView);
+            case TYPE_RESOURCE_HMMAIN_KIND:
+                return new HmMainItemKindHolder(itemView);
+            case TYPE_RESOURCE_HMMAIN_INFORMATION:
+                return new HmMainItemInformationHolder(itemView);
+            case TYPE_RESOURCE_HMMAIN_RECOMMEND_STUDIO:
+                return new HmMainItemRecommendStudioHolder(itemView);
+            case TYPE_RESOURCE_HMMAIN_STAR_STUDIO:
+                return new HmMainItemStarStudioHolder(itemView);
+            case TYPE_RESOURCE_HMMAIN_SUBRECOMMEND_STUDIO:
+                return new HmMainItemSubRecommendStudioHolder(itemView);
+            case TYPE_RESOURCE_HMSHOPCAR_RECOMMEND:
+                return new HmShopCarRecommendHolder(itemView);
+            case TYPE_RESOURCE_HMSHOPCAR_RECOMMENDSHOP:
+                return new HmShopCarRecommendShopHolder(itemView);
+            case TYPE_RESOURCE_HMSHOPCAR_KIND:
+                return new HmShopCarKindHolder(itemView);
+            case TYPE_RESOURCE_HMSHOPCAR_BUSINESS:
+                return new HmShopCarBusinessHolder(itemView);
+            case TYPE_RESOURCE_HMSHOPCAR_SHOPS:
+                return new HmShopCarShopsHolder(itemView);
+            case TYPE_RESOURCE_HMSHOPCAR_SHOPS2:
+                return new HmShopCarShops2Holder(itemView);
             default:
                 return null;
         }

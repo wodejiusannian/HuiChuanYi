@@ -5,6 +5,17 @@ import android.view.View;
 import com.example.huichuanyi.bean.City;
 import com.example.huichuanyi.bean.HistotyZhenDuan;
 import com.example.huichuanyi.common_view.holder.BaseViewHolder;
+import com.example.huichuanyi.common_view.model.ItemHmMainBanner;
+import com.example.huichuanyi.common_view.model.ItemHmMainInformation;
+import com.example.huichuanyi.common_view.model.ItemHmMainKind;
+import com.example.huichuanyi.common_view.model.ItemHmMainRecommendStudio;
+import com.example.huichuanyi.common_view.model.ItemHmMainStarStudio;
+import com.example.huichuanyi.common_view.model.ItemHmShopCarBusiness;
+import com.example.huichuanyi.common_view.model.ItemHmShopCarKind;
+import com.example.huichuanyi.common_view.model.ItemHmShopCarRecommend;
+import com.example.huichuanyi.common_view.model.ItemHmShopCarRecommendShop;
+import com.example.huichuanyi.common_view.model.ItemHmShopCarShops;
+import com.example.huichuanyi.common_view.model.ItemHmShopCarShops2;
 import com.example.huichuanyi.common_view.model.LyBanner;
 import com.example.huichuanyi.common_view.model.LyCommendPeople;
 import com.example.huichuanyi.common_view.model.LyItemShop;
@@ -143,7 +154,29 @@ public interface TypeFactory {
 
     int type(PrivateRecommendModel2 histotyZhenDuan);
 
-    //int type(OrderStudioHoz histotyZhenDuan);
+    int type(ItemHmMainBanner histotyZhenDuan);
 
+    int type(ItemHmMainInformation histotyZhenDuan);
+
+    int type(ItemHmMainKind histotyZhenDuan);
+
+    int type(ItemHmMainRecommendStudio histotyZhenDuan);
+
+    int type(ItemHmMainStarStudio histotyZhenDuan);
+
+
+    int type(ItemHmMainRecommendStudio.DataBean histotyZhenDuan);
+
+    int type(ItemHmShopCarRecommend itemHmShopCarRecommend);
+
+    int type(ItemHmShopCarRecommendShop itemHmShopCarRecommend);
+
+    int type(ItemHmShopCarKind itemHmShopCarKind);
+
+    int type(ItemHmShopCarBusiness itemHmShopCarKind);
+
+    int type(ItemHmShopCarShops itemHmShopCarShops);
+
+    int type(ItemHmShopCarShops2 itemHmShopCarShops);
     BaseViewHolder createViewHolder(int type, View itemView);
 }

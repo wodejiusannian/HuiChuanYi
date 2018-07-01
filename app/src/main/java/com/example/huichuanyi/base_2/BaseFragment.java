@@ -36,6 +36,9 @@ public abstract class BaseFragment extends Fragment {
     protected void initEvent() {
     }
 
+    protected void addData() {
+    }
+
     protected void setData() {
     }
 
@@ -64,6 +67,8 @@ public abstract class BaseFragment extends Fragment {
         initData();
 
         setData();
+
+        addData();
 
         initEvent();
 

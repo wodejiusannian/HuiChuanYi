@@ -25,10 +25,9 @@ import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.dialog.MySureDialog;
 import com.example.huichuanyi.ui.activity.login.LoginByAuthCodeActivity;
 import com.example.huichuanyi.ui.base.BaseActivity;
-import com.example.huichuanyi.ui.fragment.FragmentMainHome;
-import com.example.huichuanyi.ui.fragment.FragmentMainMine;
-import com.example.huichuanyi.ui.fragment.FragmentMainService;
-import com.example.huichuanyi.ui.fragment.FragmentMainShopCar;
+import com.example.huichuanyi.ui.newpage.HMMainFragment;
+import com.example.huichuanyi.ui.newpage.HMMineFragment;
+import com.example.huichuanyi.ui.newpage.HMShopCarFragment;
 import com.example.huichuanyi.ui.newpage.TipActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonUtils;
@@ -93,7 +92,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
     public void initData() {
         fragmentUtils = new FragmentUtils(getSupportFragmentManager());
-        fragmentUtils.showAndHide(R.id.rl_main_show, FragmentMainHome.class);
+        fragmentUtils.showAndHide(R.id.rl_main_show, HMMainFragment.class);
         net.get(NetConfig.IS_HAVE_ACTIVITY, null, this);
     }
 
@@ -175,9 +174,9 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
             case R.id.rb_main_home:
-                fragmentUtils.showAndHide(R.id.rl_main_show, FragmentMainHome.class);
+                fragmentUtils.showAndHide(R.id.rl_main_show, HMMainFragment.class);
                 break;
-            case R.id.rb_main_order:
+            /*case R.id.rb_main_order:
                 String order = SharedPreferenceUtils.getIsFirstOpen(this);
                 if (!order.contains("2")) {
                     Intent in = new Intent(this, TipActivity.class);
@@ -185,7 +184,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                     startActivity(in);
                 }
                 fragmentUtils.showAndHide(R.id.rl_main_show, FragmentMainService.class);
-                break;
+                break;*/
             case R.id.rb_main_365:
                 String slw = SharedPreferenceUtils.getIsFirstOpen(this);
                 if (!slw.contains("3")) {
@@ -193,7 +192,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                     in.putExtra("first", "3");
                     startActivity(in);
                 }
-                fragmentUtils.showAndHide(R.id.rl_main_show, FragmentMainShopCar.class);
+                fragmentUtils.showAndHide(R.id.rl_main_show, HMShopCarFragment.class);
                 break;
             case R.id.rb_main_me:
                 String me = SharedPreferenceUtils.getIsFirstOpen(this);
@@ -202,7 +201,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                     in.putExtra("first", "4");
                     startActivity(in);
                 }
-                fragmentUtils.showAndHide(R.id.rl_main_show, FragmentMainMine.class);
+                fragmentUtils.showAndHide(R.id.rl_main_show, HMMineFragment.class);
                 break;
         }
     }

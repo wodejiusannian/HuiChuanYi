@@ -1,0 +1,37 @@
+package com.example.huichuanyi.common_view.model;
+
+import com.example.huichuanyi.common_view.Type.TypeFactory;
+
+import java.util.List;
+
+/**
+ * Created by 小五 on 2018/6/26.
+ */
+
+public class ItemHmMainStarStudio implements Visitable {
+    private List<DataBean> mData;
+
+    public ItemHmMainStarStudio(List<DataBean> mData) {
+        this.mData = mData;
+    }
+
+    public List<DataBean> getmData() {
+        return mData;
+    }
+
+    public void setmData(List<DataBean> mData) {
+        this.mData = mData;
+    }
+
+    public static class DataBean{
+        public String bannerName;
+        public String clickType;
+        public String clickUrl;
+        public String pictureUrl;
+        public String shareUrl;
+    }
+    @Override
+    public int type(TypeFactory typeFactory) {
+        return typeFactory.type(this);
+    }
+}

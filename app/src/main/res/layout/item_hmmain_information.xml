@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:background="@color/colorHmAppBg"
+    android:paddingBottom="7dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="7dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="31dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/shape_write_8dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="慧美"
+            android:textColor="#323232"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/shape_red_4dp"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:text="资讯"
+            android:textColor="#ffffff"
+            android:textSize="13sp" />
+
+        <com.example.huichuanyi.custom.marqueeview.MarqueeView
+            android:id="@+id/mv_hmmain_information"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="11dp"
+            app:mvAnimDuration="1000"
+            app:mvInterval="3000"
+            app:mvSingleLine="true"
+            app:mvTextColor="#656565"
+            app:mvTextSize="13sp" />
+    </LinearLayout>
+</RelativeLayout>

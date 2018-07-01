@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorHmAppBg">
+
+    <RelativeLayout
+        android:id="@+id/top_shopcar"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="#fff">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:paddingRight="14dp">
+
+            <TextView
+                android:id="@+id/tv_hmshopcar_edit"
+                style="@style/TextStyleSubTitle"
+                android:layout_alignBaseline="@+id/tv_hmshopcar_title"
+                android:layout_alignParentEnd="true"
+                android:text="编辑" />
+
+            <TextView
+                android:id="@+id/tv_hmshopcar_title"
+                style="@style/TextStyleTitle"
+                android:layout_centerInParent="true"
+                android:text="购物车" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_hmshopcar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_gopay"
+        android:layout_below="@+id/top_shopcar">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_hmshopcar_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <RelativeLayout
+        android:id="@+id/bottom_gopay"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="#fff"
+        android:paddingLeft="15dp">
+
+        <ImageView
+            android:id="@+id/iv_hmshopcar_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/hm_shopcar_noselect" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:layout_toRightOf="@+id/iv_hmshopcar_all"
+            android:text="全选"
+            android:textColor="#989898"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_hmshopcar_money"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="6dp"
+            android:layout_toLeftOf="@+id/tv_hmshopcar_count"
+            android:gravity="center"
+            android:text="合计：¥0.00"
+            android:textColor="#323232"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_hmshopcar_count"
+            android:layout_width="136dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:background="#ac0000"
+            android:gravity="center"
+            android:text="去结算(0)"
+            android:textColor="#fff"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+</RelativeLayout>

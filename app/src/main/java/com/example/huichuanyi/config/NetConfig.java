@@ -339,5 +339,12 @@ public interface NetConfig {
     String GOBACKMONEY_GODOOR = BASE_NEW_URL + "/admiral/app/hmyc/order/info/refund.htm?token=82D5FBD40259C743ADDEF14D0E22F347";
     //推荐记录
     String RECOMMEND_STORY = "http://hmyc365.net/admiral/app/hmyc/order/info/listLstjGls.htm?token=82D5FBD40259C743ADDEF14D0E22F347";
+
+    //3.0首页接口
+    String HM_MAIN_DATA = BASE_NEW_URL + "/admiral/app/hmyc/home/index/index.htm";
+
+    String HM_SHOPCAR_DATA = BASE_NEW_URL + "/admiral/app/hmyc/gwc/index/index.htm";
+
+    String HM_SHOPCAR_DATA_MORE = BASE_NEW_URL + "/admiral/app/hmyc/order/info/listGwc_A.htm";
 }
 

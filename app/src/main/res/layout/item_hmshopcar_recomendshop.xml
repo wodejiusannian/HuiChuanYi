@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_recommendshop"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="3dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="182dp">
+
+            <ImageView
+                android:id="@+id/iv_recommendshoppic"
+                android:layout_width="match_parent"
+                android:layout_height="182dp"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/iv_shopcarrecommendshop_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:src="@mipmap/hm_shopcar_noselect" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="19dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="4dp"
+            android:orientation="vertical"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:id="@+id/tv_recommendshopname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="服饰名：2018款最新女卫衣纯棉凉爽时尚潮流卫衣T恤"
+                android:textColor="#323232"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_recommendshopreason"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="推荐理由:青春|纯棉|清新"
+                android:textColor="#656565"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_recommendshopprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="¥1699"
+                android:textColor="#ac0000"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

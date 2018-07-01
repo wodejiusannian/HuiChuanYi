@@ -35,4 +35,6 @@
     <color name="orderIntroduceBg">#eeeeee</color>
     <color name="orderIntroduceStarBg">#FF0707</color>
     <color name="colorHmAppBg">#f7f4f4</color>
+    <color name="colorTabStroke">#000000</color>
+    <color name="colorTabSelect">#ac0000</color>
 </resources>
