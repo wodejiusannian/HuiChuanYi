@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,14 +15,18 @@ import com.example.huichuanyi.base_2.BaseFragment;
 import com.example.huichuanyi.common_view.adapter.MultiTypeAdapter;
 import com.example.huichuanyi.common_view.model.ItemHmShopCarBusiness;
 import com.example.huichuanyi.common_view.model.ItemHmShopCarKind;
+import com.example.huichuanyi.common_view.model.ItemHmShopCarRecommend;
 import com.example.huichuanyi.common_view.model.ItemHmShopCarRecommendShop;
 import com.example.huichuanyi.common_view.model.ItemHmShopCarShops;
 import com.example.huichuanyi.common_view.model.ItemHmShopCarShops2;
 import com.example.huichuanyi.common_view.model.ShopCarType4Model;
 import com.example.huichuanyi.common_view.model.Visitable;
 import com.example.huichuanyi.config.NetConfig;
+import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.utils.CommonUtils;
+import com.example.huichuanyi.utils.JsonUtils;
 import com.example.huichuanyi.utils.MUtilsInternet;
+import com.example.huichuanyi.utils.SharedPreferenceUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -64,7 +68,10 @@ public class HMShopCarFragment extends BaseFragment {
     @BindView(R.id.tv_hmshopcar_edit)
     TextView edit;
 
-    @OnClick({R.id.iv_hmshopcar_all, R.id.tv_hmshopcar_edit, R.id.tv_hmshopcar_count})
+    @BindView(R.id.rl_hmshopcar_edit)
+    RelativeLayout rlEdit;
+
+    @OnClick({R.id.iv_hmshopcar_all, R.id.tv_hmshopcar_edit, R.id.tv_hmshopcar_count, R.id.iv_mainchildshopcar_delete})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_hmshopcar_all:
@@ -93,8 +100,10 @@ public class HMShopCarFragment extends BaseFragment {
                 break;
             case R.id.tv_hmshopcar_edit:
                 if ("编辑".equals(edit.getText().toString())) {
+                    rlEdit.setVisibility(View.VISIBLE);
                     edit.setText("完成");
                 } else {
+                    rlEdit.setVisibility(View.GONE);
                     edit.setText("编辑");
                 }
                 for (int i = 0; i < mData.size(); i++) {
@@ -117,14 +126,14 @@ public class HMShopCarFragment extends BaseFragment {
                         boolean check2 = shop2.isSelect();
                         if (check2) {
                             array.add(new ShopCarType4Model(shop2.getGoodsColor(), shop2.getGoodsId(), shop2.getGoodsName(), shop2.getGoodsPicture(),
-                                    shop2.getGoodsPrice() + "", shop2.getGoodsSize(), shop2.getId(), shop2.getOrderNumber(), ""));
+                                    shop2.getGoodsPrice() + "", shop2.getGoodsSize(), shop2.getId(), shop2.getCount(), ""));
                         }
                     } else if (visitable instanceof ItemHmShopCarShops2) {
                         ItemHmShopCarShops2 shop3 = ((ItemHmShopCarShops2) visitable);
                         boolean check3 = shop3.isSelect();
                         if (check3) {
                             array.add(new ShopCarType4Model(shop3.getGoodsColor(), shop3.getGoodsId(), shop3.getGoodsName(), shop3.getGoodsPicture(),
-                                    shop3.getGoodsPrice() + "", shop3.getGoodsSize(), shop3.getId(), shop3.getOrderNumber(), ""));
+                                    shop3.getGoodsPrice() + "", shop3.getGoodsSize(), shop3.getId(), shop3.getCount(), ""));
                             ;
                         }
                     }
@@ -137,9 +146,89 @@ public class HMShopCarFragment extends BaseFragment {
                     Toast.makeText(getContext(), "请选择商品", Toast.LENGTH_SHORT).show();
                 }
                 break;
+            case R.id.iv_mainchildshopcar_delete:
+                MySelfDialog dialog = new MySelfDialog(getContext());
+                dialog.setMessage("确认要删除吗");
+                dialog.setOnYesListener("确认", new MySelfDialog.OnYesClickListener() {
+                    @Override
+                    public void onClick() {
+                        Map<String, String> map = new HashMap<>();
+                        map.put("buyUserId", SharedPreferenceUtils.getUserData(getContext(), 1));
+                        map.put("token", NetConfig.TOKEN);
+                        String idPj = "";
+                        for (Visitable visitable : mData) {
+                            if (visitable instanceof ItemHmShopCarRecommendShop) {
+                                ItemHmShopCarShops shopCarType2Model = ((ItemHmShopCarShops) visitable);
+                                if (shopCarType2Model.isSelect()) {
+                                    idPj = idPj + "," + shopCarType2Model.getId();
+                                }
+                            } else if (visitable instanceof ItemHmShopCarShops2) {
+                                ItemHmShopCarShops2 shopCarType3Model = ((ItemHmShopCarShops2) visitable);
+                                if (shopCarType3Model.isSelect()) {
+                                    idPj = idPj + "," + shopCarType3Model.getId();
+                                }
+                            } else if (visitable instanceof ItemHmShopCarRecommendShop) {
+                                ItemHmShopCarRecommendShop shopCarType3Model = ((ItemHmShopCarRecommendShop) visitable);
+                                if (shopCarType3Model.isBuy()) {
+                                    idPj = idPj + "," + shopCarType3Model.getId();
+                                }
+                            }
+                        }
+                        map.put("idPj", idPj);
+                        map.put("deleteStatu", "-4");
+                        net.post(NetConfig.HMSHOPCAR_DELETE_SHOP, getContext(), map, new MUtilsInternet.XCallBack() {
+                            @Override
+                            public void onResponse(String result) {
+                                String ret = JsonUtils.getRet(result);
+                                if ("0".equals(ret)) {
+                                    getData();
+                                } else {
+                                    Toast.makeText(getContext(), "删除失败", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+                });
+                dialog.setOnNoListener("取消", null);
+                dialog.show();
+                break;
             default:
                 break;
         }
+    }
+
+    private void getRecommendShop() {
+        net.post2(NetConfig.HM_SHOPCAR_DATA, map, new MUtilsInternet.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+                mData.add(new ItemHmShopCarRecommend(false));
+                try {
+                    JSONObject object = new JSONObject(result);
+                    JSONObject body = object.getJSONObject("body");
+                    String recommendReason = body.getString("recommendReason");
+                    JSONArray rec = body.getJSONArray("rec");
+                    for (int i = 0; i < rec.length(); i++) {
+                        JSONObject recItem = rec.getJSONObject(i);
+                        ItemHmShopCarRecommendShop itemHmShopCarRecommendShop = new ItemHmShopCarRecommendShop();
+                        itemHmShopCarRecommendShop.setDeleteStatus(recItem.getString("deleteStatus"));
+                        itemHmShopCarRecommendShop.setGoodsId(recItem.getString("goodsId"));
+                        itemHmShopCarRecommendShop.setGoodsName(recItem.getString("goodsName"));
+                        itemHmShopCarRecommendShop.setGoodsPicture(recItem.getString("goodsPicture"));
+                        itemHmShopCarRecommendShop.setGoodsPrice(Double.parseDouble(recItem.getString("goodsPrice")));
+                        itemHmShopCarRecommendShop.setId(recItem.getString("id"));
+                        String recReason = recItem.getString("recommendReason");
+                        itemHmShopCarRecommendShop.setRecommendReason(recReason);
+                        if (recReason.equals(recommendReason))
+                            itemHmShopCarRecommendShop.setBuy(true);
+                        else itemHmShopCarRecommendShop.setBuy(false);
+                        mData.add(itemHmShopCarRecommendShop);
+                    }
+                    adapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
 
@@ -152,24 +241,124 @@ public class HMShopCarFragment extends BaseFragment {
             adapter = new MultiTypeAdapter(mData);
         if (map == null)
             map = new HashMap<>();
-        map.put("buyUserId", "81");
+        map.put("buyUserId", SharedPreferenceUtils.getUserData(getContext(), 1));
     }
 
     private Map<String, String> map = new HashMap<>();
+
 
     private void getData() {
         net.post(NetConfig.HM_SHOPCAR_DATA_MORE, getContext(), map, new MUtilsInternet.XCallBack() {
             @Override
             public void onResponse(String result) {
-                Log.e("TAG", "onResponse: ----" + result);
                 try {
+                    mData.clear();
                     JSONObject jsonObject = new JSONObject(result);
                     JSONObject body = jsonObject.getJSONObject("body");
                     JSONArray orderMall = body.getJSONArray("orderMall");
                     JSONArray orderHkj = body.getJSONArray("orderHkj");
                     JSONArray orderVideo = body.getJSONArray("orderVideo");
                     if (orderMall.length() > 0) {
-                        mData.add(new ItemHmShopCarKind("慧美商城"));
+                        mData.add(new ItemHmShopCarKind("慧美商城", false));
+                        for (int i = 0; i < orderMall.length(); i++) {
+                            JSONObject mallHkj = orderMall.getJSONObject(i);
+                            String sellerUserName = mallHkj.getString("sellerUserName");
+                            mData.add(new ItemHmShopCarBusiness(false, sellerUserName, mallHkj.getString("sellerUserId"),
+                                    mallHkj.getString("sellerPicture"), mallHkj.getString("orderType")));
+                            JSONArray appHmyc = mallHkj.getJSONArray("appHmycOrderInfo_ListGwc_ABCustoms");
+                            if (appHmyc.length() > 0) {
+                                JSONObject objAppHmyc = appHmyc.getJSONObject(0);
+                                String goodsColor = objAppHmyc.getString("goodsColor");
+                                String goodsId = objAppHmyc.getString("goodsId");
+                                String goodsName = objAppHmyc.getString("goodsName");
+                                String goodsPicture = objAppHmyc.getString("goodsPicture");
+                                String goodsPrice = objAppHmyc.getString("goodsPrice");
+                                String goodsSize = objAppHmyc.getString("goodsSize");
+                                String id = objAppHmyc.getString("id");
+                                String orderNumber = objAppHmyc.getString("orderNumber");
+                                double price = Double.parseDouble(goodsPrice);
+                                int number = Integer.parseInt(orderNumber);
+                                mData.add(new ItemHmShopCarShops2(false, number, false, goodsColor, goodsId, goodsName
+                                        , goodsPicture, price, goodsSize, id, sellerUserName));
+                                getRecommendShop();
+                                return;
+                            }
+                        }
+                    } else if (orderHkj.length() > 0) {
+                        mData.add(new ItemHmShopCarKind("慧美黑科技", false));
+                        for (int i = 0; i < orderHkj.length(); i++) {
+                            JSONObject objOrderHkj = orderHkj.getJSONObject(i);
+                            String sellerUserName = objOrderHkj.getString("sellerUserName");
+                            mData.add(new ItemHmShopCarBusiness(false, sellerUserName, objOrderHkj.getString("sellerUserId"),
+                                    objOrderHkj.getString("sellerPicture"), objOrderHkj.getString("orderType")));
+                            JSONArray appHmyc = objOrderHkj.getJSONArray("appHmycOrderInfo_ListGwc_ABCustoms");
+                            if (appHmyc.length() > 0) {
+                                JSONObject objAppHmyc = appHmyc.getJSONObject(0);
+                                String goodsColor = objAppHmyc.getString("goodsColor");
+                                String goodsId = objAppHmyc.getString("goodsId");
+                                String goodsName = objAppHmyc.getString("goodsName");
+                                String goodsPicture = objAppHmyc.getString("goodsPicture");
+                                String goodsPrice = objAppHmyc.getString("goodsPrice");
+                                String goodsSize = objAppHmyc.getString("goodsSize");
+                                String id = objAppHmyc.getString("id");
+                                String orderNumber = objAppHmyc.getString("orderNumber");
+                                double price = Double.parseDouble(goodsPrice);
+                                int number = Integer.parseInt(orderNumber);
+                                mData.add(new ItemHmShopCarShops2(false, number, false, goodsColor, goodsId, goodsName
+                                        , goodsPicture, price, goodsSize, id, sellerUserName));
+                                getRecommendShop();
+                                return;
+                            }
+                        }
+                    } else if (orderVideo.length() > 0) {
+                        mData.add(new ItemHmShopCarKind("慧美视频", false));
+                        for (int i = 0; i < orderVideo.length(); i++) {
+                            JSONObject videoHkj = orderVideo.getJSONObject(i);
+                            String sellerUserName = videoHkj.getString("sellerUserName");
+                            mData.add(new ItemHmShopCarBusiness(false, sellerUserName
+                                    , videoHkj.getString("sellerUserId"),
+                                    videoHkj.getString("sellerPicture"), videoHkj.getString("orderType")));
+                            JSONArray appHmyc = videoHkj.getJSONArray("appHmycOrderInfo_ListGwc_ABCustoms");
+                            if (appHmyc.length() > 0) {
+                                JSONObject objAppHmyc = appHmyc.getJSONObject(0);
+                                String goodsColor = objAppHmyc.getString("goodsColor");
+                                String goodsId = objAppHmyc.getString("goodsId");
+                                String goodsName = objAppHmyc.getString("goodsName");
+                                String goodsPicture = objAppHmyc.getString("goodsPicture");
+                                String goodsPrice = objAppHmyc.getString("goodsPrice");
+                                String goodsSize = objAppHmyc.getString("goodsSize");
+                                String id = objAppHmyc.getString("id");
+                                String orderNumber = objAppHmyc.getString("orderNumber");
+                                double price = Double.parseDouble(goodsPrice);
+                                int number = Integer.parseInt(orderNumber);
+                                mData.add(new ItemHmShopCarShops2(false, number, false, goodsColor, goodsId, goodsName
+                                        , goodsPicture, price, goodsSize, id, sellerUserName));
+                                getRecommendShop();
+                                return;
+                            }
+                        }
+                    }
+                    getRecommendShop();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void getDataMore() {
+        net.post(NetConfig.HM_SHOPCAR_DATA_MORE, getContext(), map, new MUtilsInternet.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+                try {
+                    mData.clear();
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONObject body = jsonObject.getJSONObject("body");
+                    JSONArray orderMall = body.getJSONArray("orderMall");
+                    JSONArray orderHkj = body.getJSONArray("orderHkj");
+                    JSONArray orderVideo = body.getJSONArray("orderVideo");
+                    if (orderMall.length() > 0) {
+                        mData.add(new ItemHmShopCarKind("慧美商城", true));
                         for (int i = 0; i < orderMall.length(); i++) {
                             JSONObject mallHkj = orderMall.getJSONObject(i);
                             String sellerUserName = mallHkj.getString("sellerUserName");
@@ -189,16 +378,16 @@ public class HMShopCarFragment extends BaseFragment {
                                 double price = Double.parseDouble(goodsPrice);
                                 int number = Integer.parseInt(orderNumber);
                                 if (i == orderHkj.length() - 1 && j == appHmyc.length() - 1) {
-                                    mData.add(new ItemHmShopCarShops2(false, 1, false, goodsColor, goodsId, goodsName
-                                            , goodsPicture, price, goodsSize, id, number, sellerUserName));
+                                    mData.add(new ItemHmShopCarShops2(false, number, false, goodsColor, goodsId, goodsName
+                                            , goodsPicture, price, goodsSize, id, sellerUserName));
                                 } else {
-                                    mData.add(new ItemHmShopCarShops(false, 1, false, goodsColor, goodsId, goodsName
-                                            , goodsPicture, price, goodsSize, id, number, sellerUserName));
+                                    mData.add(new ItemHmShopCarShops(false, number, false, goodsColor, goodsId, goodsName
+                                            , goodsPicture, price, goodsSize, id, sellerUserName));
                                 }
                             }
                         }
                     } else if (orderHkj.length() > 0) {
-                        mData.add(new ItemHmShopCarKind("慧美黑科技"));
+                        mData.add(new ItemHmShopCarKind("慧美黑科技", true));
                         for (int i = 0; i < orderHkj.length(); i++) {
                             JSONObject objOrderHkj = orderHkj.getJSONObject(i);
                             String sellerUserName = objOrderHkj.getString("sellerUserName");
@@ -218,16 +407,16 @@ public class HMShopCarFragment extends BaseFragment {
                                 double price = Double.parseDouble(goodsPrice);
                                 int number = Integer.parseInt(orderNumber);
                                 if (i == orderHkj.length() - 1 && j == appHmyc.length() - 1) {
-                                    mData.add(new ItemHmShopCarShops2(false, 1, false, goodsColor, goodsId, goodsName
-                                            , goodsPicture, price, goodsSize, id, number, sellerUserName));
+                                    mData.add(new ItemHmShopCarShops2(false, number, false, goodsColor, goodsId, goodsName
+                                            , goodsPicture, price, goodsSize, id, sellerUserName));
                                 } else {
-                                    mData.add(new ItemHmShopCarShops(false, 1, false, goodsColor, goodsId, goodsName
-                                            , goodsPicture, price, goodsSize, id, number, sellerUserName));
+                                    mData.add(new ItemHmShopCarShops(false, number, false, goodsColor, goodsId, goodsName
+                                            , goodsPicture, price, goodsSize, id, sellerUserName));
                                 }
                             }
                         }
                     } else if (orderVideo.length() > 0) {
-                        mData.add(new ItemHmShopCarKind("慧美视频"));
+                        mData.add(new ItemHmShopCarKind("慧美视频", true));
                         for (int i = 0; i < orderVideo.length(); i++) {
                             JSONObject videoHkj = orderVideo.getJSONObject(i);
                             String sellerUserName = videoHkj.getString("sellerUserName");
@@ -248,55 +437,19 @@ public class HMShopCarFragment extends BaseFragment {
                                 double price = Double.parseDouble(goodsPrice);
                                 int number = Integer.parseInt(orderNumber);
                                 if (i == orderHkj.length() - 1 && j == appHmyc.length() - 1) {
-                                    mData.add(new ItemHmShopCarShops2(false, 1, false, goodsColor, goodsId, goodsName
-                                            , goodsPicture, price, goodsSize, id, number, sellerUserName));
+                                    mData.add(new ItemHmShopCarShops2(false, number, false, goodsColor, goodsId, goodsName
+                                            , goodsPicture, price, goodsSize, id, sellerUserName));
                                 } else {
-                                    mData.add(new ItemHmShopCarShops(false, 1, false, goodsColor, goodsId, goodsName
-                                            , goodsPicture, price, goodsSize, id, number, sellerUserName));
+                                    mData.add(new ItemHmShopCarShops(false, number, false, goodsColor, goodsId, goodsName
+                                            , goodsPicture, price, goodsSize, id, sellerUserName));
                                 }
                             }
                         }
                     }
-                    adapter.notifyDataSetChanged();
+                    getRecommendShop();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                /*mData.clear();
-                mData.add(new ItemHmShopCarKind());
-                mData.add(new ItemHmShopCarBusiness(false));
-                mData.add(new ItemHmShopCarShops(false, 1, false));
-                mData.add(new ItemHmShopCarShops(false, 1, false));
-                mData.add(new ItemHmShopCarBusiness(false));
-                mData.add(new ItemHmShopCarShops2(false, 1, false));
-                mData.add(new ItemHmShopCarKind());
-                mData.add(new ItemHmShopCarBusiness(false));
-                mData.add(new ItemHmShopCarShops2(false, 1, false));
-                mData.add(new ItemHmShopCarRecommend(false));
-                try {
-                    JSONObject object = new JSONObject(result);
-                    JSONObject body = object.getJSONObject("body");
-                    String recommendReason = body.getString("recommendReason");
-                    JSONArray rec = body.getJSONArray("rec");
-                    for (int i = 0; i < rec.length(); i++) {
-                        JSONObject recItem = rec.getJSONObject(i);
-                        ItemHmShopCarRecommendShop itemHmShopCarRecommendShop = new ItemHmShopCarRecommendShop();
-                        itemHmShopCarRecommendShop.setDeleteStatus(recItem.getString("deleteStatus"));
-                        itemHmShopCarRecommendShop.setGoodsId(recItem.getString("goodsId"));
-                        itemHmShopCarRecommendShop.setGoodsName(recItem.getString("goodsName"));
-                        itemHmShopCarRecommendShop.setGoodsPicture(recItem.getString("goodsPicture"));
-                        itemHmShopCarRecommendShop.setGoodsPrice(recItem.getString("goodsPrice"));
-                        itemHmShopCarRecommendShop.setId(recItem.getString("id"));
-                        String recReason = recItem.getString("recommendReason");
-                        itemHmShopCarRecommendShop.setRecommendReason(recReason);
-                        if (recReason.equals(recommendReason))
-                            itemHmShopCarRecommendShop.setBuy(true);
-                        else itemHmShopCarRecommendShop.setBuy(false);
-                        mData.add(itemHmShopCarRecommendShop);
-                    }
-                    adapter.notifyDataSetChanged();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }*/
             }
         });
     }
@@ -454,11 +607,20 @@ public class HMShopCarFragment extends BaseFragment {
                                                            itemHmShopCarShops2.setCount(count);
                                                        }
                                                        break;
+                                                   case R.id.iv_hmshopcarkind_updown:
+                                                       ItemHmShopCarKind itemHmMainKind = (ItemHmShopCarKind) mData.get(0);
+                                                       if (itemHmMainKind.isUpOrDown()) {
+                                                           getData();
+                                                       } else {
+                                                           getDataMore();
+                                                       }
+                                                       break;
                                                }
-
                                                adapter.notifyDataSetChanged();
+
                                            }
                                        }
+
 
         );
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
@@ -487,7 +649,7 @@ public class HMShopCarFragment extends BaseFragment {
         );
     }
 
-    @BindViews({R.id.tv_hmshopcar_money, R.id.tv_hmshopcar_count})
+    @BindViews({R.id.tv_hmshopcar_money, R.id.tv_hmshopcar_count, R.id.tv_mainchildeshopcar_tip2})
     TextView[] tvMC;
 
     private void adapterOnChanger() {
@@ -527,6 +689,7 @@ public class HMShopCarFragment extends BaseFragment {
         }
         tvMC[0].setText("合计：¥" + CommonUtils.strDoubleTwo(allMoney));
         tvMC[1].setText("去结算(" + allCount + ")");
+        tvMC[2].setText("¥ " + CommonUtils.strDoubleTwo(allMoney));
     }
 
 

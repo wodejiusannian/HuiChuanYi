@@ -25,7 +25,8 @@ public class HmMainItemInformationHolder extends BaseViewHolder<ItemHmMainInform
         MarqueeView textView = (MarqueeView) getView(R.id.mv_hmmain_information);
         List<String> strData = new ArrayList<>();
         List<ItemHmMainInformation.DataBean> dataBeen = model.getmData();
-        for(int i = 0;i<dataBeen.size();i++){
+        strData.clear();
+        for (int i = 0; i < dataBeen.size(); i++) {
             strData.add(dataBeen.get(i).bannerName);
         }
         textView.startWithList(strData);

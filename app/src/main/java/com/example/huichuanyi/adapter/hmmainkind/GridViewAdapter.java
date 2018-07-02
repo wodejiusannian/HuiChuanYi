@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.common_view.model.ItemHmMainKind;
+import com.example.huichuanyi.config.NetConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +64,7 @@ public class GridViewAdapter extends BaseAdapter {
         Context context = viewGroup.getContext();
         ItemHmMainKind.DataBean bean = dataList.get(i);
         if (bean != null) {
-            Glide.with(context).load(bean.pictureUrl).into(mHolder.iv_img);
+            Glide.with(context).load(NetConfig.BASE_NEW_URL + bean.pictureUrl).into(mHolder.iv_img);
             mHolder.tv_text.setText(bean.name);
         }
         return itemView;

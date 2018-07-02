@@ -3,7 +3,6 @@ package com.example.huichuanyi.fragment_first;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -108,7 +107,6 @@ public class SinglePersonActivity extends BaseActivity implements MySelfDialog.O
     private String studio_pic;
     String vip_endDate;
 
-    private HaveMsg haveMsg;
 
     @Override
     protected void setData() {
@@ -130,8 +128,6 @@ public class SinglePersonActivity extends BaseActivity implements MySelfDialog.O
             }
         });
 
-        haveMsg = new HaveMsg();
-        registerReceiver(haveMsg, new IntentFilter("action.have.msg"));
     }
 
 
@@ -542,7 +538,6 @@ public class SinglePersonActivity extends BaseActivity implements MySelfDialog.O
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(haveMsg);
     }
 
 

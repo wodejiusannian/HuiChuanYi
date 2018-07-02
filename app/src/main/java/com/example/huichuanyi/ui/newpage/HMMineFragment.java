@@ -24,11 +24,13 @@ import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.emum.OrderType;
 import com.example.huichuanyi.newui.activity.OrderFormActivity;
 import com.example.huichuanyi.secondui.FanKuiActivity;
+import com.example.huichuanyi.ui.activity.AddressListActivity;
 import com.example.huichuanyi.ui.activity.DatumActivity;
 import com.example.huichuanyi.ui.activity.MainActivity;
 import com.example.huichuanyi.ui.activity.MineSettingActivity;
 import com.example.huichuanyi.ui.activity.login.LoginByAuthCodeActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
+import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.ImageUtils;
 import com.example.huichuanyi.utils.MUtilsInternet;
 import com.example.huichuanyi.utils.ServiceSingleUtils;
@@ -57,9 +59,16 @@ public class HMMineFragment extends BaseFragment {
 
     @OnClick({R.id.iv_mainmine_photo, R.id.iv_mainmine_setting, R.id.tv_all_orderform, R.id.tv_service_orderform,
             R.id.tv_shop_orderform, R.id.tv_mainmine_exit, R.id.ll_mainmine_refresh,
-            R.id.btn_mainmine_fankui, R.id.ll_mainmine_personinfo, R.id.btn_mainmine_coupon})
+            R.id.btn_mainmine_fankui, R.id.ll_mainmine_personinfo, R.id.btn_mainmine_coupon,
+            R.id.btn_mainmine_address, R.id.btn_mainmine_measure})
     public void onEvent(View v) {
         switch (v.getId()) {
+            case R.id.btn_mainmine_measure:
+                ActivityUtils.switchTo(getActivity(), HomeMeasureActivity.class);
+                break;
+            case R.id.btn_mainmine_address:
+                ActivityUtils.switchTo(getActivity(), AddressListActivity.class);
+                break;
             case R.id.iv_mainmine_photo:
                 upLoadingPhoto();
                 break;
@@ -106,21 +115,20 @@ public class HMMineFragment extends BaseFragment {
                 ActivityUtils.switchTo(getActivity(), DatumActivity.class);
                 break;
             case R.id.btn_mainmine_coupon:
-                /*String url;
-                String coupon = couponInfo[0].getText().toString();
-                if (coupon.contains("无")) {
+                String url;
+                if (CommonUtils.isEmpty(concessionCode)) {
                     url = "http://hmyc365.net/hmyc/file/app/app-liangti-code/promoCode.html?deleteStatus=2";
                 } else {
-                    if ("已使用".equals(couponInfo[1].getText().toString())) {
-                        url = "http://hmyc365.net/hmyc/file/app/app-liangti-code/promoCode.html?deleteStatus=1&concessionCode=" + coupon;
+                    if ("1".equals(deleteStatus)) {
+                        url = "http://hmyc365.net/hmyc/file/app/app-liangti-code/promoCode.html?deleteStatus=1&concessionCode=" + concessionCode;
                     } else {
-                        url = "http://hmyc365.net/hmyc/file/app/app-liangti-code/promoCode.html?deleteStatus=0&concessionCode=" + coupon;
+                        url = "http://hmyc365.net/hmyc/file/app/app-liangti-code/promoCode.html?deleteStatus=0&concessionCode=" + concessionCode;
                     }
                 }
                 Intent intent = new Intent(getContext(), HMURLActivity.class);
                 intent.putExtra("title", "优惠券");
                 intent.putExtra("url", url);
-                startActivity(intent);*/
+                startActivity(intent);
                 break;
         }
     }
@@ -285,6 +293,8 @@ public class HMMineFragment extends BaseFragment {
     @BindViews({R.id.iv_mainmine_photobg, R.id.iv_mainmine_photo})
     ImageView[] ivInfo;
 
+    private String concessionCode;
+    private String deleteStatus;
 
     private void getInfo() {
         final Context context = getContext();
@@ -299,6 +309,8 @@ public class HMMineFragment extends BaseFragment {
                 UserInfo bean = gson.fromJson(result, UserInfo.class);
                 UserInfo.BodyBean body = bean.getBody();
                 try {
+                    concessionCode = body.getConcessionCode();
+                    deleteStatus = body.getDeleteStatus();
                     SharedPreferenceUtils.writeUserPhoto(getContext(), body.getUserPic());
                     SharedPreferenceUtils.writeUserName(getContext(), body.getUserName());
                     SharedPreferenceUtils.writeStudioLogo(getContext(), body.getManagerUrl());

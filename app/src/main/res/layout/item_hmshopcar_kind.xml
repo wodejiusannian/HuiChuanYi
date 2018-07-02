@@ -37,8 +37,9 @@
             android:id="@+id/iv_hmshopcarkind_updown"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:layout_marginLeft="5dp"
-            android:src="@mipmap/ic_launcher" />
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp" />
+
     </LinearLayout>
 
 </RelativeLayout>

@@ -26,10 +26,7 @@
                 android:id="@+id/iv_shopcarrecommendshop_select"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
+                android:layout_margin="5dp"
                 android:src="@mipmap/hm_shopcar_noselect" />
         </RelativeLayout>
 

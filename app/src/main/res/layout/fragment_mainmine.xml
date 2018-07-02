@@ -118,7 +118,7 @@
                             android:layout_width="23dp"
                             android:layout_height="23dp"
                             android:layout_alignParentEnd="true"
-                            android:src="@mipmap/ic_launcher" />
+                            android:src="@mipmap/hm_mine_set" />
                     </RelativeLayout>
 
 
@@ -158,8 +158,9 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="#fff"
-                            android:drawableTop="@mipmap/ic_launcher"
+                            android:drawableTop="@mipmap/hm_mine_allorder"
                             android:gravity="center"
+                            android:paddingTop="15dp"
                             android:text="全部订单"
                             android:textColor="#656565"
                             android:textSize="12sp" />
@@ -175,8 +176,9 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="#fff"
-                            android:drawableTop="@mipmap/ic_launcher"
+                            android:drawableTop="@mipmap/hm_mine_serviceorder"
                             android:gravity="center"
+                            android:paddingTop="15dp"
                             android:text="服务订单"
                             android:textColor="#656565"
                             android:textSize="12sp" />
@@ -192,8 +194,9 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="#fff"
-                            android:drawableTop="@mipmap/ic_launcher"
+                            android:drawableTop="@mipmap/hm_mine_goodorder"
                             android:gravity="center"
+                            android:paddingTop="15dp"
                             android:text="商品订单"
                             android:textColor="#656565"
                             android:textSize="12sp" />
@@ -216,31 +219,35 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="#fff"
-                        android:drawableTop="@mipmap/ic_launcher"
+                        android:drawableTop="@mipmap/hm_mine_coupon"
                         android:gravity="center"
+                        android:paddingTop="15dp"
                         android:text="优惠券"
                         android:textColor="#656565"
                         android:textSize="12sp" />
 
                     <Button
+                        android:id="@+id/btn_mainmine_address"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="#fff"
-                        android:drawableTop="@mipmap/ic_launcher"
+                        android:drawableTop="@mipmap/hm_mine_location"
                         android:gravity="center"
+                        android:paddingTop="15dp"
                         android:text="地址管理"
                         android:textColor="#656565"
                         android:textSize="12sp" />
 
                     <Button
-                        android:id="@+id/button"
+                        android:id="@+id/btn_mainmine_measure"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="#fff"
-                        android:drawableTop="@mipmap/ic_launcher"
+                        android:drawableTop="@mipmap/hm_mine_measure"
                         android:gravity="center"
+                        android:paddingTop="15dp"
                         android:text="量体数据"
                         android:textColor="#656565"
                         android:textSize="12sp" />
@@ -252,8 +259,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="#fff"
-                        android:drawableTop="@mipmap/ic_launcher"
+                        android:drawableTop="@mipmap/hm_mine_feedback"
                         android:gravity="center"
+                        android:paddingTop="15dp"
                         android:text="意见反馈"
                         android:textColor="#656565"
                         android:textSize="12sp" />
@@ -272,7 +280,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="47dp"
                         android:layout_marginRight="5dp"
-                        android:drawableLeft="@mipmap/ic_launcher"
+                        android:drawableLeft="@mipmap/hm_mine_personaldata"
+                        android:drawablePadding="10dp"
                         android:gravity="center"
                         android:text="个人资料"
                         android:textColor="#323232"
@@ -293,7 +302,8 @@
                         android:layout_height="47dp"
                         android:layout_marginRight="5dp"
                         android:background="#fff"
-                        android:drawableLeft="@mipmap/ic_launcher"
+                        android:drawableLeft="@mipmap/hm_mine_update"
+                        android:drawablePadding="10dp"
                         android:gravity="center"
                         android:text="检测更新"
                         android:textColor="#323232"

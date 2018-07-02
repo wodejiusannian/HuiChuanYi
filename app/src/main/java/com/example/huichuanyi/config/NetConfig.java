@@ -346,5 +346,8 @@ public interface NetConfig {
     String HM_SHOPCAR_DATA = BASE_NEW_URL + "/admiral/app/hmyc/gwc/index/index.htm";
 
     String HM_SHOPCAR_DATA_MORE = BASE_NEW_URL + "/admiral/app/hmyc/order/info/listGwc_A.htm";
+
+    //3.0购物车删除接口
+    String HMSHOPCAR_DELETE_SHOP = BASE_NEW_URL + "/admiral/app/hmyc/order/info/deleteGwc.htm";
 }
 

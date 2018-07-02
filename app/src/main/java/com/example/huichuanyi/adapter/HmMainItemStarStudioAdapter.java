@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.huichuanyi.common_view.model.ItemHmMainStarStudio;
+import com.example.huichuanyi.config.NetConfig;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.adapter.LoopPagerAdapter;
 
@@ -28,7 +29,7 @@ public class HmMainItemStarStudioAdapter extends LoopPagerAdapter {
     @Override
     public View getView(ViewGroup container, int position) {
         ImageView view = new ImageView(mContext);
-        Glide.with(mContext).load(mBanner.get(position).pictureUrl).into(view);
+        Glide.with(mContext).load(NetConfig.BASE_NEW_URL + mBanner.get(position).pictureUrl).into(view);
         view.setScaleType(ImageView.ScaleType.CENTER_CROP);
         view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         return view;

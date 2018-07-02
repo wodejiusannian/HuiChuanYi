@@ -23,8 +23,11 @@ public class HmShopCarKindHolder extends BaseViewHolder<ItemHmShopCarKind> {
         LinearLayout llUpDown = (LinearLayout) getView(R.id.ll_hmshopcarkind_updown);
         ImageView upDown = (ImageView) getView(R.id.iv_hmshopcarkind_updown);
         if (position == 0) llUpDown.setVisibility(View.VISIBLE);else llUpDown.setVisibility(View.GONE);
+        if (model.isUpOrDown()) upDown.setImageResource(R.mipmap.hm_shopcar_up);else upDown.setImageResource(R.mipmap.hm_shopcar_down);
         llUpDown.setTag(position);
         llUpDown.setOnClickListener(adapter.getmOnclick());
+        upDown.setTag(position);
+        upDown.setOnClickListener(adapter.getmOnclick());
         TextView kind = (TextView) getView(R.id.tv_hmshopcar_kind);
         kind.setText(model.getKind());
     }

@@ -10,8 +10,19 @@ public class ItemHmShopCarKind implements Visitable {
 
     private String kind;
 
-    public ItemHmShopCarKind(String kind) {
+    private boolean isUpOrDown;
+
+    public ItemHmShopCarKind(String kind, boolean isUpOrDown) {
         this.kind = kind;
+        this.isUpOrDown = isUpOrDown;
+    }
+
+    public boolean isUpOrDown() {
+        return isUpOrDown;
+    }
+
+    public void setUpOrDown(boolean upOrDown) {
+        isUpOrDown = upOrDown;
     }
 
     public String getKind() {

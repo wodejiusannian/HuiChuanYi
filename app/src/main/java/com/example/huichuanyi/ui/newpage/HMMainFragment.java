@@ -134,8 +134,7 @@ public class HMMainFragment extends BaseFragment {
                         banner.bannerName = jsonBanner5.getString("bannerName");
                         banner.clickType = jsonBanner5.getString("clickType");
                         banner.clickUrl = jsonBanner5.getString("clickUrl");
-                        //banner.pictureUrl = jsonBanner5.getString("pictureUrl");
-                        banner.pictureUrl = "http://img0.imgtn.bdimg.com/it/u=2238863788,4147573056&fm=27&gp=0.jpg";
+                        banner.pictureUrl = NetConfig.BASE_NEW_URL + jsonBanner5.getString("pictureUrl");
                         banner.shareUrl = jsonBanner5.getString("shareUrl");
                         listBanner5.add(banner);
                     }
@@ -185,8 +184,7 @@ public class HMMainFragment extends BaseFragment {
                         banner.bannerName = jsonBanner7.getString("bannerName");
                         banner.clickType = jsonBanner7.getString("clickType");
                         banner.clickUrl = jsonBanner7.getString("clickUrl");
-                        //banner.pictureUrl = jsonBanner7.getString("pictureUrl");
-                        banner.pictureUrl = "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1063018429,974188825&fm=200&gp=0.jpg";
+                        banner.pictureUrl = jsonBanner7.getString("pictureUrl");
                         banner.shareUrl = jsonBanner7.getString("shareUrl");
                         listBanner7.add(banner);
                     }
