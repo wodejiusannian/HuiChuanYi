@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.bean.MyAddress;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,7 +23,6 @@ public class ListAddressAdapter extends BaseAdapter {
     private List<MyAddress> mData;
     private Context mContext;
     public Info mInfo;
-    private List<Boolean> isClicks;
     private View.OnClickListener mOnclick;
 
     public void setOnItemUpDateListener(View.OnClickListener onclick) {
@@ -39,7 +37,6 @@ public class ListAddressAdapter extends BaseAdapter {
     public ListAddressAdapter(Context mContext, List<MyAddress> mData) {
         this.mContext = mContext;
         this.mData = mData;
-        isClicks = new ArrayList<>();
     }
 
     @Override
@@ -67,17 +64,7 @@ public class ListAddressAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        for (int i = 0; i < mData.size(); i++) {
-            if (i == 0) {
-                isClicks.add(true);
-            } else if (i == mData.size()) {
-                isClicks.add(false);
-            } else {
-                isClicks.add(false);
-            }
-        }
         MyAddress address = mData.get(position);
-        boolean flag = isClicks.get(position);
         final String add = address.getReceive_address();
         final String name = address.getReceive_name();
         final String phone = address.getReceive_phone();
@@ -86,35 +73,19 @@ public class ListAddressAdapter extends BaseAdapter {
         holder.name.setText(name);
         holder.phone.setText(phone);
         holder.address.setText(receive_city + add);
-        if (flag) {
-            holder.mSelect.setSelected(true);
-        } else {
-            holder.mSelect.setSelected(false);
-        }
         holder.mUpdate.setTag(position);
         holder.mUpdate.setOnClickListener(mOnclick);
         holder.mAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mInfo.getInfo(address_id, receive_city, name, phone, add);
-                for (int i = 0; i < mData.size(); i++) {
-                    isClicks.set(i, false);
-                }
-                isClicks.set(position, true);
-                notifyDataSetChanged();
-            }
-        });
-        holder.mAll.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                return false;
             }
         });
         return convertView;
     }
 
     public static class ViewHolder {
-        public TextView name, address, phone, mSelect;
+        public TextView name, address, phone;
         public RelativeLayout mAll;
         public ImageView mUpdate;
 
@@ -123,7 +94,6 @@ public class ListAddressAdapter extends BaseAdapter {
             name = (TextView) view.findViewById(R.id.tv_item_address_name);
             phone = (TextView) view.findViewById(R.id.tv_item_address_phone);
             address = (TextView) view.findViewById(R.id.tv_item_address_address);
-            mSelect = (TextView) view.findViewById(R.id.tv_item_address_is_select);
             mUpdate = (ImageView) view.findViewById(R.id.tv_item_update_address);
         }
     }

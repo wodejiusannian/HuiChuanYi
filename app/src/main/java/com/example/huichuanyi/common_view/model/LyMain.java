@@ -23,9 +23,10 @@ import java.util.List;
 // ┗┻┛　┗┻┛
 public class LyMain {
 
+
     /**
      * ret : 0
-     * body : [{"click_url":"","supplier_id":1,"brand":"美藤果","click_type":0,"pic_url":"1"},{"click_url":"","supplier_id":2,"brand":"每日氢元素","click_type":0,"pic_url":"1"},{"click_url":"","supplier_id":3,"brand":"防辐射","click_type":0,"pic_url":"1"},{"click_url":"WWW.BAIDU.COM","supplier_id":4,"brand":"RTC","click_type":1,"pic_url":"1"}]
+     * body : [{"click_url":"http://hmyc365.net:8081/file/html/rtc/index.html","supplier_id":4,"brand":"RTC","click_type":1,"pic_url":"http://hmyc365.net:8082/file/hkj/supplier/rtc.png"},{"click_url":"","supplier_id":3,"brand":"防辐射","click_type":0,"pic_url":"http://hmyc365.net:8082/file/hkj/supplier/ffs.png"},{"click_url":"","supplier_id":5,"brand":"蓝氧","click_type":0,"pic_url":"http://hmyc365.net:8082/file/hkj/supplier/lykj.png"},{"click_url":"","supplier_id":1,"brand":"美藤果","click_type":0,"pic_url":"http://hmyc365.net:8082/file/hkj/supplier/mtg.png"},{"click_url":"","supplier_id":2,"brand":"每日氢元素","click_type":0,"pic_url":"http://hmyc365.net:8082/file/hkj/supplier/mrqys.png"}]
      * msg : SUCCESS
      */
 
@@ -59,11 +60,11 @@ public class LyMain {
 
     public static class BodyBean implements Visitable{
         /**
-         * click_url :
-         * supplier_id : 1
-         * brand : 美藤果
-         * click_type : 0
-         * pic_url : 1
+         * click_url : http://hmyc365.net:8081/file/html/rtc/index.html
+         * supplier_id : 4
+         * brand : RTC
+         * click_type : 1
+         * pic_url : http://hmyc365.net:8082/file/hkj/supplier/rtc.png
          */
 
         private String click_url;

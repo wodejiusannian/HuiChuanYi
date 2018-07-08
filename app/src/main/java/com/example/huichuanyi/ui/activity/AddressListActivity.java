@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.huichuanyi.R;
@@ -16,10 +14,8 @@ import com.example.huichuanyi.adapter.ListAddressAdapter;
 import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.bean.MyAddress;
 import com.example.huichuanyi.config.NetConfig;
-import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.utils.JsonUtils;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
-import com.example.huichuanyi.utils.Utils;
 import com.example.huichuanyi.utils.UtilsInternet;
 
 import org.json.JSONArray;
@@ -31,13 +27,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AddressListActivity extends BaseActivity implements ListAddressAdapter.Info, View.OnClickListener, UtilsInternet.XCallBack, SwipeRefreshLayout.OnRefreshListener, MySelfDialog.OnYesClickListener, AdapterView.OnItemLongClickListener {
+public class AddressListActivity extends BaseActivity implements ListAddressAdapter.Info, View.OnClickListener, UtilsInternet.XCallBack, SwipeRefreshLayout.OnRefreshListener {
 
     private ListView mShow;
     private ListAddressAdapter adapter;
     private List<MyAddress> mData = new ArrayList<>();
     private Intent intent;
-    private TextView mSure;
     private String mName, mPhone, mAddress, mCity;
     private Button mAdd;
     private UtilsInternet instance;
@@ -55,7 +50,6 @@ public class AddressListActivity extends BaseActivity implements ListAddressAdap
     @Override
     public void initView() {
         mShow = (ListView) findViewById(R.id.lv_list_address_show);
-        mSure = (TextView) findViewById(R.id.tv_list_address_sure);
         mAdd = (Button) findViewById(R.id.btn_add_address);
         mRefresh = (SwipeRefreshLayout) findViewById(R.id.sf_list_address);
     }
@@ -63,7 +57,7 @@ public class AddressListActivity extends BaseActivity implements ListAddressAdap
     @Override
     public void initData() {
         intent = getIntent();
-        user_Id = SharedPreferenceUtils.getUserData(this,1);
+        user_Id = SharedPreferenceUtils.getUserData(this, 1);
         map.put("user_id", user_Id);
         instance = UtilsInternet.getInstance();
         adapter = new ListAddressAdapter(this, mData);
@@ -78,11 +72,9 @@ public class AddressListActivity extends BaseActivity implements ListAddressAdap
     @Override
     public void setListener() {
         adapter.getInfo(this);
-        mSure.setOnClickListener(this);
         mAdd.setOnClickListener(this);
         mRefresh.setOnRefreshListener(this);
         adapter.setOnItemUpDateListener(this);
-        mShow.setOnItemLongClickListener(this);
 
     }
 
@@ -98,14 +90,12 @@ public class AddressListActivity extends BaseActivity implements ListAddressAdap
         mPhone = phone;
         mAddress = add;
         address_id = addressId;
+        transmissionInfo();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_list_address_sure:
-                transmissionInfo();
-                break;
             case R.id.btn_add_address:
                 addPersonAddress();
                 break;
@@ -214,7 +204,6 @@ public class AddressListActivity extends BaseActivity implements ListAddressAdap
     * */
     @Override
     public void onResponse(String result) {
-        Utils.Log(result);
         switch (flag) {
             case 0:
                 mData.clear();
@@ -257,33 +246,5 @@ public class AddressListActivity extends BaseActivity implements ListAddressAdap
 
     }
 
-    /*
-    *点击确认删除要做到事件
-    * */
-    @Override
-    public void onClick() {
-        map.clear();
-        String id = mData.get(pos).getId();
-        mData.remove(pos);
-        adapter.notifyDataSetChanged();
-        flag = 1;
-        map.put("id", id);
-        map.put("user_id", user_Id);
-        instance.post(NetConfig.DELETE_PERSON_ADDRESS, map, this);
-    }
 
-    /*
-    * ListView的长按进行删除事件
-    * */
-    @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        pos = position;
-        MySelfDialog mySelfDialog = new MySelfDialog(this);
-        mySelfDialog.setMessage("确认要删除当前地址吗？");
-        mySelfDialog.setTitle("温馨提示");
-        mySelfDialog.setOnNoListener("取消", null);
-        mySelfDialog.setOnYesListener("确定", this);
-        mySelfDialog.show();
-        return false;
-    }
 }

@@ -39,6 +39,7 @@ public class OrderFormVideoHolder extends BaseViewHolder<OrderFormVideo.BodyBean
         TextView name = (TextView) getView(R.id.tv_orderformvideo_name);
         TextView time = (TextView) getView(R.id.tv_orderformvideo_time);
         TextView button = (TextView) getView(R.id.tv_orderformvideo_button3);
+        button.setTag(position);
         button.setOnClickListener(adapter.getmOnclick());
         id.setText("订单编号：" + model.getOrderId());
         OrderFormVideo.BodyBean.OrderInfoBean infoBean = model.getOrderInfo().get(0);

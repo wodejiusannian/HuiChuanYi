@@ -97,6 +97,8 @@ public class HMMainFragment extends BaseFragment {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 1:
+                    map.put("cityName",mCity);
+                    getData();
                     address.setText(mCity);
                     getCity.stopLocation();
                     break;
@@ -171,8 +173,12 @@ public class HMMainFragment extends BaseFragment {
                         ItemHmMainRecommendStudio.DataBean banner = new ItemHmMainRecommendStudio.DataBean();
                         banner.appExtensionIntro = jsonStudio.getString("appExtensionIntro");
                         banner.headPicture = jsonStudio.getString("headPicture");
+                        banner.introduction = jsonStudio.getString("introduction");
+                        banner.level = jsonStudio.getString("level");
+                        banner.monthStar = jsonStudio.getString("monthStar");
                         banner.name = jsonStudio.getString("name");
                         banner.userId = jsonStudio.getString("userId");
+                        banner.userName = jsonStudio.getString("userName");
                         listStudio.add(banner);
                     }
                     mData.add(new ItemHmMainRecommendStudio(listStudio));

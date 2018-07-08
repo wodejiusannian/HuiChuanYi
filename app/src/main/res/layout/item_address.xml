@@ -2,31 +2,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_all"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="66dp"
+    android:background="#fff"
     android:orientation="vertical"
-    android:padding="@dimen/distance_10">
+    android:paddingLeft="10dp"
+    android:paddingTop="10dp">
 
-    <TextView
-        android:id="@+id/tv_item_address_is_select"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:background="@drawable/selector_address" />
 
     <TextView
         android:id="@+id/tv_item_address_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/distance_10"
-        android:layout_toRightOf="@+id/tv_item_address_is_select" />
+        android:layout_marginRight="10dp" />
 
     <TextView
         android:id="@+id/tv_item_address_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/distance_10"
-        android:layout_toRightOf="@+id/tv_item_address_name"
-        android:text="点击选择地址" />
+        android:layout_toRightOf="@+id/tv_item_address_name" />
 
     <TextView
         android:id="@+id/tv_item_address_address"
@@ -34,16 +29,23 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_item_address_name"
         android:layout_marginLeft="@dimen/distance_10"
-        android:layout_marginTop="@dimen/distance_10"
-        android:layout_toLeftOf="@+id/tv_item_update_address"
-        android:layout_toRightOf="@+id/tv_item_address_is_select" />
+        android:layout_marginTop="@dimen/distance_10" />
 
     <ImageView
         android:id="@+id/tv_item_update_address"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="10dp"
         android:gravity="center"
         android:padding="@dimen/distance_20"
-        android:src="@mipmap/edit" />
+        android:src="@mipmap/hm_address_edit" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:background="#f7f4f4" />
 </RelativeLayout>

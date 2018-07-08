@@ -126,7 +126,7 @@ public class MC_TripAndElseActivity extends BaseActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.iv_item_recycler_3:
+            case R.id.rl_test:
                 int position = (int) v.getTag();
                 Intent intent = new Intent(this, WDYCPicActivity.class);
                 intent.putExtra("mList", (Serializable) mData);

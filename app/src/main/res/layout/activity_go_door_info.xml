@@ -64,7 +64,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="@drawable/shape_red_4dp"
+        android:background="@drawable/shape_cicle"
         android:text="提交订单"
         android:textColor="@color/main_color_write"
         android:textSize="15sp" />

@@ -3,16 +3,13 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/rl_test"
     android:orientation="vertical">
 
-    <com.facebook.drawee.view.SimpleDraweeView
+    <ImageView
         android:id="@+id/iv_item_recycler_3"
         android:layout_width="match_parent"
         android:layout_height="160dp"
-        android:scaleType="centerCrop"
-        fresco:roundedCornerRadius="4dp"
-        fresco:actualImageScaleType="centerCrop"
-        fresco:placeholderImage="@mipmap/nonepic"
-        fresco:placeholderImageScaleType="centerCrop" />
+        android:scaleType="centerCrop" />
 
 </RelativeLayout>

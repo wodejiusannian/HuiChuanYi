@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="#fff"
     android:gravity="center"
+    android:id="@+id/ll_go"
     android:orientation="vertical"
     android:paddingLeft="15dp"
     android:paddingRight="18dp">

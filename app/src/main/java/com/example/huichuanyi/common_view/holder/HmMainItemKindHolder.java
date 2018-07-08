@@ -15,12 +15,12 @@ import com.example.huichuanyi.adapter.hmmainkind.MViewPagerAdapter;
 import com.example.huichuanyi.common_view.adapter.MultiTypeAdapter;
 import com.example.huichuanyi.common_view.model.ItemHmMainKind;
 import com.example.huichuanyi.fragment_first.SinglePersonActivity;
-import com.example.huichuanyi.ui.activity.HMWebActivity;
 import com.example.huichuanyi.ui.activity.HomeDaPeiRiJiActivity;
 import com.example.huichuanyi.ui.activity.HomeVideoCoverActivity;
 import com.example.huichuanyi.ui.activity.HomeWoDeYiChuActivity;
 import com.example.huichuanyi.ui.activity.lanyang.LyMainActivity;
 import com.example.huichuanyi.ui.activity.lanyang.RTCWebActivity;
+import com.example.huichuanyi.ui.newpage.HMURL2Activity;
 import com.example.huichuanyi.ui.newpage.HmShopMallActivity;
 
 import java.util.ArrayList;
@@ -68,7 +68,7 @@ public class HmMainItemKindHolder extends BaseViewHolder<ItemHmMainKind> {
                             break;
                         case "2":
                             //上门服务
-                            context.startActivity(new Intent(context, HMWebActivity.class));
+                            context.startActivity(new Intent(context, HMURL2Activity.class));
                             break;
                         case "3":
                             //365私人衣橱服务
@@ -92,7 +92,10 @@ public class HmMainItemKindHolder extends BaseViewHolder<ItemHmMainKind> {
                             break;
                         case "8":
                             //RTC测试
-                            context.startActivity(new Intent(context, RTCWebActivity.class));
+                            Intent intent = new Intent(context, RTCWebActivity.class);
+                            intent.putExtra("brand", "RTC");
+                            intent.putExtra("click_url", "http://hmyc365.net:8081/file/html/rtc/test/index.html");
+                            context.startActivity(intent);
                             break;
                         default:
                             break;

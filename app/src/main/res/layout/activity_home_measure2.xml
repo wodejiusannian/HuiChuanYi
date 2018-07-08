@@ -20,7 +20,7 @@
             android:id="@+id/title"
             style="@style/ActivityTopTextTitleStyle"
             android:layout_centerInParent="true"
-            android:text="慧美衣橱" />
+            android:text="上门服务" />
 
         <TextView
             android:layout_width="match_parent"
@@ -54,7 +54,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="@dimen/distance_10"
             android:layout_marginRight="@dimen/distance_10"
-            android:background="@drawable/shape_red_4dp"
+            android:background="@drawable/shape_cicle"
             android:gravity="center"
             android:text="立即预约"
             android:textColor="@color/main_color_write" />

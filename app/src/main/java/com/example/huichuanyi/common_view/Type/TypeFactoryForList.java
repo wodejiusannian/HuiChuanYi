@@ -14,6 +14,8 @@ import com.example.huichuanyi.common_view.holder.HmMainItemRecommendStudioHolder
 import com.example.huichuanyi.common_view.holder.HmMainItemStarStudioHolder;
 import com.example.huichuanyi.common_view.holder.HmMainItemSubRecommendStudioHolder;
 import com.example.huichuanyi.common_view.holder.HmShopCarBusinessHolder;
+import com.example.huichuanyi.common_view.holder.HmShopCarItemNoRecommedHolder;
+import com.example.huichuanyi.common_view.holder.HmShopCarItemNoShopHolder;
 import com.example.huichuanyi.common_view.holder.HmShopCarKindHolder;
 import com.example.huichuanyi.common_view.holder.HmShopCarRecommendHolder;
 import com.example.huichuanyi.common_view.holder.HmShopCarRecommendShopHolder;
@@ -73,6 +75,8 @@ import com.example.huichuanyi.common_view.model.ItemHmShopCarRecommend;
 import com.example.huichuanyi.common_view.model.ItemHmShopCarRecommendShop;
 import com.example.huichuanyi.common_view.model.ItemHmShopCarShops;
 import com.example.huichuanyi.common_view.model.ItemHmShopCarShops2;
+import com.example.huichuanyi.common_view.model.ItemShopCarNoRecommend;
+import com.example.huichuanyi.common_view.model.ItemShopCarNoShop;
 import com.example.huichuanyi.common_view.model.LyBanner;
 import com.example.huichuanyi.common_view.model.LyCommendPeople;
 import com.example.huichuanyi.common_view.model.LyItemShop;
@@ -234,6 +238,10 @@ public class TypeFactoryForList implements TypeFactory {
     private final int TYPE_RESOURCE_HMSHOPCAR_SHOPS = R.layout.item_hmshopcar_shops;
 
     private final int TYPE_RESOURCE_HMSHOPCAR_SHOPS2 = R.layout.item_hmshopcar_shops2;
+
+    private final int TYPE_RESOURCE_HMSHOPCAR_NOSHOP = R.layout.item_hmshopcar_noshop;
+
+    private final int TYPE_RESOURCE_HMSHOPCAR_NORECOMMEND = R.layout.item_hmshopcar_norecommend;
     @Override
     public int type(LyBanner one) {
         return TYPE_RESOURCE_BANNER;
@@ -505,6 +513,16 @@ public class TypeFactoryForList implements TypeFactory {
     }
 
     @Override
+    public int type(ItemShopCarNoShop itemHmShopCarShops) {
+        return TYPE_RESOURCE_HMSHOPCAR_NOSHOP;
+    }
+
+    @Override
+    public int type(ItemShopCarNoRecommend itemHmShopCarShops) {
+        return TYPE_RESOURCE_HMSHOPCAR_NORECOMMEND;
+    }
+
+    @Override
     public int type(LyShopCar.BodyBean lyShopCar) {
         return TYPE_RESOURCE_ITEM_SHOP_CAR;
     }
@@ -631,6 +649,10 @@ public class TypeFactoryForList implements TypeFactory {
                 return new HmShopCarShopsHolder(itemView);
             case TYPE_RESOURCE_HMSHOPCAR_SHOPS2:
                 return new HmShopCarShops2Holder(itemView);
+            case TYPE_RESOURCE_HMSHOPCAR_NOSHOP:
+                return new HmShopCarItemNoShopHolder(itemView);
+            case TYPE_RESOURCE_HMSHOPCAR_NORECOMMEND:
+                return new HmShopCarItemNoRecommedHolder(itemView);
             default:
                 return null;
         }

@@ -7,10 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.bean.MyClothess;
+import com.example.huichuanyi.custom.GlideRoundTransform;
 
 import java.util.List;
 
@@ -22,17 +24,19 @@ public class MC_MyClothesAdapter extends RecyclerView.Adapter<MC_MyClothesAdapte
     private Context mContext;
     private View.OnClickListener mListener;
 
-    public void setOnItemClickListener(View.OnClickListener listener){
+    public void setOnItemClickListener(View.OnClickListener listener) {
         mListener = listener;
     }
-    public MC_MyClothesAdapter(Context context, List<MyClothess.BodyBean.ClothesInfoBean> data){
+
+    public MC_MyClothesAdapter(Context context, List<MyClothess.BodyBean.ClothesInfoBean> data) {
         mContext = context;
         mData = data;
 
     }
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.mc_myclothes_item,null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.mc_myclothes_item, null);
         MyViewHolder holder = new MyViewHolder(view);
         return holder;
     }
@@ -40,12 +44,12 @@ public class MC_MyClothesAdapter extends RecyclerView.Adapter<MC_MyClothesAdapte
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         String getphoto = mData.get(position).getClothes_pic();
-        if(!TextUtils.isEmpty(getphoto)) {
-            Glide.with(mContext).load(getphoto).into(holder.mImageView);
+        if (!TextUtils.isEmpty(getphoto)) {
+            Glide.with(mContext).load(getphoto).bitmapTransform(new GlideRoundTransform(mContext)).into(holder.mImageView);
         }
-       if (mListener!=null){
-            holder.mImageView.setTag(position);
-            holder.mImageView.setOnClickListener(mListener);
+        if (mListener != null) {
+            holder.test.setTag(position);
+            holder.test.setOnClickListener(mListener);
         }
         /* holder.mImageViewMove.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,15 +153,18 @@ public class MC_MyClothesAdapter extends RecyclerView.Adapter<MC_MyClothesAdapte
 
     @Override
     public int getItemCount() {
-        return mData==null?0:mData.size();
+        return mData == null ? 0 : mData.size();
     }
 
-    public static  class  MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
+        private RelativeLayout test;
         private ImageView mImageView/*,mImageViewMove,mImageViewDetele*/;
+
         public MyViewHolder(View itemView) {
             super(itemView);
             mImageView = (ImageView) itemView.findViewById(R.id.iv_item_recycler_3);
+            test = (RelativeLayout) itemView.findViewById(R.id.rl_test);
             /*mImageViewMove = (ImageView) itemView.findViewById(R.id.iv_item_move);
             mImageViewDetele = (ImageView) itemView.findViewById(R.id.iv_item_detele);*/
         }

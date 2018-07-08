@@ -75,6 +75,9 @@ public class OrderFormSLW {
         private String orderId;
         private List<OrderInfoBean> orderInfo;
 
+        public BodyBean() {
+        }
+
         protected BodyBean(Parcel in) {
             concessionCode = in.readString();
             discountExplain = in.readString();
@@ -251,6 +254,9 @@ public class OrderFormSLW {
 
             public void setWayCompany(String wayCompany) {
                 this.wayCompany = wayCompany;
+            }
+
+            public OrderInfoBean() {
             }
 
             protected OrderInfoBean(Parcel in) {

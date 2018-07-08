@@ -1,7 +1,6 @@
 package com.example.huichuanyi.ui.newpage;
 
 import android.content.Intent;
-import android.net.Network;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -29,11 +28,14 @@ import com.example.huichuanyi.custom.FourRecycleView;
 import com.example.huichuanyi.custom.SelectPopupWindow;
 import com.example.huichuanyi.sql.SQLCLODao;
 import com.example.huichuanyi.ui.base.BaseActivity;
-import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonUtils;
+import com.example.huichuanyi.utils.MUtilsInternet;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.BindViews;
@@ -44,7 +46,6 @@ public class HmShopMallActivity extends BaseActivity {
 
     private SelectPopupWindow mPopupWindow = null;
 
-    private static final String TAG = "HmShopMallActivity";
 
     @BindView(R.id.shop_dl_right_filter)
     DrawerLayout dlRightFilter;
@@ -83,9 +84,36 @@ public class HmShopMallActivity extends BaseActivity {
 
     }
 
+    public static boolean isSlideToBottom(RecyclerView recyclerView) {
+        if (recyclerView == null) return false;
+        if (recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset()
+                >= recyclerView.computeVerticalScrollRange())
+            return true;
+        return false;
+    }
+
+    /*
+    * 加载完这一页才能再次加载
+    * */
     @Override
     protected void setListener() {
+        recycle.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                //super.onScrollStateChanged(recyclerView, newState);
+                boolean slideToBottom = isSlideToBottom(recycle);
+                if (slideToBottom) {
+                    goGetShopList();
+                }
 
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+            }
+        });
     }
 
     @OnClick({R.id.shop_rb_default_filter, R.id.rb_main_me, R.id.rb_main_order, R.id.shop_btn_sure, R.id.shop_rb_right_scroll_filter, R.id.shop_btn_reset})
@@ -247,10 +275,11 @@ public class HmShopMallActivity extends BaseActivity {
                 root.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                       /* Intent intent = new Intent(HmShopMallActivity.this, ShopItemDetailsActivity.class);
+                        Intent intent = new Intent(HmShopMallActivity.this, ShopItemDetailsActivity.class);
+                        intent.putExtra("body", bean);
                         intent.putExtra("clothes_cz", bean.getMianliao_id());
                         intent.putExtra("id", bean.getClothes_id());
-                        startActivity(intent);*/
+                        startActivity(intent);
                     }
                 });
             }
@@ -413,23 +442,38 @@ public class HmShopMallActivity extends BaseActivity {
         }
     };
 
-    /**
-     * 这是获取商品数据的方法
-     *
-     * @param page_now 页数
-     * @param sex      性别
-     * @param season   季节
-     * @param type     种类
-     * @param style    样式
-     * @param color    颜色
-     * @param type_ck  衣服查看类型  1-推荐服饰（无上门整理套装）  2-商城购买（无小蓝盒x10/组）
-     * @param sort     排序方式 价格-1:从底到高，2:从高到底    销量-3:从底到高，4:从高到底
-     */
-    private void goGetShopList(/*int page_now, String sex, String season, String type, String style, String color, int type_ck, int sort*/) {
-       /* Network.shopService().getShopList(page_now, sex, season, type, style, color, 1, sort)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(shopList);*/
+    private MUtilsInternet net = MUtilsInternet.getInstance();
+
+    private Map<String, String> map = new HashMap<>();
+
+
+    private void goGetShopList() {
+        map.put("page_now", page_now + "");
+        map.put("sex", sex);
+        map.put("season", season);
+        map.put("type", type);
+        map.put("style", style);
+        map.put("color", color);
+        map.put("type_ck", "1");
+        map.put("sort", sort);
+        net.post("http://hmyc365.net:8084/HM/stu/mall/clothes/getClothesList.do", this, map, new MUtilsInternet.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+                refreshLayout.setRefreshing(false);
+                Gson gson = new Gson();
+                ShopList shopList = gson.fromJson(result, ShopList.class);
+                List<ShopList.BodyBean> beans = shopList.getBody();
+                if (beans != null) {
+                    if (page_now == 1)
+                        mShops.clear();
+
+                    page_now++;
+                    mShops.addAll(beans);
+                    adapter.notifyDataSetChanged();
+                }
+
+            }
+        });
     }
 
     /*

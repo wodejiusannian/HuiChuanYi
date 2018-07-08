@@ -5,10 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
+import com.bumptech.glide.Glide;
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.bean.MyClothess;
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.example.huichuanyi.custom.GlideRoundTransform;
 
 import java.util.List;
 
@@ -45,10 +48,10 @@ public class MC_MyClothesAdapter2 extends RecyclerView.Adapter<MC_MyClothesAdapt
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         String getphoto = mData.get(position).getClothes_pic();
-        holder.mImageView.setImageURI(getphoto);
+        Glide.with(mContext).load(getphoto).bitmapTransform(new GlideRoundTransform(mContext)).into(holder.mImageView);
         if (mListener != null) {
-            holder.mImageView.setTag(position);
-            holder.mImageView.setOnClickListener(mListener);
+            holder.test.setTag(position);
+            holder.test.setOnClickListener(mListener);
         }
     }
 
@@ -59,11 +62,12 @@ public class MC_MyClothesAdapter2 extends RecyclerView.Adapter<MC_MyClothesAdapt
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private SimpleDraweeView mImageView;
-
+        private ImageView mImageView;
+        private RelativeLayout test;
         public MyViewHolder(View itemView) {
             super(itemView);
-            mImageView = (SimpleDraweeView) itemView.findViewById(R.id.iv_item_recycler_3);
+            mImageView = (ImageView) itemView.findViewById(R.id.iv_item_recycler_3);
+            test = (RelativeLayout) itemView.findViewById(R.id.rl_test);
         }
     }
 

@@ -74,10 +74,8 @@ public class LyShopDetailsActivity extends BaseActivity implements UtilsInternet
 
     private LyDetailsAdapter rvAdapter;
 
-    private int goods_id;
 
-
-    private String  details_page, sellerPicture;
+    private String details_page, sellerPicture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,11 +98,13 @@ public class LyShopDetailsActivity extends BaseActivity implements UtilsInternet
         });
     }
 
+    private String goods_id;
+
     @Override
     protected void initData() {
-        goods_id = getIntent().getIntExtra("goods_id", 0);
+        goods_id = getIntent().getStringExtra("goods_id");
         sellerPicture = getIntent().getStringExtra("sellerPicture");
-        map.put("goods_id", goods_id + "");
+        map.put("goods_id", goods_id);
         map.put("user_id", getUserData(this, 1));
     }
 
@@ -119,12 +119,12 @@ public class LyShopDetailsActivity extends BaseActivity implements UtilsInternet
         initNet();
     }
 
-    @OnClick({ R.id.rl_ly_shopdetails_gobuycar, R.id.iv_ly_shopdetails_delete, R.id.tv_ly_shopdetails_addcar, R.id.iv_ly_shopdetails_add})
+    @OnClick({R.id.rl_ly_shopdetails_gobuycar, R.id.iv_ly_shopdetails_delete, R.id.tv_ly_shopdetails_addcar, R.id.iv_ly_shopdetails_add})
     public void onEvent(View v) {
         switch (v.getId()) {
             case R.id.rl_ly_shopdetails_gobuycar:
                 Intent intent = new Intent(this, MainActivity.class);
-                intent.putExtra("page", 2);
+                intent.putExtra("page", 1);
                 startActivity(intent);
                 break;
             case R.id.iv_ly_shopdetails_delete:

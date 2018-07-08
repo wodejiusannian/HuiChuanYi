@@ -62,7 +62,7 @@
             android:layout_height="40dp"
             android:layout_marginLeft="@dimen/distance_10"
             android:layout_marginRight="@dimen/distance_10"
-            android:background="@drawable/shape_red_4dp"
+            android:background="@drawable/shape_cicle"
             android:gravity="center"
             android:text="立即预约"
             android:textColor="@color/main_color_write" />

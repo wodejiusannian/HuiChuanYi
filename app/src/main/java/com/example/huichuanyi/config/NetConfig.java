@@ -349,5 +349,8 @@ public interface NetConfig {
 
     //3.0购物车删除接口
     String HMSHOPCAR_DELETE_SHOP = BASE_NEW_URL + "/admiral/app/hmyc/order/info/deleteGwc.htm";
+    //3.0工作室评价的接口
+    String HMSCROE_STUDIO = BASE_NEW_URL + "/admiral/old/wx/service/stuInfo.htm";
+    String HMSHOPCAR_ADD = BASE_NEW_URL + "/admiral/app/hmyc/order/mall/addGwc.htm";
 }
 

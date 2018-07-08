@@ -63,6 +63,19 @@
                             android:maxLength="5"
                             android:text="-----"
                             android:textColor="#fff" />
+                        <TextView
+                            android:id="@+id/tv_vip"
+                            android:gravity="center"
+                            android:padding="3dp"
+                            android:background="@drawable/shape_cicle"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="#fff"
+                            android:textSize="10sp"
+                            android:visibility="gone"
+                            android:layout_marginRight="40dp"
+                            android:text="365vip会员"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
 
                         <RelativeLayout
                             android:id="@+id/relative_namejob"

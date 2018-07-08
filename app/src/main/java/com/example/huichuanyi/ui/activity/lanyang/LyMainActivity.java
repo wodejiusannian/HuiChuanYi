@@ -1,5 +1,6 @@
 package com.example.huichuanyi.ui.activity.lanyang;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -51,6 +52,37 @@ public class LyMainActivity extends BaseActivity implements SwipeRefreshLayout.O
     @Override
     public void setListener() {
         initNet();
+        adapter.setOnItemClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch(v.getId()){
+                    case R.id.rl_test:
+                        int position = (int) v.getTag();
+                        LyMain.BodyBean model = (LyMain.BodyBean) mData.get(position);
+                        int click_type = model.getClick_type();
+                        switch (click_type) {
+                            case 0:
+                                Intent intent = new Intent(LyMainActivity.this, LyShopListActivity.class);
+                                intent.putExtra("id", model.getSupplier_id());
+                                intent.putExtra("brand", model.getBrand());
+                                startActivity(intent);
+                                break;
+                            case 1:
+                                Intent intent2 = new Intent(LyMainActivity.this, RTCWebActivity.class);
+                                intent2.putExtra("supplier_id", model.getSupplier_id());
+                                intent2.putExtra("brand", model.getBrand());
+                                intent2.putExtra("click_url", model.getClick_url());
+                                startActivity(intent2);
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
     }
 
 

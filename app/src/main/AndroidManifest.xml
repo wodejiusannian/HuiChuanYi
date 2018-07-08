@@ -81,6 +81,8 @@
         <activity android:name=".ui.activity.HomeDaPeiRiJiActivity" />
         <activity android:name=".ui.activity.MC_HomeActivity" />
         <activity android:name=".ui.newpage.HmShopMallActivity"></activity>
+        <activity android:name=".ui.newpage.ShopItemDetailsActivity"></activity>
+        <activity android:name=".newui.activity.OrderFormAllActivity"></activity>
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"

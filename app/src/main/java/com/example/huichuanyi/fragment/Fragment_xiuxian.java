@@ -30,26 +30,27 @@ public class Fragment_xiuxian extends BaseFragment implements View.OnClickListen
     private MC_MyClothesAdapter mAdapter;
     private List<MyClothess.BodyBean.ClothesInfoBean> mData;
     private String user_id;
+
     @Override
     protected View initView() {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.changhe, null);
         getChildView(view);
-        return view ;
+        return view;
     }
 
     @Override
     protected void initData() {
         super.initData();
-        user_id = SharedPreferenceUtils.getUserData(getContext(),1);
+        user_id = SharedPreferenceUtils.getUserData(getContext(), 1);
         mData = new ArrayList<>();
-        mAdapter = new MC_MyClothesAdapter(getActivity(),mData);
+        mAdapter = new MC_MyClothesAdapter(getActivity(), mData);
         getData();
     }
 
     @Override
     protected void setData() {
         super.setData();
-        GridLayoutManager mLayout = new GridLayoutManager(getActivity(),3);
+        GridLayoutManager mLayout = new GridLayoutManager(getActivity(), 3);
         mRecycleView.setLayoutManager(mLayout);
         mRecycleView.setAdapter(mAdapter);
         mRecycleView.addItemDecoration(new ItemDecoration(15));
@@ -63,14 +64,14 @@ public class Fragment_xiuxian extends BaseFragment implements View.OnClickListen
 
     private void getData() {
         Map map = new HashMap();
-        map.put("user_id",user_id);
-        map.put("clothes_wardrobeId","");
-        map.put("clothes_typeId","");
-        map.put("clothes_situation","休闲");
-        map.put("clothes_styleId","");
-        map.put("clothes_caizhi","");
-        map.put("clothes_move","1");
-        UtilsInternet.getInstance().post(NetConfig.GET_CLOTHES_CHA,map,this);
+        map.put("user_id", user_id);
+        map.put("clothes_wardrobeId", "");
+        map.put("clothes_typeId", "");
+        map.put("clothes_situation", "休闲");
+        map.put("clothes_styleId", "");
+        map.put("clothes_caizhi", "");
+        map.put("clothes_move", "1");
+        UtilsInternet.getInstance().post(NetConfig.GET_CLOTHES_CHA, map, this);
     }
 
     private void getChildView(View view) {
@@ -82,8 +83,8 @@ public class Fragment_xiuxian extends BaseFragment implements View.OnClickListen
         int position = (int) v.getTag();
         Intent intent = new Intent(getActivity(), WDYCPicActivity.class);
         intent.putExtra("mList", (Serializable) mData);
-        intent.putExtra("position",position);
-        intent.putExtra("yichuzhonglei","11");
+        intent.putExtra("position", position);
+        intent.putExtra("yichuzhonglei", "11");
         startActivity(intent);
     }
 
@@ -91,7 +92,7 @@ public class Fragment_xiuxian extends BaseFragment implements View.OnClickListen
     public void onResponse(String result) {
         String ret = JsonUtils.getRet(result);
         mData.clear();
-        if (TextUtils.equals("0",ret)){
+        if (TextUtils.equals("0", ret)) {
             Gson gson = new Gson();
             MyClothess myClothess = gson.fromJson(result, MyClothess.class);
             mData.addAll(myClothess.getBody().getClothesInfo());

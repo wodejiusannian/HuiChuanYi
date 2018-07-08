@@ -22,14 +22,6 @@
             android:layout_centerInParent="true"
             android:text="我的地址" />
 
-        <TextView
-            android:id="@+id/tv_list_address_sure"
-            style="@style/ActivityTopTextSubTitleStyle"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:padding="@dimen/distance_10"
-            android:text="确定"
-            android:textColor="#000" />
     </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -37,12 +29,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/btn_add_address"
-        android:layout_below="@+id/rl_list_address_top">
+        android:layout_below="@+id/rl_list_address_top"
+        android:layout_marginTop="10dp">
 
         <ListView
             android:id="@+id/lv_list_address_show"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:divider="#00000000">
 
         </ListView>
     </android.support.v4.widget.SwipeRefreshLayout>

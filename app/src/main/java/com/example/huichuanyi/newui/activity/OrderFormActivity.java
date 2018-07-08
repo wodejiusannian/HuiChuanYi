@@ -33,11 +33,14 @@ public class OrderFormActivity extends BaseActivity {
     protected void initData() {
         Intent intent = getIntent();
         String title = intent.getStringExtra("title");
-        orderTypePj = intent.getStringExtra("orderTypePj");
+        serviceStr = intent.getStringArrayExtra("serviceStr");
+        orderTypePjService = intent.getStringArrayExtra("orderTypePjService");
+        deleteStatusPjService = intent.getStringArrayExtra("deleteStatusPjService");
+        wayNoService = intent.getStringArrayExtra("wayNoService");
+        evaluatateService = intent.getStringArrayExtra("evaluatateService");
         mTitle.setText(title);
     }
 
-    private String orderTypePj;
 
     @BindView(R.id.tb_orderform_title)
     TabLayout tb;
@@ -45,7 +48,15 @@ public class OrderFormActivity extends BaseActivity {
     @BindView(R.id.vp_orderform_content)
     ViewPager pager;
 
-    private String[] deleteStatusPj = {"0,1,3,4", "2,5,6,7"};
+    private String[] orderTypePjService = null;
+
+    private String[] deleteStatusPjService = null;
+
+    private String[] wayNoService = null;
+
+    private String[] evaluatateService = null;
+
+    private String[] serviceStr = null;
 
     @Override
     protected void setData() {
@@ -54,16 +65,17 @@ public class OrderFormActivity extends BaseActivity {
         ClosetAdapter adapter = new ClosetAdapter(getSupportFragmentManager(), mData, mTitles);
         pager.setAdapter(adapter);
         tb.setupWithViewPager(pager);
-        for (int i = 0; i < deleteStatusPj.length; i++) {
+        for (int i = 0; i < serviceStr.length; i++) {
             OrderFormFragment orderFormFragment = new OrderFormFragment();
             Bundle bundle = new Bundle();
-            bundle.putString("orderTypePj", orderTypePj);
-            bundle.putString("deleteStatusPj", deleteStatusPj[i]);
+            bundle.putString("orderTypePj", orderTypePjService[i]);
+            bundle.putString("deleteStatusPj", deleteStatusPjService[i]);
+            bundle.putString("evaluateState", evaluatateService[i]);
+            bundle.putString("wayNo", wayNoService[i]);
+            mTitles.add(serviceStr[i]);
             orderFormFragment.setArguments(bundle);
             mData.add(orderFormFragment);
         }
-        mTitles.add("未完成订单");
-        mTitles.add("已完成订单");
         adapter.notifyDataSetChanged();
     }
 

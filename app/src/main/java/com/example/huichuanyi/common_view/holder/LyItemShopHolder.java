@@ -37,7 +37,7 @@ public class LyItemShopHolder extends BaseViewHolder<LyItemShop> {
                 Context context = te.getContext();
                 Intent intent = new Intent(context, LyShopDetailsActivity.class);
                 String id = model.getBanner().get(0).getId();
-                intent.putExtra("goods_id", Integer.parseInt(id));
+                intent.putExtra("goods_id", id);
                 context.startActivity(intent);
             }
         });

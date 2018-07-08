@@ -23,17 +23,22 @@ public class ItemHmMainRecommendStudio implements Visitable {
         this.mData = mData;
     }
 
-    public static class DataBean implements Visitable{
+    public static class DataBean implements Visitable {
         public String appExtensionIntro;
         public String headPicture;
+        public String introduction;
+        public String level;
+        public String monthStar;
         public String name;
         public String userId;
+        public String userName;
 
         @Override
         public int type(TypeFactory typeFactory) {
             return typeFactory.type(this);
         }
     }
+
     @Override
     public int type(TypeFactory typeFactory) {
         return typeFactory.type(this);

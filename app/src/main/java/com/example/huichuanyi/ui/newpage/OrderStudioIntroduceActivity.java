@@ -402,7 +402,13 @@ public class OrderStudioIntroduceActivity extends BaseActivity {
                     else
                         mData.add(1, new OrderStudioIntroduceSecondModel(1, "请选择服饰量区间"));
                     mData.add(2, new OrderStudioIntroduceSecondModel(2, "请选择服务时间"));
-                    double v = (Double.parseDouble(model.getPf()) / 5) * 100;
+                    double v;
+                    try {
+                        v = (Double.parseDouble(model.getPf()) / 5) * 100;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        v = 0;
+                    }
                     String jll = String.format("%.1f", v);
                     mData.add(3, new OrderStudioIntroduceThirdModel(model.getXl(), vipNum, jll + "%"));
                     initNet("2");

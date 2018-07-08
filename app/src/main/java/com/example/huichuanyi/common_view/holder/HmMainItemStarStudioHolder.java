@@ -29,13 +29,7 @@ public class HmMainItemStarStudioHolder extends BaseViewHolder<ItemHmMainStarStu
         final RollPagerView pager = (RollPagerView) getView(R.id.roll_hmmain_kind);
         HmMainItemStarStudioAdapter adapter1 = new HmMainItemStarStudioAdapter(pager, model.getmData(), pager.getContext());
         pager.setAdapter(adapter1);
-        if (model.getmData().size() == 1) {
-            pager.setHintView(new ColorPointHintView(pager.getContext(), Color.parseColor("#00ac0000"), Color.parseColor("#00ac0000")));
-        } else {
-            pager.setHintView(new ColorPointHintView(pager.getContext(), Color.parseColor("#ac0000"), Color.WHITE));
-            pager.setPlayDelay(4000);
-        }
-
+        pager.setHintView(new ColorPointHintView(pager.getContext(), Color.parseColor("#00ac0000"), Color.parseColor("#00ac0000")));
         pager.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {

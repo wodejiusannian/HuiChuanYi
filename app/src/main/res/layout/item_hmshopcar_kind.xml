@@ -18,11 +18,12 @@
     <LinearLayout
         android:id="@+id/ll_hmshopcarkind_updown"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="17dp"
-        android:orientation="horizontal">
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingRight="17dp">
 
         <TextView
             android:id="@+id/tv_hmshopcar_more"

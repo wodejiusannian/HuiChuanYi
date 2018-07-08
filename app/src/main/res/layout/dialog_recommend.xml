@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/text_recommend"
+        android:text="颜色分类" />
+
+    <com.example.huichuanyi.custom.ThreeRecycleColorView
+        android:id="@+id/three_recycle_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ll_reset_sure"
+        android:layout_below="@+id/shop_tv_style"
+        android:layout_margin="10dp">
+
+    </com.example.huichuanyi.custom.ThreeRecycleColorView>
+
+    <TextView
+        style="@style/text_recommend"
+        android:text="尺码" />
+
+    <com.example.huichuanyi.custom.ThreeRecycleView
+        android:id="@+id/three_recycle_size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ll_reset_sure"
+        android:layout_below="@+id/shop_tv_style"
+        android:layout_margin="10dp">
+
+    </com.example.huichuanyi.custom.ThreeRecycleView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="33dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/dialog_recommend_addcar"
+            android:layout_width="0dp"
+            android:layout_height="33dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/select_time_enable"
+            android:enabled="false"
+            android:text="加入购物车"
+            android:textColor="#fff"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/dialog_recommend_gobuy"
+            android:layout_width="0dp"
+            android:layout_height="33dp"
+            android:layout_weight="1"
+            android:background="@drawable/select_time_enablecopy"
+            android:enabled="false"
+            android:text="立即购买"
+            android:textColor="#fff"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</LinearLayout>

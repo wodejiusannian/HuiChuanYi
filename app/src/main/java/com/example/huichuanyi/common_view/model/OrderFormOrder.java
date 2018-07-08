@@ -76,6 +76,9 @@ public class OrderFormOrder {
         private String orderId;
         private List<OrderInfoBean> orderInfo;
 
+        public BodyBean() {
+        }
+
         protected BodyBean(Parcel in) {
             concessionCode = in.readString();
             discountExplain = in.readString();
@@ -243,6 +246,9 @@ public class OrderFormOrder {
             private String wayCompany;
             private String wayNo;
             private String wayPhone;
+
+            public OrderInfoBean() {
+            }
 
             protected OrderInfoBean(Parcel in) {
                 acceptTime = in.readString();

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -170,9 +171,11 @@ public class ShopCarOrderDetailsActivity extends BaseActivity implements IsSucce
                             a.put(O2);
                         }
                         o1.put("ids", a);
+                        Log.e("TAG", "onEvent: ---" + o1.toString());
                         new AsyncHttpUtils(new HttpCallBack() {
                             @Override
                             public void onResponse(String result) {
+                                Log.e("TAG", "onEvent: ---" + result);
                                 String ret = JsonUtils.getRet(result);
                                 if ("0".equals(ret)) {
                                     switch (payTag) {

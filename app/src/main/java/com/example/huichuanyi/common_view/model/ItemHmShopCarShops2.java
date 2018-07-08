@@ -21,10 +21,12 @@ public class ItemHmShopCarShops2 implements Visitable {
     private String goodsSize;
     private String id;
 
+    private String orderType;
+
     private String kindName;
 
     public ItemHmShopCarShops2(boolean isSelect, int count, boolean edit, String goodsColor, String goodsId, String goodsName,
-                               String goodsPicture, double goodsPrice, String goodsSize, String id,  String kindName) {
+                               String goodsPicture, double goodsPrice, String goodsSize, String id, String kindName, String orderType) {
         this.isSelect = isSelect;
         this.count = count;
         this.edit = edit;
@@ -36,6 +38,15 @@ public class ItemHmShopCarShops2 implements Visitable {
         this.goodsSize = goodsSize;
         this.id = id;
         this.kindName = kindName;
+        this.orderType = orderType;
+    }
+
+    public String getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
     }
 
     public String getKindName() {

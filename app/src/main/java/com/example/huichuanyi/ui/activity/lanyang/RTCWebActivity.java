@@ -3,7 +3,6 @@ package com.example.huichuanyi.ui.activity.lanyang;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -102,32 +101,43 @@ public class RTCWebActivity extends BaseActivity implements IsSuccess {
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setJavaScriptEnabled(true);
         webContent.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                                        @Override
+                                        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                                            // TODO Auto-generated method stub
+                                            //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
+                                            if (url.contains("http://www.hmyc365.cn/rtc/order/getSign?order_id=")) {
+                                                final String[] split = url.split("=");
+                                                MySelfPayDialog dialog = new MySelfPayDialog(RTCWebActivity.this);
+                                                dialog.setOnNoListener("取消", null);
+                                                dialog.setOnYesListener("确定", new MySelfPayDialog.OnYesClickListener() {
+                                                    @Override
+                                                    public void onClick(String tag) {
+                                                        onNetResultOrder(split[1], tag);
+                                                    }
+                                                });
+                                                dialog.show();
+                                                return true;
+                                            } else if (url.contains("http://www.hmyc365.cn/rtc/lookReport")) {
+                                                ActivityUtils.switchTo(RTCWebActivity.this, RTCReportActivity.class);
+                                                return true;
+                                            } else if (url.contains("a=lookupReport")) {
+                                                ActivityUtils.switchTo(RTCWebActivity.this, RTCReportActivity.class);
+                                                return true;
+                                            } else {
+                                                view.loadUrl(url);
+                                                return true;
+                                            }
+                                        }
 
-                // TODO Auto-generated method stub
-                //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
-                if (url.contains("http://www.hmyc365.cn/rtc/order/getSign?order_id=")) {
-                    final String[] split = url.split("=");
-                    MySelfPayDialog dialog = new MySelfPayDialog(RTCWebActivity.this);
-                    dialog.setOnNoListener("取消", null);
-                    dialog.setOnYesListener("确定", new MySelfPayDialog.OnYesClickListener() {
-                        @Override
-                        public void onClick(String tag) {
-                            onNetResultOrder(split[1], tag);
-                        }
-                    });
-                    dialog.show();
-                    return true;
-                } else if (url.contains("http://www.hmyc365.cn/rtc/lookReport")) {
-                    ActivityUtils.switchTo(RTCWebActivity.this, RTCReportActivity.class);
-                    return true;
-                } else {
-                    view.loadUrl(url);
-                    return true;
-                }
-            }
-        });
+                                        @Override
+                                        public void onPageFinished(WebView view, String url) {
+                                            super.onPageFinished(view, url);
+                                            if (url.contains("a=lookupReport")) {
+                                                ActivityUtils.switchTo(RTCWebActivity.this, RTCReportActivity.class);
+                                            }
+                                        }
+                                    }
+        );
         WebChromeClient wvcc = new WebChromeClient() {
 
             @Override

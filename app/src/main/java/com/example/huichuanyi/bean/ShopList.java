@@ -1,5 +1,6 @@
 package com.example.huichuanyi.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 // ┏┓　　　┏┓
@@ -56,7 +57,7 @@ public class ShopList {
         this.body = body;
     }
 
-    public static class BodyBean {
+    public static class BodyBean implements Serializable{
         /**
          * clothes_pic : http://hmyc365.net:8082/file/hm/pic/365/1.jpg
          * clothes_xl : 41

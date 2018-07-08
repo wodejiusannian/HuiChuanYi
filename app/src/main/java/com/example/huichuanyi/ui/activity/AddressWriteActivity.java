@@ -1,24 +1,28 @@
 package com.example.huichuanyi.ui.activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.huichuanyi.R;
-import com.example.huichuanyi.base.BaseActivity;
 import com.example.huichuanyi.bean.CityModel;
 import com.example.huichuanyi.bean.DistrictModel;
 import com.example.huichuanyi.bean.ProvinceModel;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.service.XmlParserHandler;
+import com.example.huichuanyi.ui.base.BaseActivity;
 import com.example.huichuanyi.utils.JsonUtils;
 import com.example.huichuanyi.utils.SharedPreferenceUtils;
 import com.example.huichuanyi.utils.UtilsInternet;
@@ -37,7 +41,8 @@ import widget.adapters.ArrayWheelAdapter;
 
 public class AddressWriteActivity extends BaseActivity implements View.OnClickListener, OnWheelChangedListener, UtilsInternet.XCallBack {
     private Intent intent;
-    private TextView mSave, mCity, mCancel, mSure;
+    private TextView mCity, mCancel, mSure;
+    private Button mSave;
     private EditText mName, mPhone, mAdd;
     private UtilsInternet instance = UtilsInternet.getInstance();
     private RelativeLayout mAddress;
@@ -57,15 +62,18 @@ public class AddressWriteActivity extends BaseActivity implements View.OnClickLi
     private int tag, updateOrAdd;
     private String userID, addressId;
 
+    private LinearLayout delete;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_address);
     }
 
+
     @Override
-    public void initView() {
-        mSave = (TextView) findViewById(R.id.tv_write_address_save);
+    public void initData() {
+        mSave = (Button) findViewById(R.id.btn_write_address_save);
         mName = (EditText) findViewById(R.id.et_write_address_name);
         mPhone = (EditText) findViewById(R.id.et_write_address_phone);
         mAdd = (EditText) findViewById(R.id.et_write_address_address);
@@ -76,10 +84,7 @@ public class AddressWriteActivity extends BaseActivity implements View.OnClickLi
         mAddress = (RelativeLayout) findViewById(R.id.ll_write_address);
         mCancel = (TextView) findViewById(R.id.tv_write_address_cancel);
         mSure = (TextView) findViewById(R.id.tv_write_address_sure);
-    }
-
-    @Override
-    public void initData() {
+        delete = (LinearLayout) this.findViewById(R.id.ll_writeaddress_delete);
         intent = getIntent();
         type = intent.getStringExtra("type");
         tag = intent.getIntExtra("tag", 0);
@@ -87,7 +92,7 @@ public class AddressWriteActivity extends BaseActivity implements View.OnClickLi
         phone = intent.getStringExtra("phone");
         city = intent.getStringExtra("city");
         address = intent.getStringExtra("selector_address");
-        userID = SharedPreferenceUtils.getUserData(this,1);
+        userID = SharedPreferenceUtils.getUserData(this, 1);
         addressId = intent.getStringExtra("addressId");
         initProvinceDatas();
     }
@@ -117,6 +122,7 @@ public class AddressWriteActivity extends BaseActivity implements View.OnClickLi
         mViewDistrict.addChangingListener(this);
         mCancel.setOnClickListener(this);
         mSure.setOnClickListener(this);
+        delete.setOnClickListener(this);
     }
 
     public void back(View view) {
@@ -126,7 +132,7 @@ public class AddressWriteActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_write_address_save:
+            case R.id.btn_write_address_save:
                 transmissionInfo();
                 break;
             case R.id.tv_write_address_city:
@@ -134,14 +140,53 @@ public class AddressWriteActivity extends BaseActivity implements View.OnClickLi
                 initAddress();
                 break;
             case R.id.tv_write_address_cancel:
+                mSave.setVisibility(View.VISIBLE);
                 mAddress.setVisibility(View.GONE);
                 break;
             case R.id.tv_write_address_sure:
                 setCity();
                 break;
+            case R.id.ll_writeaddress_delete:
+                final AlertDialog.Builder normalDialog = new AlertDialog.Builder(this);
+                normalDialog.setTitle("提示");
+                normalDialog.setMessage("确定删除此收货人？");
+                normalDialog.setPositiveButton("确定",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                deleteAddress();
+                            }
+                        });
+                normalDialog.setNegativeButton("关闭",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                // 显示
+                normalDialog.show();
+                break;
             default:
                 break;
         }
+    }
+
+    private void deleteAddress() {
+        dataMap.put("user_id", userID);
+        dataMap.put("id", addressId);
+        instance.post(NetConfig.DELETE_PERSON_ADDRESS, dataMap, new UtilsInternet.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+                String ret = JsonUtils.getRet(result);
+                if (TextUtils.equals("0", ret)) {
+                    Toast.makeText(AddressWriteActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
+                    toUpActivity();
+                } else {
+                    Toast.makeText(AddressWriteActivity.this, "删除失败", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     /*
@@ -151,6 +196,7 @@ public class AddressWriteActivity extends BaseActivity implements View.OnClickLi
         city = mCurrentProviceName + "," + mCurrentCityName + ","
                 + mCurrentDistrictName;
         mCity.setText(city);
+        mSave.setVisibility(View.VISIBLE);
         mAddress.setVisibility(View.GONE);
     }
 
@@ -158,6 +204,7 @@ public class AddressWriteActivity extends BaseActivity implements View.OnClickLi
     * 显示地址选择器
     * */
     private void initAddress() {
+        mSave.setVisibility(View.GONE);
         mAddress.setVisibility(View.VISIBLE);
     }
 

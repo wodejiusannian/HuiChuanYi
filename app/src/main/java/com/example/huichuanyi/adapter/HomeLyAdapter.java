@@ -42,7 +42,7 @@ public class HomeLyAdapter extends LoopPagerAdapter {
                 Intent intent = new Intent(context, LyShopDetailsActivity.class);
                 String id = item_1.getId();
                 if (!CommonUtils.isEmpty(id))
-                    intent.putExtra("goods_id", Integer.parseInt(id));
+                    intent.putExtra("goods_id", id);
                 context.startActivity(intent);
             }
         });

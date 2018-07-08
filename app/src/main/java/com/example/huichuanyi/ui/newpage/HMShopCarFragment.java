@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.huichuanyi.R;
 import com.example.huichuanyi.base_2.BaseFragment;
+import com.example.huichuanyi.bean.ShopList;
 import com.example.huichuanyi.common_view.adapter.MultiTypeAdapter;
 import com.example.huichuanyi.common_view.model.ItemHmShopCarBusiness;
 import com.example.huichuanyi.common_view.model.ItemHmShopCarKind;
@@ -19,10 +20,14 @@ import com.example.huichuanyi.common_view.model.ItemHmShopCarRecommend;
 import com.example.huichuanyi.common_view.model.ItemHmShopCarRecommendShop;
 import com.example.huichuanyi.common_view.model.ItemHmShopCarShops;
 import com.example.huichuanyi.common_view.model.ItemHmShopCarShops2;
+import com.example.huichuanyi.common_view.model.ItemShopCarNoRecommend;
+import com.example.huichuanyi.common_view.model.ItemShopCarNoShop;
 import com.example.huichuanyi.common_view.model.ShopCarType4Model;
 import com.example.huichuanyi.common_view.model.Visitable;
 import com.example.huichuanyi.config.NetConfig;
 import com.example.huichuanyi.custom.MySelfDialog;
+import com.example.huichuanyi.ui.activity.SLWRecordActivity;
+import com.example.huichuanyi.ui.activity.lanyang.LyShopDetailsActivity;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.JsonUtils;
 import com.example.huichuanyi.utils.MUtilsInternet;
@@ -99,12 +104,12 @@ public class HMShopCarFragment extends BaseFragment {
                 adapter.notifyDataSetChanged();
                 break;
             case R.id.tv_hmshopcar_edit:
-                if ("编辑".equals(edit.getText().toString())) {
+                if ("管理".equals(edit.getText().toString())) {
                     rlEdit.setVisibility(View.VISIBLE);
                     edit.setText("完成");
                 } else {
                     rlEdit.setVisibility(View.GONE);
-                    edit.setText("编辑");
+                    edit.setText("管理");
                 }
                 for (int i = 0; i < mData.size(); i++) {
                     Visitable visitable = mData.get(i);
@@ -136,6 +141,13 @@ public class HMShopCarFragment extends BaseFragment {
                                     shop3.getGoodsPrice() + "", shop3.getGoodsSize(), shop3.getId(), shop3.getCount(), ""));
                             ;
                         }
+                    } else if (visitable instanceof ItemHmShopCarRecommendShop) {
+                        ItemHmShopCarRecommendShop shop3 = ((ItemHmShopCarRecommendShop) visitable);
+                        boolean check3 = shop3.isBuy();
+                        if (check3) {
+                            array.add(new ShopCarType4Model(shop3.getRecommendReason(), shop3.getGoodsId(), shop3.getGoodsName(), shop3.getGoodsPicture(),
+                                    shop3.getGoodsPrice() + "", shop3.getGoodsName(), shop3.getId(), 1, ""));
+                        }
                     }
                 }
                 if (array.size() > 0) {
@@ -157,7 +169,7 @@ public class HMShopCarFragment extends BaseFragment {
                         map.put("token", NetConfig.TOKEN);
                         String idPj = "";
                         for (Visitable visitable : mData) {
-                            if (visitable instanceof ItemHmShopCarRecommendShop) {
+                            if (visitable instanceof ItemHmShopCarShops) {
                                 ItemHmShopCarShops shopCarType2Model = ((ItemHmShopCarShops) visitable);
                                 if (shopCarType2Model.isSelect()) {
                                     idPj = idPj + "," + shopCarType2Model.getId();
@@ -201,30 +213,47 @@ public class HMShopCarFragment extends BaseFragment {
         net.post2(NetConfig.HM_SHOPCAR_DATA, map, new MUtilsInternet.XCallBack() {
             @Override
             public void onResponse(String result) {
+                if (mData.size() == 0)
+                    mData.add(new ItemShopCarNoShop());
                 mData.add(new ItemHmShopCarRecommend(false));
                 try {
                     JSONObject object = new JSONObject(result);
                     JSONObject body = object.getJSONObject("body");
                     String recommendReason = body.getString("recommendReason");
-                    JSONArray rec = body.getJSONArray("rec");
-                    for (int i = 0; i < rec.length(); i++) {
-                        JSONObject recItem = rec.getJSONObject(i);
-                        ItemHmShopCarRecommendShop itemHmShopCarRecommendShop = new ItemHmShopCarRecommendShop();
-                        itemHmShopCarRecommendShop.setDeleteStatus(recItem.getString("deleteStatus"));
-                        itemHmShopCarRecommendShop.setGoodsId(recItem.getString("goodsId"));
-                        itemHmShopCarRecommendShop.setGoodsName(recItem.getString("goodsName"));
-                        itemHmShopCarRecommendShop.setGoodsPicture(recItem.getString("goodsPicture"));
-                        itemHmShopCarRecommendShop.setGoodsPrice(Double.parseDouble(recItem.getString("goodsPrice")));
-                        itemHmShopCarRecommendShop.setId(recItem.getString("id"));
-                        String recReason = recItem.getString("recommendReason");
-                        itemHmShopCarRecommendShop.setRecommendReason(recReason);
-                        if (recReason.equals(recommendReason))
-                            itemHmShopCarRecommendShop.setBuy(true);
-                        else itemHmShopCarRecommendShop.setBuy(false);
-                        mData.add(itemHmShopCarRecommendShop);
+                    try {
+                        JSONArray rec = body.getJSONArray("rec");
+                        if (rec.length() > 0) {
+                            for (int i = 0; i < rec.length(); i++) {
+                                JSONObject recItem = rec.getJSONObject(i);
+                                ItemHmShopCarRecommendShop itemHmShopCarRecommendShop = new ItemHmShopCarRecommendShop();
+                                itemHmShopCarRecommendShop.setDeleteStatus(recItem.getString("deleteStatus"));
+                                itemHmShopCarRecommendShop.setGoodsId(recItem.getString("goodsId"));
+                                itemHmShopCarRecommendShop.setGoodsName(recItem.getString("goodsName"));
+                                itemHmShopCarRecommendShop.setGoodsPicture(recItem.getString("goodsPicture"));
+                                itemHmShopCarRecommendShop.setGoodsPrice(Double.parseDouble(recItem.getString("goodsPrice")));
+                                itemHmShopCarRecommendShop.setId(recItem.getString("id"));
+                                String recReason = recItem.getString("recommendReason");
+                                itemHmShopCarRecommendShop.setRecommendReason(recReason);
+                                if (recReason.equals(recommendReason))
+                                    itemHmShopCarRecommendShop.setBuy(true);
+                                else itemHmShopCarRecommendShop.setBuy(false);
+                                mData.add(itemHmShopCarRecommendShop);
+                            }
+                        } else {
+                            mData.add(new ItemShopCarNoRecommend());
+                            mData.add(new ItemShopCarNoRecommend());
+                            mData.add(new ItemShopCarNoRecommend());
+                            mData.add(new ItemShopCarNoRecommend());
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        mData.add(new ItemShopCarNoRecommend());
+                        mData.add(new ItemShopCarNoRecommend());
+                        mData.add(new ItemShopCarNoRecommend());
+                        mData.add(new ItemShopCarNoRecommend());
                     }
                     adapter.notifyDataSetChanged();
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -279,7 +308,7 @@ public class HMShopCarFragment extends BaseFragment {
                                 double price = Double.parseDouble(goodsPrice);
                                 int number = Integer.parseInt(orderNumber);
                                 mData.add(new ItemHmShopCarShops2(false, number, false, goodsColor, goodsId, goodsName
-                                        , goodsPicture, price, goodsSize, id, sellerUserName));
+                                        , goodsPicture, price, goodsSize, id, sellerUserName, "1"));
                                 getRecommendShop();
                                 return;
                             }
@@ -305,13 +334,13 @@ public class HMShopCarFragment extends BaseFragment {
                                 double price = Double.parseDouble(goodsPrice);
                                 int number = Integer.parseInt(orderNumber);
                                 mData.add(new ItemHmShopCarShops2(false, number, false, goodsColor, goodsId, goodsName
-                                        , goodsPicture, price, goodsSize, id, sellerUserName));
+                                        , goodsPicture, price, goodsSize, id, sellerUserName, "2"));
                                 getRecommendShop();
                                 return;
                             }
                         }
                     } else if (orderVideo.length() > 0) {
-                        mData.add(new ItemHmShopCarKind("慧美视频", false));
+                        mData.add(new ItemHmShopCarKind("慧美课堂", false));
                         for (int i = 0; i < orderVideo.length(); i++) {
                             JSONObject videoHkj = orderVideo.getJSONObject(i);
                             String sellerUserName = videoHkj.getString("sellerUserName");
@@ -332,14 +361,14 @@ public class HMShopCarFragment extends BaseFragment {
                                 double price = Double.parseDouble(goodsPrice);
                                 int number = Integer.parseInt(orderNumber);
                                 mData.add(new ItemHmShopCarShops2(false, number, false, goodsColor, goodsId, goodsName
-                                        , goodsPicture, price, goodsSize, id, sellerUserName));
+                                        , goodsPicture, price, goodsSize, id, sellerUserName, "3"));
                                 getRecommendShop();
                                 return;
                             }
                         }
                     }
                     getRecommendShop();
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -357,6 +386,7 @@ public class HMShopCarFragment extends BaseFragment {
                     JSONArray orderMall = body.getJSONArray("orderMall");
                     JSONArray orderHkj = body.getJSONArray("orderHkj");
                     JSONArray orderVideo = body.getJSONArray("orderVideo");
+
                     if (orderMall.length() > 0) {
                         mData.add(new ItemHmShopCarKind("慧美商城", true));
                         for (int i = 0; i < orderMall.length(); i++) {
@@ -379,14 +409,15 @@ public class HMShopCarFragment extends BaseFragment {
                                 int number = Integer.parseInt(orderNumber);
                                 if (i == orderHkj.length() - 1 && j == appHmyc.length() - 1) {
                                     mData.add(new ItemHmShopCarShops2(false, number, false, goodsColor, goodsId, goodsName
-                                            , goodsPicture, price, goodsSize, id, sellerUserName));
+                                            , goodsPicture, price, goodsSize, id, sellerUserName, "1"));
                                 } else {
                                     mData.add(new ItemHmShopCarShops(false, number, false, goodsColor, goodsId, goodsName
-                                            , goodsPicture, price, goodsSize, id, sellerUserName));
+                                            , goodsPicture, price, goodsSize, id, sellerUserName, "1"));
                                 }
                             }
                         }
-                    } else if (orderHkj.length() > 0) {
+                    }
+                    if (orderHkj.length() > 0) {
                         mData.add(new ItemHmShopCarKind("慧美黑科技", true));
                         for (int i = 0; i < orderHkj.length(); i++) {
                             JSONObject objOrderHkj = orderHkj.getJSONObject(i);
@@ -408,15 +439,16 @@ public class HMShopCarFragment extends BaseFragment {
                                 int number = Integer.parseInt(orderNumber);
                                 if (i == orderHkj.length() - 1 && j == appHmyc.length() - 1) {
                                     mData.add(new ItemHmShopCarShops2(false, number, false, goodsColor, goodsId, goodsName
-                                            , goodsPicture, price, goodsSize, id, sellerUserName));
+                                            , goodsPicture, price, goodsSize, id, sellerUserName, "2"));
                                 } else {
                                     mData.add(new ItemHmShopCarShops(false, number, false, goodsColor, goodsId, goodsName
-                                            , goodsPicture, price, goodsSize, id, sellerUserName));
+                                            , goodsPicture, price, goodsSize, id, sellerUserName, "2"));
                                 }
                             }
                         }
-                    } else if (orderVideo.length() > 0) {
-                        mData.add(new ItemHmShopCarKind("慧美视频", true));
+                    }
+                    if (orderVideo.length() > 0) {
+                        mData.add(new ItemHmShopCarKind("慧美课堂", true));
                         for (int i = 0; i < orderVideo.length(); i++) {
                             JSONObject videoHkj = orderVideo.getJSONObject(i);
                             String sellerUserName = videoHkj.getString("sellerUserName");
@@ -438,10 +470,10 @@ public class HMShopCarFragment extends BaseFragment {
                                 int number = Integer.parseInt(orderNumber);
                                 if (i == orderHkj.length() - 1 && j == appHmyc.length() - 1) {
                                     mData.add(new ItemHmShopCarShops2(false, number, false, goodsColor, goodsId, goodsName
-                                            , goodsPicture, price, goodsSize, id, sellerUserName));
+                                            , goodsPicture, price, goodsSize, id, sellerUserName, "3"));
                                 } else {
                                     mData.add(new ItemHmShopCarShops(false, number, false, goodsColor, goodsId, goodsName
-                                            , goodsPicture, price, goodsSize, id, sellerUserName));
+                                            , goodsPicture, price, goodsSize, id, sellerUserName, "3"));
                                 }
                             }
                         }
@@ -462,7 +494,8 @@ public class HMShopCarFragment extends BaseFragment {
             @Override
             public int getSpanSize(int position) {
                 Visitable visitable = mData.get(position);
-                if (visitable instanceof ItemHmShopCarRecommendShop) return 1;
+                if (visitable instanceof ItemHmShopCarRecommendShop || visitable instanceof ItemShopCarNoRecommend)
+                    return 1;
                 else return 2;
             }
         });
@@ -485,8 +518,58 @@ public class HMShopCarFragment extends BaseFragment {
                                                int position = (int) v.getTag();
                                                Visitable visitable = mData.get(position);
                                                switch (v.getId()) {
+                                                   case R.id.rl_shopcarselftype2_detials:
+                                                       if (visitable instanceof ItemHmShopCarShops2) {
+                                                           ItemHmShopCarShops2 itemHmshp = (ItemHmShopCarShops2) visitable;
+                                                           String orderType = itemHmshp.getOrderType();
+                                                           if ("1".equals(orderType)) {
+                                                               ShopList.BodyBean bean = new ShopList.BodyBean();
+                                                               bean.setClothes_id(itemHmshp.getGoodsId());
+                                                               bean.setClothes_name(itemHmshp.getGoodsName());
+                                                               bean.setClothes_pic(itemHmshp.getGoodsPicture());
+                                                               bean.setClothes_price_yh(itemHmshp.getGoodsPrice() + "");
+                                                               Intent intent = new Intent(getActivity(), ShopItemDetailsActivity.class);
+                                                               intent.putExtra("body", bean);
+                                                               intent.putExtra("id", itemHmshp.getGoodsId());
+                                                               startActivity(intent);
+                                                           } else if ("2".equals(orderType)) {
+                                                               Intent intent = new Intent(getActivity(), LyShopDetailsActivity.class);
+                                                               intent.putExtra("goods_id", itemHmshp.getGoodsId());
+                                                               intent.putExtra("sellerPicture", itemHmshp.getGoodsPicture());
+                                                               startActivity(intent);
+                                                           }
+                                                       } else if (visitable instanceof ItemHmShopCarShops) {
+                                                           ItemHmShopCarShops itemHmshp = (ItemHmShopCarShops) visitable;
+                                                           String orderType = itemHmshp.getOrderType();
+                                                           if ("1".equals(orderType)) {
+                                                               ShopList.BodyBean bean = new ShopList.BodyBean();
+                                                               bean.setClothes_id(itemHmshp.getGoodsId());
+                                                               bean.setClothes_name(itemHmshp.getGoodsName());
+                                                               bean.setClothes_pic(itemHmshp.getGoodsPicture());
+                                                               bean.setClothes_price_yh(itemHmshp.getGoodsPrice() + "");
+                                                               Intent intent = new Intent(getActivity(), ShopItemDetailsActivity.class);
+                                                               intent.putExtra("body", bean);
+                                                               intent.putExtra("id", itemHmshp.getGoodsId());
+                                                               startActivity(intent);
+                                                           } else if ("2".equals(orderType)) {
+                                                               Intent intent = new Intent(getActivity(), LyShopDetailsActivity.class);
+                                                               intent.putExtra("goods_id", itemHmshp.getGoodsId());
+                                                               intent.putExtra("sellerPicture", itemHmshp.getGoodsPicture());
+                                                               startActivity(intent);
+                                                           }
+                                                       }
+                                                       break;
                                                    case R.id.ll_recommendshop:
-                                                       Toast.makeText(getContext(), "进入推荐服饰的详情页", Toast.LENGTH_SHORT).show();
+                                                       ItemHmShopCarRecommendShop itemHmshp = (ItemHmShopCarRecommendShop) visitable;
+                                                       ShopList.BodyBean bean = new ShopList.BodyBean();
+                                                       bean.setClothes_id(itemHmshp.getGoodsId());
+                                                       bean.setClothes_name(itemHmshp.getGoodsName());
+                                                       bean.setClothes_pic(itemHmshp.getGoodsPicture());
+                                                       bean.setClothes_price_yh(itemHmshp.getGoodsPrice() + "");
+                                                       Intent intent = new Intent(getActivity(), ShopItemDetailsActivity.class);
+                                                       intent.putExtra("body", bean);
+                                                       intent.putExtra("id", itemHmshp.getGoodsId());
+                                                       startActivity(intent);
                                                        break;
                                                    case R.id.iv_shopcarbusiness_select:
                                                        if (visitable instanceof ItemHmShopCarBusiness) {
@@ -594,6 +677,10 @@ public class HMShopCarFragment extends BaseFragment {
                                                            itemHmShopCarShops2.setCount(count);
                                                        }
                                                        break;
+                                                   case R.id.tv_more:
+                                                       Intent intent2 = new Intent(getActivity(), SLWRecordActivity.class);
+                                                       startActivity(intent2);
+                                                       break;
                                                    case R.id.tv_shocarself_add:
                                                        if (visitable instanceof ItemHmShopCarShops) {
                                                            ItemHmShopCarShops itemHmShopCarShops = (ItemHmShopCarShops) visitable;
@@ -607,7 +694,7 @@ public class HMShopCarFragment extends BaseFragment {
                                                            itemHmShopCarShops2.setCount(count);
                                                        }
                                                        break;
-                                                   case R.id.iv_hmshopcarkind_updown:
+                                                   case R.id.ll_hmshopcarkind_updown:
                                                        ItemHmShopCarKind itemHmMainKind = (ItemHmShopCarKind) mData.get(0);
                                                        if (itemHmMainKind.isUpOrDown()) {
                                                            getData();
@@ -617,7 +704,6 @@ public class HMShopCarFragment extends BaseFragment {
                                                        break;
                                                }
                                                adapter.notifyDataSetChanged();
-
                                            }
                                        }
 
@@ -649,7 +735,7 @@ public class HMShopCarFragment extends BaseFragment {
         );
     }
 
-    @BindViews({R.id.tv_hmshopcar_money, R.id.tv_hmshopcar_count, R.id.tv_mainchildeshopcar_tip2})
+    @BindViews({R.id.tv_hmshopcar_money, R.id.tv_hmshopcar_count})
     TextView[] tvMC;
 
     private void adapterOnChanger() {
@@ -689,7 +775,6 @@ public class HMShopCarFragment extends BaseFragment {
         }
         tvMC[0].setText("合计：¥" + CommonUtils.strDoubleTwo(allMoney));
         tvMC[1].setText("去结算(" + allCount + ")");
-        tvMC[2].setText("¥ " + CommonUtils.strDoubleTwo(allMoney));
     }
 
 

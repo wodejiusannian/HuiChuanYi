@@ -55,9 +55,7 @@ public class OrderFormVideoActivity extends BaseActivity {
         adapter.setOnItemClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent in = new Intent(OrderFormVideoActivity.this, HomeVideoCoverActivity.class);
-                startActivity(in);
-                finish();
+
             }
         });
     }

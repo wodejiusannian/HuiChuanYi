@@ -23,6 +23,7 @@ import com.example.huichuanyi.custom.GlideCircleTransform;
 import com.example.huichuanyi.custom.MySelfDialog;
 import com.example.huichuanyi.emum.OrderType;
 import com.example.huichuanyi.newui.activity.OrderFormActivity;
+import com.example.huichuanyi.newui.activity.OrderFormAllActivity;
 import com.example.huichuanyi.secondui.FanKuiActivity;
 import com.example.huichuanyi.ui.activity.AddressListActivity;
 import com.example.huichuanyi.ui.activity.DatumActivity;
@@ -76,23 +77,42 @@ public class HMMineFragment extends BaseFragment {
                 ActivityUtils.switchTo(getActivity(), MineSettingActivity.class);
                 break;
             case R.id.tv_all_orderform:
-                Intent orderIntent = new Intent(getActivity(), OrderFormActivity.class);
-                orderIntent.putExtra("title", "预约订单");
-                orderIntent.putExtra("orderTypePj", "1,2,3,4");
+                Intent orderIntent = new Intent(getActivity(), OrderFormAllActivity.class);
+                orderIntent.putExtra("title", "全部订单");
+                orderIntent.putExtra("orderTypePj", "1,2,3,4,5,6,7");
+                orderIntent.putExtra("deleteStatusPj", "0,1,2,3,4,5,6,7");
                 startActivity(orderIntent);
                 break;
             case R.id.tv_service_orderform:
                 Intent clothesIntent = new Intent(getActivity(), OrderFormActivity.class);
-                clothesIntent.putExtra("title", "服饰订单");
-                clothesIntent.putExtra("orderTypePj", "7");
+                clothesIntent.putExtra("title", "服务订单");
+                String serviceStr[] = {"服务中", "待评价", "已完成"};
+                String[] orderTypePjService = {"1,2,3,4", "1,2,3,4", "1,2,3,4"};
+                String[] deleteStatusPjService = {"0,1,3,4", "1,2,3,4", "2,5,6,7"};
+                String[] wayNoService = {"", "", ""};
+                String[] evaluatateService = {"", "-1", "0"};
+                clothesIntent.putExtra("serviceStr", serviceStr);
+                clothesIntent.putExtra("orderTypePjService", orderTypePjService);
+                clothesIntent.putExtra("deleteStatusPjService", deleteStatusPjService);
+                clothesIntent.putExtra("wayNoService", wayNoService);
+                clothesIntent.putExtra("evaluatateService", evaluatateService);
                 ServiceSingleUtils.getInstance().setOrderType(OrderType.ORDER_CLOTHES);
                 startActivity(clothesIntent);
                 break;
             case R.id.tv_shop_orderform:
                 Intent blackIntent = new Intent(getActivity(), OrderFormActivity.class);
                 ServiceSingleUtils.getInstance().setOrderType(OrderType.ORDER_BLACK);
-                blackIntent.putExtra("title", "黑科技订单");
-                blackIntent.putExtra("orderTypePj", "6");
+                blackIntent.putExtra("title", "商品订单");
+                String serviceStr2[] = {"未发货", "已发货", "已完成"};
+                String[] orderTypePjService2 = {"5,6,7", "5,6,7", "5,6,7"};
+                String[] deleteStatusPjService2 = {"0,3,4", "1", "2,5,6,7"};
+                String[] wayNoService2 = {"0", "1", ""};
+                String[] evaluatateService2 = {"", "", ""};
+                blackIntent.putExtra("serviceStr", serviceStr2);
+                blackIntent.putExtra("orderTypePjService", orderTypePjService2);
+                blackIntent.putExtra("deleteStatusPjService", deleteStatusPjService2);
+                blackIntent.putExtra("wayNoService", wayNoService2);
+                blackIntent.putExtra("evaluatateService", evaluatateService2);
                 startActivity(blackIntent);
                 break;
             case R.id.tv_mainmine_exit:
@@ -140,6 +160,8 @@ public class HMMineFragment extends BaseFragment {
 
     private HaveMsg haveMsg;
 
+    @BindView(R.id.tv_vip)
+    TextView vip;
 
     @Override
     protected void initData() {
@@ -273,6 +295,7 @@ public class HMMineFragment extends BaseFragment {
                 activity.hideDian();
             }*/
         }
+
     }
 
     private String intToString(int mRead) {
@@ -321,6 +344,12 @@ public class HMMineFragment extends BaseFragment {
                     tvInfo[3].setText(body.getUserCharactor());
                     Glide.with(context).load(body.getUserPic()).centerCrop().bitmapTransform(new BlurTransformation(context)).into(ivInfo[0]);
                     Glide.with(context).load(body.getUserPic()).transform(new GlideCircleTransform(context)).error(R.mipmap.stand).into(ivInfo[1]);
+                    String vipEndDate = body.getVipEndDate();
+                    if (CommonUtils.isEmpty(vipEndDate)) {
+                        vip.setVisibility(View.GONE);
+                    } else {
+                        vip.setVisibility(View.VISIBLE);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

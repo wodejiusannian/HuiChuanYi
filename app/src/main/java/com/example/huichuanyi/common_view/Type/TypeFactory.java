@@ -16,6 +16,8 @@ import com.example.huichuanyi.common_view.model.ItemHmShopCarRecommend;
 import com.example.huichuanyi.common_view.model.ItemHmShopCarRecommendShop;
 import com.example.huichuanyi.common_view.model.ItemHmShopCarShops;
 import com.example.huichuanyi.common_view.model.ItemHmShopCarShops2;
+import com.example.huichuanyi.common_view.model.ItemShopCarNoRecommend;
+import com.example.huichuanyi.common_view.model.ItemShopCarNoShop;
 import com.example.huichuanyi.common_view.model.LyBanner;
 import com.example.huichuanyi.common_view.model.LyCommendPeople;
 import com.example.huichuanyi.common_view.model.LyItemShop;
@@ -178,5 +180,10 @@ public interface TypeFactory {
     int type(ItemHmShopCarShops itemHmShopCarShops);
 
     int type(ItemHmShopCarShops2 itemHmShopCarShops);
+
+    int type(ItemShopCarNoShop itemHmShopCarShops);
+
+    int type(ItemShopCarNoRecommend itemHmShopCarShops);
+
     BaseViewHolder createViewHolder(int type, View itemView);
 }
