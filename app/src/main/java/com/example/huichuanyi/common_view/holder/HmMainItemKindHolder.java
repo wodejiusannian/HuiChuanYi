@@ -94,7 +94,7 @@ public class HmMainItemKindHolder extends BaseViewHolder<ItemHmMainKind> {
                             //RTC测试
                             Intent intent = new Intent(context, RTCWebActivity.class);
                             intent.putExtra("brand", "RTC");
-                            intent.putExtra("click_url", "http://hmyc365.net:8081/file/html/rtc/test/index.html");
+                            intent.putExtra("click_url", "http://hmyc365.net:8081/file/html/rtc/index.html");
                             context.startActivity(intent);
                             break;
                         default:

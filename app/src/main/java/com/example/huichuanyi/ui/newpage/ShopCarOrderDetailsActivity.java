@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +20,7 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.adapter.ShopcarShowAdapter;
 import com.example.huichuanyi.common_view.model.ShopCarType4Model;
 import com.example.huichuanyi.config.NetConfig;
+import com.example.huichuanyi.custom.CustomToast;
 import com.example.huichuanyi.custom.MySelfPayDialog;
 import com.example.huichuanyi.newui.activity.OrderFormActivity;
 import com.example.huichuanyi.ui.activity.AddressListActivity;
@@ -171,11 +171,9 @@ public class ShopCarOrderDetailsActivity extends BaseActivity implements IsSucce
                             a.put(O2);
                         }
                         o1.put("ids", a);
-                        Log.e("TAG", "onEvent: ---" + o1.toString());
                         new AsyncHttpUtils(new HttpCallBack() {
                             @Override
                             public void onResponse(String result) {
-                                Log.e("TAG", "onEvent: ---" + result);
                                 String ret = JsonUtils.getRet(result);
                                 if ("0".equals(ret)) {
                                     switch (payTag) {
@@ -204,6 +202,8 @@ public class ShopCarOrderDetailsActivity extends BaseActivity implements IsSucce
                                     Toast.makeText(ShopCarOrderDetailsActivity.this, "优惠码不能多订单合并支付", Toast.LENGTH_SHORT).show();
                                 } else if ("3008".equals(ret)) {
                                     Toast.makeText(ShopCarOrderDetailsActivity.this, "请检查优惠码是否正确", Toast.LENGTH_SHORT).show();
+                                }else if ("3014".equals(ret)){
+                                    CustomToast.showToast(ShopCarOrderDetailsActivity.this,"十分抱歉的通知您，由于订单所属模块不同，暂不支持混合购买，敬请期待~");
                                 }
                             }
                         }, this).execute(NetConfig.SHOPCAR_SING_SHOP, o1.toString());

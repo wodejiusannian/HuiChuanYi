@@ -1,9 +1,7 @@
 package com.example.huichuanyi.ui.newpage;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
@@ -158,7 +156,7 @@ public class HMMineFragment extends BaseFragment {
 
     private MainActivity activity;
 
-    private HaveMsg haveMsg;
+    /*private HaveMsg haveMsg;*/
 
     @BindView(R.id.tv_vip)
     TextView vip;
@@ -167,8 +165,8 @@ public class HMMineFragment extends BaseFragment {
     protected void initData() {
         super.initData();
         activity = (MainActivity) getActivity();
-        haveMsg = new HaveMsg();
-        activity.registerReceiver(haveMsg, new IntentFilter("action.have.msg"));
+        /*haveMsg = new HaveMsg();
+        activity.registerReceiver(haveMsg, new IntentFilter("action.have.msg"));*/
     }
 
 
@@ -249,7 +247,7 @@ public class HMMineFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        getActivity().unregisterReceiver(haveMsg);
+       /* getActivity().unregisterReceiver(haveMsg);*/
     }
 
 
@@ -279,32 +277,32 @@ public class HMMineFragment extends BaseFragment {
 
     }
 
-    private int mRead;
+   /* private int mRead;
 
     private class HaveMsg extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
             int read = intent.getIntExtra("isRead", 0);
-           /* if (read > 0) {
+           *//* if (read > 0) {
                 mRead += read;
                 dian.setText(intToString(mRead));
             } else {
                 mRead = 0;
                 dian.setText("");
                 activity.hideDian();
-            }*/
+            }*//*
         }
 
-    }
+    }*/
 
-    private String intToString(int mRead) {
+   /* private String intToString(int mRead) {
         if (mRead > 99) {
             return "99+";
         } else {
             return mRead + "";
         }
-    }
+    }*/
 
     private MUtilsInternet net = MUtilsInternet.getInstance();
 

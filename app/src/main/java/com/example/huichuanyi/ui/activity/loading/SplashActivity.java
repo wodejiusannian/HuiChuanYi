@@ -153,14 +153,11 @@ public class SplashActivity extends AppCompatActivity {
     private void haha() {
         final SQLCLODao dao = new SQLCLODao(SplashActivity.this);
         List<ShopTag.BodyBean> bean = dao.selectSort();
-        Log.e("TAG", "onSuccess: -----bean" + bean);
         if (bean != null && !(bean.size() > 0)) {
-            Log.e("TAG", "onSuccess: -----" + "hahahah");
             RequestParams params = new RequestParams("http://hmyc365.net:8084/HM/stu/tag/fac/clothes/getClothesTag.do");
             x.http().post(params, new Callback.CommonCallback<String>() {
                 @Override
                 public void onSuccess(String result) {
-                    Log.e("TAG", "onSuccess: -----" + result);
                     Gson gson = new Gson();
                     ShopTag shopTag = gson.fromJson(result, ShopTag.class);
                     List<ShopTag.BodyBean> body = shopTag.getBody();

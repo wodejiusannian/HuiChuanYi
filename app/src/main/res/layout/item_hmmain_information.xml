@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="31dp"
         android:layout_centerInParent="true"
-        android:background="@drawable/shape_write_8dp"
+        android:background="@drawable/shape_write_cilce"
         android:gravity="center_vertical">
 
         <TextView

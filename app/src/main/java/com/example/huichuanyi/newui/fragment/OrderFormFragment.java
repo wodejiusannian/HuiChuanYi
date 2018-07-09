@@ -23,6 +23,7 @@ import com.example.huichuanyi.newui.activity.OrderFormDetailsActivity;
 import com.example.huichuanyi.secondui.GoBackMoneyActivity;
 import com.example.huichuanyi.secondui.PingJiaActivity;
 import com.example.huichuanyi.ui.activity.ClosingPriceActivity;
+import com.example.huichuanyi.ui.activity.HomeVideoCoverActivity;
 import com.example.huichuanyi.ui.newpage.OrderStudioListActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.ItemDecorationUtils;
@@ -68,12 +69,12 @@ public class OrderFormFragment extends BaseFragment {
                     OrderFormOrder.BodyBean bean = (OrderFormOrder.BodyBean) visitable;
                     switch (v.getId()) {
                         case R.id.tv_orderformstate_button1:
-                            Intent intent1 = new Intent(getContext(), GoBackMoneyActivity.class);
+                            Intent intent1 = new Intent(getActivity(), GoBackMoneyActivity.class);
                             intent1.putExtra("bean", bean);
                             startActivity(intent1);
                             break;
                         case R.id.tv_orderformstate_button2:
-                            Intent intent2 = new Intent(getContext(), ClosingPriceActivity.class);
+                            Intent intent2 = new Intent(getActivity(), ClosingPriceActivity.class);
                             intent2.putExtra("kind", "5");
                             intent2.putExtra("bean", bean);
                             startActivity(intent2);
@@ -90,14 +91,14 @@ public class OrderFormFragment extends BaseFragment {
                                     case "0":
                                     case "14":
                                         //去确认
-                                        Toast.makeText(getContext(), "工作室还未确认接单", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(), "工作室还未确认接单", Toast.LENGTH_SHORT).show();
                                         break;
                                     case "2":
                                         if ("0".equals(infoBean.getEvaluateState())) {
                                             goAgain(infoBean.getOrderType());
                                         } else {
                                             //去评价
-                                            Intent intent3 = new Intent(getContext(), PingJiaActivity.class);
+                                            Intent intent3 = new Intent(getActivity(), PingJiaActivity.class);
                                             intent3.putExtra("bean", bean);
                                             startActivity(intent3);
                                         }
@@ -114,7 +115,7 @@ public class OrderFormFragment extends BaseFragment {
                             }
                             break;
                         default:
-                            Intent intent = new Intent(getContext(), OrderFormDetailsActivity.class);
+                            Intent intent = new Intent(getActivity(), OrderFormDetailsActivity.class);
                             intent.putExtra("bean", bean);
                             startActivity(intent);
                             break;
@@ -139,7 +140,7 @@ public class OrderFormFragment extends BaseFragment {
                                         sureGet(infoBean.getId(), pos);
                                         break;
                                     default:
-                                        Intent intent5 = new Intent(getContext(), OrderFormDetailsActivity.class);
+                                        Intent intent5 = new Intent(getActivity(), OrderFormDetailsActivity.class);
                                         intent5.putExtra("orderTypePj", orderTypePj);
                                         intent5.putExtra("bean", bean);
                                         startActivity(intent5);
@@ -148,12 +149,16 @@ public class OrderFormFragment extends BaseFragment {
                             }
                             break;
                         default:
-                            Intent intent5 = new Intent(getContext(), OrderFormDetailsActivity.class);
+                            Intent intent5 = new Intent(getActivity(), OrderFormDetailsActivity.class);
                             intent5.putExtra("orderTypePj", orderTypePj);
                             intent5.putExtra("bean", bean);
                             startActivity(intent5);
                             break;
                     }
+                }else {
+                    Intent in = new Intent(getActivity(), HomeVideoCoverActivity.class);
+                    startActivity(in);
+                    getActivity().finish();
                 }
             }
         });
@@ -241,7 +246,6 @@ public class OrderFormFragment extends BaseFragment {
         net.post2(NetConfig.MINEORDER_LIST, map, new MUtilsInternet.XCallBack() {
             @Override
             public void onResponse(String result) {
-                Log.e("TAG", "onResponse: --------" + result);
                 try {
                     mData.clear();
                     refreshLayout.setRefreshing(false);

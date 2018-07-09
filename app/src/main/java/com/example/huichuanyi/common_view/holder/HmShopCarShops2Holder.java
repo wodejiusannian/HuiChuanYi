@@ -12,6 +12,7 @@ import com.example.huichuanyi.R;
 import com.example.huichuanyi.common_view.adapter.MultiTypeAdapter;
 import com.example.huichuanyi.common_view.model.ItemHmShopCarShops2;
 import com.example.huichuanyi.custom.GlideRoundTransform;
+import com.example.huichuanyi.utils.CommonUtils;
 
 /**
  * Created by 小五 on 2018/6/26.
@@ -41,7 +42,7 @@ public class HmShopCarShops2Holder extends BaseViewHolder<ItemHmShopCarShops2> {
         title.setText(model.getGoodsName());
         information.setText(model.getGoodsColor());
         introduce.setText(model.getGoodsSize());
-        price.setText("¥" + model.getGoodsPrice());
+        price.setText("¥" + CommonUtils.strDoubleTwo(model.getGoodsPrice()));
         count.setText(model.getCount() + "");
         test.setTag(position);
         test.setOnClickListener(adapter.getmOnclick());

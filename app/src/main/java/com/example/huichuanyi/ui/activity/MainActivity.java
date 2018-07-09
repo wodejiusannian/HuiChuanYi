@@ -28,7 +28,6 @@ import com.example.huichuanyi.ui.base.BaseActivity;
 import com.example.huichuanyi.ui.newpage.HMMainFragment;
 import com.example.huichuanyi.ui.newpage.HMMineFragment;
 import com.example.huichuanyi.ui.newpage.HMShopCarFragment;
-import com.example.huichuanyi.ui.newpage.TipActivity;
 import com.example.huichuanyi.utils.ActivityUtils;
 import com.example.huichuanyi.utils.CommonUtils;
 import com.example.huichuanyi.utils.FragmentUtils;
@@ -104,12 +103,12 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     public void setListener() {
         mRadioGroup.setOnCheckedChangeListener(this);
         connect(SharedPreferenceUtils.getToken(MainActivity.this));
-        String home = SharedPreferenceUtils.getIsFirstOpen(this);
+       /* String home = SharedPreferenceUtils.getIsFirstOpen(this);
         if (!home.contains("1")) {
             Intent in = new Intent(this, TipActivity.class);
             in.putExtra("first", "1");
             startActivity(in);
-        }
+        }*/
         isFresh();
     }
 
@@ -186,21 +185,21 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 fragmentUtils.showAndHide(R.id.rl_main_show, FragmentMainService.class);
                 break;*/
             case R.id.rb_main_365:
-                String slw = SharedPreferenceUtils.getIsFirstOpen(this);
+               /* String slw = SharedPreferenceUtils.getIsFirstOpen(this);
                 if (!slw.contains("3")) {
                     Intent in = new Intent(this, TipActivity.class);
                     in.putExtra("first", "3");
                     startActivity(in);
-                }
+                }*/
                 fragmentUtils.showAndHide(R.id.rl_main_show, HMShopCarFragment.class);
                 break;
             case R.id.rb_main_me:
-                String me = SharedPreferenceUtils.getIsFirstOpen(this);
+               /* String me = SharedPreferenceUtils.getIsFirstOpen(this);
                 if (!me.contains("4")) {
                     Intent in = new Intent(this, TipActivity.class);
                     in.putExtra("first", "4");
                     startActivity(in);
-                }
+                }*/
                 fragmentUtils.showAndHide(R.id.rl_main_show, HMMineFragment.class);
                 break;
         }
@@ -236,7 +235,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
      * @return RongIM  客户端核心类的实例。
      */
     private void connect(String token) {
-        RongIM.setOnReceiveMessageListener(new MyOnReceiveMessage());
+        //RongIM.setOnReceiveMessageListener(new MyOnReceiveMessage());
 
         RongIM.connect(token, new RongIMClient.ConnectCallback() {
 
@@ -292,7 +291,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         });
     }
 
-    public class MyOnReceiveMessage implements RongIMClient.OnReceiveMessageListener {
+    /*public class MyOnReceiveMessage implements RongIMClient.OnReceiveMessageListener {
 
 
         @Override
@@ -303,17 +302,17 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             sendOrderedBroadcast(broadcast, null);
             return false;
         }
-    }
+    }*/
 
 
-    private Handler handler = new Handler() {
+    /*private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             tDian.setVisibility(View.VISIBLE);
             have = true;
         }
-    };
+    };*/
 
     public void hideDian() {
         tDian.setVisibility(View.GONE);

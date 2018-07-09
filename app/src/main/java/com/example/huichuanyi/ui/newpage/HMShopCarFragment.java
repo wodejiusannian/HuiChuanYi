@@ -291,7 +291,7 @@ public class HMShopCarFragment extends BaseFragment {
                         mData.add(new ItemHmShopCarKind("慧美商城", false));
                         for (int i = 0; i < orderMall.length(); i++) {
                             JSONObject mallHkj = orderMall.getJSONObject(i);
-                            String sellerUserName = mallHkj.getString("sellerUserName");
+                            String sellerUserName = mallHkj.getString("sellerName");
                             mData.add(new ItemHmShopCarBusiness(false, sellerUserName, mallHkj.getString("sellerUserId"),
                                     mallHkj.getString("sellerPicture"), mallHkj.getString("orderType")));
                             JSONArray appHmyc = mallHkj.getJSONArray("appHmycOrderInfo_ListGwc_ABCustoms");
@@ -317,7 +317,7 @@ public class HMShopCarFragment extends BaseFragment {
                         mData.add(new ItemHmShopCarKind("慧美黑科技", false));
                         for (int i = 0; i < orderHkj.length(); i++) {
                             JSONObject objOrderHkj = orderHkj.getJSONObject(i);
-                            String sellerUserName = objOrderHkj.getString("sellerUserName");
+                            String sellerUserName = objOrderHkj.getString("sellerName");
                             mData.add(new ItemHmShopCarBusiness(false, sellerUserName, objOrderHkj.getString("sellerUserId"),
                                     objOrderHkj.getString("sellerPicture"), objOrderHkj.getString("orderType")));
                             JSONArray appHmyc = objOrderHkj.getJSONArray("appHmycOrderInfo_ListGwc_ABCustoms");
@@ -343,7 +343,7 @@ public class HMShopCarFragment extends BaseFragment {
                         mData.add(new ItemHmShopCarKind("慧美课堂", false));
                         for (int i = 0; i < orderVideo.length(); i++) {
                             JSONObject videoHkj = orderVideo.getJSONObject(i);
-                            String sellerUserName = videoHkj.getString("sellerUserName");
+                            String sellerUserName = videoHkj.getString("sellerName");
                             mData.add(new ItemHmShopCarBusiness(false, sellerUserName
                                     , videoHkj.getString("sellerUserId"),
                                     videoHkj.getString("sellerPicture"), videoHkj.getString("orderType")));
@@ -391,7 +391,7 @@ public class HMShopCarFragment extends BaseFragment {
                         mData.add(new ItemHmShopCarKind("慧美商城", true));
                         for (int i = 0; i < orderMall.length(); i++) {
                             JSONObject mallHkj = orderMall.getJSONObject(i);
-                            String sellerUserName = mallHkj.getString("sellerUserName");
+                            String sellerUserName = mallHkj.getString("sellerName");
                             mData.add(new ItemHmShopCarBusiness(false, sellerUserName, mallHkj.getString("sellerUserId"),
                                     mallHkj.getString("sellerPicture"), mallHkj.getString("orderType")));
                             JSONArray appHmyc = mallHkj.getJSONArray("appHmycOrderInfo_ListGwc_ABCustoms");
@@ -421,7 +421,7 @@ public class HMShopCarFragment extends BaseFragment {
                         mData.add(new ItemHmShopCarKind("慧美黑科技", true));
                         for (int i = 0; i < orderHkj.length(); i++) {
                             JSONObject objOrderHkj = orderHkj.getJSONObject(i);
-                            String sellerUserName = objOrderHkj.getString("sellerUserName");
+                            String sellerUserName = objOrderHkj.getString("sellerName");
                             mData.add(new ItemHmShopCarBusiness(false, sellerUserName, objOrderHkj.getString("sellerUserId"),
                                     objOrderHkj.getString("sellerPicture"), objOrderHkj.getString("orderType")));
                             JSONArray appHmyc = objOrderHkj.getJSONArray("appHmycOrderInfo_ListGwc_ABCustoms");
@@ -451,7 +451,7 @@ public class HMShopCarFragment extends BaseFragment {
                         mData.add(new ItemHmShopCarKind("慧美课堂", true));
                         for (int i = 0; i < orderVideo.length(); i++) {
                             JSONObject videoHkj = orderVideo.getJSONObject(i);
-                            String sellerUserName = videoHkj.getString("sellerUserName");
+                            String sellerUserName = videoHkj.getString("sellerName");
                             mData.add(new ItemHmShopCarBusiness(false, sellerUserName
                                     , videoHkj.getString("sellerUserId"),
                                     videoHkj.getString("sellerPicture"), videoHkj.getString("orderType")));
@@ -493,10 +493,15 @@ public class HMShopCarFragment extends BaseFragment {
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                Visitable visitable = mData.get(position);
-                if (visitable instanceof ItemHmShopCarRecommendShop || visitable instanceof ItemShopCarNoRecommend)
-                    return 1;
-                else return 2;
+                try {
+                    Visitable visitable = mData.get(position);
+                    if (visitable instanceof ItemHmShopCarRecommendShop || visitable instanceof ItemShopCarNoRecommend)
+                        return 1;
+                    else return 2;
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                return 2;
             }
         });
         content.setLayoutManager(manager);

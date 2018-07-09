@@ -50,13 +50,11 @@ public class WebViewUtils {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
-                Log.e("TAG", "onPageStarted: ");
             }
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 //view.loadUrl(url);
-                Log.e("TAG", "shouldOverrideUrlLoading: ---" + view.getTitle() + "---" + url);
                 mWebOnResult.onResultUrl(view.getTitle(), url);
 
                 return true;

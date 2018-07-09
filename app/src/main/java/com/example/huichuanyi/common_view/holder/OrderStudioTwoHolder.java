@@ -78,7 +78,7 @@ public class OrderStudioTwoHolder extends BaseViewHolder<City.BodyBean> {
         Glide.with(context).load(imgPath + grade + "_grade.png")
                 .signature(new StringSignature(updateTime))
                 .into(level_big);
-        if ("1".equals(model.getMonthStar())) {
+        if (model.getMonthStar().contains("1")) {
             star.setVisibility(View.VISIBLE);
         } else {
             star.setVisibility(View.GONE);

@@ -171,5 +171,6 @@
         android:layout_alignParentEnd="true"
         android:layout_marginRight="20dp"
         android:paddingBottom="5dp"
+        android:visibility="gone"
         android:src="@mipmap/hm_studio_star" />
 </RelativeLayout>
