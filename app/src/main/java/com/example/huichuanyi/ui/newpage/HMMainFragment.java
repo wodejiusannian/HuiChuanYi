@@ -78,7 +78,7 @@ public class HMMainFragment extends BaseFragment {
             adapter = new MultiTypeAdapter(mData);
         if (getCity == null)
             getCity = new GetCity(getContext());
-
+        map.put("cityName", "北京市");
         getCity.setGetCity(new GetCity.WillGetCity() {
             @Override
             public void getWillGetCity(final String province, final String city, String lat, String lng) {
@@ -119,7 +119,6 @@ public class HMMainFragment extends BaseFragment {
 
 
     private void getData() {
-        map.put("cityName", "北京市");
         net.post(NetConfig.HM_MAIN_DATA, getContext(), map, new MUtilsInternet.XCallBack() {
             @Override
             public void onResponse(String result) {
